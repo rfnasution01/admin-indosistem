@@ -148,3 +148,8 @@
 .animate-marquee-up:hover {
   animation-play-state: paused;
 }
+
+.rotated-icon {
+  display: inline-block;
+  transform: rotate(45deg);
+}

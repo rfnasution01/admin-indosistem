@@ -4,6 +4,7 @@ import {
   CommonLayout,
   LoginLayout,
   MainLayout,
+  WebsiteMainLayout,
 } from './loadables'
 import Cookies from 'js-cookie'
 
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
       {
         path: '',
         element: <MainLayout />,
+      },
+      {
+        path: 'website',
+        element: <WebsiteMainLayout />,
       },
     ],
   },
