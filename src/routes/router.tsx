@@ -4,6 +4,8 @@ import {
   CommonLayout,
   LoginLayout,
   MainLayout,
+  ProfilWebsiteLayout,
+  TentangSekolahPage,
   WebsiteMainLayout,
 } from './loadables'
 import Cookies from 'js-cookie'
@@ -29,6 +31,74 @@ export const router = createBrowserRouter([
       {
         path: 'website',
         element: <WebsiteMainLayout />,
+        children: [
+          {
+            path: '',
+            element: <ComingSoonPage />,
+          },
+          {
+            path: 'pengumuman',
+            element: <ComingSoonPage />,
+          },
+          {
+            path: 'mading',
+            element: <ComingSoonPage />,
+          },
+          {
+            path: 'berita',
+            element: <ComingSoonPage />,
+          },
+          {
+            path: 'agenda',
+            element: <ComingSoonPage />,
+          },
+          {
+            path: 'prestasi',
+            element: <ComingSoonPage />,
+          },
+          {
+            path: 'galeri',
+            element: <ComingSoonPage />,
+          },
+          {
+            path: 'kontak',
+            element: <ComingSoonPage />,
+          },
+          {
+            path: 'profil',
+            element: <ProfilWebsiteLayout />,
+            children: [
+              {
+                path: '',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'tentang',
+                element: <TentangSekolahPage />,
+              },
+              {
+                path: 'visimisi',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'program',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'guru',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'fasilitas',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'testimonial',
+                element: <ComingSoonPage />,
+              },
+            ],
+          },
+        ],
       },
     ],
   },

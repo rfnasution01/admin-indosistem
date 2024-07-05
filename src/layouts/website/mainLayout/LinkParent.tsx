@@ -1,5 +1,6 @@
 import { usePathname } from '@/hooks/usePathname'
 import { GetMenuWebsiteType } from '@/types/website/menuType'
+import { convertToSlug } from '@/utils/formatText'
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
@@ -32,7 +33,7 @@ export function LinkParent({
           ? ''
           : item?.nama_menu === 'Dashboard'
             ? `/${firstPathname}`
-            : `/${firstPathname}/${item?.link}`
+            : `/${firstPathname}/${convertToSlug(item?.link)}`
       }
       className={clsx(
         'flex items-center gap-16 rounded-2xl px-24 py-16 hover:bg-warna-pale-blue hover:text-warna-primary',
