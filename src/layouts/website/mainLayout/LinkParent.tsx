@@ -35,7 +35,7 @@ export function LinkParent({
             : `/${firstPathname}/${item?.link}`
       }
       className={clsx(
-        'flex items-center gap-12 rounded-2xl px-24 py-16 hover:bg-warna-pale-blue hover:text-warna-primary',
+        'flex items-center gap-16 rounded-2xl px-24 py-16 hover:bg-warna-pale-blue hover:text-warna-primary',
         {
           'bg-warna-pale-blue text-warna-primary': isActivePage(item?.link),
           'text-warna-grey': !isActivePage(item?.link),

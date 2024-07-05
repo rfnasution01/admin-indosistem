@@ -1,10 +1,10 @@
 import { Skeleton } from '@/components/Skeleton'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Bounce, toast } from 'react-toastify'
 import Cookies from 'js-cookie'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
+import { faAlignJustify, faClose, fas } from '@fortawesome/free-solid-svg-icons'
 import { LinkChild } from './LinkChild'
 import { LinkParent } from './LinkParent'
 import { usePathname } from '@/hooks/usePathname'
@@ -16,10 +16,18 @@ import {
   useGetMenuWebsiteQuery,
   useGetWebsiteIdentitasQuery,
 } from '@/store/slices/website/menuAPI'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import clsx from 'clsx'
 
 library.add(fas)
 
-export function WebsiteMainHeader() {
+export function WebsiteMainHeader({
+  isOpen,
+  setIsOpen,
+}: {
+  isOpen: boolean
+  setIsOpen: Dispatch<SetStateAction<boolean>>
+}) {
   const navigate = useNavigate()
   const { secondPathname, thirdPathname } = usePathname()
 
@@ -128,28 +136,54 @@ export function WebsiteMainHeader() {
   }
 
   return (
-    <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto bg-white py-32 text-[2.4rem]">
+    <div
+      className={clsx(
+        'scrollbar flex flex-col gap-32 overflow-y-auto bg-white py-32 text-[2.4rem]',
+        {
+          'phones:h-auto': !isOpen,
+          'h-full': isOpen,
+        },
+      )}
+    >
       {loadingIdentitasWebsite || loadingMenuWebsite ? (
         <Skeleton />
       ) : (
         <>
-          {/* --- Logo --- */}
-          <div className="flex items-center gap-12 px-32 font-bold">
-            <img
-              src={identitasWebsite?.gambar}
-              alt={identitasWebsite?.nama_aplikasi}
-              className="h-[6rem] w-[6rem]"
-              loading="lazy"
-            />
-            <div className="flex flex-col text-[2.6rem] tracking-1.25 text-warna-dark">
-              <p>Portal</p>
-              <p className="text-warna-primary">
-                Web<span className="text-warna-dark">site</span>
-              </p>
+          <div className="flex items-center justify-between gap-32">
+            {/* --- Logo --- */}
+            <div className="flex items-center gap-12 px-32 font-bold">
+              <img
+                src={identitasWebsite?.gambar}
+                alt={identitasWebsite?.nama_aplikasi}
+                className="h-[6rem] w-[6rem]"
+                loading="lazy"
+              />
+              <div className="flex flex-col text-[2.6rem] tracking-1.25 text-warna-dark">
+                <p>Portal</p>
+                <p className="text-warna-primary">
+                  Web<span className="text-warna-dark">site</span>
+                </p>
+              </div>
             </div>
+            {/* --- Mobile --- */}
+            <span
+              onClick={() => setIsOpen(!isOpen)}
+              className="px-32 text-[3.2rem] text-warna-dark"
+            >
+              {isOpen ? (
+                <FontAwesomeIcon icon={faClose} />
+              ) : (
+                <FontAwesomeIcon icon={faAlignJustify} />
+              )}
+            </span>
           </div>
           {/* --- Navigasi --- */}
-          <div className="scrollbar flex h-full flex-col gap-12 overflow-y-auto px-32">
+          <div
+            className={clsx(
+              'scrollbar flex h-full flex-col gap-12 overflow-y-auto px-32',
+              { 'phones:hidden': !isOpen },
+            )}
+          >
             {menuWebsite?.map((item, idx) => (
               <div className="flex flex-col gap-24" key={idx}>
                 <LinkParent
