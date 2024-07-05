@@ -12,7 +12,7 @@ export function TentangSekolahTab({
   data: GetTentangSekolahType
 }) {
   return (
-    <div className="flex items-center gap-32 border-b border-warna-pale-grey px-48 pt-48">
+    <div className="scrollbar flex items-center gap-32 overflow-x-auto border-b border-warna-pale-grey px-48 pt-48">
       {['Preview', 'Identitas'].map((item, idx) => (
         <p
           key={idx}
