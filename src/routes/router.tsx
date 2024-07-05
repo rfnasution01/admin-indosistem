@@ -1,5 +1,10 @@
 import { createBrowserRouter, redirect } from 'react-router-dom'
-import { ComingSoonPage, CommonLayout, LoginLayout } from './loadables'
+import {
+  ComingSoonPage,
+  CommonLayout,
+  LoginLayout,
+  MainLayout,
+} from './loadables'
 import Cookies from 'js-cookie'
 
 export const router = createBrowserRouter([
@@ -15,6 +20,12 @@ export const router = createBrowserRouter([
 
       return null
     },
+    children: [
+      {
+        path: '',
+        element: <MainLayout />,
+      },
+    ],
   },
   {
     path: '/login',
