@@ -47,7 +47,7 @@ export function ValidasiKonfirmasi({
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="border-sim-dark text-sim-dark hover:bg-sim-dark flex items-center gap-12 rounded-2xl border px-24 py-12 hover:text-white disabled:cursor-not-allowed"
+              className="flex items-center gap-12 rounded-2xl border border-warna-dark px-24 py-12 text-warna-dark hover:bg-warna-dark hover:text-white disabled:cursor-not-allowed"
             >
               <FontAwesomeIcon icon={faPencil} />
               Ubah Data

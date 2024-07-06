@@ -88,7 +88,7 @@ export function FormLabelFile({
                         <FontAwesomeIcon icon={faImage} />
                       )}
                       <p className="text-[1.6rem] uppercase tracking-1.25">
-                        Unggah
+                        {urls === undefined || urls === '' ? 'Unggah' : 'Ganti'}
                       </p>
                     </div>
                   </div>

@@ -12,7 +12,6 @@ import Select, { components } from 'react-select'
 import { customStyles } from '@/types/selectType'
 import { ProfilSekolahType } from '@/types/website/profil/tentangSekolahType'
 import { useGetTentangSekolahQuery } from '@/store/slices/website/profilAPI/tentangAPI'
-import { usePathname } from '@/hooks/usePathname'
 import { useGetJenisProfilQuery } from '@/store/slices/referensiAPI'
 
 type inputProps = {
@@ -22,6 +21,7 @@ type inputProps = {
   headerLabel?: string
   useFormReturn: UseFormReturn
   className?: string
+  isEdit?: boolean
 }
 
 export function SelectListJenisTentangSekolah({
@@ -31,8 +31,8 @@ export function SelectListJenisTentangSekolah({
   isDisabled,
   useFormReturn,
   className,
+  isEdit,
 }: inputProps) {
-  const { lastPathname } = usePathname()
   const [query, setQuery] = useState<string>(null)
   const [identitas, setIdentitas] = useState<ProfilSekolahType[]>([])
 
@@ -68,8 +68,7 @@ export function SelectListJenisTentangSekolah({
     (item) => !listJenis?.includes(item),
   )
 
-  const menu =
-    lastPathname === 'edit' ? listJenisTentangSekolah : filteredMenuData
+  const menu = isEdit ? listJenisTentangSekolah : filteredMenuData
 
   let JenisTentangSekolahOption = []
   if (isSuccess) {

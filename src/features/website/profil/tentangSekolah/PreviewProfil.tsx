@@ -1,4 +1,5 @@
 import { ListProfilSekolahType } from '@/types/website/profil/tentangSekolahType'
+import DefaultImg from '@/assets/images/default.jpg'
 
 export function PreviewProfil({
   gambar_url,
@@ -14,7 +15,7 @@ export function PreviewProfil({
   return (
     <div className="scrollbar flex h-full gap-48 overflow-y-auto phones:flex-col phones:items-start phones:gap-32">
       <img
-        src={gambar_url !== '' && gambar_url ? gambar_url : '/logo.png'}
+        src={gambar_url !== '' && gambar_url ? gambar_url : DefaultImg}
         alt={jenis}
         className="h-[30rem] w-[50rem] rounded-2xl filter"
         loading="lazy"

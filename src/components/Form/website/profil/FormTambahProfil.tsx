@@ -1,4 +1,3 @@
-import { usePathname } from '@/hooks/usePathname'
 import { useCreateFileMutation } from '@/store/slices/referensiAPI'
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import { useFieldArray, UseFormReturn } from 'react-hook-form'
@@ -32,6 +31,7 @@ export default function FormTambahProfil({
   setIsSubmit,
   isSubmit,
   isShow,
+  isEdit,
 }: {
   form: UseFormReturn
   isLoading: boolean
@@ -42,9 +42,8 @@ export default function FormTambahProfil({
   isShow: boolean
   isSubmit: boolean
   urls: string
+  isEdit?: boolean
 }) {
-  const { lastPathname } = usePathname()
-
   // --- Upload File ---
   const [
     uploadFileMutation,
@@ -132,7 +131,8 @@ export default function FormTambahProfil({
               headerLabel="Judul Bagian"
               placeholder="Pilih judul"
               className="w-1/2 hover:cursor-not-allowed phones:w-full "
-              isDisabled={isLoading || lastPathname === 'edit'}
+              isDisabled={isLoading || isEdit}
+              isEdit={isEdit}
             />
             <div className="w-1/2 phones:hidden" />
           </div>
