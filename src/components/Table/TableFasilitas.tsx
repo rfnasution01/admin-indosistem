@@ -137,7 +137,7 @@ export function TableFasilitas<T extends Fasilitas, P>({
                       {/* ----- Fasilitas ----- */}
                       {isFasilitas && (
                         <td className="px-24 py-12 align-top leading-medium">
-                          <MenubarAction id={row?.id} />
+                          <MenubarAction data={row} />
                         </td>
                       )}
 

@@ -7,8 +7,13 @@ import {
   faTrash,
 } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
+import { Fasilitas } from '../Table/TableFasilitas'
 
-export function MenubarAction({ id }: { id: string }) {
+type Props<T> = {
+  data: T
+}
+
+export function MenubarAction<T extends Fasilitas>({ data }: Props<T>) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const handleMenuClick = () => {
@@ -35,7 +40,8 @@ export function MenubarAction({ id }: { id: string }) {
               <Link
                 to={'edit'}
                 onClick={() => {
-                  localStorage.setItem('editID', id)
+                  localStorage.setItem('editID', data?.id)
+                  localStorage.setItem('editData', JSON.stringify(data))
                 }}
                 className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 hover:border-warna-dark hover:bg-warna-dark hover:bg-opacity-10"
               >

@@ -68,7 +68,11 @@ export const columnsListDataFasilitas: Column<GetFasilitasType>[] = [
       return (
         <div className="flex gap-32">
           <img
-            src={rowData?.photo ?? DefaultImg}
+            src={
+              rowData?.photo || rowData?.photo !== ''
+                ? rowData?.photo
+                : DefaultImg
+            }
             alt={rowData?.nama}
             loading="lazy"
             className="w-[20rem] rounded-2xl phones:hidden"
