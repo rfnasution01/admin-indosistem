@@ -1,25 +1,29 @@
-import { ProfilSekolahType } from '@/types/website/profil/tentangSekolahType'
+import { ListProfilSekolahType } from '@/types/website/profil/tentangSekolahType'
 
-export function PreviewProfil({ data }: { data: ProfilSekolahType }) {
+export function PreviewProfil({
+  gambar_url,
+  jenis,
+  keterangan,
+  list,
+}: {
+  gambar_url?: string
+  jenis?: string
+  keterangan?: string
+  list?: ListProfilSekolahType[]
+}) {
   return (
     <div className="scrollbar flex h-full gap-48 overflow-y-auto phones:flex-col phones:items-start phones:gap-32">
       <img
-        src={
-          data?.gambar_url !== '' && data?.gambar_url
-            ? data?.gambar_url
-            : '/logo.png'
-        }
-        alt={data?.jenis}
+        src={gambar_url !== '' && gambar_url ? gambar_url : '/logo.png'}
+        alt={jenis}
         className="h-[30rem] w-[50rem] rounded-2xl filter"
         loading="lazy"
       />
       <div className="flex flex-1 flex-col gap-16">
-        {data?.keterangan && (
-          <p style={{ lineHeight: '130%' }}>{data?.keterangan}</p>
-        )}
-        {data?.list && data?.list?.length > 0 && (
+        {keterangan && <p style={{ lineHeight: '130%' }}>{keterangan}</p>}
+        {list && list?.length > 0 && (
           <ol className="ml-32 list-decimal">
-            {data?.list?.map((item, idx) => (
+            {list?.map((item, idx) => (
               <li key={idx} style={{ lineHeight: '130%' }}>
                 {item?.keterangan}
               </li>

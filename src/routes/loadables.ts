@@ -22,3 +22,7 @@ export const ComingSoonPage = loadable(() => import('@/pages/comingSoon'))
 export const TentangSekolahPage = loadable(
   () => import('@/pages/website/profil/TentangSekolah'),
 )
+
+export const TambahProfilPage = loadable(
+  () => import('@/pages/website/profil/TambahTentangSekolah'),
+)

@@ -14,9 +14,12 @@ export default function WebsiteMainLayout() {
       {/* --- Aside --- */}
       <WebsiteMainHeader isOpen={isOpen} setIsOpen={setIsOpen} />
       <div
-        className={clsx('flex h-full flex-1 flex-col p-32', {
-          'phones:hidden': isOpen,
-        })}
+        className={clsx(
+          'scrollbar flex h-full flex-1 flex-col overflow-y-auto p-32',
+          {
+            'phones:hidden': isOpen,
+          },
+        )}
       >
         <Outlet />
       </div>

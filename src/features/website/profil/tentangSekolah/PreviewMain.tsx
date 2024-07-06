@@ -40,17 +40,19 @@ export function PreviewMain({
   return (
     <div className="flex w-full flex-col gap-32 text-[2rem]">
       {/* --- Identitas --- */}
-      <div className="flex w-full flex-col gap-32 rounded-2x bg-warna-pale-blue p-32 text-warna-dark">
+      <div className="flex w-full flex-col gap-32 rounded-2x bg-warna-pale-blue p-32 text-warna-dark phones:bg-transparent phones:p-0">
         <PreviewHeader setMenu={setMenu} jenis="Identitas" />
         <PreviewIdentitas data={data?.identitas} />
       </div>
+
+      <hr className="hidden border phones:block" />
 
       {/* --- Profil --- */}
       <div className="flex flex-col gap-32">
         {data?.profil?.map((item, idx) => (
           <div
             key={idx}
-            className="flex w-full flex-col gap-32 rounded-2x bg-warna-pale-blue p-32 text-warna-dark"
+            className="flex w-full flex-col gap-32 rounded-2x bg-warna-pale-blue p-32 text-warna-dark phones:bg-transparent phones:p-0"
           >
             <PreviewHeader
               setMenu={setMenu}
@@ -69,7 +71,13 @@ export function PreviewMain({
                 </button>
               }
             />
-            <PreviewProfil data={item} />
+            <PreviewProfil
+              keterangan={item?.keterangan}
+              list={item?.list}
+              gambar_url={item?.gambar_url}
+              jenis={item?.jenis}
+            />
+            <hr className="hidden border phones:block" />
           </div>
         ))}
       </div>

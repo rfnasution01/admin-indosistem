@@ -3,13 +3,16 @@ import { GetMenuWebsiteType } from '@/types/website/menuType'
 import { faSquare } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
+import { Dispatch, SetStateAction } from 'react'
 import { Link } from 'react-router-dom'
 
 export function LinkChild({
   item,
   isActivePage,
+  setIsOpen,
 }: {
   item: GetMenuWebsiteType
+  setIsOpen: Dispatch<SetStateAction<boolean>>
   isActivePage: (item: string) => boolean
 }) {
   const { firstPathname } = usePathname()
@@ -19,6 +22,9 @@ export function LinkChild({
       {item?.children?.map((list, id) => (
         <Link
           to={`/${firstPathname}/${list?.link}`}
+          onClick={() => {
+            setIsOpen(false)
+          }}
           className={clsx(
             'flex items-center gap-12 py-4 hover:cursor-pointer hover:text-warna-primary',
             {

@@ -5,6 +5,7 @@ import {
   LoginLayout,
   MainLayout,
   ProfilWebsiteLayout,
+  TambahProfilPage,
   TentangSekolahPage,
   WebsiteMainLayout,
 } from './loadables'
@@ -74,7 +75,17 @@ export const router = createBrowserRouter([
               },
               {
                 path: 'tentang',
-                element: <TentangSekolahPage />,
+                element: <CommonLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <TentangSekolahPage />,
+                  },
+                  {
+                    path: 'tambah',
+                    element: <TambahProfilPage />,
+                  },
+                ],
               },
               {
                 path: 'visimisi',

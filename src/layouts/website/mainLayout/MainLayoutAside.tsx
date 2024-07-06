@@ -194,9 +194,14 @@ export function WebsiteMainHeader({
                   isShow={isShow}
                   item={item}
                   activeIndex={activeIndex}
+                  setIsOpen={setIsOpen}
                 />
                 {item?.children?.length > 0 && activeIndex === idx && (
-                  <LinkChild item={item} isActivePage={isActivePage} />
+                  <LinkChild
+                    item={item}
+                    isActivePage={isActivePage}
+                    setIsOpen={setIsOpen}
+                  />
                 )}
               </div>
             ))}

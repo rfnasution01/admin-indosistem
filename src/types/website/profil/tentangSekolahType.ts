@@ -52,8 +52,8 @@ export type PostTentangProfilParams = {
 }
 
 export type ListProfilSekolahParams = {
-  keterangan: string
-  urutan: string
+  keterangan?: string
+  urutan?: string
 }
 
 export type PostIdentitasSekolahParams = {

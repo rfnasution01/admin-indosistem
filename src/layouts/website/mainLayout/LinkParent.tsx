@@ -11,6 +11,7 @@ export function LinkParent({
   item,
   setActiveIndex,
   setIsShow,
+  setIsOpen,
   isActivePage,
   idx,
   activeIndex,
@@ -19,6 +20,7 @@ export function LinkParent({
   item: GetMenuWebsiteType
   activeIndex: number
   setIsShow: Dispatch<SetStateAction<boolean>>
+  setIsOpen: Dispatch<SetStateAction<boolean>>
   setActiveIndex: Dispatch<SetStateAction<number>>
   isActivePage: (item: string) => boolean
   idx: number
@@ -47,6 +49,8 @@ export function LinkParent({
           e.preventDefault()
           e.stopPropagation()
           setIsShow(!isShow)
+        } else {
+          setIsOpen(false)
         }
         setActiveIndex(activeIndex === idx ? null : idx)
       }}
