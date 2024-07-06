@@ -26,3 +26,7 @@ export const TentangSekolahPage = loadable(
 export const TambahProfilPage = loadable(
   () => import('@/pages/website/profil/TambahTentangSekolah'),
 )
+
+export const VisiMisiPage = loadable(
+  () => import('@/pages/website/profil/VisiMisi'),
+)

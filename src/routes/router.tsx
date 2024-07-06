@@ -7,6 +7,7 @@ import {
   ProfilWebsiteLayout,
   TambahProfilPage,
   TentangSekolahPage,
+  VisiMisiPage,
   WebsiteMainLayout,
 } from './loadables'
 import Cookies from 'js-cookie'
@@ -89,7 +90,7 @@ export const router = createBrowserRouter([
               },
               {
                 path: 'visimisi',
-                element: <ComingSoonPage />,
+                element: <VisiMisiPage />,
               },
               {
                 path: 'program',

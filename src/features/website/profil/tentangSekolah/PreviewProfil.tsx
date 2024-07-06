@@ -6,10 +6,12 @@ export function PreviewProfil({
   jenis,
   keterangan,
   list,
+  sub_keterangan,
 }: {
   gambar_url?: string
   jenis?: string
   keterangan?: string
+  sub_keterangan?: string
   list?: ListProfilSekolahType[]
 }) {
   return (
@@ -17,11 +19,14 @@ export function PreviewProfil({
       <img
         src={gambar_url !== '' && gambar_url ? gambar_url : DefaultImg}
         alt={jenis}
-        className="h-auto w-[50rem] rounded-2xl filter"
+        className="h-[30rem] w-[50rem] rounded-2xl filter"
         loading="lazy"
       />
       <div className="flex flex-1 flex-col gap-16">
         {keterangan && <p style={{ lineHeight: '130%' }}>{keterangan}</p>}
+        {sub_keterangan && (
+          <p style={{ lineHeight: '130%' }}>{sub_keterangan}</p>
+        )}
         {list && list?.length > 0 && (
           <ol className="ml-32 list-decimal">
             {list?.map((item, idx) => (

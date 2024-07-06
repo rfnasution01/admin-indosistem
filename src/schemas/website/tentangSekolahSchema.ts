@@ -6,10 +6,7 @@ const ListSchema = zod.object({
 })
 
 export const TentangSekolahSchema = zod.object({
-  jenis: zod.string({
-    required_error: 'Jenis harus di isi',
-    invalid_type_error: 'Format jenis tidak valid',
-  }),
+  jenis: zod.string().optional().nullable().nullish(),
   keterangan: zod.string().optional().nullable().nullish(),
   sub_keterangan: zod.string().optional().nullable().nullish(),
   gambar_url: zod.string().optional().nullable().nullish(),

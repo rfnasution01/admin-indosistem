@@ -19,7 +19,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { SelectListJenisTentangSekolah } from '@/components/Select/website'
 import { ValidasiKonfirmasi } from '@/components/Dialog/ValidasiKonfirmasi'
-import { PreviewProfil } from '@/features/website/profil/tentangSekolah/PreviewProfil'
+import { PreviewProfil } from '@/features/website/profil/tentangSekolah'
 
 export default function FormTambahProfil({
   form,
@@ -32,6 +32,7 @@ export default function FormTambahProfil({
   isSubmit,
   isShow,
   isEdit,
+  menu,
 }: {
   form: UseFormReturn
   isLoading: boolean
@@ -43,6 +44,7 @@ export default function FormTambahProfil({
   isSubmit: boolean
   urls: string
   isEdit?: boolean
+  menu?: string
 }) {
   // --- Upload File ---
   const [
@@ -124,66 +126,81 @@ export default function FormTambahProfil({
           className="flex flex-col gap-32"
           onSubmit={form.handleSubmit(handleSubmit)}
         >
-          <div className="flex gap-64 phones:flex-col phones:gap-32">
-            <SelectListJenisTentangSekolah
-              useFormReturn={form}
-              name="jenis"
-              headerLabel="Judul Bagian"
-              placeholder="Pilih judul"
-              className="w-1/2 hover:cursor-not-allowed phones:w-full "
-              isDisabled={isLoading || isEdit}
-              isEdit={isEdit}
-            />
-            <div className="w-1/2 phones:hidden" />
-          </div>
+          {menu !== 'Visi' && menu !== 'Misi' && (
+            <div className="flex gap-64 phones:flex-col phones:gap-32">
+              <SelectListJenisTentangSekolah
+                useFormReturn={form}
+                name="jenis"
+                headerLabel="Judul Bagian"
+                placeholder="Pilih judul"
+                className="w-1/2 hover:cursor-not-allowed phones:w-full "
+                isDisabled={isLoading || isEdit}
+                isEdit={isEdit}
+              />
+              <div className="w-1/2 phones:hidden" />
+            </div>
+          )}
 
           <div className="flex gap-64 phones:flex-col phones:gap-32">
             <FormLabelTextArea
               name="keterangan"
               useFormReturn={form}
-              headerLabel="Isi Paragraf"
+              headerLabel={menu === 'Visi' ? 'Visi' : 'Isi Paragraf'}
               placeholder="Masukkan isi paragraf"
             />
           </div>
 
-          <div className="flex flex-col gap-32 text-warna-dark">
-            <div className="flex flex-col gap-12">
-              <p className="font-roboto text-[2rem]">List</p>
-              {fields.map((item, index) => (
-                <div key={item.id} className="flex items-center gap-24">
-                  <button
-                    type="button"
-                    className="rounded rounded-lg text-[2rem] text-warna-dark"
-                  >
-                    <FontAwesomeIcon icon={faAlignJustify} size="lg" />
-                  </button>
-                  <FormLabelInput
-                    name={`list.${index}.keterangan`}
-                    form={form}
-                    placeholder="Masukkan keterangan"
-                    className="flex-1"
-                    type="text"
-                    isDisabled={isLoading}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => remove(index)}
-                    className="rounded rounded-lg text-[2rem] text-warna-red"
-                  >
-                    <FontAwesomeIcon icon={faDeleteLeft} size="xl" />
-                  </button>
-                </div>
-              ))}
+          {menu === 'Visi' && (
+            <div className="flex gap-64 phones:flex-col phones:gap-32">
+              <FormLabelTextArea
+                name="sub_keterangan"
+                useFormReturn={form}
+                headerLabel="Sub Misi"
+                placeholder="Masukkan isi paragraf"
+              />
             </div>
-            <button
-              type="button"
-              onClick={() => append({ nama: '', urutan: '' })}
-              className="rounded flex items-center justify-center gap-12 rounded-lg border border-warna-dark px-24 py-12 text-warna-dark hover:bg-warna-dark hover:bg-opacity-80 hover:text-white"
-            >
-              <FontAwesomeIcon icon={faPlusCircle} />
-              <p>Tambah</p>
-            </button>
-          </div>
+          )}
+
+          {menu !== 'Visi' && (
+            <div className="flex flex-col gap-32 text-warna-dark">
+              <div className="flex flex-col gap-12">
+                <p className="font-roboto text-[2rem]">List</p>
+                {fields.map((item, index) => (
+                  <div key={item.id} className="flex items-center gap-24">
+                    <button
+                      type="button"
+                      className="rounded rounded-lg text-[2rem] text-warna-dark"
+                    >
+                      <FontAwesomeIcon icon={faAlignJustify} size="lg" />
+                    </button>
+                    <FormLabelInput
+                      name={`list.${index}.keterangan`}
+                      form={form}
+                      placeholder="Masukkan keterangan"
+                      className="flex-1"
+                      type="text"
+                      isDisabled={isLoading}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => remove(index)}
+                      className="rounded rounded-lg text-[2rem] text-warna-red"
+                    >
+                      <FontAwesomeIcon icon={faDeleteLeft} size="xl" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={() => append({ nama: '', urutan: '' })}
+                className="rounded flex items-center justify-center gap-12 rounded-lg border border-warna-dark px-24 py-12 text-warna-dark hover:bg-warna-dark hover:bg-opacity-80 hover:text-white"
+              >
+                <FontAwesomeIcon icon={faPlusCircle} />
+                <p>Tambah</p>
+              </button>
+            </div>
+          )}
 
           <FormLabelFile
             urls={urls}
@@ -229,6 +246,7 @@ export default function FormTambahProfil({
               keterangan={form.watch('keterangan')}
               list={form.watch('list')}
               jenis={form.watch('jenis')}
+              sub_keterangan={form.watch('sub_keterangan')}
             />
           </div>
         }
