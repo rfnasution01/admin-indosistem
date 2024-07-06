@@ -2,6 +2,7 @@ import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
   ComingSoonPage,
   CommonLayout,
+  GuruStaffPage,
   LoginLayout,
   MainLayout,
   ProfilWebsiteLayout,
@@ -98,7 +99,7 @@ export const router = createBrowserRouter([
               },
               {
                 path: 'guru',
-                element: <ComingSoonPage />,
+                element: <GuruStaffPage />,
               },
               {
                 path: 'fasilitas',

@@ -83,7 +83,7 @@ export function SelectListPenyelenggaraan({
         return (
           <FormItem
             className={cn(
-              'z-40 flex w-full flex-col gap-12 text-[2rem] phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]',
+              'z-40 flex w-full flex-col gap-12 text-[2rem] text-warna-dark phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]',
               className,
             )}
           >
@@ -100,12 +100,12 @@ export function SelectListPenyelenggaraan({
                     ...customStyles,
                     singleValue: (provided) => ({
                       ...provided,
-                      color: 'grey',
+                      color: '#1F475C',
                       textTransform: 'uppercase',
                     }),
                     input: (provided) => ({
                       ...provided,
-                      color: 'grey',
+                      color: '#1F475C',
                     }),
                     menuList: (provided) => ({
                       ...provided,
@@ -137,7 +137,7 @@ export function SelectListPenyelenggaraan({
                       ...provided,
                       backgroundColor:
                         'rgb(255 255 255 / var(--tw-bg-opacity))',
-                      color: 'rgb(32 34 35 / var(--tw-bg-opacity))',
+                      color: '#1F475C',
                       cursor: isDisabled ? 'not-allowed' : 'default',
                       ':hover': {
                         cursor: 'pointer',

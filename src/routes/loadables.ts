@@ -30,3 +30,7 @@ export const TambahProfilPage = loadable(
 export const VisiMisiPage = loadable(
   () => import('@/pages/website/profil/VisiMisi'),
 )
+
+export const GuruStaffPage = loadable(
+  () => import('@/pages/website/profil/GuruStaff'),
+)
