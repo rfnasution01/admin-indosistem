@@ -4,13 +4,15 @@ import { Meta } from '@/store/api'
 import { useGetFasilitasQuery } from '@/store/slices/website/profilAPI/fasilitasAPI'
 import { GetFasilitasType } from '@/types/website/profil/fasilitasType'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Bounce, toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Cookies from 'js-cookie'
 import { Pagination } from '@/components/Pagination'
 import { columnsListDataFasilitas } from '@/dummy/table'
 import { TableFasilitas } from '@/components/Table/TableFasilitas'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
 export default function FasilitasSekolah() {
   const navigate = useNavigate()
@@ -77,15 +79,24 @@ export default function FasilitasSekolah() {
           className="w-1/2 phones:w-full"
           search={search}
         />
-        <div className="flex items-center gap-32">
-          <FormListDataPerPage setDataPerPage={setPageSize} />
-          {fasilitas?.length > 0 && (
-            <Pagination
-              pageNow={pageNumber ?? 0}
-              lastPage={meta?.last_page ?? 0}
-              setPageNumber={setPageNumber}
-            />
-          )}
+        <div className="flex items-center gap-32 phones:w-full">
+          <div className="flex items-center gap-32 phones:w-2/3">
+            <FormListDataPerPage setDataPerPage={setPageSize} />
+            {fasilitas?.length > 0 && (
+              <Pagination
+                pageNow={pageNumber ?? 0}
+                lastPage={meta?.last_page ?? 0}
+                setPageNumber={setPageNumber}
+              />
+            )}
+          </div>
+          <Link
+            to="tambah"
+            className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-24 py-12 text-white phones:w-1/3"
+          >
+            <FontAwesomeIcon icon={faPlusCircle} />
+            <p className="phones:hidden">Tambah Fasilitas</p>
+          </Link>
         </div>
       </div>
       <TableFasilitas
@@ -96,6 +107,7 @@ export default function FasilitasSekolah() {
         pageSize={pageSize}
         currentPage={pageNumber}
         isNumber
+        isFasilitas
       />
       <ToastContainer />
     </div>

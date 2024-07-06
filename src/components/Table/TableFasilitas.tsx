@@ -3,6 +3,7 @@ import clsx from 'clsx'
 import { Loading } from '../Loading'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { MenubarAction } from '../Menubar/MenubarAction'
 
 export type Column<T> = {
   header: string
@@ -11,7 +12,11 @@ export type Column<T> = {
   width?: string
 }
 
-type Props<T, P> = {
+export interface Fasilitas {
+  id: string
+}
+
+type Props<T extends Fasilitas, P> = {
   data: T[]
   columns: Column<T>[] | ((props: P) => Column<T>[])
   containerClasses?: string
@@ -24,9 +29,10 @@ type Props<T, P> = {
   isNumber?: boolean
   currentPage?: number
   pageSize?: number
+  isFasilitas?: boolean
 }
 
-export function TableFasilitas<T, P>({
+export function TableFasilitas<T extends Fasilitas, P>({
   data,
   columns,
   containerClasses = '',
@@ -39,6 +45,7 @@ export function TableFasilitas<T, P>({
   isNumber,
   currentPage,
   pageSize,
+  isFasilitas,
 }: Props<T, P>) {
   const [rowIsOpen, setRowIsOpen] = useState<number | null>(null)
 
@@ -81,6 +88,10 @@ export function TableFasilitas<T, P>({
                       </th>
                     ))}
 
+                  {/* --- Fasilitas --- */}
+                  {isFasilitas && (
+                    <th className="text-sim-primary sticky top-0 border-b-2 bg-warna-pale-blue px-24 py-24 text-left uppercase"></th>
+                  )}
                   {/* ----- Detail Header ----- */}
                   {collapseComponent && (
                     <th className="sticky right-0 top-0 bg-white p-16 text-left">
@@ -122,6 +133,13 @@ export function TableFasilitas<T, P>({
                                 ] as React.ReactNode) || '-'}
                           </td>
                         ))}
+
+                      {/* ----- Fasilitas ----- */}
+                      {isFasilitas && (
+                        <td className="px-24 py-12 align-top leading-medium">
+                          <MenubarAction id={row?.id} />
+                        </td>
+                      )}
 
                       {/* ----- Collapse Trigger ----- */}
                       {collapseComponent && (
