@@ -8,9 +8,3 @@ export type GetGuruStaffType = {
   alamat: string
   status: string
 }
-
-export type GuruStaffParamsType = {
-  page_size: number
-  page_number: number
-  search: string
-}

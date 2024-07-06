@@ -26,7 +26,7 @@ type Props<T, P> = {
   pageSize?: number
 }
 
-export function Table<T, P>({
+export function TableFasilitas<T, P>({
   data,
   columns,
   containerClasses = '',

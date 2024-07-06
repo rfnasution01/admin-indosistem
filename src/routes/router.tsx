@@ -2,10 +2,12 @@ import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
   ComingSoonPage,
   CommonLayout,
+  FasilitasSekolahPage,
   GuruStaffPage,
   LoginLayout,
   MainLayout,
   ProfilWebsiteLayout,
+  TambahFasilitasSekolahPage,
   TambahProfilPage,
   TentangSekolahPage,
   VisiMisiPage,
@@ -103,7 +105,17 @@ export const router = createBrowserRouter([
               },
               {
                 path: 'fasilitas',
-                element: <ComingSoonPage />,
+                element: <CommonLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <FasilitasSekolahPage />,
+                  },
+                  {
+                    path: ':aksi',
+                    element: <TambahFasilitasSekolahPage />,
+                  },
+                ],
               },
               {
                 path: 'testimonial',

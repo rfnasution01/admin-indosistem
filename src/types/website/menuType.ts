@@ -24,3 +24,13 @@ export type GetMenuWebsiteType = {
   hapus: string
   children: GetMenuWebsiteType[]
 }
+
+export type ParamsType = {
+  search?: string
+  page_number?: number
+  page_size?: number
+}
+
+export type DeleteType = {
+  id: string
+}

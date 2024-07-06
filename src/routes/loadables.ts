@@ -34,3 +34,11 @@ export const VisiMisiPage = loadable(
 export const GuruStaffPage = loadable(
   () => import('@/pages/website/profil/GuruStaff'),
 )
+
+export const FasilitasSekolahPage = loadable(
+  () => import('@/pages/website/profil/FasilitasSekolah'),
+)
+
+export const TambahFasilitasSekolahPage = loadable(
+  () => import('@/pages/website/profil/TambahFasilitasSekolah'),
+)
