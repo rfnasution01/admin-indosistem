@@ -191,6 +191,7 @@ export default function FormTambahProfil({
             form={form}
             isLoading={isLoading}
             loadingFile={loadingFile}
+            name="berkas"
             handleUploadFoto={handleUploadFoto}
           />
 

@@ -1,5 +1,4 @@
 import {
-  IdentitasSekolah,
   PreviewMain,
   TentangSekolahTab,
 } from '@/features/website/profil/tentangSekolah'
@@ -11,6 +10,7 @@ import {
   useCreateTentangSekolahMutation,
   useDeleteTentangSekolahMutation,
   useGetTentangSekolahQuery,
+  useUpdateProfilSekolahMutation,
 } from '@/store/slices/website/profilAPI/tentangAPI'
 import { Bounce, toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -21,7 +21,11 @@ import { Loading } from '@/components/Loading'
 import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
 import { ComingSoonPage } from '@/routes/loadables'
 import FormTambahProfil from '@/components/Form/website/profil/FormTambahProfil'
-import { TentangSekolahSchema } from '@/schemas/website/tentangSekolahSchema'
+import {
+  IdentitasSekolahSchema,
+  TentangSekolahSchema,
+} from '@/schemas/website/tentangSekolahSchema'
+import FormUpdateIdentitas from '@/components/Form/website/profil/FormEditIdentitas'
 
 export default function TentangSekolah() {
   const navigate = useNavigate()
@@ -33,6 +37,11 @@ export default function TentangSekolah() {
 
   const form = useForm<zod.infer<typeof TentangSekolahSchema>>({
     resolver: zodResolver(TentangSekolahSchema),
+    defaultValues: {},
+  })
+
+  const formIdentitas = useForm<zod.infer<typeof IdentitasSekolahSchema>>({
+    resolver: zodResolver(IdentitasSekolahSchema),
     defaultValues: {},
   })
 
@@ -241,6 +250,148 @@ export default function TentangSekolah() {
     }
   }, [item])
 
+  // --- Create Update Profil ---
+  const [
+    createUpdateProfil,
+    {
+      isError: isErrorUpdateProfil,
+      error: errorUpdateProfil,
+      isLoading: isLoadingUpdateProfil,
+      isSuccess: isSuccessUpdateProfil,
+    },
+  ] = useUpdateProfilSekolahMutation()
+
+  const handleSubmitIdentitas = async () => {
+    const values = formIdentitas.watch()
+
+    const body = {
+      jenis: 'Identitas',
+      sk_pendirian: values?.sk_pendirian ?? '',
+      tgl_sk_pendirian: values?.tgl_sk_pendirian ?? '',
+      sk_operasional: values?.sk_operasional ?? '',
+      tgl_sk_operasional: values?.tgl_sk_operasional ?? '',
+      id_akreditasi: values?.id_akreditasi ?? '',
+      tgl_mulai_akreditasi: values?.tgl_mulai_akreditasi ?? '',
+      tgl_akhir_akreditasi: values?.tgl_akhir_akreditasi ?? '',
+      penyelenggaraan: values?.penyelenggaraan ?? '',
+      penyelenggaraan_mulai: values?.penyelenggaraan_mulai ?? '',
+      penyelenggaraan_akhir: values?.penyelenggaraan_akhir ?? '',
+      nis: values?.nis ?? '',
+      nss: values?.nss ?? '',
+      alamat: values?.alamat ?? '',
+      email: values?.email ?? '',
+      telepon: values?.telepon ?? '',
+      nama_pimpinan: values?.nama_pimpinan ?? '',
+      nip_pimpinan: values?.nip_pimpinan ?? '',
+      photo_pimpinan: urls,
+    }
+
+    if (isShow && isSubmit) {
+      try {
+        await createUpdateProfil({ body: body })
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (isSuccessUpdateProfil) {
+      toast.success(`Update profil berhasil`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+      setTimeout(() => {
+        setIsShow(false)
+        setIsSubmit(false)
+        setMenu('Preview')
+      }, 3000)
+    }
+  }, [isSuccessUpdateProfil])
+
+  useEffect(() => {
+    if (isErrorUpdateProfil) {
+      const errorMsg = errorUpdateProfil as { data?: { message?: string } }
+
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+  }, [isErrorUpdateProfil, errorUpdateProfil])
+
+  useEffect(() => {
+    if (dataTentang?.identitas) {
+      const identitas = dataTentang?.identitas
+
+      formIdentitas.setValue('sk_pendirian', identitas?.sk_pendirian)
+      const tglSKPendirian = identitas?.tgl_sk_pendirian
+      const splitSKPendirian = tglSKPendirian?.split('-')
+      formIdentitas.setValue(
+        'tgl_sk_pendirian',
+        `${splitSKPendirian?.[0]}-${splitSKPendirian?.[1]}-${splitSKPendirian?.[2]}`,
+      )
+
+      formIdentitas.setValue('sk_operasional', identitas?.sk_operasional)
+
+      const tglSKOperasional = identitas?.tgl_sk_operasional
+      const splitSKOperasional = tglSKOperasional?.split('-')
+      formIdentitas.setValue(
+        'tgl_sk_operasional',
+        `${splitSKOperasional?.[0]}-${splitSKOperasional?.[1]}-${splitSKOperasional?.[2]}`,
+      )
+
+      const tglMulai = identitas?.tgl_mulai_akreditasi
+      const splitTglMulai = tglMulai?.split('-')
+      formIdentitas.setValue(
+        'tgl_mulai_akreditasi',
+        `${splitTglMulai?.[0]}-${splitTglMulai?.[1]}-${splitTglMulai?.[2]}`,
+      )
+
+      const tglAkhir = identitas?.tgl_akhir_akreditasi
+      const splitTglAkhir = tglAkhir?.split('-')
+      formIdentitas.setValue(
+        'tgl_akhir_akreditasi',
+        `${splitTglAkhir?.[0]}-${splitTglAkhir?.[1]}-${splitTglAkhir?.[2]}`,
+      )
+
+      formIdentitas.setValue('nis', identitas?.nis)
+      formIdentitas.setValue('nss', identitas?.nss)
+      formIdentitas.setValue('alamat', identitas?.alamat)
+      formIdentitas.setValue('email', identitas?.email)
+      formIdentitas.setValue('email', identitas?.email)
+      formIdentitas.setValue('telepon', identitas?.telepon)
+      formIdentitas.setValue('id_akreditasi', identitas?.id_akreditasi)
+      formIdentitas.setValue('penyelenggaraan', identitas?.penyelenggaraan)
+      formIdentitas.setValue('photo_pimpinan', identitas?.photo_pimpinan)
+      setUrls(identitas?.photo_pimpinan)
+      formIdentitas.setValue('nama_pimpinan', identitas?.nama_pimpinan)
+      formIdentitas.setValue('nip_pimpinan', identitas?.nip_pimpinan)
+      formIdentitas.setValue(
+        'penyelenggaraan_mulai',
+        identitas?.penyelenggaraan_mulai,
+      )
+      formIdentitas.setValue(
+        'penyelenggaraan_akhir',
+        identitas?.penyelenggaraan_akhir,
+      )
+    }
+  }, [dataTentang?.identitas])
+
   return (
     <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto">
       {loadingTentangSekolah ? (
@@ -263,7 +414,22 @@ export default function TentangSekolah() {
                 isLoadingDelete={isLoadingDeleteTentang}
               />
             ) : menu === 'Identitas' ? (
-              <IdentitasSekolah />
+              <div className="scrollbar flex flex-1 flex-col gap-32 overflow-y-auto ">
+                <p className="font-roboto text-[2.4rem] text-warna-dark">
+                  Form Edit {capitalizeFirstLetterFromLowercase(menu)}
+                </p>
+                <FormUpdateIdentitas
+                  form={formIdentitas}
+                  isLoading={isLoadingUpdateProfil}
+                  handleSubmit={handleSubmitIdentitas}
+                  setUrls={setUrls}
+                  urls={urls}
+                  setIsShow={setIsShow}
+                  setIsSubmit={setIsSubmit}
+                  isShow={isShow}
+                  isSubmit={isSubmit}
+                />
+              </div>
             ) : menu === 'Tujuan' || menu === 'Sasaran' || menu === 'Hasil' ? (
               <div className="scrollbar flex flex-1 flex-col gap-32 overflow-y-auto ">
                 <p className="font-roboto text-[2.4rem] text-warna-dark">

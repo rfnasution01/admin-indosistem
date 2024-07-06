@@ -1,82 +1,122 @@
 import { LabelComponent } from '@/components/LabelComponent'
 import dayjs from 'dayjs'
 import 'dayjs/locale/id'
-import { IdentitasSekolahType } from '@/types/website/profil/tentangSekolahType'
+import DefaultImg from '@/assets/images/default.jpg'
 
-export function PreviewIdentitas({ data }: { data: IdentitasSekolahType }) {
+export function PreviewIdentitas({
+  kode,
+  nama,
+  sk_pendirian,
+  tgl_sk_pendirian,
+  sk_operasional,
+  tgl_sk_operasional,
+  tgl_akhir_akreditasi,
+  tgl_mulai_akreditasi,
+  akreditasi,
+  alamat,
+  nama_pimpinan,
+  nip_pimpinan,
+  nis,
+  nss,
+  email,
+  telepon,
+  penyelenggaraan,
+  penyelenggaraan_akhir,
+  penyelenggaraan_mulai,
+  photo_pimpinan,
+}: {
+  kode?: string
+  nama?: string
+  sk_pendirian?: string
+  tgl_sk_pendirian?: string
+  sk_operasional?: string
+  tgl_sk_operasional?: string
+  akreditasi?: string
+  tgl_mulai_akreditasi?: string
+  tgl_akhir_akreditasi?: string
+  penyelenggaraan?: string
+  penyelenggaraan_mulai?: string
+  penyelenggaraan_akhir?: string
+  nis?: string
+  nss?: string
+  alamat?: string
+  email?: string
+  telepon?: string
+  nama_pimpinan?: string
+  nip_pimpinan?: string
+  photo_pimpinan?: string
+}) {
   return (
     <div className="scrollbar flex h-full gap-48 overflow-y-auto phones:flex-col phones:gap-32">
       <img
-        src={data?.photo_pimpinan ?? '/logo.png'}
-        alt={data?.nama_pimpinan}
-        className="h-[67rem] w-[50rem] rounded-2xl filter"
+        src={photo_pimpinan ?? DefaultImg}
+        alt={nama_pimpinan}
+        className="h-auto w-[50rem] rounded-2xl filter"
         loading="lazy"
       />
       <div className="flex flex-1 flex-col gap-16">
-        {data?.nama && (
+        {nama && (
           <LabelComponent
             label="Nama"
-            value={data?.nama}
+            value={nama}
             widthLabel="w-1/4 phones:w-full"
             widthValue="w-3/4 phones:w-full"
           />
         )}
-        {data?.kode && (
+        {kode && (
           <LabelComponent
             label="Kode"
-            value={data?.kode}
+            value={kode}
             widthLabel="w-1/4 phones:w-full"
             widthValue="w-3/4 phones:w-full"
           />
         )}
-        {data?.sk_pendirian && (
+        {sk_pendirian && (
           <LabelComponent
             label="SK Pendirian"
-            value={data?.sk_pendirian}
+            value={sk_pendirian}
             widthLabel="w-1/4 phones:w-full"
             widthValue="w-3/4 phones:w-full"
           />
         )}
-        {data?.tgl_sk_pendirian && (
+        {tgl_sk_pendirian && (
           <LabelComponent
             label="Tanggal SK Pendirian"
-            value={dayjs(data?.tgl_sk_pendirian)
-              .locale('id')
-              .format('DD MMMM YYYY')}
+            value={dayjs(tgl_sk_pendirian).locale('id').format('DD MMMM YYYY')}
             widthLabel="w-1/4 phones:w-full"
             widthValue="w-3/4 phones:w-full"
           />
         )}
-        {data?.sk_operasional && (
+        {sk_operasional && (
           <LabelComponent
             label="SK Operasional"
-            value={data?.sk_operasional}
+            value={sk_operasional}
             widthLabel="w-1/4 phones:w-full"
             widthValue="w-3/4 phones:w-full"
           />
         )}
-        {data?.tgl_sk_operasional && (
+        {tgl_sk_operasional && (
           <LabelComponent
             label="Tanggal SK Operasional"
-            value={dayjs(data?.tgl_sk_operasional)
+            value={dayjs(tgl_sk_operasional)
               .locale('id')
               .format('DD MMMM YYYY')}
             widthLabel="w-1/4 phones:w-full"
             widthValue="w-3/4 phones:w-full"
           />
         )}
-        {data?.akreditasi && (
+        {akreditasi && (
           <LabelComponent
             label="Akreditasi"
-            value={data?.akreditasi}
+            value={akreditasi}
             widthLabel="w-1/4 phones:w-full"
             widthValue="w-3/4 phones:w-full"
           />
         )}
-        {data?.tgl_mulai_akreditasi && (
+        {tgl_mulai_akreditasi && (
           <LabelComponent
             label="Tanggal Mulai Akreditasi"
-            value={dayjs(data?.tgl_mulai_akreditasi)
+            value={dayjs(tgl_mulai_akreditasi)
               .locale('id')
               .format('DD MMMM YYYY')}
             widthLabel="w-1/4 phones:w-full"
@@ -84,10 +124,10 @@ export function PreviewIdentitas({ data }: { data: IdentitasSekolahType }) {
           />
         )}
 
-        {data?.tgl_akhir_akreditasi && (
+        {tgl_akhir_akreditasi && (
           <LabelComponent
             label="Tanggal Akhir Akreditasi"
-            value={dayjs(data?.tgl_akhir_akreditasi)
+            value={dayjs(tgl_akhir_akreditasi)
               ?.locale('id')
               .format('DD MMMM YYYY')}
             widthLabel="w-1/4 phones:w-full"
@@ -95,91 +135,91 @@ export function PreviewIdentitas({ data }: { data: IdentitasSekolahType }) {
           />
         )}
 
-        {data?.penyelenggaraan && (
+        {penyelenggaraan && (
           <LabelComponent
             label="Penyelenggaraan"
-            value={data?.penyelenggaraan}
+            value={penyelenggaraan}
             widthLabel="w-1/4 phones:w-full"
             widthValue="w-3/4 phones:w-full"
           />
         )}
 
-        {data?.penyelenggaraan_mulai && (
+        {penyelenggaraan_mulai && (
           <LabelComponent
             label="Penyelenggaraan Mulai"
-            value={data?.penyelenggaraan_mulai?.substring(0, 5)}
+            value={penyelenggaraan_mulai?.substring(0, 5)}
             widthLabel="w-1/4 phones:w-full"
             widthValue="w-3/4 phones:w-full"
           />
         )}
 
-        {data?.penyelenggaraan_akhir && (
+        {penyelenggaraan_akhir && (
           <LabelComponent
             label="Penyelenggaraan Akhir"
-            value={data?.penyelenggaraan_akhir?.substring(0, 5)}
+            value={penyelenggaraan_akhir?.substring(0, 5)}
             widthLabel="w-1/4 phones:w-full"
             widthValue="w-3/4 phones:w-full"
           />
         )}
 
-        {data?.nis && (
+        {nis && (
           <LabelComponent
             label="NIS"
-            value={data?.nis}
+            value={nis}
             widthLabel="w-1/4 phones:w-full"
             widthValue="w-3/4 phones:w-full"
           />
         )}
 
-        {data?.nss && (
+        {nss && (
           <LabelComponent
             label="NSS"
-            value={data?.nss}
+            value={nss}
             widthLabel="w-1/4 phones:w-full"
             widthValue="w-3/4 phones:w-full"
           />
         )}
 
-        {data?.alamat && (
+        {alamat && (
           <LabelComponent
             label="Alamat"
-            value={data?.alamat}
+            value={alamat}
             widthLabel="w-1/4 phones:w-full"
             widthValue="w-3/4 phones:w-full"
           />
         )}
 
-        {data?.email && (
+        {email && (
           <LabelComponent
             label="Email"
-            value={data?.email}
+            value={email}
             widthLabel="w-1/4 phones:w-full"
             widthValue="w-3/4 phones:w-full"
           />
         )}
 
-        {data?.telepon && (
+        {telepon && (
           <LabelComponent
             label="Telepon"
-            value={data?.telepon}
+            value={telepon}
             widthLabel="w-1/4 phones:w-full"
             widthValue="w-3/4 phones:w-full"
           />
         )}
 
-        {data?.nama_pimpinan && (
+        {nama_pimpinan && (
           <LabelComponent
             label="Nama Pimpinan"
-            value={data?.nama_pimpinan}
+            value={nama_pimpinan}
             widthLabel="w-1/4 phones:w-full"
             widthValue="w-3/4 phones:w-full"
           />
         )}
 
-        {data?.nip_pimpinan && (
+        {nip_pimpinan && (
           <LabelComponent
             label="NIP Pimpinan"
-            value={data?.nip_pimpinan}
+            value={nip_pimpinan}
             widthLabel="w-1/4 phones:w-full"
             widthValue="w-3/4 phones:w-full"
           />

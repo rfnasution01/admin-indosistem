@@ -42,7 +42,28 @@ export function PreviewMain({
       {/* --- Identitas --- */}
       <div className="flex w-full flex-col gap-32 rounded-2x bg-warna-pale-blue p-32 text-warna-dark phones:bg-transparent phones:p-0">
         <PreviewHeader setMenu={setMenu} jenis="Identitas" />
-        <PreviewIdentitas data={data?.identitas} />
+        <PreviewIdentitas
+          kode={data?.identitas?.kode}
+          nama={data?.identitas?.nama}
+          sk_pendirian={data?.identitas?.sk_pendirian}
+          tgl_sk_pendirian={data?.identitas?.tgl_sk_pendirian}
+          sk_operasional={data?.identitas?.sk_operasional}
+          tgl_sk_operasional={data?.identitas?.tgl_sk_operasional}
+          tgl_akhir_akreditasi={data?.identitas?.tgl_akhir_akreditasi}
+          tgl_mulai_akreditasi={data?.identitas?.tgl_mulai_akreditasi}
+          akreditasi={data?.identitas?.akreditasi}
+          alamat={data?.identitas?.alamat}
+          nama_pimpinan={data?.identitas?.nama_pimpinan}
+          nip_pimpinan={data?.identitas?.nip_pimpinan}
+          nis={data?.identitas?.nis}
+          nss={data?.identitas?.nss}
+          email={data?.identitas?.email}
+          telepon={data?.identitas?.telepon}
+          penyelenggaraan={data?.identitas?.penyelenggaraan}
+          penyelenggaraan_akhir={data?.identitas?.penyelenggaraan_akhir}
+          penyelenggaraan_mulai={data?.identitas?.penyelenggaraan_mulai}
+          photo_pimpinan={data?.identitas?.photo_pimpinan}
+        />
       </div>
 
       <hr className="hidden border phones:block" />

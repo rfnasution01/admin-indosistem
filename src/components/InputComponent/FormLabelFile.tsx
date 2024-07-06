@@ -20,17 +20,21 @@ export function FormLabelFile({
   isLoading,
   loadingFile,
   handleUploadFoto,
+  label,
+  name,
 }: {
   form: UseFormReturn | undefined | any
   setUrls: Dispatch<SetStateAction<string>>
   urls: string
   isLoading: boolean
   loadingFile: boolean
+  name: string
+  label?: string
   handleUploadFoto: (file: File) => Promise<void>
 }) {
   return (
     <FormField
-      name="berkas"
+      name={name}
       control={form.control}
       render={({ field }) => (
         <FormItem className="flex flex-col gap-12">
@@ -69,7 +73,7 @@ export function FormLabelFile({
                   className="flex flex-col gap-12 font-roboto"
                   htmlFor="berkas"
                 >
-                  Berkas
+                  {label ?? 'Berkas'}
                   <div className="flex">
                     <div
                       className={clsx(
