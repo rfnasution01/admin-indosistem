@@ -1,7 +1,10 @@
 import { Searching } from '@/components/Searching'
 import { FormListDataPerPage } from '@/components/Select/website'
 import { Meta } from '@/store/api'
-import { useGetFasilitasQuery } from '@/store/slices/website/profilAPI/fasilitasAPI'
+import {
+  useDeleteFasilitasMutation,
+  useGetFasilitasQuery,
+} from '@/store/slices/website/profilAPI/fasilitasAPI'
 import { GetFasilitasType } from '@/types/website/profil/fasilitasType'
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -20,6 +23,7 @@ export default function FasilitasSekolah() {
   const [search, setSearch] = useState<string>('')
   const [pageNumber, setPageNumber] = useState<number>(1)
   const [pageSize, setPageSize] = useState<number>(5)
+  const [isShow, setIsShow] = useState<boolean>(false)
 
   const [fasilitas, setFasilitas] = useState<GetFasilitasType[]>([])
   const [meta, setMeta] = useState<Meta>()
@@ -70,6 +74,60 @@ export default function FasilitasSekolah() {
     }
   }, [isErrorFasilitas, errorFasilitas])
 
+  // --- Delete ---
+  const [
+    deleteFasilitas,
+    {
+      isError: isErrorDeleteFasilitas,
+      isLoading: isLoadingDeleteFasilitas,
+      isSuccess: isSuccessDeleteFasilitas,
+      error: errorDeleteFasilitas,
+    },
+  ] = useDeleteFasilitasMutation()
+
+  const handleSubmitDelete = async (id: string) => {
+    try {
+      await deleteFasilitas({ id: id })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    if (isSuccessDeleteFasilitas) {
+      toast.success('Delete fasilitas berhasil', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+      setIsShow(false)
+    }
+  }, [isSuccessDeleteFasilitas])
+
+  useEffect(() => {
+    if (isErrorDeleteFasilitas) {
+      const errorMsg = errorDeleteFasilitas as { data?: { message?: string } }
+
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+  }, [isErrorDeleteFasilitas, errorDeleteFasilitas])
+
   return (
     <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto p-48">
       <div className="flex items-center justify-between gap-32 phones:flex-col phones:items-start">
@@ -108,6 +166,10 @@ export default function FasilitasSekolah() {
         currentPage={pageNumber}
         isNumber
         isFasilitas
+        handleSubmitDelete={handleSubmitDelete}
+        isLoadingDelete={isLoadingDeleteFasilitas}
+        setIsShow={setIsShow}
+        isShow={isShow}
       />
       <ToastContainer />
     </div>

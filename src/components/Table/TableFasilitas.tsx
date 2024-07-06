@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Dispatch, Fragment, SetStateAction, useState } from 'react'
 import clsx from 'clsx'
 import { Loading } from '../Loading'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -30,6 +30,10 @@ type Props<T extends Fasilitas, P> = {
   currentPage?: number
   pageSize?: number
   isFasilitas?: boolean
+  handleSubmitDelete: (id: string) => Promise<void>
+  setIsShow: Dispatch<SetStateAction<boolean>>
+  isShow: boolean
+  isLoadingDelete: boolean
 }
 
 export function TableFasilitas<T extends Fasilitas, P>({
@@ -46,6 +50,10 @@ export function TableFasilitas<T extends Fasilitas, P>({
   currentPage,
   pageSize,
   isFasilitas,
+  handleSubmitDelete,
+  isShow,
+  isLoadingDelete,
+  setIsShow,
 }: Props<T, P>) {
   const [rowIsOpen, setRowIsOpen] = useState<number | null>(null)
 
@@ -137,7 +145,13 @@ export function TableFasilitas<T extends Fasilitas, P>({
                       {/* ----- Fasilitas ----- */}
                       {isFasilitas && (
                         <td className="px-24 py-12 align-top leading-medium">
-                          <MenubarAction data={row} />
+                          <MenubarAction
+                            data={row}
+                            handleSubmitDelete={handleSubmitDelete}
+                            isLoadingDelete={isLoadingDelete}
+                            isShow={isShow}
+                            setIsShow={setIsShow}
+                          />
                         </td>
                       )}
 
