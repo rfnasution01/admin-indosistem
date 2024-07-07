@@ -7,6 +7,7 @@ import {
   LoginLayout,
   MainLayout,
   ProfilWebsiteLayout,
+  ProgramLayananPage,
   TambahFasilitasSekolahPage,
   TambahProfilPage,
   TambahTestimoniPage,
@@ -99,7 +100,13 @@ export const router = createBrowserRouter([
               },
               {
                 path: 'program',
-                element: <ComingSoonPage />,
+                element: <CommonLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <ProgramLayananPage />,
+                  },
+                ],
               },
               {
                 path: 'guru',

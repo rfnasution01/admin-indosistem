@@ -1,8 +1,8 @@
 import ReactLoading, { LoadingProps } from 'react-loading'
 
 export const Loading = ({
-  width = '2rem',
-  height = '2rem',
+  width = '6rem',
+  height = '6rem',
   color = '#400053',
 }: LoadingProps) => {
   return (

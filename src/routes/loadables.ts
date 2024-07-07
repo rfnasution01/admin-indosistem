@@ -50,3 +50,7 @@ export const TestimoniPage = loadable(
 export const TambahTestimoniPage = loadable(
   () => import('@/pages/website/profil/TambahTestimoni'),
 )
+
+export const ProgramLayananPage = loadable(
+  () => import('@/pages/website/profil/ProgramLayanan'),
+)
