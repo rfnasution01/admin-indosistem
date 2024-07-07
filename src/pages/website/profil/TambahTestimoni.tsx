@@ -8,11 +8,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { useForm } from 'react-hook-form'
 import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
-import { useCreateFasilitasMutation } from '@/store/slices/website/profilAPI/fasilitasAPI'
-import { FasilitasSekolahSchema } from '@/schemas/website/fasilitasSekolahSchema'
-import FormTambahFasilitas from '@/components/Form/website/profil/FormTambahFasilitas'
+import { TestimoniSchema } from '@/schemas/website/testimoniSchema'
+import { useCreateTestimoniMutation } from '@/store/slices/website/profilAPI/testimoniAPI'
+import FormTambahTestimoni from '@/components/Form/website/profil/FormTambahTestimonial'
 
-export default function TambahFasilitasSekolah() {
+export default function TambahTestimoniSekolah() {
   const navigate = useNavigate()
 
   const { lastPathname, thirdPathname } = usePathname()
@@ -25,39 +25,36 @@ export default function TambahFasilitasSekolah() {
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
   const [isShow, setIsShow] = useState<boolean>(false)
 
-  const form = useForm<zod.infer<typeof FasilitasSekolahSchema>>({
-    resolver: zodResolver(FasilitasSekolahSchema),
+  const form = useForm<zod.infer<typeof TestimoniSchema>>({
+    resolver: zodResolver(TestimoniSchema),
     defaultValues: {},
   })
 
-  // --- Create Tambah Fasilitas ---
+  // --- Create Tambah Testimoni ---
   const [
-    createTambahFasilitas,
+    createTambahTestimoni,
     {
-      isError: isErrorTambahFasilitas,
-      error: errorTambahFasilitas,
-      isLoading: isLoadingTambahFasilitas,
-      isSuccess: isSuccessTambahFasilitas,
+      isError: isErrorTambahTestimoni,
+      error: errorTambahTestimoni,
+      isLoading: isLoadingTambahTestimoni,
+      isSuccess: isSuccessTambahTestimoni,
     },
-  ] = useCreateFasilitasMutation()
+  ] = useCreateTestimoniMutation()
 
   const handleSubmit = async () => {
     const values = form.getValues()
 
     const body = {
       id: isEdit ? idEdit : null,
-      photo: urls ?? '',
-      keterangan: values?.keterangan ?? '',
+      url_photo: urls ?? '',
       nama: values?.nama ?? '',
-      jam_operasional:
-        `${values?.jam_mulai} s/d ${values?.jam_selesai} WIB` ?? '',
-      alamat: values?.alamat ?? '',
-      telepon: values?.telepon ?? '',
+      keterangan_singkat: values?.keterangan_singkat ?? '',
+      isi: values?.isi ?? '',
     }
 
     if (isSubmit && isShow) {
       try {
-        await createTambahFasilitas({ body: body })
+        await createTambahTestimoni({ body: body })
       } catch (error) {
         console.error(error)
       }
@@ -65,8 +62,8 @@ export default function TambahFasilitasSekolah() {
   }
 
   useEffect(() => {
-    if (isSuccessTambahFasilitas) {
-      toast.success(`${isEdit ? 'Edit' : 'Tambah'} Fasilitas berhasil`, {
+    if (isSuccessTambahTestimoni) {
+      toast.success(`${isEdit ? 'Edit' : 'Tambah'} testimoni berhasil`, {
         position: 'bottom-right',
         autoClose: 3000,
         hideProgressBar: false,
@@ -81,11 +78,11 @@ export default function TambahFasilitasSekolah() {
         navigate(-1)
       }, 3000)
     }
-  }, [isSuccessTambahFasilitas])
+  }, [isSuccessTambahTestimoni])
 
   useEffect(() => {
-    if (isErrorTambahFasilitas) {
-      const errorMsg = errorTambahFasilitas as { data?: { message?: string } }
+    if (isErrorTambahTestimoni) {
+      const errorMsg = errorTambahTestimoni as { data?: { message?: string } }
 
       toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
         position: 'bottom-right',
@@ -99,33 +96,17 @@ export default function TambahFasilitasSekolah() {
         transition: Bounce,
       })
     }
-  }, [isErrorTambahFasilitas, errorTambahFasilitas])
+  }, [isErrorTambahTestimoni, errorTambahTestimoni])
 
   useEffect(() => {
     if (isEdit && editData !== '' && idEdit) {
       const item = JSON.parse(editData)
 
-      // Regular expression to match time patterns
-      const timePattern = /(\d{2}:\d{2})\s+s\/d\s+(\d{2}:\d{2})/
-
-      const match = item?.jam_operasional?.match(timePattern)
-
-      if (match) {
-        const jam_mulai = match[1]
-        const jam_selesai = match[2]
-
-        form.setValue('jam_mulai', jam_mulai)
-        form.setValue('jam_selesai', jam_selesai)
-      } else {
-        console.log('Time pattern not found')
-      }
-
       form.setValue('nama', item?.nama)
-      form.setValue('keterangan', item?.keterangan)
-      form.setValue('alamat', item?.alamat)
-      form.setValue('telepon', item?.telepon)
-      form.setValue('photo', item?.photo)
-      setUrls(item?.photo)
+      form.setValue('keterangan_singkat', item?.keterangan_singkat)
+      form.setValue('isi', item?.isi)
+      form.setValue('url_photo', item?.url_photo)
+      setUrls(item?.url_photo)
     }
   }, [isEdit, editData, idEdit])
 
@@ -137,9 +118,9 @@ export default function TambahFasilitasSekolah() {
           Form {capitalizeFirstLetterFromLowercase(lastPathname)}{' '}
           {capitalizeFirstLetterFromLowercase(thirdPathname)}
         </p>
-        <FormTambahFasilitas
+        <FormTambahTestimoni
           form={form}
-          isLoading={isLoadingTambahFasilitas}
+          isLoading={isLoadingTambahTestimoni}
           handleSubmit={handleSubmit}
           setUrls={setUrls}
           urls={urls}

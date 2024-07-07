@@ -3,6 +3,7 @@ import { GetGuruStaffType } from '@/types/website/profil/guruStaffType'
 import clsx from 'clsx'
 import DefaultImg from '@/assets/images/default.jpg'
 import { GetFasilitasType } from '@/types/website/profil/fasilitasType'
+import { GetTestimoniType } from '@/types/website/profil/testimoniType'
 
 export const columnsListDataGuru: Column<GetGuruStaffType>[] = [
   {
@@ -101,4 +102,51 @@ export const columnsListDataFasilitas: Column<GetFasilitasType>[] = [
     width: '!min-w-[12rem]',
   },
   { header: 'Kontak Person', key: 'telepon', width: '!min-w-[12rem]' },
+]
+
+export const columnsListDataTestimoni: Column<GetTestimoniType>[] = [
+  {
+    header: 'Nama',
+    key: 'nama',
+    width: 'w-[50%]',
+    renderCell: (rowData) => {
+      return (
+        <div className="flex gap-32">
+          <img
+            src={
+              rowData?.url_photo || rowData?.url_photo !== ''
+                ? rowData?.url_photo
+                : DefaultImg
+            }
+            alt={rowData?.nama}
+            loading="lazy"
+            className="h-[20rem] w-[20rem] rounded-2xl object-cover phones:hidden"
+          />
+          <div className="flex flex-col gap-12">
+            {rowData?.nama && <p className="font-roboto">{rowData?.nama}</p>}
+            {rowData?.keterangan_singkat && (
+              <p className="line-clamp-4">{rowData?.keterangan_singkat}</p>
+            )}
+          </div>
+        </div>
+      )
+    },
+  },
+  {
+    header: 'Isi',
+    key: 'isi',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div>
+          {rowData?.isi && (
+            <div
+              dangerouslySetInnerHTML={{ __html: rowData?.isi }}
+              className="line-clamp-3 phones:hidden"
+            />
+          )}
+        </div>
+      )
+    },
+  },
 ]

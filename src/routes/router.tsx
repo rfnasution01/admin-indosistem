@@ -9,7 +9,9 @@ import {
   ProfilWebsiteLayout,
   TambahFasilitasSekolahPage,
   TambahProfilPage,
+  TambahTestimoniPage,
   TentangSekolahPage,
+  TestimoniPage,
   VisiMisiPage,
   WebsiteMainLayout,
 } from './loadables'
@@ -119,7 +121,17 @@ export const router = createBrowserRouter([
               },
               {
                 path: 'testimonial',
-                element: <ComingSoonPage />,
+                element: <CommonLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <TestimoniPage />,
+                  },
+                  {
+                    path: ':aksi',
+                    element: <TambahTestimoniPage />,
+                  },
+                ],
               },
             ],
           },

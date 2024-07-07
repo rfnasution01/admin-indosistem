@@ -42,3 +42,11 @@ export const FasilitasSekolahPage = loadable(
 export const TambahFasilitasSekolahPage = loadable(
   () => import('@/pages/website/profil/TambahFasilitasSekolah'),
 )
+
+export const TestimoniPage = loadable(
+  () => import('@/pages/website/profil/Testimoni'),
+)
+
+export const TambahTestimoniPage = loadable(
+  () => import('@/pages/website/profil/TambahTestimoni'),
+)
