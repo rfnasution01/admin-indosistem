@@ -10,6 +10,7 @@ import {
   ProgramLayananPage,
   TambahFasilitasSekolahPage,
   TambahProfilPage,
+  TambahProgramLayananPage,
   TambahTestimoniPage,
   TentangSekolahPage,
   TestimoniPage,
@@ -105,6 +106,10 @@ export const router = createBrowserRouter([
                   {
                     path: '',
                     element: <ProgramLayananPage />,
+                  },
+                  {
+                    path: ':aksi',
+                    element: <TambahProgramLayananPage />,
                   },
                 ],
               },

@@ -80,7 +80,7 @@ export default function ProgramLayanan() {
 
   return (
     <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto rounded-3x bg-white p-48">
-      <div className="grid grid-cols-4 gap-32">
+      <div className="grid grid-cols-3 gap-32">
         <ProgramCard program={program} loadingProgram={loadingProgram} />
         <LayananCard layanan={layanan} loadingLayanan={loadingLayanan} />
       </div>

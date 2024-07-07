@@ -14,7 +14,10 @@ export function LayananCard({
   return (
     <Link
       to="edit"
-      className="grid-cols-1 rounded-2x border border-warna-grey p-32 shadow hover:cursor-pointer hover:shadow-lg phones:col-span-4"
+      onClick={() => {
+        localStorage.setItem('jenisID', 'layanan')
+      }}
+      className="phones:col-span-3s grid-cols-1 rounded-2x border border-warna-grey p-32 shadow hover:cursor-pointer hover:shadow-lg"
     >
       {loadingLayanan ? (
         <Loading />

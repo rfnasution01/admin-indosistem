@@ -14,7 +14,10 @@ export function ProgramCard({
   return (
     <Link
       to="edit"
-      className="grid-cols-1 rounded-2x border border-warna-grey p-32 shadow hover:cursor-pointer hover:shadow-lg phones:col-span-4"
+      onClick={() => {
+        localStorage.setItem('jenisID', 'program')
+      }}
+      className="grid-cols-1 rounded-2x border border-warna-grey p-32 shadow hover:cursor-pointer hover:shadow-lg phones:col-span-3"
     >
       {loadingProgram ? (
         <Loading />
