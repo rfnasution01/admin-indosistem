@@ -157,10 +157,6 @@ export function SelectListPenyelenggaraan({
                   onInputChange={search}
                   onChange={(optionSelected) => {
                     field.onChange(optionSelected?.value)
-                    useFormReturn.setValue(
-                      'latihanStrukturalIdString',
-                      optionSelected?.label,
-                    )
                   }}
                   isDisabled={isDisabled}
                   isLoading={isFetching || isLoading}

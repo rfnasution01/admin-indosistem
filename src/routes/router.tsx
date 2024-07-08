@@ -6,6 +6,7 @@ import {
   GuruStaffPage,
   LoginLayout,
   MainLayout,
+  PengumumanPage,
   ProfilWebsiteLayout,
   ProgramLayananPage,
   TambahFasilitasSekolahPage,
@@ -47,7 +48,7 @@ export const router = createBrowserRouter([
           },
           {
             path: 'pengumuman',
-            element: <ComingSoonPage />,
+            element: <PengumumanPage />,
           },
           {
             path: 'mading',

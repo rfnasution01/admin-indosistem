@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import DefaultImg from '@/assets/images/default.jpg'
 import { GetFasilitasType } from '@/types/website/profil/fasilitasType'
 import { GetTestimoniType } from '@/types/website/profil/testimoniType'
+import { GetPengumumanType } from '@/types/website/pengumumanType'
 
 export const columnsListDataGuru: Column<GetGuruStaffType>[] = [
   {
@@ -148,5 +149,33 @@ export const columnsListDataTestimoni: Column<GetTestimoniType>[] = [
         </div>
       )
     },
+  },
+]
+
+export const columnsListDataPengumuman: Column<GetPengumumanType>[] = [
+  {
+    header: 'Judul',
+    key: 'judul',
+    width: 'w-[30%]',
+  },
+  {
+    header: 'Tanggal',
+    key: 'tanggal',
+    width: '!min-w-[12rem]',
+  },
+  {
+    header: 'Kategori',
+    key: 'kategori',
+    width: '!min-w-[12rem]',
+  },
+  {
+    header: 'Dibaca',
+    key: 'hits',
+    width: '!min-w-[12rem]',
+  },
+  {
+    header: 'Gambar',
+    key: 'jlh_photo',
+    width: '!min-w-[12rem]',
   },
 ]

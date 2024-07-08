@@ -1,4 +1,4 @@
-import { GetAkreditasiType } from '@/types/referensiType'
+import { GetAkreditasiType, ReferensiType } from '@/types/referensiType'
 import { Res, api } from '../api'
 
 export const ReferensiEndpoints = api.injectEndpoints({
@@ -21,6 +21,42 @@ export const ReferensiEndpoints = api.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getPengumumanKategori: builder.query<Res<ReferensiType[]>, void>({
+      query: () => ({
+        url: `referensi/kategori/pengumuman`,
+        method: 'GET',
+      }),
+    }),
+    getBerita: builder.query<Res<ReferensiType[]>, void>({
+      query: () => ({
+        url: `referensi/kategori/berita`,
+        method: 'GET',
+      }),
+    }),
+    getAgenda: builder.query<Res<ReferensiType[]>, void>({
+      query: () => ({
+        url: `referensi/kategori/agenda`,
+        method: 'GET',
+      }),
+    }),
+    getMading: builder.query<Res<ReferensiType[]>, void>({
+      query: () => ({
+        url: `referensi/kategori/mading`,
+        method: 'GET',
+      }),
+    }),
+    getPrestasi: builder.query<Res<ReferensiType[]>, void>({
+      query: () => ({
+        url: `referensi/kategori/prestasi`,
+        method: 'GET',
+      }),
+    }),
+    getTag: builder.query<Res<ReferensiType[]>, void>({
+      query: () => ({
+        url: `referensi/tags`,
+        method: 'GET',
+      }),
+    }),
     createFile: builder.mutation<{ url: string }, FormData>({
       query: (foto) => ({
         url: 'admin/upload',
@@ -37,4 +73,10 @@ export const {
   useGetJenisProfilQuery,
   useGetPenyelenggaraQuery,
   useCreateFileMutation,
+  useGetAgendaQuery,
+  useGetBeritaQuery,
+  useGetMadingQuery,
+  useGetPengumumanKategoriQuery,
+  useGetPrestasiQuery,
+  useGetTagQuery,
 } = ReferensiEndpoints

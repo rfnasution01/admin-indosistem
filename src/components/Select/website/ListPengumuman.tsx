@@ -5,13 +5,13 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/Form'
-import { useGetAkreditasiQuery } from '@/store/slices/referensiAPI'
-import { GetAkreditasiType } from '@/types/referensiType'
+import { useGetPengumumanKategoriQuery } from '@/store/slices/referensiAPI'
 import { cn } from '@/utils/cn'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import Select, { components } from 'react-select'
 import { customStyles } from '@/types/selectType'
+import { ReferensiType } from '@/types/referensiType'
 
 type inputProps = {
   placeholder: string
@@ -20,34 +20,37 @@ type inputProps = {
   headerLabel?: string
   useFormReturn: UseFormReturn
   className?: string
+  setIdKategori?: Dispatch<SetStateAction<string>>
 }
 
-export function SelectListAkreditasi({
+export function SelectListPengumuman({
   name,
   headerLabel,
   placeholder,
   isDisabled,
   useFormReturn,
   className,
+  setIdKategori,
 }: inputProps) {
   const [query, setQuery] = useState<string>(null)
-  const [listAkreditasi, setListAkreditasi] = useState<GetAkreditasiType[]>([])
+  const [listPengumuman, setListPengumuman] = useState<ReferensiType[]>([])
 
-  const { data, isSuccess, isLoading, isFetching } = useGetAkreditasiQuery()
+  const { data, isSuccess, isLoading, isFetching } =
+    useGetPengumumanKategoriQuery()
 
   useEffect(() => {
     if (!isFetching) {
       if (data?.meta?.page > 1) {
-        setListAkreditasi((prevData) => [...prevData, ...(data?.data ?? [])])
+        setListPengumuman((prevData) => [...prevData, ...(data?.data ?? [])])
       } else {
-        setListAkreditasi([...(data?.data ?? [])])
+        setListPengumuman([...(data?.data ?? [])])
       }
     }
   }, [data])
 
-  let AkreditasiOption = []
+  let PengumumanOption = []
   if (isSuccess) {
-    AkreditasiOption = listAkreditasi.map((item) => {
+    PengumumanOption = listPengumuman.map((item) => {
       return {
         value: item?.id,
         label: item?.nama,
@@ -81,7 +84,7 @@ export function SelectListAkreditasi({
         return (
           <FormItem
             className={cn(
-              'z-40 flex w-full flex-col gap-12 text-[2rem] text-warna-dark phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]',
+              'z-50 flex w-full flex-col gap-12 text-[2rem] text-warna-dark phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]',
               className,
             )}
           >
@@ -144,10 +147,10 @@ export function SelectListAkreditasi({
                       },
                     }),
                   }}
-                  className={'text-[2rem]'}
-                  options={AkreditasiOption}
+                  className={'z-50 text-[2rem]'}
+                  options={PengumumanOption}
                   value={
-                    AkreditasiOption.filter(
+                    PengumumanOption.filter(
                       (item) => item.value === field.value,
                     )[0]
                   }
@@ -155,6 +158,9 @@ export function SelectListAkreditasi({
                   onInputChange={search}
                   onChange={(optionSelected) => {
                     field.onChange(optionSelected?.value)
+                    if (setIdKategori) {
+                      setIdKategori(optionSelected?.value)
+                    }
                   }}
                   isDisabled={isDisabled}
                   isLoading={isFetching || isLoading}

@@ -55,7 +55,7 @@ export function FormListDataPerPage({
         }),
       }}
       defaultValue={ListDataPerPage[0]}
-      className={'z-20 text-[2rem] text-warna-dark'}
+      className={'z-10 text-[2rem] text-warna-dark'}
       options={ListDataPerPage}
       onChange={(optionSelected: { value: number; label: number }) => {
         setDataPerPage(optionSelected?.value)

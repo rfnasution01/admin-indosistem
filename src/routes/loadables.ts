@@ -58,3 +58,7 @@ export const ProgramLayananPage = loadable(
 export const TambahProgramLayananPage = loadable(
   () => import('@/pages/website/profil/TambahProgram'),
 )
+
+export const PengumumanPage = loadable(
+  () => import('@/pages/website/Pengumuman'),
+)

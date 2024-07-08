@@ -112,4 +112,6 @@ export const {
   useCreateGambarMutation,
   useUpdateGambarMutation,
   useDeleteGambarMutation,
+  useDeletePengumumanMutation,
+  useUpdatePublishMutation,
 } = WebsitePengumumanEndpoints
