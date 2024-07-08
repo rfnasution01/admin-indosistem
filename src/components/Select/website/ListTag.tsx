@@ -5,9 +5,9 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/Form'
-import { useGetPengumumanKategoriQuery } from '@/store/slices/referensiAPI'
+import { useGetTagQuery } from '@/store/slices/referensiAPI'
 import { cn } from '@/utils/cn'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import Select, { components } from 'react-select'
 import { customStyles } from '@/types/selectType'
@@ -20,37 +20,34 @@ type inputProps = {
   headerLabel?: string
   useFormReturn: UseFormReturn
   className?: string
-  setIdKategori?: Dispatch<SetStateAction<string>>
 }
 
-export function SelectListPengumuman({
+export function SelectListTag({
   name,
   headerLabel,
   placeholder,
   isDisabled,
   useFormReturn,
   className,
-  setIdKategori,
 }: inputProps) {
   const [query, setQuery] = useState<string>(null)
-  const [listPengumuman, setListPengumuman] = useState<ReferensiType[]>([])
+  const [listTag, setListTag] = useState<ReferensiType[]>([])
 
-  const { data, isSuccess, isLoading, isFetching } =
-    useGetPengumumanKategoriQuery()
+  const { data, isSuccess, isLoading, isFetching } = useGetTagQuery()
 
   useEffect(() => {
     if (!isFetching) {
       if (data?.meta?.page > 1) {
-        setListPengumuman((prevData) => [...prevData, ...(data?.data ?? [])])
+        setListTag((prevData) => [...prevData, ...(data?.data ?? [])])
       } else {
-        setListPengumuman([...(data?.data ?? [])])
+        setListTag([...(data?.data ?? [])])
       }
     }
   }, [data])
 
-  let PengumumanOption = []
+  let TagOption = []
   if (isSuccess) {
-    PengumumanOption = listPengumuman.map((item) => {
+    TagOption = listTag.map((item) => {
       return {
         value: item?.id,
         label: item?.nama,
@@ -84,7 +81,7 @@ export function SelectListPengumuman({
         return (
           <FormItem
             className={cn(
-              'z-50 flex w-full flex-col gap-12 text-[2rem] text-warna-dark phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]',
+              'z-40 flex w-full flex-col gap-12 text-[2rem] text-warna-dark phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]',
               className,
             )}
           >
@@ -147,24 +144,24 @@ export function SelectListPengumuman({
                       },
                     }),
                   }}
-                  className={'z-50 text-[2rem]'}
-                  options={PengumumanOption}
+                  className={'text-[2rem]'}
+                  options={TagOption}
+                  isMulti
                   value={
-                    PengumumanOption.filter(
-                      (item) => item.value === field.value,
-                    )[0]
+                    TagOption.filter((item) => item.value === field.value)[0]
                   }
                   placeholder={placeholder ?? 'Pilih'}
                   onInputChange={search}
                   onChange={(optionSelected) => {
-                    field.onChange(optionSelected?.value)
-                    useFormReturn.setValue(
-                      'nama_kategori',
-                      optionSelected?.label,
+                    // field.onChange(optionSelected?.value)
+                    const selectedValues = optionSelected.map(
+                      (data) => data.value,
                     )
-                    if (setIdKategori) {
-                      setIdKategori(optionSelected?.value)
-                    }
+                    const selectedLabel = optionSelected.map(
+                      (data) => data.label,
+                    )
+                    field.onChange(selectedValues)
+                    useFormReturn.setValue('label_tags', selectedLabel)
                   }}
                   isDisabled={isDisabled}
                   isLoading={isFetching || isLoading}

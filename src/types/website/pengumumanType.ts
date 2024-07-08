@@ -47,8 +47,8 @@ export type PostPengumumanParams = {
 }
 
 export type GambarType = {
-  url_gambar: string
-  keterangan: string
+  url_gambar?: string
+  keterangan?: string
 }
 
 export type UpdatePengumumanParams = {

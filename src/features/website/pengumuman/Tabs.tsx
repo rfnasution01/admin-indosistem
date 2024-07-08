@@ -15,7 +15,7 @@ export function PengumumanTab({
           key={idx}
           onClick={() => setMenu(item)}
           className={clsx(
-            'pb-16 font-roboto text-[2.4rem] transition-colors duration-300 ease-in-out hover:cursor-pointer',
+            'text-nowrap pb-16 font-roboto text-[2.4rem] transition-colors duration-300 ease-in-out hover:cursor-pointer',
             {
               'border-b-2 border-warna-primary text-warna-primary':
                 menu === item,

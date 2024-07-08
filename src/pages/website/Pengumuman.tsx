@@ -6,6 +6,7 @@ import { Bounce, toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Cookies from 'js-cookie'
 import {
+  useCreatePengumumanMutation,
   useDeletePengumumanMutation,
   useGetPengumumanQuery,
   useUpdatePublishMutation,
@@ -13,6 +14,11 @@ import {
 import { Meta } from '@/store/api'
 import { Loading } from '@/components/Loading'
 import { PengumumanTab, PengumumanTable } from '@/features/website/pengumuman'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod'
+import { useForm } from 'react-hook-form'
+import { TambahPengumumanSchema } from '@/schemas/website/pengumumanSchema'
+import FormTambahPengumuman from '@/components/Form/website/pengumuman/FormTambahPengumuman'
 
 export default function Pengumuman() {
   const navigate = useNavigate()
@@ -28,6 +34,14 @@ export default function Pengumuman() {
   // --- Data Pengumuman ---
   const [dataPengumuman, setDataPengumuman] = useState<GetPengumumanType[]>()
   const [meta, setMeta] = useState<Meta>()
+
+  const [isSubmit, setIsSubmit] = useState<boolean>(false)
+  const [isShowCrate, setIsShowCreate] = useState<boolean>(false)
+
+  const form = useForm<zod.infer<typeof TambahPengumumanSchema>>({
+    resolver: zodResolver(TambahPengumumanSchema),
+    defaultValues: {},
+  })
 
   const {
     data: dataPengumumanSekolah,
@@ -189,6 +203,79 @@ export default function Pengumuman() {
     }
   }, [isErrorPublishPengumuman, errorPublishPengumuman])
 
+  // --- Create Tambah Pengumuman ---
+  const [
+    createTambahPengumuman,
+    {
+      isError: isErrorTambahPengumuman,
+      error: errorTambahPengumuman,
+      isLoading: isLoadingTambahPengumuman,
+      isSuccess: isSuccessTambahPengumuman,
+    },
+  ] = useCreatePengumumanMutation()
+
+  const handleSubmit = async () => {
+    const values = form.getValues()
+
+    const body = {
+      id_kategori: values?.id_kategori,
+      id_tags: values?.id_tags ?? [],
+      tanggal: values?.tanggal ?? '',
+      judul: values?.judul ?? '',
+      isi: values?.isi ?? '',
+      publish: values?.publish ?? '1',
+      gambar: values?.gambar ?? [],
+    }
+
+    if (isSubmit && isShowCrate) {
+      try {
+        await createTambahPengumuman({ body: body })
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (isSuccessTambahPengumuman) {
+      toast.success(`Tambah pengumuman berhasil`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+      setTimeout(() => {
+        setIsShowCreate(false)
+        setIsSubmit(false)
+        setMenu('Riwayat Pengumuman')
+        form.reset()
+      }, 3000)
+    }
+  }, [isSuccessTambahPengumuman])
+
+  useEffect(() => {
+    if (isErrorTambahPengumuman) {
+      const errorMsg = errorTambahPengumuman as { data?: { message?: string } }
+
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+  }, [isErrorTambahPengumuman, errorTambahPengumuman])
+
   return (
     <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto rounded-3x bg-white">
       {loadingPengumumanSekolah ? (
@@ -219,6 +306,16 @@ export default function Pengumuman() {
                 setIsShowPublish={setIsShowPublish}
                 isShowPublish={isShowPublish}
                 handleSubmitPublish={handleSubmitPublish}
+              />
+            ) : menu === 'Buat Pengumuman' ? (
+              <FormTambahPengumuman
+                form={form}
+                isLoading={isLoadingTambahPengumuman}
+                handleSubmit={handleSubmit}
+                setIsShow={setIsShowCreate}
+                setIsSubmit={setIsSubmit}
+                isShow={isShowCrate}
+                isSubmit={isSubmit}
               />
             ) : (
               <ComingSoonPage />

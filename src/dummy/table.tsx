@@ -157,6 +157,9 @@ export const columnsListDataPengumuman: Column<GetPengumumanType>[] = [
     header: 'Judul',
     key: 'judul',
     width: 'w-[30%]',
+    renderCell: (rowData) => {
+      return <div className="line-clamp-5">{rowData?.judul}</div>
+    },
   },
   {
     header: 'Tanggal',
