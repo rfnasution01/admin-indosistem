@@ -263,14 +263,17 @@ export default function TambahProgram() {
 
   useEffect(() => {
     if (programById && activeAccordion) {
-      formProgram?.setValue('judul', programById?.judul)
-      formProgram?.setValue('isi_singkat', programById?.isi_singkat)
-      formProgram?.setValue('isi_lengkap', programById?.isi_lengkap)
-      formProgram?.setValue('photo', programById?.photo)
-      setUrls(programById?.photo)
-      formProgram?.setValue('aktif', programById?.aktif)
+      // Gunakan setTimeout untuk memastikan nilai diperbarui secara sinkron
+      setTimeout(() => {
+        formProgram?.setValue('judul', programById?.judul)
+        formProgram?.setValue('isi_singkat', programById?.isi_singkat)
+        formProgram?.setValue('isi_lengkap', programById?.isi_lengkap)
+        formProgram?.setValue('photo', programById?.photo)
+        setUrls(programById?.photo)
+        formProgram?.setValue('aktif', programById?.aktif)
+      }, 0)
     }
-  }, [layananById, activeAccordion])
+  }, [activeAccordion, programById])
 
   useEffect(() => {
     if (layananById && activeAccordion) {

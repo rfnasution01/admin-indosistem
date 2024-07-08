@@ -8,6 +8,7 @@ import {
   FormLabelInput,
   FormLabelRadio,
   FormLabelTextArea,
+  FormLabelTipTap,
 } from '@/components/InputComponent'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faSave, faSpinner } from '@fortawesome/free-solid-svg-icons'
@@ -133,11 +134,12 @@ export default function FormTambahProgram({
           </div>
 
           <div className="flex gap-64 phones:flex-col phones:gap-32">
-            <FormLabelTextArea
+            <FormLabelTipTap
               name="isi_lengkap"
-              useFormReturn={form}
+              form={form}
               headerLabel="Isi Lengkap"
-              placeholder="Masukkan isi paragraf"
+              placeHolder="Masukkan isi paragraf"
+              classname="w-full"
             />
           </div>
 

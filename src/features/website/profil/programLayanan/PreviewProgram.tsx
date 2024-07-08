@@ -40,7 +40,12 @@ export function PreviewProgram({
           </div>
         )}
         {isi_singkat && <p style={{ lineHeight: '130%' }}>{isi_singkat}</p>}
-        {isi_lengkap && <p style={{ lineHeight: '140%' }}>{isi_lengkap}</p>}
+        {isi_lengkap && (
+          <div
+            dangerouslySetInnerHTML={{ __html: isi_lengkap }}
+            className="article-content"
+          />
+        )}
       </div>
     </div>
   )
