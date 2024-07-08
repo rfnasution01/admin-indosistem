@@ -22,7 +22,12 @@ export function PreviewTestimonial({
       <div className="flex flex-1 flex-col gap-16">
         {nama && <p className="font-roboto">{nama}</p>}
         {keterangan && <p style={{ lineHeight: '130%' }}>{keterangan}</p>}
-        {isi && <p style={{ lineHeight: '130%' }}>{isi}</p>}
+        {isi && (
+          <div
+            dangerouslySetInnerHTML={{ __html: isi }}
+            className="article-content"
+          />
+        )}
       </div>
     </div>
   )
