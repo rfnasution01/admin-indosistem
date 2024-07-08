@@ -21,6 +21,7 @@ import {
   faCaretUp,
   faEye,
   faEyeSlash,
+  faPlus,
 } from '@fortawesome/free-solid-svg-icons'
 import FormTambahProgram from '@/components/Form/website/profil/FormTambahProgram'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -31,6 +32,7 @@ import {
   ProgramSchema,
 } from '@/schemas/website/programLayananSchema'
 import FormTambahLayanan from '@/components/Form/website/profil/FormTambahLayanan'
+import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
 
 export default function TambahProgram() {
   const navigate = useNavigate()
@@ -153,7 +155,7 @@ export default function TambahProgram() {
 
   useEffect(() => {
     if (isSuccessTambahLayanan) {
-      toast.success(`${dataLayanan ? 'Edit' : 'Tambah'} layanan berhasil`, {
+      toast.success(`${layananById ? 'Edit' : 'Tambah'} layanan berhasil`, {
         position: 'bottom-right',
         autoClose: 3000,
         hideProgressBar: false,
@@ -276,6 +278,58 @@ export default function TambahProgram() {
   return (
     <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto rounded-3x bg-white p-48">
       <Breadcrumb />
+      <div className="flex flex-col gap-32">
+        <div className="flex">
+          <div
+            onClick={() => {
+              toggleAccordion('tambah')
+              if (jenis === 'program') {
+                formProgram?.reset()
+                setProgramByID(null)
+                setUrls(null)
+              }
+              if (jenis === 'layanan') {
+                formLayanan?.reset()
+                setLayananByID(null)
+                setUrls(null)
+              }
+            }}
+            className="flex items-center gap-24 rounded-2xl bg-warna-dark px-24 py-12 text-white hover:cursor-pointer hover:bg-opacity-80"
+          >
+            <FontAwesomeIcon icon={faPlus} />
+            <p>Tambah {capitalizeFirstLetterFromLowercase(jenis)}</p>
+          </div>
+        </div>
+        {activeAccordion === 'tambah' && (
+          <div className="flex flex-col gap-32 transition-all duration-300 ease-in-out">
+            {jenis === 'program' ? (
+              <FormTambahProgram
+                form={formProgram}
+                isLoading={isLoadingTambahProgram}
+                handleSubmit={handleSubmit}
+                setUrls={setUrls}
+                urls={urls}
+                setIsShow={setIsShow}
+                setIsSubmit={setIsSubmit}
+                isShow={isShow}
+                isSubmit={isSubmit}
+              />
+            ) : (
+              <FormTambahLayanan
+                form={formLayanan}
+                isLoading={isLoadingTambahLayanan}
+                handleSubmit={handleSubmit}
+                setUrls={setUrls}
+                urls={urls}
+                setIsShow={setIsShow}
+                setIsSubmit={setIsSubmit}
+                isShow={isShow}
+                isSubmit={isSubmit}
+              />
+            )}
+          </div>
+        )}
+      </div>
       {loadingLayanan || loadingProgram ? (
         <Loading />
       ) : item?.length > 0 ? (

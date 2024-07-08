@@ -155,7 +155,7 @@ export default function FormTambahProgram({
             form={form}
             isLoading={isLoading}
             loadingFile={loadingFile}
-            name="isi_lengkap"
+            name="photo"
             handleUploadFoto={handleUploadFoto}
           />
 
