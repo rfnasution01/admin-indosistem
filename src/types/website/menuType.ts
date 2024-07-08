@@ -29,6 +29,7 @@ export type ParamsType = {
   search?: string
   page_number?: number
   page_size?: number
+  id_kategori?: string
 }
 
 export type DeleteType = {
