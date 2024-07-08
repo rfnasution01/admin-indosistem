@@ -465,15 +465,26 @@ export default function TambahProgram() {
                       setLayananByID(list)
                     }
                   }}
-                  className="flex w-1/2 items-center justify-between gap-24 hover:cursor-pointer phones:w-full"
+                  className="flex w-full items-center justify-between gap-24 hover:cursor-pointer phones:w-full"
                 >
                   <div className="flex items-center gap-24">
                     <button
                       onClick={(e) => {
                         e.preventDefault()
                         e.stopPropagation()
+                        setIsShowDelete(true)
+                        setDeleteID(list?.id)
                       }}
-                      className="hover:cursor-pointer hover:text-warna-primary"
+                      className="text-warna-red hover:cursor-pointer"
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                      }}
+                      // className="hover:cursor-pointer hover:text-warna-primary"
                     >
                       {list?.aktif === '1' ? (
                         <FontAwesomeIcon icon={faEye} />
@@ -499,17 +510,6 @@ export default function TambahProgram() {
                       )}
                     </span>
                   </div>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault()
-                      e.stopPropagation()
-                      setIsShowDelete(true)
-                      setDeleteID(list?.id)
-                    }}
-                    className="text-warna-red hover:cursor-pointer"
-                  >
-                    <FontAwesomeIcon icon={faTrash} />
-                  </button>
                 </div>
                 {isOpen && (
                   <div className="flex flex-col gap-32 transition-all duration-300 ease-in-out">
