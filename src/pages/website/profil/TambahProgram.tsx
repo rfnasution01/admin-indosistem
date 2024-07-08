@@ -11,6 +11,8 @@ import {
 import {
   useCreateLayananMutation,
   useCreateProgramMutation,
+  useDeleteLayananMutation,
+  useDeleteProgramMutation,
   useGetLayananQuery,
   useGetProgramQuery,
 } from '@/store/slices/website/profilAPI/programLayananAPI'
@@ -22,6 +24,8 @@ import {
   faEye,
   faEyeSlash,
   faPlus,
+  faSpinner,
+  faTrash,
 } from '@fortawesome/free-solid-svg-icons'
 import FormTambahProgram from '@/components/Form/website/profil/FormTambahProgram'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -33,6 +37,7 @@ import {
 } from '@/schemas/website/programLayananSchema'
 import FormTambahLayanan from '@/components/Form/website/profil/FormTambahLayanan'
 import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
+import { ValidasiDelete } from '@/components/Dialog/ValidasiDelete'
 
 export default function TambahProgram() {
   const navigate = useNavigate()
@@ -43,6 +48,8 @@ export default function TambahProgram() {
   const [activeAccordion, setActiveAccordion] = useState<string | null>(null)
   const [programById, setProgramByID] = useState<GetProgramType>()
   const [layananById, setLayananByID] = useState<GetLayananType>()
+  const [deleteID, setDeleteID] = useState<string>()
+  const [isShowDelete, setIsShowDelete] = useState<boolean>(false)
 
   const [urls, setUrls] = useState<string>()
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
@@ -275,6 +282,116 @@ export default function TambahProgram() {
     }
   }, [layananById, activeAccordion])
 
+  // --- Delete ---
+  const [
+    deleteProgram,
+    {
+      isError: isErrorDeleteProgram,
+      isLoading: isLoadingDeleteProgram,
+      isSuccess: isSuccessDeleteProgram,
+      error: errorDeleteProgram,
+    },
+  ] = useDeleteProgramMutation()
+
+  const handleSubmitDeleteProgram = async (id: string) => {
+    try {
+      await deleteProgram({ id: id })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    if (isSuccessDeleteProgram) {
+      toast.success('Delete program berhasil', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+      setIsShowDelete(false)
+      setDeleteID(null)
+    }
+  }, [isSuccessDeleteProgram])
+
+  useEffect(() => {
+    if (isErrorDeleteProgram) {
+      const errorMsg = errorDeleteProgram as { data?: { message?: string } }
+
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+  }, [isErrorDeleteProgram, errorDeleteProgram])
+
+  // --- Delete ---
+  const [
+    deleteLayanan,
+    {
+      isError: isErrorDeleteLayanan,
+      isLoading: isLoadingDeleteLayanan,
+      isSuccess: isSuccessDeleteLayanan,
+      error: errorDeleteLayanan,
+    },
+  ] = useDeleteLayananMutation()
+
+  const handleSubmitDeleteLayanan = async (id: string) => {
+    try {
+      await deleteLayanan({ id: id })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    if (isSuccessDeleteLayanan) {
+      toast.success('Delete layanan berhasil', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+      setIsShowDelete(false)
+      setDeleteID(null)
+    }
+  }, [isSuccessDeleteLayanan])
+
+  useEffect(() => {
+    if (isErrorDeleteLayanan) {
+      const errorMsg = errorDeleteLayanan as { data?: { message?: string } }
+
+      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+  }, [isErrorDeleteLayanan, errorDeleteLayanan])
+
   return (
     <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto rounded-3x bg-white p-48">
       <Breadcrumb />
@@ -348,36 +465,51 @@ export default function TambahProgram() {
                       setLayananByID(list)
                     }
                   }}
-                  className="flex items-center gap-24 hover:cursor-pointer"
+                  className="flex w-1/2 items-center justify-between gap-24 hover:cursor-pointer phones:w-full"
                 >
+                  <div className="flex items-center gap-24">
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                      }}
+                      className="hover:cursor-pointer hover:text-warna-primary"
+                    >
+                      {list?.aktif === '1' ? (
+                        <FontAwesomeIcon icon={faEye} />
+                      ) : (
+                        <FontAwesomeIcon icon={faEyeSlash} />
+                      )}
+                    </button>
+                    {jenis === 'program' && list?.judul && (
+                      <p className="font-roboto text-warna-dark">
+                        {list?.judul}
+                      </p>
+                    )}
+                    {jenis === 'layanan' && list?.nama_layanan && (
+                      <p className="font-roboto text-warna-dark">
+                        {list?.nama_layanan}
+                      </p>
+                    )}
+                    <span>
+                      {isOpen ? (
+                        <FontAwesomeIcon icon={faCaretUp} />
+                      ) : (
+                        <FontAwesomeIcon icon={faCaretDown} />
+                      )}
+                    </span>
+                  </div>
                   <button
                     onClick={(e) => {
                       e.preventDefault()
                       e.stopPropagation()
+                      setIsShowDelete(true)
+                      setDeleteID(list?.id)
                     }}
-                    className="hover:cursor-pointer hover:text-warna-primary"
+                    className="text-warna-red hover:cursor-pointer"
                   >
-                    {list?.aktif === '1' ? (
-                      <FontAwesomeIcon icon={faEye} />
-                    ) : (
-                      <FontAwesomeIcon icon={faEyeSlash} />
-                    )}
+                    <FontAwesomeIcon icon={faTrash} />
                   </button>
-                  {jenis === 'program' && list?.judul && (
-                    <p className="font-roboto text-warna-dark">{list?.judul}</p>
-                  )}
-                  {jenis === 'layanan' && list?.nama_layanan && (
-                    <p className="font-roboto text-warna-dark">
-                      {list?.nama_layanan}
-                    </p>
-                  )}
-                  <span>
-                    {isOpen ? (
-                      <FontAwesomeIcon icon={faCaretUp} />
-                    ) : (
-                      <FontAwesomeIcon icon={faCaretDown} />
-                    )}
-                  </span>
                 </div>
                 {isOpen && (
                   <div className="flex flex-col gap-32 transition-all duration-300 ease-in-out">
@@ -415,6 +547,35 @@ export default function TambahProgram() {
       ) : (
         <p>Belum ada data</p>
       )}
+      <ValidasiDelete
+        isOpen={isShowDelete}
+        setIsOpen={setIsShowDelete}
+        child={
+          <button
+            type="button"
+            disabled={
+              jenis === 'program'
+                ? isLoadingDeleteProgram
+                : isLoadingDeleteLayanan
+            }
+            onClick={() => {
+              jenis === 'program'
+                ? handleSubmitDeleteProgram(deleteID)
+                : handleSubmitDeleteLayanan(deleteID)
+            }}
+            className="flex items-center gap-12 rounded-2xl bg-warna-red px-24 py-12 text-white hover:bg-opacity-80"
+          >
+            {isLoadingDeleteProgram || isErrorDeleteLayanan ? (
+              <span className="animate-spin duration-300">
+                <FontAwesomeIcon icon={faSpinner} />
+              </span>
+            ) : (
+              <FontAwesomeIcon icon={faTrash} />
+            )}
+            <p className="font-sf-pro">Hapus</p>
+          </button>
+        }
+      />
       <ToastContainer />
     </div>
   )
