@@ -50,7 +50,9 @@ export default function TambahFasilitasSekolah() {
       keterangan: values?.keterangan ?? '',
       nama: values?.nama ?? '',
       jam_operasional:
-        `${values?.jam_mulai} s/d ${values?.jam_selesai} WIB` ?? '',
+        values?.jam_mulai && values?.jam_selesai
+          ? `${values?.jam_mulai} s/d ${values?.jam_selesai} WIB`
+          : '-',
       alamat: values?.alamat ?? '',
       telepon: values?.telepon ?? '',
     }

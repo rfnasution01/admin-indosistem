@@ -6,7 +6,7 @@ import { Form } from '../..'
 import {
   FormLabelFile,
   FormLabelInput,
-  FormLabelTextArea,
+  FormLabelTipTap,
 } from '@/components/InputComponent'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faSave, faSpinner } from '@fortawesome/free-solid-svg-icons'
@@ -123,11 +123,12 @@ export default function FormTambahFasilitas({
           </div>
 
           <div className="flex gap-64 phones:flex-col phones:gap-32">
-            <FormLabelTextArea
+            <FormLabelTipTap
               name="keterangan"
-              useFormReturn={form}
-              headerLabel="Spesifikasi dan Fitur"
-              placeholder="Masukkan isi paragraf"
+              form={form}
+              headerLabel="Spesifikasi dan fitur"
+              placeHolder="Masukkan isi paragraf"
+              classname="w-full"
             />
           </div>
 

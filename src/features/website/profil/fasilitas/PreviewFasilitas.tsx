@@ -37,7 +37,12 @@ export function PreviewFasilitas({
             {alamat} | {telepon}
           </p>
         )}
-        {keterangan && <p style={{ lineHeight: '130%' }}>{keterangan}</p>}
+        {keterangan && (
+          <div
+            dangerouslySetInnerHTML={{ __html: keterangan }}
+            className="article-content"
+          />
+        )}
       </div>
     </div>
   )
