@@ -30,8 +30,10 @@ export type ParamsType = {
   page_number?: number
   page_size?: number
   id_kategori?: string
+  jenis?: string
 }
 
 export type DeleteType = {
   id: string
+  jenis?: string
 }

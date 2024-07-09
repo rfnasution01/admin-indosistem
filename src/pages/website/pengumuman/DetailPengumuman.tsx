@@ -5,6 +5,7 @@ import {
   PengumumanDetail,
   PengumumanDetailGambar,
 } from '@/features/website/pengumuman'
+import { usePathname } from '@/hooks/usePathname'
 import {
   useDeleteGambarMutation,
   useGetPengumumanDetailQuery,
@@ -23,6 +24,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 export default function DetailPengumuman() {
   const navigate = useNavigate()
+  const { secondPathname } = usePathname()
 
   const id = localStorage.getItem('editID') ?? null
   const [deleteID, setDeleteID] = useState<string>()
@@ -44,6 +46,7 @@ export default function DetailPengumuman() {
   } = useGetPengumumanDetailQuery(
     {
       id: id,
+      jenis: secondPathname,
     },
     { skip: !id },
   )
@@ -98,7 +101,7 @@ export default function DetailPengumuman() {
 
   const handleSubmitDeleteGambar = async (id: string) => {
     try {
-      await deleteGambar({ id: id })
+      await deleteGambar({ id: id, jenis: secondPathname })
     } catch (error) {
       console.error(error)
     }

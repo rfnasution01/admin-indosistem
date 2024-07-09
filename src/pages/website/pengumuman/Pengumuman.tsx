@@ -19,9 +19,11 @@ import * as zod from 'zod'
 import { useForm } from 'react-hook-form'
 import { TambahPengumumanSchema } from '@/schemas/website/pengumumanSchema'
 import FormTambahPengumuman from '@/components/Form/website/pengumuman/FormTambahPengumuman'
+import { usePathname } from '@/hooks/usePathname'
 
 export default function Pengumuman() {
   const navigate = useNavigate()
+  const { secondPathname } = usePathname()
 
   const [menu, setMenu] = useState<string>('Riwayat Pengumuman')
   const [search, setSearch] = useState<string>('')
@@ -54,6 +56,7 @@ export default function Pengumuman() {
     search: search,
     page_number: pageNumber,
     page_size: pageSize,
+    jenis: secondPathname,
   })
 
   const loadingPengumumanSekolah =
@@ -104,7 +107,7 @@ export default function Pengumuman() {
 
   const handleSubmitDelete = async (id: string) => {
     try {
-      await deletePengumuman({ id: id })
+      await deletePengumuman({ id: id, jenis: secondPathname })
     } catch (error) {
       console.error(error)
     }
@@ -162,7 +165,7 @@ export default function Pengumuman() {
       publish: publish,
     }
     try {
-      await publishPengumuman({ body: body })
+      await publishPengumuman({ body: body, jenis: secondPathname })
     } catch (error) {
       console.error(error)
     }
@@ -229,7 +232,7 @@ export default function Pengumuman() {
 
     if (isSubmit && isShowCrate) {
       try {
-        await createTambahPengumuman({ body: body })
+        await createTambahPengumuman({ body: body, jenis: secondPathname })
       } catch (error) {
         console.error(error)
       }

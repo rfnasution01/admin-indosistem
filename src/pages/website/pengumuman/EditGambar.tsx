@@ -16,7 +16,7 @@ export default function EditGambar() {
   const navigate = useNavigate()
   const [urls, setUrls] = useState<string>()
 
-  const { lastPathname } = usePathname()
+  const { lastPathname, secondPathname } = usePathname()
   const idPengumuman = localStorage.getItem('ID') ?? ''
   const idGambar = localStorage.getItem('editID') ?? ''
   const data = localStorage.getItem('editData') ?? ''
@@ -52,7 +52,7 @@ export default function EditGambar() {
 
     if (isSubmit && isShow) {
       try {
-        await createEditGambar({ body: body })
+        await createEditGambar({ body: body, jenis: secondPathname })
       } catch (error) {
         console.error(error)
       }

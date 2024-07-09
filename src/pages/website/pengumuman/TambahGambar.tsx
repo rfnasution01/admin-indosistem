@@ -15,7 +15,7 @@ import FormTambahGambar from '@/components/Form/website/pengumuman/FormTambahGam
 export default function TambahGambar() {
   const navigate = useNavigate()
 
-  const { lastPathname } = usePathname()
+  const { lastPathname, secondPathname } = usePathname()
 
   const isEdit = lastPathname === 'edit'
   const idEdit = localStorage.getItem('editID') ?? null
@@ -49,7 +49,7 @@ export default function TambahGambar() {
 
     if (isSubmit && isShow) {
       try {
-        await createTambahGambar({ body: body })
+        await createTambahGambar({ body: body, jenis: secondPathname })
       } catch (error) {
         console.error(error)
       }

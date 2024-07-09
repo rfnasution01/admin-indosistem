@@ -17,8 +17,8 @@ export const WebsitePengumumanEndpoints = api.injectEndpoints({
       Res<{ data: GetPengumumanType[]; meta: Meta }>,
       ParamsType
     >({
-      query: ({ page_number, page_size, search, id_kategori }) => ({
-        url: `admin/website/pengumuman`,
+      query: ({ page_number, page_size, search, id_kategori, jenis }) => ({
+        url: `admin/website/${jenis}`,
         method: 'GET',
         params: {
           page_number: page_number,
@@ -33,8 +33,8 @@ export const WebsitePengumumanEndpoints = api.injectEndpoints({
       Res<{ data: GetPengumumanDetailType; gambar: PengumumanGambarType[] }>,
       DeleteType
     >({
-      query: ({ id }) => ({
-        url: `admin/website/pengumuman_detail`,
+      query: ({ id, jenis }) => ({
+        url: `admin/website/${jenis}_detail`,
         method: 'GET',
         params: {
           id: id,
@@ -42,25 +42,34 @@ export const WebsitePengumumanEndpoints = api.injectEndpoints({
       }),
       providesTags: ['website-pengumuman-detail'],
     }),
-    createPengumuman: builder.mutation<void, { body: PostPengumumanParams }>({
-      query: ({ body }) => ({
-        url: `admin/website/pengumuman_tambah`,
+    createPengumuman: builder.mutation<
+      void,
+      { body: PostPengumumanParams; jenis: string }
+    >({
+      query: ({ body, jenis }) => ({
+        url: `admin/website/${jenis}_tambah`,
         method: 'POST',
         body: body,
       }),
       invalidatesTags: ['website-pengumuman'],
     }),
-    updatePengumuman: builder.mutation<void, { body: UpdatePengumumanParams }>({
-      query: ({ body }) => ({
-        url: `admin/website/pengumuman_edit`,
+    updatePengumuman: builder.mutation<
+      void,
+      { body: UpdatePengumumanParams; jenis: string }
+    >({
+      query: ({ body, jenis }) => ({
+        url: `admin/website/${jenis}_edit`,
         method: 'POST',
         body: body,
       }),
       invalidatesTags: ['website-pengumuman', 'website-pengumuman-detail'],
     }),
-    createGambar: builder.mutation<void, { body: PostGambarParams }>({
-      query: ({ body }) => ({
-        url: `admin/website/pengumuman_tambah_gambar`,
+    createGambar: builder.mutation<
+      void,
+      { body: PostGambarParams; jenis: string }
+    >({
+      query: ({ body, jenis }) => ({
+        url: `admin/website/${jenis}_tambah_gambar`,
         method: 'POST',
         body: body,
       }),
@@ -70,9 +79,12 @@ export const WebsitePengumumanEndpoints = api.injectEndpoints({
         'website-pengumuman-detail',
       ],
     }),
-    updateGambar: builder.mutation<void, { body: UpdateGambarParams }>({
-      query: ({ body }) => ({
-        url: `admin/website/pengumuman_edit_gambar`,
+    updateGambar: builder.mutation<
+      void,
+      { body: UpdateGambarParams; jenis: string }
+    >({
+      query: ({ body, jenis }) => ({
+        url: `admin/website/${jenis}_edit_gambar`,
         method: 'POST',
         body: body,
       }),
@@ -83,8 +95,8 @@ export const WebsitePengumumanEndpoints = api.injectEndpoints({
       ],
     }),
     deleteGambar: builder.mutation<void, DeleteType>({
-      query: ({ id }) => ({
-        url: `admin/website/pengumuman_hapus_gambar/${id}`,
+      query: ({ id, jenis }) => ({
+        url: `admin/website/${jenis}_hapus_gambar/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: [
@@ -93,17 +105,20 @@ export const WebsitePengumumanEndpoints = api.injectEndpoints({
         'website-gambar',
       ],
     }),
-    updatePublish: builder.mutation<void, { body: PostPublishParams }>({
-      query: ({ body }) => ({
-        url: `admin/website/pengumuman_status`,
+    updatePublish: builder.mutation<
+      void,
+      { body: PostPublishParams; jenis: string }
+    >({
+      query: ({ body, jenis }) => ({
+        url: `admin/website/${jenis}_status`,
         method: 'POST',
         body: body,
       }),
       invalidatesTags: ['website-pengumuman', 'website-pengumuman-detail'],
     }),
     deletePengumuman: builder.mutation<void, DeleteType>({
-      query: ({ id }) => ({
-        url: `admin/website/pengumuman/${id}`,
+      query: ({ id, jenis }) => ({
+        url: `admin/website/${jenis}/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['website-pengumuman', 'website-pengumuman-detail'],

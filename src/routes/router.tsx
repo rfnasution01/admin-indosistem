@@ -24,6 +24,8 @@ import {
 } from './loadables'
 import Cookies from 'js-cookie'
 
+const categories = ['berita', 'pengumuman', 'agenda', 'prestasi', 'mading']
+
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -50,54 +52,89 @@ export const router = createBrowserRouter([
             path: '',
             element: <ComingSoonPage />,
           },
-          {
-            path: 'pengumuman',
-            element: <CommonLayout />,
-            children: [
-              {
-                path: '',
-                element: <PengumumanPage />,
-              },
-              {
-                path: 'detail',
-                element: <CommonLayout />,
-                children: [
-                  {
-                    path: '',
-                    element: <DetailPengumumanPage />,
-                  },
-                  {
-                    path: 'tambah-gambar',
-                    element: <TambahGambarPengumumanPage />,
-                  },
-                  {
-                    path: 'edit-gambar',
-                    element: <EditGambarPengumumanPage />,
-                  },
-                ],
-              },
-              {
-                path: 'edit',
-                element: <EditPengumumanPage />,
-              },
-            ],
-          },
-          {
-            path: 'mading',
-            element: <ComingSoonPage />,
-          },
-          {
-            path: 'berita',
-            element: <ComingSoonPage />,
-          },
-          {
-            path: 'agenda',
-            element: <ComingSoonPage />,
-          },
-          {
-            path: 'prestasi',
-            element: <ComingSoonPage />,
-          },
+          ...categories.flatMap((category) => [
+            {
+              path: category,
+              element: <CommonLayout />,
+              children: [
+                {
+                  path: '',
+                  element: <PengumumanPage />,
+                },
+                {
+                  path: 'detail',
+                  element: <CommonLayout />,
+                  children: [
+                    {
+                      path: '',
+                      element: <DetailPengumumanPage />,
+                    },
+                    {
+                      path: 'tambah-gambar',
+                      element: <TambahGambarPengumumanPage />,
+                    },
+                    {
+                      path: 'edit-gambar',
+                      element: <EditGambarPengumumanPage />,
+                    },
+                  ],
+                },
+                {
+                  path: 'edit',
+                  element: <EditPengumumanPage />,
+                },
+              ],
+            },
+          ]),
+
+          // {
+          //   path: 'pengumuman',
+          //   element: <CommonLayout />,
+          //   children: [
+          //     {
+          //       path: '',
+          //       element: <PengumumanPage />,
+          //     },
+          //     {
+          //       path: 'detail',
+          //       element: <CommonLayout />,
+          //       children: [
+          //         {
+          //           path: '',
+          //           element: <DetailPengumumanPage />,
+          //         },
+          //         {
+          //           path: 'tambah-gambar',
+          //           element: <TambahGambarPengumumanPage />,
+          //         },
+          //         {
+          //           path: 'edit-gambar',
+          //           element: <EditGambarPengumumanPage />,
+          //         },
+          //       ],
+          //     },
+          //     {
+          //       path: 'edit',
+          //       element: <EditPengumumanPage />,
+          //     },
+          //   ],
+          // },
+          // {
+          //   path: 'mading',
+          //   element: <ComingSoonPage />,
+          // },
+          // {
+          //   path: 'berita',
+          //   element: <ComingSoonPage />,
+          // },
+          // {
+          //   path: 'agenda',
+          //   element: <ComingSoonPage />,
+          // },
+          // {
+          //   path: 'prestasi',
+          //   element: <ComingSoonPage />,
+          // },
           {
             path: 'galeri',
             element: <ComingSoonPage />,

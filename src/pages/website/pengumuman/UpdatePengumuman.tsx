@@ -20,7 +20,7 @@ import Cookies from 'js-cookie'
 export default function UpdatePengumuman() {
   const navigate = useNavigate()
 
-  const { lastPathname } = usePathname()
+  const { lastPathname, secondPathname } = usePathname()
 
   const isEdit = lastPathname === 'edit'
   const idEdit = localStorage.getItem('editID') ?? null
@@ -35,6 +35,7 @@ export default function UpdatePengumuman() {
   } = useGetPengumumanDetailQuery(
     {
       id: idEdit,
+      jenis: secondPathname,
     },
     { skip: !idEdit },
   )
@@ -107,7 +108,7 @@ export default function UpdatePengumuman() {
 
     if (isSubmit && isShow) {
       try {
-        await createTambahPengumuman({ body: body })
+        await createTambahPengumuman({ body: body, jenis: secondPathname })
       } catch (error) {
         console.error(error)
       }
