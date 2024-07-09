@@ -83,6 +83,10 @@ export const router = createBrowserRouter([
                   path: 'edit',
                   element: <EditKategoriPage />,
                 },
+                {
+                  path: 'tambah',
+                  element: <EditKategoriPage />,
+                },
               ],
             },
           ]),

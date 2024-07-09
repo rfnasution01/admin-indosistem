@@ -74,7 +74,7 @@ export function ActiveContent<T extends Kategori>({
                 <FontAwesomeIcon icon={faEye} />
               )}
               <p className="font-sf-pro">
-                {data?.publish === '1' ? 'Sembunyikan' : 'Tampilkan'}
+                {data?.publish === '1' ? 'Draft' : 'Publish'}
               </p>
             </button>
           }

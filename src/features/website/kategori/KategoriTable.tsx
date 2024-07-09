@@ -26,8 +26,8 @@ export function KategoriTable({
   isLoading,
   isLoadingDelete,
   handleSubmitDelete,
-  isShow,
-  setIsShow,
+  isShowDelete,
+  setIsShowDelete,
   isLoadingPublish,
   isShowPublish,
   setIsShowPublish,
@@ -44,8 +44,8 @@ export function KategoriTable({
   search: string
   isLoading?: boolean
   handleSubmitDelete: (id: string) => Promise<void>
-  setIsShow: Dispatch<SetStateAction<boolean>>
-  isShow: boolean
+  setIsShowDelete: Dispatch<SetStateAction<boolean>>
+  isShowDelete: boolean
   isLoadingDelete: boolean
   handleSubmitPublish: (id: string, publish: string) => Promise<void>
   setIsShowPublish: Dispatch<SetStateAction<boolean>>
@@ -99,8 +99,8 @@ export function KategoriTable({
         pageSize={pageSize}
         currentPage={pageNumber}
         isNumber
-        isShow={isShow}
-        setIsShow={setIsShow}
+        isShowDelete={isShowDelete}
+        setIsShowDelete={setIsShowDelete}
         handleSubmitDelete={handleSubmitDelete}
         isLoadingDelete={isLoadingDelete}
         isKategori

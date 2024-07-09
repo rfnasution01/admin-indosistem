@@ -7,6 +7,9 @@ export type GetKategoriType = {
   hits: string
   jlh_photo: number
   id_kategori: string
+  create_user: string
+  gambar: KategoriGambarType[]
+  isi: string
 }
 
 export type GetKategoriDetailType = {
@@ -38,6 +41,7 @@ export type KategoriGambarType = {
 }
 
 export type PostKategoriParams = {
+  id: string
   id_kategori: string
   id_tags: string[]
   tanggal: string
@@ -51,17 +55,6 @@ export type PostKategoriParams = {
 export type GambarType = {
   url_gambar?: string
   keterangan?: string
-}
-
-export type UpdateKategoriParams = {
-  id: string
-  id_kategori: string
-  deskripsi_singkat: string
-  id_tags: string[]
-  tanggal: string
-  judul: string
-  isi: string
-  publish: string
 }
 
 export type PostGambarParams = {

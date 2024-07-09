@@ -1,7 +1,14 @@
 import { usePathname } from '@/hooks/usePathname'
-import { convertSlugToText } from '@/utils/formatText'
 import clsx from 'clsx'
 import { Dispatch, SetStateAction } from 'react'
+
+const tabs = {
+  pengumuman: ['Publish', 'Draft', 'Semua Pengumuman'],
+  mading: ['Publish', 'Draft', 'Semua Mading'],
+  berita: ['Dashboard', 'Publish', 'Draft', 'Semua Berita'],
+  agenda: ['Publish', 'Draft', 'Semua Agenda'],
+  prestasi: ['Publish', 'Draft', 'Semua Prestasi'],
+}
 
 export function KategoriTab({
   menu,
@@ -12,12 +19,13 @@ export function KategoriTab({
 }) {
   const { secondPathname } = usePathname()
 
+  const getTab = (path) => tabs[path] || []
+
+  const tab = getTab(secondPathname)
+
   return (
     <div className="scrollbar flex items-center gap-32 overflow-x-auto border-b border-warna-pale-grey px-48 pt-48">
-      {[
-        `Riwayat ${convertSlugToText(secondPathname)}`,
-        `Buat ${convertSlugToText(secondPathname)}`,
-      ].map((item, idx) => (
+      {tab.map((item, idx) => (
         <p
           key={idx}
           onClick={() => setMenu(item)}

@@ -60,7 +60,7 @@ export function PreviewKategori({
             </p>
           ) : (
             <p className="rounded-2xl bg-warna-red px-24 py-12 text-[1.8rem] text-white">
-              Tidak dpublish
+              Draft
             </p>
           )}
         </div>

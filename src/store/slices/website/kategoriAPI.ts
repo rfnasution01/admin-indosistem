@@ -7,7 +7,6 @@ import {
   PostKategoriParams,
   PostPublishParams,
   UpdateGambarParams,
-  UpdateKategoriParams,
 } from '@/types/website/kategoriType'
 import { DeleteType, ParamsType } from '@/types/website/menuType'
 
@@ -17,7 +16,14 @@ export const WebsiteKategoriEndpoints = api.injectEndpoints({
       Res<{ data: GetKategoriType[]; meta: Meta }>,
       ParamsType
     >({
-      query: ({ page_number, page_size, search, id_kategori, jenis }) => ({
+      query: ({
+        page_number,
+        page_size,
+        search,
+        id_kategori,
+        jenis,
+        status,
+      }) => ({
         url: `admin/website/${jenis}`,
         method: 'GET',
         params: {
@@ -25,6 +31,7 @@ export const WebsiteKategoriEndpoints = api.injectEndpoints({
           page_size: page_size,
           search: search,
           id_kategori: id_kategori,
+          status: status,
         },
       }),
       providesTags: ['website-kategori'],
@@ -44,26 +51,16 @@ export const WebsiteKategoriEndpoints = api.injectEndpoints({
     }),
     createKategori: builder.mutation<
       void,
-      { body: PostKategoriParams; jenis: string }
+      { body: PostKategoriParams; jenis: string; aksi: string }
     >({
-      query: ({ body, jenis }) => ({
-        url: `admin/website/${jenis}_tambah`,
-        method: 'POST',
-        body: body,
-      }),
-      invalidatesTags: ['website-kategori'],
-    }),
-    updateKategori: builder.mutation<
-      void,
-      { body: UpdateKategoriParams; jenis: string }
-    >({
-      query: ({ body, jenis }) => ({
-        url: `admin/website/${jenis}_edit`,
+      query: ({ body, jenis, aksi }) => ({
+        url: `admin/website/${jenis}_${aksi}`,
         method: 'POST',
         body: body,
       }),
       invalidatesTags: ['website-kategori', 'website-kategori-detail'],
     }),
+
     createGambar: builder.mutation<
       void,
       { body: PostGambarParams; jenis: string }
@@ -130,7 +127,6 @@ export const {
   useGetKategoriQuery,
   useGetKategoriDetailQuery,
   useCreateKategoriMutation,
-  useUpdateKategoriMutation,
   useCreateGambarMutation,
   useUpdateGambarMutation,
   useDeleteGambarMutation,

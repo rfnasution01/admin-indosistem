@@ -15,17 +15,17 @@ import { ValidasiDelete } from '../Dialog/ValidasiDelete'
 type Props<T> = {
   data: T
   handleSubmitDelete: (id: string) => Promise<void>
-  setIsShow: Dispatch<SetStateAction<boolean>>
-  isShow: boolean
+  setIsShowDelete: Dispatch<SetStateAction<boolean>>
+  isShowDelete: boolean
   isLoadingDelete: boolean
 }
 
 export function MenubarAction<T extends Fasilitas>({
   data,
   handleSubmitDelete,
-  setIsShow,
+  setIsShowDelete,
   isLoadingDelete,
-  isShow,
+  isShowDelete,
 }: Props<T>) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -76,15 +76,15 @@ export function MenubarAction<T extends Fasilitas>({
                 className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 text-warna-red hover:border-warna-red hover:bg-warna-red hover:bg-opacity-10"
                 type="button"
                 onClick={() => {
-                  setIsShow(true)
+                  setIsShowDelete(true)
                 }}
               >
                 <FontAwesomeIcon icon={faTrash} />
                 <p>Hapus</p>
               </button>
               <ValidasiDelete
-                isOpen={isShow}
-                setIsOpen={setIsShow}
+                isOpen={isShowDelete}
+                setIsOpen={setIsShowDelete}
                 child={
                   <button
                     type="button"

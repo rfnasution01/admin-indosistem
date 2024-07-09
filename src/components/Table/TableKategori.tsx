@@ -33,8 +33,8 @@ type Props<T extends Kategori, P> = {
   pageSize?: number
   isKategori?: boolean
   handleSubmitDelete?: (id: string) => Promise<void>
-  setIsShow?: Dispatch<SetStateAction<boolean>>
-  isShow?: boolean
+  setIsShowDelete?: Dispatch<SetStateAction<boolean>>
+  isShowDelete?: boolean
   isLoadingDelete?: boolean
   handleSubmitPublish: (id: string, publish: string) => Promise<void>
   setIsShowPublish?: Dispatch<SetStateAction<boolean>>
@@ -57,9 +57,9 @@ export function TableKategori<T extends Kategori, P>({
   pageSize,
   isKategori,
   handleSubmitDelete,
-  isShow,
+  isShowDelete,
   isLoadingDelete,
-  setIsShow,
+  setIsShowDelete,
   handleSubmitPublish,
   setIsShowPublish,
   isLoadingPublish,
@@ -179,8 +179,8 @@ export function TableKategori<T extends Kategori, P>({
                             data={row}
                             handleSubmitDelete={handleSubmitDelete}
                             isLoadingDelete={isLoadingDelete}
-                            isShow={isShow}
-                            setIsShow={setIsShow}
+                            isShowDelete={isShowDelete}
+                            setIsShowDelete={setIsShowDelete}
                           />
                         </td>
                       )}

@@ -6,16 +6,14 @@ import 'react-toastify/dist/ReactToastify.css'
 import Cookies from 'js-cookie'
 import { Meta } from '@/store/api'
 import { Loading } from '@/components/Loading'
-import { KategoriTab, KategoriTable } from '@/features/website/kategori'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as zod from 'zod'
-import { useForm } from 'react-hook-form'
-import FormTambahKategori from '@/components/Form/website/kategori/FormTambahKategori'
+import {
+  KategoriTab,
+  KategoriTable,
+  KategoriPublish,
+} from '@/features/website/kategori'
 import { usePathname } from '@/hooks/usePathname'
 import { GetKategoriType } from '@/types/website/kategoriType'
-import { TambahKategoriSchema } from '@/schemas/website/kategoriSchema'
 import {
-  useCreateKategoriMutation,
   useDeleteKategoriMutation,
   useGetKategoriQuery,
   useUpdatePublishMutation,
@@ -26,71 +24,46 @@ export default function Kategori() {
   const navigate = useNavigate()
   const { secondPathname } = usePathname()
 
-  const getDefaultTab = (path) => {
-    return path === 'pengumuman'
-      ? 'Riwayat Pengumuman'
-      : path === 'berita'
-        ? 'Riwayat Berita'
-        : path === 'prestasi'
-          ? 'Riwayat Prestasi'
-          : path === 'agenda'
-            ? 'Riwayat Agenda'
-            : path === 'mading'
-              ? 'Riwayat Mading'
-              : `Riwayat ${convertSlugToText(path)}`
-  }
-
-  const [menu, setMenu] = useState<string>(getDefaultTab(secondPathname))
-  useEffect(() => {
-    setMenu(getDefaultTab(secondPathname))
-  }, [secondPathname])
+  const [menu, setMenu] = useState<string>()
 
   const [search, setSearch] = useState<string>('')
   const [id_kategori, setIdKategori] = useState<string>('')
   const [pageNumber, setPageNumber] = useState<number>(1)
   const [pageSize, setPageSize] = useState<number>(5)
-  const [isShow, setIsShow] = useState<boolean>(false)
+  const [isShowDelete, setIsShowDelete] = useState<boolean>(false)
   const [isShowPublish, setIsShowPublish] = useState<boolean>(false)
 
   // --- Data Kategori ---
-  const [dataKategori, setDataKategori] = useState<GetKategoriType[]>()
+  const [kategori, setKategori] = useState<GetKategoriType[]>()
   const [meta, setMeta] = useState<Meta>()
 
-  const [isSubmit, setIsSubmit] = useState<boolean>(false)
-  const [isShowCrate, setIsShowCreate] = useState<boolean>(false)
-
-  const form = useForm<zod.infer<typeof TambahKategoriSchema>>({
-    resolver: zodResolver(TambahKategoriSchema),
-    defaultValues: {},
-  })
-
   const {
-    data: dataKategoriSekolah,
-    isFetching: isFetchingKategoriSekolah,
-    isLoading: isLoadingKategoriSekolah,
-    isError: isErrorKategoriSekolah,
-    error: errorKategoriSekolah,
+    data: dataKategori,
+    isFetching: isFetchingKategori,
+    isLoading: isLoadingKategori,
+    isError: isErrorKategori,
+    error: errorKategori,
   } = useGetKategoriQuery({
     id_kategori: id_kategori,
     search: search,
     page_number: pageNumber,
     page_size: pageSize,
     jenis: secondPathname,
+    status: menu === 'Publish' ? '1' : menu === 'Draft' ? '0' : '',
   })
 
-  const loadingKategoriSekolah =
-    isLoadingKategoriSekolah || isFetchingKategoriSekolah
+  const loadingKategori = isLoadingKategori || isFetchingKategori
 
   useEffect(() => {
-    if (dataKategoriSekolah?.data) {
-      setDataKategori(dataKategoriSekolah?.data?.data)
-      setMeta(dataKategoriSekolah?.data?.meta)
+    if (dataKategori?.data) {
+      setKategori(dataKategori?.data?.data)
+      setMeta(dataKategori?.data?.meta)
     }
-  }, [dataKategoriSekolah?.data, pageNumber, pageSize, search, id_kategori])
+  }, [dataKategori?.data, pageNumber, pageSize, search, id_kategori, menu])
 
   useEffect(() => {
-    if (isErrorKategoriSekolah) {
-      const errorMsg = errorKategoriSekolah as { data?: { message?: string } }
+    if (isErrorKategori) {
+      const errorMsg = errorKategori as { data?: { message?: string } }
 
       toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
         position: 'bottom-right',
@@ -111,7 +84,7 @@ export default function Kategori() {
         }, 3000)
       }
     }
-  }, [isErrorKategoriSekolah, errorKategoriSekolah])
+  }, [isErrorKategori, errorKategori])
 
   // --- Delete ---
   const [
@@ -145,7 +118,7 @@ export default function Kategori() {
         theme: 'light',
         transition: Bounce,
       })
-      setIsShow(false)
+      setIsShowDelete(false)
     }
   }, [isSuccessDeleteKategori])
 
@@ -225,83 +198,9 @@ export default function Kategori() {
     }
   }, [isErrorPublishKategori, errorPublishKategori])
 
-  // --- Create Tambah Kategori ---
-  const [
-    createTambahKategori,
-    {
-      isError: isErrorTambahKategori,
-      error: errorTambahKategori,
-      isLoading: isLoadingTambahKategori,
-      isSuccess: isSuccessTambahKategori,
-    },
-  ] = useCreateKategoriMutation()
-
-  const handleSubmit = async () => {
-    const values = form.getValues()
-
-    const body = {
-      id_kategori: values?.id_kategori,
-      id_tags: values?.id_tags ?? [],
-      tanggal: values?.tanggal ?? '',
-      judul: values?.judul ?? '',
-      deskripsi_singkat: values?.deskripsi_singkat ?? '',
-      isi: values?.isi ?? '',
-      publish: values?.publish ?? '1',
-      gambar: values?.gambar ?? [],
-    }
-
-    if (isSubmit && isShowCrate) {
-      try {
-        await createTambahKategori({ body: body, jenis: secondPathname })
-      } catch (error) {
-        console.error(error)
-      }
-    }
-  }
-
-  useEffect(() => {
-    if (isSuccessTambahKategori) {
-      toast.success(`Tambah ${secondPathname} berhasil`, {
-        position: 'bottom-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
-      setTimeout(() => {
-        setIsShowCreate(false)
-        setIsSubmit(false)
-        setMenu(`Riwayat ${convertSlugToText(secondPathname)}`)
-        form.reset()
-      }, 3000)
-    }
-  }, [isSuccessTambahKategori])
-
-  useEffect(() => {
-    if (isErrorTambahKategori) {
-      const errorMsg = errorTambahKategori as { data?: { message?: string } }
-
-      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
-        position: 'bottom-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
-    }
-  }, [isErrorTambahKategori, errorTambahKategori])
-
   return (
     <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto rounded-3x bg-white">
-      {loadingKategoriSekolah ? (
+      {loadingKategori ? (
         <Loading />
       ) : (
         <>
@@ -310,20 +209,20 @@ export default function Kategori() {
           </div>
 
           <div className="scrollbar flex h-full flex-1 overflow-y-auto px-48 pb-48">
-            {menu === `Riwayat ${convertSlugToText(secondPathname)}` ? (
+            {menu === `Semua ${convertSlugToText(secondPathname)}` ? (
               <KategoriTable
-                data={dataKategori}
+                data={kategori}
                 meta={meta}
                 setPageNumber={setPageNumber}
                 setPageSize={setPageSize}
                 setSearch={setSearch}
                 setIdKategori={setIdKategori}
                 search={search}
-                isLoading={loadingKategoriSekolah}
+                isLoading={loadingKategori}
                 pageNumber={pageNumber}
                 pageSize={pageSize}
-                isShow={isShow}
-                setIsShow={setIsShow}
+                isShowDelete={isShowDelete}
+                setIsShowDelete={setIsShowDelete}
                 handleSubmitDelete={handleSubmitDelete}
                 isLoadingDelete={isLoadingDeleteKategori}
                 isLoadingPublish={isLoadingPublishKategori}
@@ -331,15 +230,38 @@ export default function Kategori() {
                 isShowPublish={isShowPublish}
                 handleSubmitPublish={handleSubmitPublish}
               />
-            ) : menu === `Buat ${convertSlugToText(secondPathname)}` ? (
-              <FormTambahKategori
-                form={form}
-                isLoading={isLoadingTambahKategori}
-                handleSubmit={handleSubmit}
-                setIsShow={setIsShowCreate}
-                setIsSubmit={setIsSubmit}
-                isShow={isShowCrate}
-                isSubmit={isSubmit}
+            ) : menu === 'Publish' ? (
+              <KategoriPublish
+                isPublish
+                loadingKategori={loadingKategori}
+                kategori={kategori}
+                search={search}
+                setPageNumber={setPageNumber}
+                setSearch={setSearch}
+                handleSubmitDelete={handleSubmitDelete}
+                handleSubmitPublish={handleSubmitPublish}
+                isShowDelete={isShowDelete}
+                isShowPublish={isShowPublish}
+                setIsShowDelete={setIsShowDelete}
+                setIsShowPublish={setIsShowPublish}
+                isLoadingDelete={isLoadingDeleteKategori}
+                isLoadingPublish={isLoadingPublishKategori}
+              />
+            ) : menu === 'Draft' ? (
+              <KategoriPublish
+                loadingKategori={loadingKategori}
+                kategori={kategori}
+                search={search}
+                setPageNumber={setPageNumber}
+                setSearch={setSearch}
+                handleSubmitDelete={handleSubmitDelete}
+                handleSubmitPublish={handleSubmitPublish}
+                isShowDelete={isShowDelete}
+                isShowPublish={isShowPublish}
+                setIsShowDelete={setIsShowDelete}
+                setIsShowPublish={setIsShowPublish}
+                isLoadingDelete={isLoadingDeleteKategori}
+                isLoadingPublish={isLoadingPublishKategori}
               />
             ) : (
               <ComingSoonPage />

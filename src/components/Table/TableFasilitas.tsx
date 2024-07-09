@@ -149,8 +149,8 @@ export function TableFasilitas<T extends Fasilitas, P>({
                             data={row}
                             handleSubmitDelete={handleSubmitDelete}
                             isLoadingDelete={isLoadingDelete}
-                            isShow={isShow}
-                            setIsShow={setIsShow}
+                            isShowDelete={isShow}
+                            setIsShowDelete={setIsShow}
                           />
                         </td>
                       )}

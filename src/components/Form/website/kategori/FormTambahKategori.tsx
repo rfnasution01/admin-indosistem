@@ -155,7 +155,7 @@ export default function FormTambahKategori({
           </div>
 
           <div className="flex gap-64 phones:flex-col phones:gap-32">
-            {secondPathname === 'kategori' ? (
+            {secondPathname === 'pengumuman' ? (
               <SelectListPengumuman
                 name="id_kategori"
                 headerLabel="Kategori"

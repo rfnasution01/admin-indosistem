@@ -12,8 +12,8 @@ import 'react-toastify/dist/ReactToastify.css'
 import Cookies from 'js-cookie'
 import { GetKategoriDetailType } from '@/types/website/kategoriType'
 import {
+  useCreateKategoriMutation,
   useGetKategoriDetailQuery,
-  useUpdateKategoriMutation,
 } from '@/store/slices/website/kategoriAPI'
 import { TambahKategoriSchema } from '@/schemas/website/kategoriSchema'
 
@@ -37,7 +37,7 @@ export default function UpdateKategori() {
       id: idEdit,
       jenis: secondPathname,
     },
-    { skip: !idEdit },
+    { skip: !idEdit || !isEdit },
   )
 
   useEffect(() => {
@@ -83,20 +83,20 @@ export default function UpdateKategori() {
 
   // --- Create Tambah Kategori ---
   const [
-    createTambahKategori,
+    createUpdateKategori,
     {
-      isError: isErrorTambahKategori,
-      error: errorTambahKategori,
-      isLoading: isLoadingTambahKategori,
-      isSuccess: isSuccessTambahKategori,
+      isError: isErrorUpdateKategori,
+      error: errorUpdateKategori,
+      isLoading: isLoadingUpdateKategori,
+      isSuccess: isSuccessUpdateKategori,
     },
-  ] = useUpdateKategoriMutation()
+  ] = useCreateKategoriMutation()
 
   const handleSubmit = async () => {
     const values = form.getValues()
 
     const body = {
-      id: idEdit,
+      id: isEdit ? idEdit : null,
       id_kategori: values?.id_kategori,
       id_tags: values?.id_tags ?? [],
       tanggal: values?.tanggal ?? '',
@@ -109,7 +109,11 @@ export default function UpdateKategori() {
 
     if (isSubmit && isShow) {
       try {
-        await createTambahKategori({ body: body, jenis: secondPathname })
+        await createUpdateKategori({
+          body: body,
+          jenis: secondPathname,
+          aksi: isEdit ? 'edit' : 'tambah',
+        })
       } catch (error) {
         console.error(error)
       }
@@ -117,9 +121,9 @@ export default function UpdateKategori() {
   }
 
   useEffect(() => {
-    if (isSuccessTambahKategori) {
+    if (isSuccessUpdateKategori) {
       toast.success(
-        `${isEdit ? 'Edit' : 'Tambah'} ${convertSlugToText(secondPathname)} berhasil`,
+        `${isEdit ? 'Update' : 'Tambah'} ${convertSlugToText(secondPathname).toLowerCase()} berhasil`,
         {
           position: 'bottom-right',
           autoClose: 3000,
@@ -133,14 +137,15 @@ export default function UpdateKategori() {
         },
       )
       setTimeout(() => {
+        form.reset()
         navigate(-1)
       }, 3000)
     }
-  }, [isSuccessTambahKategori])
+  }, [isSuccessUpdateKategori])
 
   useEffect(() => {
-    if (isErrorTambahKategori) {
-      const errorMsg = errorTambahKategori as { data?: { message?: string } }
+    if (isErrorUpdateKategori) {
+      const errorMsg = errorUpdateKategori as { data?: { message?: string } }
 
       toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
         position: 'bottom-right',
@@ -154,7 +159,7 @@ export default function UpdateKategori() {
         transition: Bounce,
       })
     }
-  }, [isErrorTambahKategori, errorTambahKategori])
+  }, [isErrorUpdateKategori, errorUpdateKategori])
 
   useEffect(() => {
     if (data) {
@@ -195,7 +200,7 @@ export default function UpdateKategori() {
         </p>
         <FormTambahKategori
           form={form}
-          isLoading={isLoadingTambahKategori}
+          isLoading={isLoadingUpdateKategori}
           handleSubmit={handleSubmit}
           setIsShow={setIsShow}
           setIsSubmit={setIsSubmit}
