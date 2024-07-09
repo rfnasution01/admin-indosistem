@@ -1,5 +1,6 @@
 import { api, Meta, Res } from '@/store/api'
 import {
+  GetDashboardBerita,
   GetKategoriDetailType,
   GetKategoriType,
   KategoriGambarType,
@@ -120,6 +121,12 @@ export const WebsiteKategoriEndpoints = api.injectEndpoints({
       }),
       invalidatesTags: ['website-kategori', 'website-kategori-detail'],
     }),
+    getDashboardBerita: builder.query<Res<GetDashboardBerita>, void>({
+      query: () => ({
+        url: `admin/website/berita_dashboard`,
+        method: 'GET',
+      }),
+    }),
   }),
 })
 
@@ -132,4 +139,5 @@ export const {
   useDeleteGambarMutation,
   useDeleteKategoriMutation,
   useUpdatePublishMutation,
+  useGetDashboardBeritaQuery,
 } = WebsiteKategoriEndpoints

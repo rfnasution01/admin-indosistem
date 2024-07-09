@@ -73,3 +73,28 @@ export type PostPublishParams = {
   id: string
   publish: string
 }
+
+export type GetDashboardBerita = {
+  jlh_berita: number
+  berita_baru: number
+  berita_dibaca: string
+  jumlah_share: string
+  kategori: KategoriType[]
+  terbaru: NewsType[]
+  populer: NewsType[]
+}
+
+export type KategoriType = {
+  nama: string
+  jlh: string
+}
+
+export type NewsType = {
+  id: string
+  seo: string
+  judul: string
+  tanggal: string
+  hits: string
+  nama: string
+  gambar: string
+}

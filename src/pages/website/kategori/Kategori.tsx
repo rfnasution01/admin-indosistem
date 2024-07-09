@@ -9,6 +9,7 @@ import {
   KategoriTab,
   KategoriTable,
   KategoriPublish,
+  BeritaDashboard,
 } from '@/features/website/kategori'
 import { usePathname } from '@/hooks/usePathname'
 import { GetKategoriType } from '@/types/website/kategoriType'
@@ -284,6 +285,8 @@ export default function Kategori() {
             setPageSize={setPageSize}
             meta={meta}
           />
+        ) : menu === 'Dashboard' ? (
+          <BeritaDashboard />
         ) : (
           <ComingSoonPage />
         )}
