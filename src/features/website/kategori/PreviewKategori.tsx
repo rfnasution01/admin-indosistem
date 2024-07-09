@@ -8,6 +8,7 @@ export function PreviewKategori({
   isi,
   publish,
   gambar,
+  deskripsi_singkat,
 }: {
   kategori?: string
   taq?: string[]
@@ -16,6 +17,7 @@ export function PreviewKategori({
   isi?: string
   publish?: string
   gambar: { url_gambar: string; keterangan: string }[]
+  deskripsi_singkat: string
 }) {
   return (
     <div className="scrollbar flex h-full flex-col gap-48 overflow-y-auto phones:flex-col phones:items-start phones:gap-32">
@@ -62,8 +64,12 @@ export function PreviewKategori({
             </p>
           )}
         </div>
+        {deskripsi_singkat && (
+          <p style={{ lineHeight: '130%' }}>{deskripsi_singkat}</p>
+        )}
         {isi && (
           <div
+            style={{ lineHeight: '130%' }}
             dangerouslySetInnerHTML={{ __html: isi }}
             className="article-content"
           />

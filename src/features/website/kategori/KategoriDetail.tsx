@@ -47,6 +47,9 @@ export function KategoriDetail({ detail }: { detail: GetKategoriDetailType }) {
           label={`${detail?.hits} Views`}
         />
       </div>
+      {detail?.deskripsi_singkat && (
+        <p style={{ lineHeight: '130%' }}>{detail?.deskripsi_singkat}</p>
+      )}
       {detail?.isi && (
         <div
           className="article-content"

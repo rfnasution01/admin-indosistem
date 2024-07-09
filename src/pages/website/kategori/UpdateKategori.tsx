@@ -101,6 +101,7 @@ export default function UpdateKategori() {
       id_tags: values?.id_tags ?? [],
       tanggal: values?.tanggal ?? '',
       judul: values?.judul ?? '',
+      deskripsi_singkat: values?.deskripsi_singkat ?? '',
       isi: values?.isi ?? '',
       publish: values?.publish ?? '1',
       gambar: values?.gambar ?? [],
@@ -159,6 +160,7 @@ export default function UpdateKategori() {
     if (data) {
       form.setValue('judul', data?.judul)
       form.setValue('id_kategori', data?.id_kategori)
+      form.setValue('deskripsi_singkat', data?.deskripsi_singkat)
       form.setValue('isi', data?.isi)
       form.setValue('publish', data?.publish)
       const date = data?.tanggal
@@ -170,8 +172,8 @@ export default function UpdateKategori() {
         data?.tanggal === '' || !data?.tanggal ? '' : newDate,
       )
 
-      const idArray = data?.tags?.map((data) => data.id)
-      const namaArray = data?.tags?.map((data) => data.nama)
+      const idArray = data?.tags?.map((data) => data?.id)
+      const namaArray = data?.tags?.map((data) => data?.nama)
 
       form.setValue('id_tags', idArray)
       form.setValue('label_tags', namaArray)
@@ -179,8 +181,8 @@ export default function UpdateKategori() {
   }, [data])
 
   const transformedData = data?.tags?.map((item) => ({
-    value: item.id,
-    label: item.nama,
+    value: item?.id,
+    label: item?.nama,
   }))
 
   return (

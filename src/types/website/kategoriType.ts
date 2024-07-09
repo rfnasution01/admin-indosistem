@@ -14,6 +14,7 @@ export type GetKategoriDetailType = {
   tanggal: string
   judul: string
   isi: string
+  deskripsi_singkat: string
   publish: string
   kategori: string
   id_kategori: string
@@ -40,6 +41,7 @@ export type PostKategoriParams = {
   id_kategori: string
   id_tags: string[]
   tanggal: string
+  deskripsi_singkat?: string
   judul: string
   isi: string
   publish: string
@@ -54,6 +56,7 @@ export type GambarType = {
 export type UpdateKategoriParams = {
   id: string
   id_kategori: string
+  deskripsi_singkat: string
   id_tags: string[]
   tanggal: string
   judul: string

@@ -17,6 +17,7 @@ export const TambahKategoriSchema = zod.object({
     invalid_type_error: 'Format judul tidak valid',
   }),
   isi: zod.string().optional().nullable().nullish(),
+  deskripsi_singkat: zod.string().optional().nullable().nullish(),
   publish: zod.string().optional().nullable().nullish(),
   gambar: zod.array(ListGambarSchema).optional().nullable(),
   id_tags: zod
@@ -31,6 +32,10 @@ export const TambahKategoriSchema = zod.object({
 
 export const TambahGambarSchema = zod.object({
   id_pengumuman: zod.string().optional().nullable().nullish(),
+  id_mading: zod.string().optional().nullable().nullish(),
+  id_prestasi: zod.string().optional().nullable().nullish(),
+  id_agenda: zod.string().optional().nullable().nullish(),
+  id_berita: zod.string().optional().nullable().nullish(),
   gambar: zod.array(ListGambarSchema).optional().nullable(),
 })
 

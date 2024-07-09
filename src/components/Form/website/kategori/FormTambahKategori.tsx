@@ -17,7 +17,13 @@ import {
   faSpinner,
 } from '@fortawesome/free-solid-svg-icons'
 import { ValidasiKonfirmasi } from '@/components/Dialog/ValidasiKonfirmasi'
-import { SelectListTag } from '@/components/Select/website'
+import {
+  SelectListAgenda,
+  SelectListBerita,
+  SelectListMading,
+  SelectListPrestasi,
+  SelectListTag,
+} from '@/components/Select/website'
 import { SelectListPengumuman } from '@/components/Select/website/ListPengumuman'
 import { Bounce, toast } from 'react-toastify'
 import clsx from 'clsx'
@@ -44,7 +50,7 @@ export default function FormTambahKategori({
   isSubmit: boolean
   defaultValues?: { value: string; label: string }[]
 }) {
-  const { lastPathname } = usePathname()
+  const { lastPathname, secondPathname } = usePathname()
   const isEdit = lastPathname === 'edit'
 
   // --- Upload File ---
@@ -149,13 +155,49 @@ export default function FormTambahKategori({
           </div>
 
           <div className="flex gap-64 phones:flex-col phones:gap-32">
-            <SelectListPengumuman
-              name="id_kategori"
-              headerLabel="Kategori"
-              placeholder="Pilih Kategori"
-              useFormReturn={form}
-              isDisabled={isLoading}
-            />
+            {secondPathname === 'kategori' ? (
+              <SelectListPengumuman
+                name="id_kategori"
+                headerLabel="Kategori"
+                placeholder="Pilih Kategori"
+                useFormReturn={form}
+                isDisabled={isLoading}
+              />
+            ) : secondPathname === 'mading' ? (
+              <SelectListMading
+                name="id_kategori"
+                headerLabel="Kategori"
+                placeholder="Pilih Kategori"
+                useFormReturn={form}
+                isDisabled={isLoading}
+              />
+            ) : secondPathname === 'berita' ? (
+              <SelectListBerita
+                name="id_kategori"
+                headerLabel="Kategori"
+                placeholder="Pilih Kategori"
+                useFormReturn={form}
+                isDisabled={isLoading}
+              />
+            ) : secondPathname === 'agenda' ? (
+              <SelectListAgenda
+                name="id_kategori"
+                headerLabel="Kategori"
+                placeholder="Pilih Kategori"
+                useFormReturn={form}
+                isDisabled={isLoading}
+              />
+            ) : secondPathname === 'prestasi' ? (
+              <SelectListPrestasi
+                name="id_kategori"
+                headerLabel="Kategori"
+                placeholder="Pilih Kategori"
+                useFormReturn={form}
+                isDisabled={isLoading}
+              />
+            ) : (
+              <></>
+            )}
             {isEdit && defaultValues && (
               <SelectListTag
                 name="id_tags"
@@ -177,6 +219,20 @@ export default function FormTambahKategori({
               />
             )}
           </div>
+
+          {secondPathname === 'mading' && (
+            <div className="flex gap-64 phones:flex-col phones:gap-32">
+              <FormLabelInput
+                name={`deskripsi_singkat`}
+                form={form}
+                label="Deskripsi Singkat"
+                placeholder="Masukkan deskripsi singkat"
+                className="w-full hover:cursor-not-allowed phones:w-full "
+                type="text"
+                isDisabled={isLoading}
+              />
+            </div>
+          )}
 
           <div className="flex gap-64 phones:flex-col phones:gap-32">
             <FormLabelTipTap
@@ -364,6 +420,7 @@ export default function FormTambahKategori({
               kategori={form?.watch('nama_kategori')}
               publish={form?.watch('publish')}
               gambar={form?.watch('gambar')}
+              deskripsi_singkat={form?.watch('deskripsi_singkat')}
             />
           </div>
         }

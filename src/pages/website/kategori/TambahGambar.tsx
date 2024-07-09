@@ -44,6 +44,10 @@ export default function TambahGambar() {
 
     const body = {
       id_pengumuman: idEdit,
+      id_berita: idEdit,
+      id_agenda: idEdit,
+      id_prestasi: idEdit,
+      id_mading: idEdit,
       gambar: values?.gambar,
     }
 

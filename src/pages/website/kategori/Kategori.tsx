@@ -26,9 +26,25 @@ export default function Kategori() {
   const navigate = useNavigate()
   const { secondPathname } = usePathname()
 
-  const [menu, setMenu] = useState<string>(
-    `Riwayat ${convertSlugToText(secondPathname)}`,
-  )
+  const getDefaultTab = (path) => {
+    return path === 'pengumuman'
+      ? 'Riwayat Pengumuman'
+      : path === 'berita'
+        ? 'Riwayat Berita'
+        : path === 'prestasi'
+          ? 'Riwayat Prestasi'
+          : path === 'agenda'
+            ? 'Riwayat Agenda'
+            : path === 'mading'
+              ? 'Riwayat Mading'
+              : `Riwayat ${convertSlugToText(path)}`
+  }
+
+  const [menu, setMenu] = useState<string>(getDefaultTab(secondPathname))
+  useEffect(() => {
+    setMenu(getDefaultTab(secondPathname))
+  }, [secondPathname])
+
   const [search, setSearch] = useState<string>('')
   const [id_kategori, setIdKategori] = useState<string>('')
   const [pageNumber, setPageNumber] = useState<number>(1)
@@ -228,6 +244,7 @@ export default function Kategori() {
       id_tags: values?.id_tags ?? [],
       tanggal: values?.tanggal ?? '',
       judul: values?.judul ?? '',
+      deskripsi_singkat: values?.deskripsi_singkat ?? '',
       isi: values?.isi ?? '',
       publish: values?.publish ?? '1',
       gambar: values?.gambar ?? [],
@@ -291,6 +308,7 @@ export default function Kategori() {
           <div className="flex">
             <KategoriTab menu={menu} setMenu={setMenu} />
           </div>
+
           <div className="scrollbar flex h-full flex-1 overflow-y-auto px-48 pb-48">
             {menu === `Riwayat ${convertSlugToText(secondPathname)}` ? (
               <KategoriTable
