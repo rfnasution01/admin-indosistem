@@ -14,7 +14,11 @@ export function Breadcrumb() {
       <p className="hover:cursor-pointer" onClick={() => navigate(-1)}>
         {thirdPathname === 'tentang'
           ? 'Tentang Sekolah'
-          : secondPathname === 'pengumuman'
+          : secondPathname === 'pengumuman' ||
+              secondPathname === 'berita' ||
+              secondPathname === 'agenda' ||
+              secondPathname === 'prestasi' ||
+              secondPathname === 'mading'
             ? convertSlugToText(secondPathname)
             : convertSlugToText(thirdPathname)}
       </p>

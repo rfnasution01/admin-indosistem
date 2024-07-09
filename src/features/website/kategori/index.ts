@@ -1,0 +1,7 @@
+export * from './Tabs'
+export * from './KategoriTable'
+export * from './PreviewKategori'
+export * from './KategoriDetail'
+export * from './KategoriDetailGambar'
+export * from './PreviewTambahGambar'
+export * from './PreviewEditGambar'

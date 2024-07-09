@@ -8,9 +8,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { useForm } from 'react-hook-form'
 import { convertSlugToText } from '@/utils/formatText'
-import { TambahGambarSchema } from '@/schemas/website/pengumumanSchema'
-import { useCreateGambarMutation } from '@/store/slices/website/pengumumanAPI'
-import FormTambahGambar from '@/components/Form/website/pengumuman/FormTambahGambar'
+import FormTambahGambar from '@/components/Form/website/kategori/FormTambahGambar'
+import { TambahGambarSchema } from '@/schemas/website/kategoriSchema'
+import { useCreateGambarMutation } from '@/store/slices/website/kategoriAPI'
 
 export default function TambahGambar() {
   const navigate = useNavigate()
@@ -58,7 +58,7 @@ export default function TambahGambar() {
 
   useEffect(() => {
     if (isSuccessTambahGambar) {
-      toast.success(`${isEdit ? 'Edit' : 'Tambah'} Gambar berhasil`, {
+      toast.success(`${isEdit ? 'Edit' : 'Tambah'} gambar berhasil`, {
         position: 'bottom-right',
         autoClose: 3000,
         hideProgressBar: false,

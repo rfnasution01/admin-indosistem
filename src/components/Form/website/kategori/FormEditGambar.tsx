@@ -8,7 +8,7 @@ import { FormLabelFile, FormLabelInput } from '@/components/InputComponent'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faSave, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { ValidasiKonfirmasi } from '@/components/Dialog/ValidasiKonfirmasi'
-import { PreviewEditGambar } from '@/features/website/pengumuman'
+import { PreviewEditGambar } from '@/features/website/kategori'
 
 export default function FormEditGambar({
   form,

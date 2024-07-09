@@ -4,20 +4,20 @@ import { useNavigate } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { useForm } from 'react-hook-form'
-import { TambahPengumumanSchema } from '@/schemas/website/pengumumanSchema'
-import {
-  useGetPengumumanDetailQuery,
-  useUpdatePengumumanMutation,
-} from '@/store/slices/website/pengumumanAPI'
 import { Bounce, toast, ToastContainer } from 'react-toastify'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import { convertSlugToText } from '@/utils/formatText'
-import FormTambahPengumuman from '@/components/Form/website/pengumuman/FormTambahPengumuman'
+import FormTambahKategori from '@/components/Form/website/kategori/FormTambahKategori'
 import 'react-toastify/dist/ReactToastify.css'
-import { GetPengumumanDetailType } from '@/types/website/pengumumanType'
 import Cookies from 'js-cookie'
+import { GetKategoriDetailType } from '@/types/website/kategoriType'
+import {
+  useGetKategoriDetailQuery,
+  useUpdateKategoriMutation,
+} from '@/store/slices/website/kategoriAPI'
+import { TambahKategoriSchema } from '@/schemas/website/kategoriSchema'
 
-export default function UpdatePengumuman() {
+export default function UpdateKategori() {
   const navigate = useNavigate()
 
   const { lastPathname, secondPathname } = usePathname()
@@ -25,14 +25,14 @@ export default function UpdatePengumuman() {
   const isEdit = lastPathname === 'edit'
   const idEdit = localStorage.getItem('editID') ?? null
 
-  // --- Data DetailPengumuman ---
-  const [data, setDataDetailPengumuman] = useState<GetPengumumanDetailType>()
+  // --- Data DetailKategori ---
+  const [data, setDataDetailKategori] = useState<GetKategoriDetailType>()
 
   const {
-    data: dataDetailPengumumanSekolah,
-    isError: isErrorDetailPengumumanSekolah,
-    error: errorDetailPengumumanSekolah,
-  } = useGetPengumumanDetailQuery(
+    data: dataDetailKategoriSekolah,
+    isError: isErrorDetailKategoriSekolah,
+    error: errorDetailKategoriSekolah,
+  } = useGetKategoriDetailQuery(
     {
       id: idEdit,
       jenis: secondPathname,
@@ -41,14 +41,14 @@ export default function UpdatePengumuman() {
   )
 
   useEffect(() => {
-    if (dataDetailPengumumanSekolah?.data) {
-      setDataDetailPengumuman(dataDetailPengumumanSekolah?.data?.data)
+    if (dataDetailKategoriSekolah?.data) {
+      setDataDetailKategori(dataDetailKategoriSekolah?.data?.data)
     }
-  }, [dataDetailPengumumanSekolah?.data])
+  }, [dataDetailKategoriSekolah?.data])
 
   useEffect(() => {
-    if (isErrorDetailPengumumanSekolah) {
-      const errorMsg = errorDetailPengumumanSekolah as {
+    if (isErrorDetailKategoriSekolah) {
+      const errorMsg = errorDetailKategoriSekolah as {
         data?: { message?: string }
       }
 
@@ -71,26 +71,26 @@ export default function UpdatePengumuman() {
         }, 3000)
       }
     }
-  }, [isErrorDetailPengumumanSekolah, errorDetailPengumumanSekolah])
+  }, [isErrorDetailKategoriSekolah, errorDetailKategoriSekolah])
 
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
   const [isShow, setIsShow] = useState<boolean>(false)
 
-  const form = useForm<zod.infer<typeof TambahPengumumanSchema>>({
-    resolver: zodResolver(TambahPengumumanSchema),
+  const form = useForm<zod.infer<typeof TambahKategoriSchema>>({
+    resolver: zodResolver(TambahKategoriSchema),
     defaultValues: {},
   })
 
-  // --- Create Tambah Pengumuman ---
+  // --- Create Tambah Kategori ---
   const [
-    createTambahPengumuman,
+    createTambahKategori,
     {
-      isError: isErrorTambahPengumuman,
-      error: errorTambahPengumuman,
-      isLoading: isLoadingTambahPengumuman,
-      isSuccess: isSuccessTambahPengumuman,
+      isError: isErrorTambahKategori,
+      error: errorTambahKategori,
+      isLoading: isLoadingTambahKategori,
+      isSuccess: isSuccessTambahKategori,
     },
-  ] = useUpdatePengumumanMutation()
+  ] = useUpdateKategoriMutation()
 
   const handleSubmit = async () => {
     const values = form.getValues()
@@ -108,7 +108,7 @@ export default function UpdatePengumuman() {
 
     if (isSubmit && isShow) {
       try {
-        await createTambahPengumuman({ body: body, jenis: secondPathname })
+        await createTambahKategori({ body: body, jenis: secondPathname })
       } catch (error) {
         console.error(error)
       }
@@ -116,27 +116,30 @@ export default function UpdatePengumuman() {
   }
 
   useEffect(() => {
-    if (isSuccessTambahPengumuman) {
-      toast.success(`${isEdit ? 'Edit' : 'Tambah'} Pengumuman berhasil`, {
-        position: 'bottom-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
+    if (isSuccessTambahKategori) {
+      toast.success(
+        `${isEdit ? 'Edit' : 'Tambah'} ${convertSlugToText(secondPathname)} berhasil`,
+        {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        },
+      )
       setTimeout(() => {
         navigate(-1)
       }, 3000)
     }
-  }, [isSuccessTambahPengumuman])
+  }, [isSuccessTambahKategori])
 
   useEffect(() => {
-    if (isErrorTambahPengumuman) {
-      const errorMsg = errorTambahPengumuman as { data?: { message?: string } }
+    if (isErrorTambahKategori) {
+      const errorMsg = errorTambahKategori as { data?: { message?: string } }
 
       toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
         position: 'bottom-right',
@@ -150,7 +153,7 @@ export default function UpdatePengumuman() {
         transition: Bounce,
       })
     }
-  }, [isErrorTambahPengumuman, errorTambahPengumuman])
+  }, [isErrorTambahKategori, errorTambahKategori])
 
   useEffect(() => {
     if (data) {
@@ -185,11 +188,12 @@ export default function UpdatePengumuman() {
       <Breadcrumb />
       <div className="scrollbar flex flex-1 flex-col gap-32 overflow-y-auto">
         <p className="font-roboto text-[2.4rem]">
-          Form {convertSlugToText(lastPathname)} Pengumuman
+          Form {convertSlugToText(lastPathname)}{' '}
+          {convertSlugToText(secondPathname)}
         </p>
-        <FormTambahPengumuman
+        <FormTambahKategori
           form={form}
-          isLoading={isLoadingTambahPengumuman}
+          isLoading={isLoadingTambahKategori}
           handleSubmit={handleSubmit}
           setIsShow={setIsShow}
           setIsSubmit={setIsSubmit}

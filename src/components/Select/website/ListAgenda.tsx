@@ -5,13 +5,13 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/Form'
-import { useGetTagQuery } from '@/store/slices/referensiAPI'
 import { cn } from '@/utils/cn'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import Select, { components } from 'react-select'
 import { customStyles } from '@/types/selectType'
 import { ReferensiType } from '@/types/referensiType'
+import { useGetAgendaQuery } from '@/store/slices/referensiAPI'
 
 type inputProps = {
   placeholder: string
@@ -20,36 +20,36 @@ type inputProps = {
   headerLabel?: string
   useFormReturn: UseFormReturn
   className?: string
-  defaultValues?: { value: string; label: string }[]
+  setIdKategori?: Dispatch<SetStateAction<string>>
 }
 
-export function SelectListTag({
+export function SelectListAgenda({
   name,
   headerLabel,
   placeholder,
   isDisabled,
   useFormReturn,
   className,
-  defaultValues,
+  setIdKategori,
 }: inputProps) {
   const [query, setQuery] = useState<string>(null)
-  const [listTag, setListTag] = useState<ReferensiType[]>([])
+  const [listAgenda, setListAgenda] = useState<ReferensiType[]>([])
 
-  const { data, isSuccess, isLoading, isFetching } = useGetTagQuery()
+  const { data, isSuccess, isLoading, isFetching } = useGetAgendaQuery()
 
   useEffect(() => {
     if (!isFetching) {
       if (data?.meta?.page > 1) {
-        setListTag((prevData) => [...prevData, ...(data?.data ?? [])])
+        setListAgenda((prevData) => [...prevData, ...(data?.data ?? [])])
       } else {
-        setListTag([...(data?.data ?? [])])
+        setListAgenda([...(data?.data ?? [])])
       }
     }
   }, [data])
 
-  let TagOption = []
+  let AgendaOption = []
   if (isSuccess) {
-    TagOption = listTag.map((item) => {
+    AgendaOption = listAgenda.map((item) => {
       return {
         value: item?.id,
         label: item?.nama,
@@ -83,7 +83,7 @@ export function SelectListTag({
         return (
           <FormItem
             className={cn(
-              'z-40 flex w-full flex-col gap-12 text-[2rem] text-warna-dark phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]',
+              'z-50 flex w-full flex-col gap-12 text-[2rem] text-warna-dark phones:flex-col phones:items-start phones:gap-12 phones:text-[2.4rem]',
               className,
             )}
           >
@@ -146,25 +146,22 @@ export function SelectListTag({
                       },
                     }),
                   }}
-                  className={'text-[2rem]'}
-                  defaultValue={defaultValues}
-                  options={TagOption}
-                  isMulti
+                  className={'z-50 text-[2rem]'}
+                  options={AgendaOption}
                   value={
-                    TagOption.filter((item) => item.value === field.value)[0]
+                    AgendaOption.filter((item) => item.value === field.value)[0]
                   }
                   placeholder={placeholder ?? 'Pilih'}
                   onInputChange={search}
                   onChange={(optionSelected) => {
-                    // field.onChange(optionSelected?.value)
-                    const selectedValues = optionSelected.map(
-                      (data) => data.value,
+                    field.onChange(optionSelected?.value)
+                    useFormReturn.setValue(
+                      'nama_kategori',
+                      optionSelected?.label,
                     )
-                    const selectedLabel = optionSelected.map(
-                      (data) => data.label,
-                    )
-                    field.onChange(selectedValues)
-                    useFormReturn.setValue('label_tags', selectedLabel)
+                    if (setIdKategori) {
+                      setIdKategori(optionSelected?.value)
+                    }
                   }}
                   isDisabled={isDisabled}
                   isLoading={isFetching || isLoading}

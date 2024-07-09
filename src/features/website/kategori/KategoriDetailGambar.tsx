@@ -1,20 +1,24 @@
-import { PengumumanGambarType } from '@/types/website/pengumumanType'
 import { faPencil, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
 import DefaultImg from '@/assets/images/default.jpg'
 import { Dispatch, SetStateAction } from 'react'
-export function PengumumanDetailGambar({
+import { usePathname } from '@/hooks/usePathname'
+import { KategoriGambarType } from '@/types/website/kategoriType'
+
+export function KategoriDetailGambar({
   gambar,
   setDeleteID,
   setIsShowID,
-  idPengumuman,
+  idKategori,
 }: {
-  gambar: PengumumanGambarType[]
+  gambar: KategoriGambarType[]
   setIsShowID: Dispatch<SetStateAction<boolean>>
   setDeleteID: Dispatch<SetStateAction<string>>
-  idPengumuman: string
+  idKategori: string
 }) {
+  const { secondPathname } = usePathname()
+
   return (
     <div className="flex flex-col gap-32">
       <div className="flex items-center gap-32">
@@ -40,9 +44,9 @@ export function PengumumanDetailGambar({
               <p className="line-clamp-1 p-24">{item?.keterangan}</p>
               <div className="flex w-full items-center">
                 <Link
-                  to={'/website/pengumuman/detail/edit-gambar'}
+                  to={`/website/${secondPathname}/detail/edit-gambar`}
                   onClick={() => {
-                    localStorage.setItem('ID', idPengumuman)
+                    localStorage.setItem('ID', idKategori)
                     localStorage.setItem('editID', item?.id)
                     localStorage.setItem('editData', JSON.stringify(item))
                   }}

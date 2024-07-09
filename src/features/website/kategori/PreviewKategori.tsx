@@ -1,6 +1,6 @@
 import DefaultImg from '@/assets/images/default.jpg'
 
-export function PreviewPengumuman({
+export function PreviewKategori({
   kategori,
   taq,
   tanggal,

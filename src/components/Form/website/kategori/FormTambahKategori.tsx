@@ -19,13 +19,13 @@ import {
 import { ValidasiKonfirmasi } from '@/components/Dialog/ValidasiKonfirmasi'
 import { SelectListTag } from '@/components/Select/website'
 import { SelectListPengumuman } from '@/components/Select/website/ListPengumuman'
-import { PreviewPengumuman } from '@/features/website/pengumuman'
 import { Bounce, toast } from 'react-toastify'
 import clsx from 'clsx'
 import { useCreateFileMutation } from '@/store/slices/referensiAPI'
 import { usePathname } from '@/hooks/usePathname'
+import { PreviewKategori } from '@/features/website/kategori'
 
-export default function FormTambahPengumuman({
+export default function FormTambahKategori({
   form,
   isLoading,
   handleSubmit,
@@ -132,7 +132,7 @@ export default function FormTambahPengumuman({
               name={`judul`}
               form={form}
               label="Judul"
-              placeholder="Masukkan judul pengumuman"
+              placeholder="Masukkan judul"
               className="w-1/2 hover:cursor-not-allowed phones:w-full "
               type="text"
               isDisabled={isLoading}
@@ -141,7 +141,7 @@ export default function FormTambahPengumuman({
               name={`tanggal`}
               form={form}
               label="Tanggal"
-              placeholder="Masukkan tanggal pengumuman"
+              placeholder="Masukkan tanggal"
               className="w-1/2 hover:cursor-not-allowed phones:w-full "
               type="date"
               isDisabled={isLoading}
@@ -356,7 +356,7 @@ export default function FormTambahPengumuman({
         setIsOpen={setIsShow}
         children={
           <div className="flex w-full flex-col gap-32 rounded-2x bg-warna-pale-blue p-32 text-[2rem] text-warna-dark phones:text-[2.4rem]">
-            <PreviewPengumuman
+            <PreviewKategori
               judul={form?.watch('judul')}
               isi={form?.watch('isi')}
               tanggal={form?.watch('tanggal')}

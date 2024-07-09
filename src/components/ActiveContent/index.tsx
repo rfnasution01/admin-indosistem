@@ -7,9 +7,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Dispatch, SetStateAction } from 'react'
-import { Pengumuman } from '../Table/TablePengumuman'
 import { ValidasiIsCheck } from '../Dialog/ValidasiIsCheck'
 import clsx from 'clsx'
+import { Kategori } from '../Table/TableKategori'
 
 type Props<T> = {
   data: T
@@ -22,7 +22,7 @@ type Props<T> = {
   id: number
 }
 
-export function ActiveContent<T extends Pengumuman>({
+export function ActiveContent<T extends Kategori>({
   data,
   handleSubmitPublish,
   setIsShow,

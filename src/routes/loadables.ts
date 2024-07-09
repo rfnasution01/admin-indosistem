@@ -59,22 +59,22 @@ export const TambahProgramLayananPage = loadable(
   () => import('@/pages/website/profil/TambahProgram'),
 )
 
-export const PengumumanPage = loadable(
-  () => import('@/pages/website/pengumuman/Pengumuman'),
+export const KategoriPage = loadable(
+  () => import('@/pages/website/kategori/Kategori'),
 )
 
-export const DetailPengumumanPage = loadable(
-  () => import('@/pages/website/pengumuman/DetailPengumuman'),
+export const DetailKategoriPage = loadable(
+  () => import('@/pages/website/kategori/DetailKategori'),
 )
 
-export const EditPengumumanPage = loadable(
-  () => import('@/pages/website/pengumuman/UpdatePengumuman'),
+export const EditKategoriPage = loadable(
+  () => import('@/pages/website/kategori/UpdateKategori'),
 )
 
-export const TambahGambarPengumumanPage = loadable(
-  () => import('@/pages/website/pengumuman/TambahGambar'),
+export const TambahGambarKategoriPage = loadable(
+  () => import('@/pages/website/kategori/TambahGambar'),
 )
 
-export const EditGambarPengumumanPage = loadable(
-  () => import('@/pages/website/pengumuman/EditGambar'),
+export const EditGambarKategoriPage = loadable(
+  () => import('@/pages/website/kategori/EditGambar'),
 )

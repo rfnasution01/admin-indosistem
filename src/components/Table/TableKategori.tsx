@@ -13,12 +13,12 @@ export type Column<T> = {
   width?: string
 }
 
-export interface Pengumuman {
+export interface Kategori {
   id: string
   publish: string
 }
 
-type Props<T extends Pengumuman, P> = {
+type Props<T extends Kategori, P> = {
   data: T[]
   columns: Column<T>[] | ((props: P) => Column<T>[])
   containerClasses?: string
@@ -31,7 +31,7 @@ type Props<T extends Pengumuman, P> = {
   isNumber?: boolean
   currentPage?: number
   pageSize?: number
-  isPengumuman?: boolean
+  isKategori?: boolean
   handleSubmitDelete?: (id: string) => Promise<void>
   setIsShow?: Dispatch<SetStateAction<boolean>>
   isShow?: boolean
@@ -42,7 +42,7 @@ type Props<T extends Pengumuman, P> = {
   isLoadingPublish?: boolean
 }
 
-export function TablePengumuman<T extends Pengumuman, P>({
+export function TableKategori<T extends Kategori, P>({
   data,
   columns,
   containerClasses = '',
@@ -55,7 +55,7 @@ export function TablePengumuman<T extends Pengumuman, P>({
   isNumber,
   currentPage,
   pageSize,
-  isPengumuman,
+  isKategori,
   handleSubmitDelete,
   isShow,
   isLoadingDelete,
@@ -107,13 +107,13 @@ export function TablePengumuman<T extends Pengumuman, P>({
                       </th>
                     ))}
 
-                  {/* --- Pengumuman --- */}
-                  {isPengumuman && (
+                  {/* --- Kategori --- */}
+                  {isKategori && (
                     <th className="text-sim-primary sticky top-0 border-b-2 bg-warna-pale-blue px-24 py-24 text-center uppercase">
                       Publish
                     </th>
                   )}
-                  {isPengumuman && (
+                  {isKategori && (
                     <th className="text-sim-primary sticky top-0 border-b-2 bg-warna-pale-blue px-24 py-24 text-left uppercase"></th>
                   )}
                   {/* ----- Detail Header ----- */}
@@ -158,8 +158,8 @@ export function TablePengumuman<T extends Pengumuman, P>({
                           </td>
                         ))}
 
-                      {/* ----- Pengumuman ----- */}
-                      {isPengumuman && (
+                      {/* ----- Kategori ----- */}
+                      {isKategori && (
                         <td className="px-24 py-12 text-center align-top leading-medium">
                           <ActiveContent
                             setIsShow={setIsShowPublish}
@@ -173,7 +173,7 @@ export function TablePengumuman<T extends Pengumuman, P>({
                           />
                         </td>
                       )}
-                      {isPengumuman && (
+                      {isKategori && (
                         <td className="px-24 py-12 align-top leading-medium">
                           <MenubarAction
                             data={row}

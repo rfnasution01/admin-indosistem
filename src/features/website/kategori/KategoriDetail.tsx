@@ -1,5 +1,4 @@
 import { IconComponent } from '@/components/LabelComponent/IconComponent'
-import { GetPengumumanDetailType } from '@/types/website/pengumumanType'
 import {
   faCalendarDay,
   faEye,
@@ -10,12 +9,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
 import 'dayjs/locale/id'
+import { usePathname } from '@/hooks/usePathname'
+import { GetKategoriDetailType } from '@/types/website/kategoriType'
 
-export function PengumumanDetail({
-  detail,
-}: {
-  detail: GetPengumumanDetailType
-}) {
+export function KategoriDetail({ detail }: { detail: GetKategoriDetailType }) {
+  const { secondPathname } = usePathname()
+
   return (
     <div className="flex flex-col gap-32">
       <div className="flex items-center gap-32">
@@ -23,7 +22,7 @@ export function PengumumanDetail({
           {detail?.judul}
         </p>
         <Link
-          to={'/website/pengumuman/edit'}
+          to={`/website/${secondPathname}/edit`}
           onClick={() => {
             localStorage.setItem('editID', detail?.id)
             localStorage.setItem('editData', JSON.stringify(detail))

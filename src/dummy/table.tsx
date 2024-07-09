@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import DefaultImg from '@/assets/images/default.jpg'
 import { GetFasilitasType } from '@/types/website/profil/fasilitasType'
 import { GetTestimoniType } from '@/types/website/profil/testimoniType'
-import { GetPengumumanType } from '@/types/website/pengumumanType'
+import { GetKategoriType } from '@/types/website/kategoriType'
 
 export const columnsListDataGuru: Column<GetGuruStaffType>[] = [
   {
@@ -152,7 +152,7 @@ export const columnsListDataTestimoni: Column<GetTestimoniType>[] = [
   },
 ]
 
-export const columnsListDataPengumuman: Column<GetPengumumanType>[] = [
+export const columnsListDataKategori: Column<GetKategoriType>[] = [
   {
     header: 'Judul',
     key: 'judul',

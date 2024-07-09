@@ -1,7 +1,0 @@
-export * from './Tabs'
-export * from './PengumumanTable'
-export * from './PreviewPengumuman'
-export * from './PengumumanDetail'
-export * from './PengumumanDetailGambar'
-export * from './PreviewTambahGambar'
-export * from './PreviewEditGambar'

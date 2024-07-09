@@ -2,18 +2,18 @@ import { Breadcrumb } from '@/components/Breadcrumb'
 import { ValidasiDelete } from '@/components/Dialog/ValidasiDelete'
 import { Loading } from '@/components/Loading'
 import {
-  PengumumanDetail,
-  PengumumanDetailGambar,
-} from '@/features/website/pengumuman'
+  KategoriDetail,
+  KategoriDetailGambar,
+} from '@/features/website/kategori'
 import { usePathname } from '@/hooks/usePathname'
 import {
   useDeleteGambarMutation,
-  useGetPengumumanDetailQuery,
-} from '@/store/slices/website/pengumumanAPI'
+  useGetKategoriDetailQuery,
+} from '@/store/slices/website/kategoriAPI'
 import {
-  GetPengumumanDetailType,
-  PengumumanGambarType,
-} from '@/types/website/pengumumanType'
+  GetKategoriDetailType,
+  KategoriGambarType,
+} from '@/types/website/kategoriType'
 import { faSpinner, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Cookies from 'js-cookie'
@@ -22,7 +22,7 @@ import { useNavigate } from 'react-router-dom'
 import { Bounce, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-export default function DetailPengumuman() {
+export default function DetailKategori() {
   const navigate = useNavigate()
   const { secondPathname } = usePathname()
 
@@ -30,20 +30,20 @@ export default function DetailPengumuman() {
   const [deleteID, setDeleteID] = useState<string>()
   const [isShowDelete, setIsShowDelete] = useState<boolean>(false)
 
-  // --- Data DetailPengumuman ---
-  const [dataDetailPengumuman, setDataDetailPengumuman] =
-    useState<GetPengumumanDetailType>()
-  const [dataGambarPengumuman, setDataGambarPengumuman] = useState<
-    PengumumanGambarType[]
+  // --- Data DetailKategori ---
+  const [dataDetailKategori, setDataDetailKategori] =
+    useState<GetKategoriDetailType>()
+  const [dataGambarKategori, setDataGambarKategori] = useState<
+    KategoriGambarType[]
   >([])
 
   const {
-    data: dataDetailPengumumanSekolah,
-    isFetching: isFetchingDetailPengumumanSekolah,
-    isLoading: isLoadingDetailPengumumanSekolah,
-    isError: isErrorDetailPengumumanSekolah,
-    error: errorDetailPengumumanSekolah,
-  } = useGetPengumumanDetailQuery(
+    data: dataDetailKategoriSekolah,
+    isFetching: isFetchingDetailKategoriSekolah,
+    isLoading: isLoadingDetailKategoriSekolah,
+    isError: isErrorDetailKategoriSekolah,
+    error: errorDetailKategoriSekolah,
+  } = useGetKategoriDetailQuery(
     {
       id: id,
       jenis: secondPathname,
@@ -51,19 +51,19 @@ export default function DetailPengumuman() {
     { skip: !id },
   )
 
-  const loadingDetailPengumumanSekolah =
-    isLoadingDetailPengumumanSekolah || isFetchingDetailPengumumanSekolah
+  const loadingDetailKategoriSekolah =
+    isLoadingDetailKategoriSekolah || isFetchingDetailKategoriSekolah
 
   useEffect(() => {
-    if (dataDetailPengumumanSekolah?.data) {
-      setDataDetailPengumuman(dataDetailPengumumanSekolah?.data?.data)
-      setDataGambarPengumuman(dataDetailPengumumanSekolah?.data?.gambar)
+    if (dataDetailKategoriSekolah?.data) {
+      setDataDetailKategori(dataDetailKategoriSekolah?.data?.data)
+      setDataGambarKategori(dataDetailKategoriSekolah?.data?.gambar)
     }
-  }, [dataDetailPengumumanSekolah?.data])
+  }, [dataDetailKategoriSekolah?.data])
 
   useEffect(() => {
-    if (isErrorDetailPengumumanSekolah) {
-      const errorMsg = errorDetailPengumumanSekolah as {
+    if (isErrorDetailKategoriSekolah) {
+      const errorMsg = errorDetailKategoriSekolah as {
         data?: { message?: string }
       }
 
@@ -86,7 +86,7 @@ export default function DetailPengumuman() {
         }, 3000)
       }
     }
-  }, [isErrorDetailPengumumanSekolah, errorDetailPengumumanSekolah])
+  }, [isErrorDetailKategoriSekolah, errorDetailKategoriSekolah])
 
   // --- Delete ---
   const [
@@ -147,16 +147,16 @@ export default function DetailPengumuman() {
     <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto rounded-3x bg-white p-48">
       <Breadcrumb />
       <div className="scrollbar flex flex-1 flex-col gap-32 overflow-y-auto">
-        {loadingDetailPengumumanSekolah ? (
+        {loadingDetailKategoriSekolah ? (
           <Loading />
         ) : (
           <>
-            <PengumumanDetail detail={dataDetailPengumuman} />
-            <PengumumanDetailGambar
-              gambar={dataGambarPengumuman}
+            <KategoriDetail detail={dataDetailKategori} />
+            <KategoriDetailGambar
+              gambar={dataGambarKategori}
               setDeleteID={setDeleteID}
               setIsShowID={setIsShowDelete}
-              idPengumuman={id}
+              idKategori={id}
             />
           </>
         )}

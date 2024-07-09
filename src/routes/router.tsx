@@ -2,18 +2,18 @@ import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
   ComingSoonPage,
   CommonLayout,
-  DetailPengumumanPage,
-  EditGambarPengumumanPage,
-  EditPengumumanPage,
+  DetailKategoriPage,
+  EditGambarKategoriPage,
+  EditKategoriPage,
   FasilitasSekolahPage,
   GuruStaffPage,
+  KategoriPage,
   LoginLayout,
   MainLayout,
-  PengumumanPage,
   ProfilWebsiteLayout,
   ProgramLayananPage,
   TambahFasilitasSekolahPage,
-  TambahGambarPengumumanPage,
+  TambahGambarKategoriPage,
   TambahProfilPage,
   TambahProgramLayananPage,
   TambahTestimoniPage,
@@ -59,7 +59,7 @@ export const router = createBrowserRouter([
               children: [
                 {
                   path: '',
-                  element: <PengumumanPage />,
+                  element: <KategoriPage />,
                 },
                 {
                   path: 'detail',
@@ -67,74 +67,26 @@ export const router = createBrowserRouter([
                   children: [
                     {
                       path: '',
-                      element: <DetailPengumumanPage />,
+                      element: <DetailKategoriPage />,
                     },
                     {
                       path: 'tambah-gambar',
-                      element: <TambahGambarPengumumanPage />,
+                      element: <TambahGambarKategoriPage />,
                     },
                     {
                       path: 'edit-gambar',
-                      element: <EditGambarPengumumanPage />,
+                      element: <EditGambarKategoriPage />,
                     },
                   ],
                 },
                 {
                   path: 'edit',
-                  element: <EditPengumumanPage />,
+                  element: <EditKategoriPage />,
                 },
               ],
             },
           ]),
 
-          // {
-          //   path: 'pengumuman',
-          //   element: <CommonLayout />,
-          //   children: [
-          //     {
-          //       path: '',
-          //       element: <PengumumanPage />,
-          //     },
-          //     {
-          //       path: 'detail',
-          //       element: <CommonLayout />,
-          //       children: [
-          //         {
-          //           path: '',
-          //           element: <DetailPengumumanPage />,
-          //         },
-          //         {
-          //           path: 'tambah-gambar',
-          //           element: <TambahGambarPengumumanPage />,
-          //         },
-          //         {
-          //           path: 'edit-gambar',
-          //           element: <EditGambarPengumumanPage />,
-          //         },
-          //       ],
-          //     },
-          //     {
-          //       path: 'edit',
-          //       element: <EditPengumumanPage />,
-          //     },
-          //   ],
-          // },
-          // {
-          //   path: 'mading',
-          //   element: <ComingSoonPage />,
-          // },
-          // {
-          //   path: 'berita',
-          //   element: <ComingSoonPage />,
-          // },
-          // {
-          //   path: 'agenda',
-          //   element: <ComingSoonPage />,
-          // },
-          // {
-          //   path: 'prestasi',
-          //   element: <ComingSoonPage />,
-          // },
           {
             path: 'galeri',
             element: <ComingSoonPage />,

@@ -1,20 +1,20 @@
 import { api, Meta, Res } from '@/store/api'
-import { DeleteType, ParamsType } from '@/types/website/menuType'
 import {
-  GetPengumumanDetailType,
-  GetPengumumanType,
-  PengumumanGambarType,
+  GetKategoriDetailType,
+  GetKategoriType,
+  KategoriGambarType,
   PostGambarParams,
-  PostPengumumanParams,
+  PostKategoriParams,
   PostPublishParams,
   UpdateGambarParams,
-  UpdatePengumumanParams,
-} from '@/types/website/pengumumanType'
+  UpdateKategoriParams,
+} from '@/types/website/kategoriType'
+import { DeleteType, ParamsType } from '@/types/website/menuType'
 
-export const WebsitePengumumanEndpoints = api.injectEndpoints({
+export const WebsiteKategoriEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
-    getPengumuman: builder.query<
-      Res<{ data: GetPengumumanType[]; meta: Meta }>,
+    getKategori: builder.query<
+      Res<{ data: GetKategoriType[]; meta: Meta }>,
       ParamsType
     >({
       query: ({ page_number, page_size, search, id_kategori, jenis }) => ({
@@ -27,10 +27,10 @@ export const WebsitePengumumanEndpoints = api.injectEndpoints({
           id_kategori: id_kategori,
         },
       }),
-      providesTags: ['website-pengumuman'],
+      providesTags: ['website-kategori'],
     }),
-    getPengumumanDetail: builder.query<
-      Res<{ data: GetPengumumanDetailType; gambar: PengumumanGambarType[] }>,
+    getKategoriDetail: builder.query<
+      Res<{ data: GetKategoriDetailType; gambar: KategoriGambarType[] }>,
       DeleteType
     >({
       query: ({ id, jenis }) => ({
@@ -40,29 +40,29 @@ export const WebsitePengumumanEndpoints = api.injectEndpoints({
           id: id,
         },
       }),
-      providesTags: ['website-pengumuman-detail'],
+      providesTags: ['website-kategori-detail'],
     }),
-    createPengumuman: builder.mutation<
+    createKategori: builder.mutation<
       void,
-      { body: PostPengumumanParams; jenis: string }
+      { body: PostKategoriParams; jenis: string }
     >({
       query: ({ body, jenis }) => ({
         url: `admin/website/${jenis}_tambah`,
         method: 'POST',
         body: body,
       }),
-      invalidatesTags: ['website-pengumuman'],
+      invalidatesTags: ['website-kategori'],
     }),
-    updatePengumuman: builder.mutation<
+    updateKategori: builder.mutation<
       void,
-      { body: UpdatePengumumanParams; jenis: string }
+      { body: UpdateKategoriParams; jenis: string }
     >({
       query: ({ body, jenis }) => ({
         url: `admin/website/${jenis}_edit`,
         method: 'POST',
         body: body,
       }),
-      invalidatesTags: ['website-pengumuman', 'website-pengumuman-detail'],
+      invalidatesTags: ['website-kategori', 'website-kategori-detail'],
     }),
     createGambar: builder.mutation<
       void,
@@ -74,9 +74,9 @@ export const WebsitePengumumanEndpoints = api.injectEndpoints({
         body: body,
       }),
       invalidatesTags: [
-        'website-pengumuman',
+        'website-kategori',
         'website-gambar',
-        'website-pengumuman-detail',
+        'website-kategori-detail',
       ],
     }),
     updateGambar: builder.mutation<
@@ -89,8 +89,8 @@ export const WebsitePengumumanEndpoints = api.injectEndpoints({
         body: body,
       }),
       invalidatesTags: [
-        'website-pengumuman',
-        'website-pengumuman-detail',
+        'website-kategori',
+        'website-kategori-detail',
         'website-gambar',
       ],
     }),
@@ -100,8 +100,8 @@ export const WebsitePengumumanEndpoints = api.injectEndpoints({
         method: 'DELETE',
       }),
       invalidatesTags: [
-        'website-pengumuman',
-        'website-pengumuman-detail',
+        'website-kategori',
+        'website-kategori-detail',
         'website-gambar',
       ],
     }),
@@ -114,26 +114,26 @@ export const WebsitePengumumanEndpoints = api.injectEndpoints({
         method: 'POST',
         body: body,
       }),
-      invalidatesTags: ['website-pengumuman', 'website-pengumuman-detail'],
+      invalidatesTags: ['website-kategori', 'website-kategori-detail'],
     }),
-    deletePengumuman: builder.mutation<void, DeleteType>({
+    deleteKategori: builder.mutation<void, DeleteType>({
       query: ({ id, jenis }) => ({
         url: `admin/website/${jenis}/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['website-pengumuman', 'website-pengumuman-detail'],
+      invalidatesTags: ['website-kategori', 'website-kategori-detail'],
     }),
   }),
 })
 
 export const {
-  useGetPengumumanQuery,
-  useGetPengumumanDetailQuery,
-  useCreatePengumumanMutation,
-  useUpdatePengumumanMutation,
+  useGetKategoriQuery,
+  useGetKategoriDetailQuery,
+  useCreateKategoriMutation,
+  useUpdateKategoriMutation,
   useCreateGambarMutation,
   useUpdateGambarMutation,
   useDeleteGambarMutation,
-  useDeletePengumumanMutation,
+  useDeleteKategoriMutation,
   useUpdatePublishMutation,
-} = WebsitePengumumanEndpoints
+} = WebsiteKategoriEndpoints

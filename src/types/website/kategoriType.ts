@@ -1,4 +1,4 @@
-export type GetPengumumanType = {
+export type GetKategoriType = {
   id: string
   tanggal: string
   judul: string
@@ -9,7 +9,7 @@ export type GetPengumumanType = {
   id_kategori: string
 }
 
-export type GetPengumumanDetailType = {
+export type GetKategoriDetailType = {
   id: string
   tanggal: string
   judul: string
@@ -30,13 +30,13 @@ export type TagsType = {
   nama: string
 }
 
-export type PengumumanGambarType = {
+export type KategoriGambarType = {
   id: string
   keterangan: string
   gambar: string
 }
 
-export type PostPengumumanParams = {
+export type PostKategoriParams = {
   id_kategori: string
   id_tags: string[]
   tanggal: string
@@ -51,7 +51,7 @@ export type GambarType = {
   keterangan?: string
 }
 
-export type UpdatePengumumanParams = {
+export type UpdateKategoriParams = {
   id: string
   id_kategori: string
   id_tags: string[]

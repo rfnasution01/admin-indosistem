@@ -1,6 +1,5 @@
 import { Breadcrumb } from '@/components/Breadcrumb'
 import { usePathname } from '@/hooks/usePathname'
-import { EditGambarSchema } from '@/schemas/website/pengumumanSchema'
 import { convertSlugToText } from '@/utils/formatText'
 import { Bounce, ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -8,16 +7,17 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { useForm } from 'react-hook-form'
 import { useEffect, useState } from 'react'
-import { useUpdateGambarMutation } from '@/store/slices/website/pengumumanAPI'
 import { useNavigate } from 'react-router-dom'
-import FormEditGambar from '@/components/Form/website/pengumuman/FormEditGambar'
+import FormEditGambar from '@/components/Form/website/kategori/FormEditGambar'
+import { EditGambarSchema } from '@/schemas/website/kategoriSchema'
+import { useUpdateGambarMutation } from '@/store/slices/website/kategoriAPI'
 
 export default function EditGambar() {
   const navigate = useNavigate()
   const [urls, setUrls] = useState<string>()
 
   const { lastPathname, secondPathname } = usePathname()
-  const idPengumuman = localStorage.getItem('ID') ?? ''
+  const idKategori = localStorage.getItem('ID') ?? ''
   const idGambar = localStorage.getItem('editID') ?? ''
   const data = localStorage.getItem('editData') ?? ''
 
@@ -44,7 +44,7 @@ export default function EditGambar() {
     const values = form.getValues()
 
     const body = {
-      id_pengumuman: idPengumuman,
+      id_pengumuman: idKategori,
       id_gambar: idGambar,
       keterangan: values?.keterangan,
       url_gambar: urls,
@@ -73,7 +73,7 @@ export default function EditGambar() {
         transition: Bounce,
       })
       setTimeout(() => {
-        localStorage.setItem('editID', idPengumuman)
+        localStorage.setItem('editID', idKategori)
         navigate(-1)
       }, 3000)
     }

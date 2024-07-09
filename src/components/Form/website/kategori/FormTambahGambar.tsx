@@ -16,7 +16,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { ValidasiKonfirmasi } from '@/components/Dialog/ValidasiKonfirmasi'
 import clsx from 'clsx'
-import { PreviewTambahGambar } from '@/features/website/pengumuman'
+import { PreviewTambahGambar } from '@/features/website/kategori'
 
 export default function FormTambahGambar({
   form,

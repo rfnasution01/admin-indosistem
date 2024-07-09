@@ -3,17 +3,17 @@ import { Searching } from '@/components/Searching'
 import { FormListDataPerPage } from '@/components/Select/website'
 import { TestimoniSchema } from '@/schemas/website/testimoniSchema'
 import { Meta } from '@/store/api'
-import { GetPengumumanType } from '@/types/website/pengumumanType'
 import { Dispatch, SetStateAction } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { useForm } from 'react-hook-form'
-import { SelectListPengumuman } from '@/components/Select/website/ListPengumuman'
 import { Form } from '@/components/Form'
-import { TablePengumuman } from '@/components/Table/TablePengumuman'
-import { columnsListDataPengumuman } from '@/dummy/table'
+import { TableKategori } from '@/components/Table/TableKategori'
+import { columnsListDataKategori } from '@/dummy/table'
+import { GetKategoriType } from '@/types/website/kategoriType'
+import { SelectListPengumuman } from '@/components/Select/website/ListPengumuman'
 
-export function PengumumanTable({
+export function KategoriTable({
   data,
   meta,
   setSearch,
@@ -33,7 +33,7 @@ export function PengumumanTable({
   setIsShowPublish,
   handleSubmitPublish,
 }: {
-  data: GetPengumumanType[]
+  data: GetKategoriType[]
   meta: Meta
   setSearch: Dispatch<SetStateAction<string>>
   setPageNumber: Dispatch<SetStateAction<number>>
@@ -91,9 +91,9 @@ export function PengumumanTable({
           )}
         </div>
       </div>
-      <TablePengumuman
+      <TableKategori
         data={data}
-        columns={columnsListDataPengumuman}
+        columns={columnsListDataKategori}
         containerClasses="w-full h-full flex-1 overflow-y-auto scrollbar"
         loading={isLoading}
         pageSize={pageSize}
@@ -103,7 +103,7 @@ export function PengumumanTable({
         setIsShow={setIsShow}
         handleSubmitDelete={handleSubmitDelete}
         isLoadingDelete={isLoadingDelete}
-        isPengumuman
+        isKategori
         handleSubmitPublish={handleSubmitPublish}
         isLoadingPublish={isLoadingPublish}
         setIsShowPublish={setIsShowPublish}
