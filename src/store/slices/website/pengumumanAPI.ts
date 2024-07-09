@@ -30,12 +30,15 @@ export const WebsitePengumumanEndpoints = api.injectEndpoints({
       providesTags: ['website-pengumuman'],
     }),
     getPengumumanDetail: builder.query<
-      Res<{ data: GetPengumumanDetailType; gambar: PengumumanGambarType }>,
+      Res<{ data: GetPengumumanDetailType; gambar: PengumumanGambarType[] }>,
       DeleteType
     >({
       query: ({ id }) => ({
-        url: `admin/website/pengumuman_detail/${id}`,
+        url: `admin/website/pengumuman_detail`,
         method: 'GET',
+        params: {
+          id: id,
+        },
       }),
       providesTags: ['website-pengumuman-detail'],
     }),
@@ -61,7 +64,11 @@ export const WebsitePengumumanEndpoints = api.injectEndpoints({
         method: 'POST',
         body: body,
       }),
-      invalidatesTags: ['website-pengumuman', 'website-gambar'],
+      invalidatesTags: [
+        'website-pengumuman',
+        'website-gambar',
+        'website-pengumuman-detail',
+      ],
     }),
     updateGambar: builder.mutation<void, { body: UpdateGambarParams }>({
       query: ({ body }) => ({
@@ -78,7 +85,7 @@ export const WebsitePengumumanEndpoints = api.injectEndpoints({
     deleteGambar: builder.mutation<void, DeleteType>({
       query: ({ id }) => ({
         url: `admin/website/pengumuman_hapus_gambar/${id}`,
-        method: 'POST',
+        method: 'DELETE',
       }),
       invalidatesTags: [
         'website-pengumuman',
@@ -97,7 +104,7 @@ export const WebsitePengumumanEndpoints = api.injectEndpoints({
     deletePengumuman: builder.mutation<void, DeleteType>({
       query: ({ id }) => ({
         url: `admin/website/pengumuman/${id}`,
-        method: 'POST',
+        method: 'DELETE',
       }),
       invalidatesTags: ['website-pengumuman', 'website-pengumuman-detail'],
     }),

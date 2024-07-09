@@ -1,6 +1,6 @@
 import zod from 'zod'
 
-const ListGambar = zod.object({
+export const ListGambarSchema = zod.object({
   url_gambar: zod.string().optional().nullable().nullish(),
   keterangan: zod.string().optional().nullable().nullish(),
 })
@@ -18,7 +18,7 @@ export const TambahPengumumanSchema = zod.object({
   }),
   isi: zod.string().optional().nullable().nullish(),
   publish: zod.string().optional().nullable().nullish(),
-  gambar: zod.array(ListGambar).optional().nullable(),
+  gambar: zod.array(ListGambarSchema).optional().nullable(),
   id_tags: zod
     .array(zod.string().optional().nullable().nullish())
     .optional()
@@ -27,4 +27,14 @@ export const TambahPengumumanSchema = zod.object({
     .array(zod.string().optional().nullable().nullish())
     .optional()
     .nullable(),
+})
+
+export const TambahGambarSchema = zod.object({
+  id_pengumuman: zod.string().optional().nullable().nullish(),
+  gambar: zod.array(ListGambarSchema).optional().nullable(),
+})
+
+export const EditGambarSchema = zod.object({
+  keterangan: zod.string().optional().nullable().nullish(),
+  url_gambar: zod.string().optional().nullable().nullish(),
 })

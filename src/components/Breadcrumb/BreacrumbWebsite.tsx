@@ -7,14 +7,16 @@ import { useNavigate } from 'react-router-dom'
 export function Breadcrumb() {
   const navigate = useNavigate()
 
-  const { thirdPathname, lastPathname } = usePathname()
+  const { secondPathname, thirdPathname, lastPathname } = usePathname()
 
   return (
     <div className="flex items-center gap-12 text-warna-grey">
       <p className="hover:cursor-pointer" onClick={() => navigate(-1)}>
         {thirdPathname === 'tentang'
           ? 'Tentang Sekolah'
-          : convertSlugToText(thirdPathname)}
+          : secondPathname === 'pengumuman'
+            ? convertSlugToText(secondPathname)
+            : convertSlugToText(thirdPathname)}
       </p>
       <p className="text-[1.6rem]">
         <FontAwesomeIcon icon={faChevronRight} />

@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { Menubar, MenubarContent, MenubarMenu, MenubarTrigger } from './Menubar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
+  faBinoculars,
   faEllipsis,
   faPencil,
   faSpinner,
@@ -49,6 +50,17 @@ export function MenubarAction<T extends Fasilitas>({
         {isMenuOpen && (
           <MenubarContent className="absolute right-[2rem] top-[-11rem] w-[20rem] bg-white p-32 text-[2rem] text-warna-dark shadow-lg transition-all duration-300">
             <div className="flex flex-col gap-12">
+              <Link
+                to={'detail'}
+                onClick={() => {
+                  localStorage.setItem('editID', data?.id)
+                  localStorage.setItem('editData', JSON.stringify(data))
+                }}
+                className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 text-warna-primary hover:border-warna-primary hover:bg-warna-primary hover:bg-opacity-10"
+              >
+                <FontAwesomeIcon icon={faBinoculars} />
+                <p>Detail</p>
+              </Link>
               <Link
                 to={'edit'}
                 onClick={() => {

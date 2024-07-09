@@ -62,7 +62,7 @@ export type UpdatePengumumanParams = {
 }
 
 export type PostGambarParams = {
-  id_pengumuman: string
+  id_pengumuman?: string
   gambar: GambarType[]
 }
 

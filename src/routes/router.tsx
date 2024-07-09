@@ -2,6 +2,9 @@ import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
   ComingSoonPage,
   CommonLayout,
+  DetailPengumumanPage,
+  EditGambarPengumumanPage,
+  EditPengumumanPage,
   FasilitasSekolahPage,
   GuruStaffPage,
   LoginLayout,
@@ -10,6 +13,7 @@ import {
   ProfilWebsiteLayout,
   ProgramLayananPage,
   TambahFasilitasSekolahPage,
+  TambahGambarPengumumanPage,
   TambahProfilPage,
   TambahProgramLayananPage,
   TambahTestimoniPage,
@@ -48,7 +52,35 @@ export const router = createBrowserRouter([
           },
           {
             path: 'pengumuman',
-            element: <PengumumanPage />,
+            element: <CommonLayout />,
+            children: [
+              {
+                path: '',
+                element: <PengumumanPage />,
+              },
+              {
+                path: 'detail',
+                element: <CommonLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <DetailPengumumanPage />,
+                  },
+                  {
+                    path: 'tambah-gambar',
+                    element: <TambahGambarPengumumanPage />,
+                  },
+                  {
+                    path: 'edit-gambar',
+                    element: <EditGambarPengumumanPage />,
+                  },
+                ],
+              },
+              {
+                path: 'edit',
+                element: <EditPengumumanPage />,
+              },
+            ],
           },
           {
             path: 'mading',

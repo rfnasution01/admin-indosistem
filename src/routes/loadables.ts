@@ -60,5 +60,21 @@ export const TambahProgramLayananPage = loadable(
 )
 
 export const PengumumanPage = loadable(
-  () => import('@/pages/website/Pengumuman'),
+  () => import('@/pages/website/pengumuman/Pengumuman'),
+)
+
+export const DetailPengumumanPage = loadable(
+  () => import('@/pages/website/pengumuman/DetailPengumuman'),
+)
+
+export const EditPengumumanPage = loadable(
+  () => import('@/pages/website/pengumuman/UpdatePengumuman'),
+)
+
+export const TambahGambarPengumumanPage = loadable(
+  () => import('@/pages/website/pengumuman/TambahGambar'),
+)
+
+export const EditGambarPengumumanPage = loadable(
+  () => import('@/pages/website/pengumuman/EditGambar'),
 )
