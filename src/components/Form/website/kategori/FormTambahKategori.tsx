@@ -220,7 +220,9 @@ export default function FormTambahKategori({
             )}
           </div>
 
-          {secondPathname === 'mading' && (
+          {(secondPathname.includes('mading') ||
+            secondPathname.includes('agenda') ||
+            secondPathname.includes('prestasi')) && (
             <div className="flex gap-64 phones:flex-col phones:gap-32">
               <FormLabelInput
                 name={`deskripsi_singkat`}

@@ -20,6 +20,9 @@ import { GetKategoriType } from '@/types/website/kategoriType'
 import { ValidasiDelete } from '@/components/Dialog/ValidasiDelete'
 import clsx from 'clsx'
 import { ValidasiIsCheck } from '@/components/Dialog/ValidasiIsCheck'
+import { FormListDataPerPage } from '@/components/Select/website'
+import { Pagination } from '@/components/Pagination'
+import { Meta } from '@/store/api'
 
 export function KategoriPublish({
   isPublish,
@@ -36,11 +39,16 @@ export function KategoriPublish({
   setIsShowPublish,
   isLoadingDelete,
   isLoadingPublish,
+  setPageSize,
+  pageNumber,
+  meta,
 }: {
   isPublish?: boolean
   loadingKategori: boolean
   kategori: GetKategoriType[]
   setPageNumber: Dispatch<SetStateAction<number>>
+  setPageSize: Dispatch<SetStateAction<number>>
+  pageNumber: number
   setSearch: Dispatch<SetStateAction<string>>
   search: string
   handleSubmitDelete: (id: string) => Promise<void>
@@ -51,6 +59,7 @@ export function KategoriPublish({
   setIsShowPublish: Dispatch<SetStateAction<boolean>>
   isShowPublish: boolean
   isLoadingPublish: boolean
+  meta: Meta
 }) {
   const { secondPathname } = usePathname()
   const [ID, setID] = useState<string>()
@@ -85,7 +94,7 @@ export function KategoriPublish({
             kategori?.map((item, idx) => (
               <div
                 key={idx}
-                className="flex gap-32 rounded-2x border border-warna-pale-grey p-32 text-warna-dark phones:flex-col"
+                className="flex gap-32 rounded-2x border border-warna-pale-grey p-32 text-warna-dark shadow phones:flex-col"
               >
                 <img
                   src={
@@ -175,6 +184,19 @@ export function KategoriPublish({
               </div>
             ))
           )}
+
+          <div className="flex justify-end">
+            <div className="flex items-center gap-32">
+              <FormListDataPerPage setDataPerPage={setPageSize} />
+              {kategori?.length > 0 && (
+                <Pagination
+                  pageNow={pageNumber ?? 0}
+                  lastPage={meta?.last_page ?? 0}
+                  setPageNumber={setPageNumber}
+                />
+              )}
+            </div>
+          </div>
         </div>
       )}
       <ValidasiDelete
@@ -225,7 +247,7 @@ export function KategoriPublish({
               <FontAwesomeIcon icon={faEye} />
             )}
             <p className="font-sf-pro">
-              {publish === '1' ? 'Sembunyikan' : 'Tampilkan'}
+              {publish === '1' ? 'Draft' : 'Publish'}
             </p>
           </button>
         }

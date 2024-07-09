@@ -12,6 +12,11 @@ import { TableKategori } from '@/components/Table/TableKategori'
 import { columnsListDataKategori } from '@/dummy/table'
 import { GetKategoriType } from '@/types/website/kategoriType'
 import { SelectListPengumuman } from '@/components/Select/website/ListPengumuman'
+import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { convertSlugToText } from '@/utils/formatText'
+import { usePathname } from '@/hooks/usePathname'
 
 export function KategoriTable({
   data,
@@ -52,6 +57,8 @@ export function KategoriTable({
   isShowPublish: boolean
   isLoadingPublish: boolean
 }) {
+  const { secondPathname } = usePathname()
+
   const form = useForm<zod.infer<typeof TestimoniSchema>>({
     resolver: zodResolver(TestimoniSchema),
     defaultValues: {},
@@ -80,16 +87,15 @@ export function KategoriTable({
             </form>
           </Form>
         </div>
-        <div className="flex items-center gap-32">
-          <FormListDataPerPage setDataPerPage={setPageSize} />
-          {data?.length > 0 && (
-            <Pagination
-              pageNow={pageNumber ?? 0}
-              lastPage={meta?.last_page ?? 0}
-              setPageNumber={setPageNumber}
-            />
-          )}
-        </div>
+        <Link
+          to="tambah"
+          className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
+        >
+          <FontAwesomeIcon icon={faPlus} />
+          <p className="phones:hidden">
+            Tambah {convertSlugToText(secondPathname)} Baru
+          </p>
+        </Link>
       </div>
       <TableKategori
         data={data}
@@ -109,6 +115,18 @@ export function KategoriTable({
         setIsShowPublish={setIsShowPublish}
         isShowPublish={isShowPublish}
       />
+      <div className="flex justify-end">
+        <div className="flex items-center gap-32">
+          <FormListDataPerPage setDataPerPage={setPageSize} />
+          {data?.length > 0 && (
+            <Pagination
+              pageNow={pageNumber ?? 0}
+              lastPage={meta?.last_page ?? 0}
+              setPageNumber={setPageNumber}
+            />
+          )}
+        </div>
+      </div>
     </div>
   )
 }

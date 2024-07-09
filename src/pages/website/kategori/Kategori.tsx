@@ -5,7 +5,6 @@ import { Bounce, toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Cookies from 'js-cookie'
 import { Meta } from '@/store/api'
-import { Loading } from '@/components/Loading'
 import {
   KategoriTab,
   KategoriTable,
@@ -24,7 +23,21 @@ export default function Kategori() {
   const navigate = useNavigate()
   const { secondPathname } = usePathname()
 
-  const [menu, setMenu] = useState<string>()
+  const [menu, setMenu] = useState<string>('')
+
+  const defaultMenus = {
+    pengumuman: 'Publish',
+    mading: 'Publish',
+    berita: 'Dashboard',
+    agenda: 'Publish',
+    prestasi: 'Publish',
+  }
+
+  useEffect(() => {
+    if (secondPathname) {
+      setMenu(defaultMenus[secondPathname] || '')
+    }
+  }, [secondPathname, setMenu])
 
   const [search, setSearch] = useState<string>('')
   const [id_kategori, setIdKategori] = useState<string>('')
@@ -200,75 +213,82 @@ export default function Kategori() {
 
   return (
     <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto rounded-3x bg-white">
-      {loadingKategori ? (
-        <Loading />
-      ) : (
-        <>
-          <div className="flex">
-            <KategoriTab menu={menu} setMenu={setMenu} />
-          </div>
+      <div className="flex">
+        <KategoriTab
+          menu={menu}
+          setMenu={setMenu}
+          setPageNumber={setPageNumber}
+          setPageSize={setPageSize}
+          setSearch={setSearch}
+        />
+      </div>
 
-          <div className="scrollbar flex h-full flex-1 overflow-y-auto px-48 pb-48">
-            {menu === `Semua ${convertSlugToText(secondPathname)}` ? (
-              <KategoriTable
-                data={kategori}
-                meta={meta}
-                setPageNumber={setPageNumber}
-                setPageSize={setPageSize}
-                setSearch={setSearch}
-                setIdKategori={setIdKategori}
-                search={search}
-                isLoading={loadingKategori}
-                pageNumber={pageNumber}
-                pageSize={pageSize}
-                isShowDelete={isShowDelete}
-                setIsShowDelete={setIsShowDelete}
-                handleSubmitDelete={handleSubmitDelete}
-                isLoadingDelete={isLoadingDeleteKategori}
-                isLoadingPublish={isLoadingPublishKategori}
-                setIsShowPublish={setIsShowPublish}
-                isShowPublish={isShowPublish}
-                handleSubmitPublish={handleSubmitPublish}
-              />
-            ) : menu === 'Publish' ? (
-              <KategoriPublish
-                isPublish
-                loadingKategori={loadingKategori}
-                kategori={kategori}
-                search={search}
-                setPageNumber={setPageNumber}
-                setSearch={setSearch}
-                handleSubmitDelete={handleSubmitDelete}
-                handleSubmitPublish={handleSubmitPublish}
-                isShowDelete={isShowDelete}
-                isShowPublish={isShowPublish}
-                setIsShowDelete={setIsShowDelete}
-                setIsShowPublish={setIsShowPublish}
-                isLoadingDelete={isLoadingDeleteKategori}
-                isLoadingPublish={isLoadingPublishKategori}
-              />
-            ) : menu === 'Draft' ? (
-              <KategoriPublish
-                loadingKategori={loadingKategori}
-                kategori={kategori}
-                search={search}
-                setPageNumber={setPageNumber}
-                setSearch={setSearch}
-                handleSubmitDelete={handleSubmitDelete}
-                handleSubmitPublish={handleSubmitPublish}
-                isShowDelete={isShowDelete}
-                isShowPublish={isShowPublish}
-                setIsShowDelete={setIsShowDelete}
-                setIsShowPublish={setIsShowPublish}
-                isLoadingDelete={isLoadingDeleteKategori}
-                isLoadingPublish={isLoadingPublishKategori}
-              />
-            ) : (
-              <ComingSoonPage />
-            )}
-          </div>
-        </>
-      )}
+      <div className="scrollbar flex h-full flex-1 overflow-y-auto px-48 pb-48">
+        {menu === `Semua ${convertSlugToText(secondPathname)}` ? (
+          <KategoriTable
+            data={kategori}
+            meta={meta}
+            setPageNumber={setPageNumber}
+            setPageSize={setPageSize}
+            setSearch={setSearch}
+            setIdKategori={setIdKategori}
+            search={search}
+            isLoading={loadingKategori}
+            pageNumber={pageNumber}
+            pageSize={pageSize}
+            isShowDelete={isShowDelete}
+            setIsShowDelete={setIsShowDelete}
+            handleSubmitDelete={handleSubmitDelete}
+            isLoadingDelete={isLoadingDeleteKategori}
+            isLoadingPublish={isLoadingPublishKategori}
+            setIsShowPublish={setIsShowPublish}
+            isShowPublish={isShowPublish}
+            handleSubmitPublish={handleSubmitPublish}
+          />
+        ) : menu === 'Publish' ? (
+          <KategoriPublish
+            isPublish
+            loadingKategori={loadingKategori}
+            kategori={kategori}
+            search={search}
+            setPageNumber={setPageNumber}
+            setSearch={setSearch}
+            handleSubmitDelete={handleSubmitDelete}
+            handleSubmitPublish={handleSubmitPublish}
+            isShowDelete={isShowDelete}
+            isShowPublish={isShowPublish}
+            setIsShowDelete={setIsShowDelete}
+            setIsShowPublish={setIsShowPublish}
+            isLoadingDelete={isLoadingDeleteKategori}
+            isLoadingPublish={isLoadingPublishKategori}
+            pageNumber={pageNumber}
+            setPageSize={setPageSize}
+            meta={meta}
+          />
+        ) : menu === 'Draft' ? (
+          <KategoriPublish
+            loadingKategori={loadingKategori}
+            kategori={kategori}
+            search={search}
+            setPageNumber={setPageNumber}
+            setSearch={setSearch}
+            handleSubmitDelete={handleSubmitDelete}
+            handleSubmitPublish={handleSubmitPublish}
+            isShowDelete={isShowDelete}
+            isShowPublish={isShowPublish}
+            setIsShowDelete={setIsShowDelete}
+            setIsShowPublish={setIsShowPublish}
+            isLoadingDelete={isLoadingDeleteKategori}
+            isLoadingPublish={isLoadingPublishKategori}
+            pageNumber={pageNumber}
+            setPageSize={setPageSize}
+            meta={meta}
+          />
+        ) : (
+          <ComingSoonPage />
+        )}
+      </div>
+
       <ToastContainer />
     </div>
   )

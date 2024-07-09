@@ -13,9 +13,15 @@ const tabs = {
 export function KategoriTab({
   menu,
   setMenu,
+  setPageSize,
+  setPageNumber,
+  setSearch,
 }: {
   menu: string
   setMenu: Dispatch<SetStateAction<string>>
+  setSearch: Dispatch<SetStateAction<string>>
+  setPageSize: Dispatch<SetStateAction<number>>
+  setPageNumber: Dispatch<SetStateAction<number>>
 }) {
   const { secondPathname } = usePathname()
 
@@ -28,7 +34,12 @@ export function KategoriTab({
       {tab.map((item, idx) => (
         <p
           key={idx}
-          onClick={() => setMenu(item)}
+          onClick={() => {
+            setSearch('')
+            setPageNumber(1)
+            setPageSize(5)
+            setMenu(item)
+          }}
           className={clsx(
             'text-nowrap pb-16 font-roboto text-[2.4rem] transition-colors duration-300 ease-in-out hover:cursor-pointer',
             {
