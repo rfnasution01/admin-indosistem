@@ -17,9 +17,9 @@ export default function EditGambar() {
   const [urls, setUrls] = useState<string>()
 
   const { lastPathname } = usePathname()
-  const idPengumuman = localStorage.getItem('ID')
-  const idGambar = localStorage.getItem('editID')
-  const data = localStorage.getItem('editData')
+  const idPengumuman = localStorage.getItem('ID') ?? ''
+  const idGambar = localStorage.getItem('editID') ?? ''
+  const data = localStorage.getItem('editData') ?? ''
 
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
   const [isShow, setIsShow] = useState<boolean>(false)

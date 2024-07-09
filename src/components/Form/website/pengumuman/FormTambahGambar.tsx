@@ -108,8 +108,6 @@ export default function FormTambahGambar({
     name: 'gambar',
   })
 
-  console.log(form.watch())
-
   return (
     <div>
       <Form {...form}>

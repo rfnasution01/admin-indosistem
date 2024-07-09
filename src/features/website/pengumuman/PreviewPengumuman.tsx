@@ -1,3 +1,5 @@
+import DefaultImg from '@/assets/images/default.jpg'
+
 export function PreviewPengumuman({
   kategori,
   taq,
@@ -5,6 +7,7 @@ export function PreviewPengumuman({
   judul,
   isi,
   publish,
+  gambar,
 }: {
   kategori?: string
   taq?: string[]
@@ -12,15 +15,30 @@ export function PreviewPengumuman({
   judul?: string
   isi?: string
   publish?: string
+  gambar: { url_gambar: string; keterangan: string }[]
 }) {
   return (
-    <div className="scrollbar flex h-full gap-48 overflow-y-auto phones:flex-col phones:items-start phones:gap-32">
-      {/* <img
-        src={photo !== '' && photo ? photo : DefaultImg}
-        alt={nama}
-        className="h-[30rem] w-[50rem] rounded-2xl filter"
-        loading="lazy"
-      /> */}
+    <div className="scrollbar flex h-full flex-col gap-48 overflow-y-auto phones:flex-col phones:items-start phones:gap-32">
+      {gambar?.length > 0 && (
+        <div className="flex flex-wrap items-center justify-center gap-32">
+          {gambar &&
+            gambar?.map((item, idx) => (
+              <div className="flex flex-col gap-12" key={idx}>
+                <img
+                  src={
+                    item?.url_gambar !== '' && item?.url_gambar
+                      ? item?.url_gambar
+                      : DefaultImg
+                  }
+                  alt={item?.keterangan}
+                  className="h-[30rem] w-[50rem] rounded-2xl filter"
+                  loading="lazy"
+                />
+                <p>{item?.keterangan}</p>
+              </div>
+            ))}
+        </div>
+      )}
       <div className="flex flex-1 flex-col gap-16">
         {judul && <p className="font-roboto">{judul}</p>}
         <div className="flex flex-wrap items-center  gap-24">
@@ -40,7 +58,7 @@ export function PreviewPengumuman({
             </p>
           ) : (
             <p className="rounded-2xl bg-warna-red px-24 py-12 text-[1.8rem] text-white">
-              Tidak dpublish {publish}
+              Tidak dpublish
             </p>
           )}
         </div>

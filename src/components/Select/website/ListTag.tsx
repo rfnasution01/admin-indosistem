@@ -20,6 +20,7 @@ type inputProps = {
   headerLabel?: string
   useFormReturn: UseFormReturn
   className?: string
+  defaultValues?: { value: string; label: string }[]
 }
 
 export function SelectListTag({
@@ -29,6 +30,7 @@ export function SelectListTag({
   isDisabled,
   useFormReturn,
   className,
+  defaultValues,
 }: inputProps) {
   const [query, setQuery] = useState<string>(null)
   const [listTag, setListTag] = useState<ReferensiType[]>([])
@@ -72,6 +74,8 @@ export function SelectListTag({
       </components.Option>
     )
   }
+
+  console.log({ defaultValues })
 
   return (
     <FormField
@@ -145,6 +149,7 @@ export function SelectListTag({
                     }),
                   }}
                   className={'text-[2rem]'}
+                  defaultValue={defaultValues}
                   options={TagOption}
                   isMulti
                   value={

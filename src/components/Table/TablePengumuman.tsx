@@ -66,6 +66,7 @@ export function TablePengumuman<T extends Pengumuman, P>({
   isShowPublish,
 }: Props<T, P>) {
   const [rowIsOpen, setRowIsOpen] = useState<number | null>(null)
+  const [id, setId] = useState<number>()
 
   const columnArray =
     typeof columns === 'function' ? columns(columnProps as P) : columns
@@ -166,6 +167,9 @@ export function TablePengumuman<T extends Pengumuman, P>({
                             isLoadingPublish={isLoadingPublish}
                             handleSubmitPublish={handleSubmitPublish}
                             data={row}
+                            setId={setId}
+                            index={rowIndex}
+                            id={id}
                           />
                         </td>
                       )}

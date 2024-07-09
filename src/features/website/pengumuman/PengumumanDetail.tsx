@@ -24,6 +24,10 @@ export function PengumumanDetail({
         </p>
         <Link
           to={'/website/pengumuman/edit'}
+          onClick={() => {
+            localStorage.setItem('editID', detail?.id)
+            localStorage.setItem('editData', JSON.stringify(detail))
+          }}
           className="flex items-center gap-12 rounded-2xl bg-warna-dark px-24 py-12 text-[1.8rem] text-white"
         >
           <FontAwesomeIcon icon={faPencil} />
