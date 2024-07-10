@@ -1,19 +1,28 @@
 import DefaultImg from '@/assets/images/default.jpg'
 import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
+import { Link } from 'react-router-dom'
 
 export function CardBerita({
+  id,
   gambar,
   judul,
   penulis,
   view,
 }: {
+  id: string
   gambar: string
   judul: string
   penulis: string
   view: string
 }) {
   return (
-    <div className="flex transform flex-col gap-16 transition-transform duration-300 ease-in-out hover:scale-105 phones:flex">
+    <Link
+      to={'detail'}
+      onClick={() => {
+        localStorage.setItem('editID', id)
+      }}
+      className="flex transform gap-16 transition-transform duration-300 ease-in-out hover:scale-105 phones:flex-col"
+    >
       <img
         src={gambar === '' || !gambar ? DefaultImg : gambar}
         alt={judul}
@@ -41,6 +50,6 @@ export function CardBerita({
           <p>Kali Dibaca</p>
         </div>
       )}
-    </div>
+    </Link>
   )
 }

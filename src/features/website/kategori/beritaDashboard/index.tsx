@@ -3,6 +3,8 @@ import { useGetDashboardBeritaQuery } from '@/store/slices/website/kategoriAPI'
 import { GetDashboardBerita } from '@/types/website/kategoriType'
 import { useEffect, useState } from 'react'
 import { CardBerita } from './CardBerita'
+import { KategoriChart } from './KategoriChart'
+import { KategoriStatistik } from './KategoriStatistik'
 
 export function BeritaDashboard() {
   const [dashboard, setDashboard] = useState<GetDashboardBerita>()
@@ -27,6 +29,21 @@ export function BeritaDashboard() {
         <Loading />
       ) : (
         <div className="flex w-full flex-col gap-32">
+          {/* --- Statistik --- */}
+          <div className="flex w-full gap-64 rounded-2x border border-warna-pale-grey p-32 text-warna-dark shadow phones:flex-col">
+            <KategoriStatistik
+              jlh_berita={dashboard?.jlh_berita}
+              jumlah_share={dashboard?.jumlah_share}
+              berita_dibaca={dashboard?.berita_dibaca}
+              berita_baru={dashboard?.berita_baru}
+            />
+            <hr className="h-full w-2 bg-warna-pale-grey phones:hidden" />
+            <KategoriChart
+              data={dashboard?.kategori}
+              title="Kategori Yang Paling Banyak Dibaca"
+            />
+          </div>
+          {/* --- Berita --- */}
           <div className="flex w-full gap-32 phones:flex-col">
             <div className="flex w-full flex-col gap-32 rounded-2x border border-warna-pale-grey p-32 text-warna-dark shadow">
               <p className="font-roboto text-[2.4rem]">⭐ Berita Populer</p>
@@ -44,6 +61,7 @@ export function BeritaDashboard() {
                         penulis={item?.nama}
                         view={item?.hits}
                         judul={item?.judul}
+                        id={item?.id}
                       />
                       {dashboard?.populer?.length - 1 !== idx && (
                         <hr className="border border-warna-pale-grey" />
@@ -65,6 +83,7 @@ export function BeritaDashboard() {
                       className="flex flex-col gap-16 hover:cursor-pointer"
                     >
                       <CardBerita
+                        id={item?.id}
                         gambar={item?.gambar}
                         penulis={item?.nama}
                         view={item?.hits}

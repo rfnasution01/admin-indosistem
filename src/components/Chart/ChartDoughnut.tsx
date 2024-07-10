@@ -33,7 +33,7 @@ export function ChartDoughnut({ jsonData }: { jsonData: KategoriType[] }) {
   }
 
   return (
-    <div className="w-[20%] phones:w-full">
+    <div className="flex w-[20%] phones:w-full phones:justify-center">
       <Doughnut
         data={data}
         options={{ plugins: { legend: { display: false } } }}

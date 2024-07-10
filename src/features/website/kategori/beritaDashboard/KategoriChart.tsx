@@ -2,7 +2,7 @@ import { ChartDoughnut } from '@/components/Chart/ChartDoughnut'
 import { KategoriType } from '@/types/website/kategoriType'
 import { getColor } from '@/utils/formatColor'
 
-export function DashboardDoughnutChart({
+export function KategoriChart({
   data,
   title,
   className,
@@ -13,10 +13,10 @@ export function DashboardDoughnutChart({
 }) {
   return (
     <div
-      className={`flex ${className ?? 'w-2/5'} gap-64 rounded-2x bg-white p-32`}
+      className={`flex ${className ?? 'w-2/5'} gap-64 rounded-2x bg-white p-0 phones:w-full phones:flex-col-reverse `}
     >
       <ChartDoughnut jsonData={data} />
-      <div className="flex flex-1 flex-col gap-12">
+      <div className="flex flex-1 flex-col gap-12 phones:w-full">
         <p className="text-sim-grey font-bold">{title}</p>
         <div className="flex gap-64">
           {data?.length === 0 && <p>Belum Ada Data</p>}
