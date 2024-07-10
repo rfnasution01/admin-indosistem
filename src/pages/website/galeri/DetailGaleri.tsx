@@ -1,4 +1,3 @@
-import { usePathname } from '@/hooks/usePathname'
 import { Meta } from '@/store/api'
 import {
   useDeleteGambarAlbumMutation,
@@ -12,21 +11,15 @@ import 'react-toastify/dist/ReactToastify.css'
 import Cookies from 'js-cookie'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import { Loading } from '@/components/Loading'
-import { ValidasiDelete } from '@/components/Dialog/ValidasiDelete'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { GaleriDetail } from '@/features/website/galeri'
 
 export default function DetailGaleri() {
   const navigate = useNavigate()
-  const { secondPathname } = usePathname()
 
   const idEdit = localStorage.getItem('editID') ?? null
 
-  const [search, setSearch] = useState<string>('')
   const [pageNumber, setPageNumber] = useState<number>(1)
   const [pageSize, setPageSize] = useState<number>(5)
-  const [deleteID, setDeleteID] = useState<string>()
   const [isShowDelete, setIsShowDelete] = useState<boolean>(false)
 
   // --- Data DetailGaleri ---
@@ -45,7 +38,6 @@ export default function DetailGaleri() {
       id: idEdit,
       page_number: pageNumber,
       page_size: pageSize,
-      search: search,
     },
     { skip: !idEdit },
   )
@@ -59,7 +51,7 @@ export default function DetailGaleri() {
       setMeta(dataDetailGaleriSekolah?.data?.meta)
       setPhoto(dataDetailGaleriSekolah?.data?.photo)
     }
-  }, [dataDetailGaleriSekolah?.data, pageNumber, pageSize, search, idEdit])
+  }, [dataDetailGaleriSekolah?.data, pageNumber, pageSize, idEdit])
 
   useEffect(() => {
     if (isErrorDetailGaleriSekolah) {
@@ -93,7 +85,6 @@ export default function DetailGaleri() {
     deleteGambar,
     {
       isError: isErrorDeleteGambar,
-      isLoading: isLoadingDeleteGambar,
       isSuccess: isSuccessDeleteGambar,
       error: errorDeleteGambar,
     },
@@ -101,7 +92,7 @@ export default function DetailGaleri() {
 
   const handleSubmitDeleteGambar = async (id: string) => {
     try {
-      await deleteGambar({ id: id, jenis: secondPathname })
+      await deleteGambar({ id: id })
     } catch (error) {
       console.error(error)
     }
@@ -121,7 +112,6 @@ export default function DetailGaleri() {
         transition: Bounce,
       })
       setIsShowDelete(false)
-      setDeleteID(null)
     }
   }, [isSuccessDeleteGambar])
 
@@ -154,10 +144,8 @@ export default function DetailGaleri() {
             detail={detailGaleri}
             photo={photo}
             meta={meta}
-            search={search}
             setPageNumber={setPageNumber}
             setPageSize={setPageSize}
-            setSearch={setSearch}
             setIsShowDelete={setIsShowDelete}
             isShowDelete={isShowDelete}
             isLoadingDeleteGaleri={isLoadingDetailGaleriSekolah}
@@ -167,29 +155,6 @@ export default function DetailGaleri() {
           />
         )}
       </div>
-      <ValidasiDelete
-        isOpen={isShowDelete}
-        setIsOpen={setIsShowDelete}
-        child={
-          <button
-            type="button"
-            disabled={isLoadingDeleteGambar}
-            onClick={() => {
-              handleSubmitDeleteGambar(deleteID)
-            }}
-            className="flex items-center gap-12 rounded-2xl bg-warna-red px-24 py-12 text-white hover:bg-opacity-80"
-          >
-            {isLoadingDeleteGambar ? (
-              <span className="animate-spin duration-300">
-                <FontAwesomeIcon icon={faSpinner} />
-              </span>
-            ) : (
-              <FontAwesomeIcon icon={faTrash} />
-            )}
-            <p className="font-sf-pro">Hapus</p>
-          </button>
-        }
-      />
     </div>
   )
 }

@@ -1,5 +1,4 @@
 import { Breadcrumb } from '@/components/Breadcrumb'
-import { ValidasiDelete } from '@/components/Dialog/ValidasiDelete'
 import { Loading } from '@/components/Loading'
 import {
   KategoriDetail,
@@ -14,8 +13,6 @@ import {
   GetKategoriDetailType,
   KategoriGambarType,
 } from '@/types/website/kategoriType'
-import { faSpinner, faTrash } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Cookies from 'js-cookie'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -27,7 +24,6 @@ export default function DetailKategori() {
   const { secondPathname } = usePathname()
 
   const id = localStorage.getItem('editID') ?? null
-  const [deleteID, setDeleteID] = useState<string>()
   const [isShowDelete, setIsShowDelete] = useState<boolean>(false)
 
   // --- Data DetailKategori ---
@@ -121,7 +117,6 @@ export default function DetailKategori() {
         transition: Bounce,
       })
       setIsShowDelete(false)
-      setDeleteID(null)
     }
   }, [isSuccessDeleteGambar])
 
@@ -154,36 +149,15 @@ export default function DetailKategori() {
             <KategoriDetail detail={dataDetailKategori} />
             <KategoriDetailGambar
               gambar={dataGambarKategori}
-              setDeleteID={setDeleteID}
-              setIsShowID={setIsShowDelete}
-              idKategori={id}
+              setIsShowDelete={setIsShowDelete}
+              handleSubmitDeleteGambar={handleSubmitDeleteGambar}
+              isLoadingDeleteKategori={isLoadingDeleteGambar}
+              isShowDelete={isShowDelete}
+              editID={id}
             />
           </>
         )}
       </div>
-      <ValidasiDelete
-        isOpen={isShowDelete}
-        setIsOpen={setIsShowDelete}
-        child={
-          <button
-            type="button"
-            disabled={isLoadingDeleteGambar}
-            onClick={() => {
-              handleSubmitDeleteGambar(deleteID)
-            }}
-            className="flex items-center gap-12 rounded-2xl bg-warna-red px-24 py-12 text-white hover:bg-opacity-80"
-          >
-            {isLoadingDeleteGambar ? (
-              <span className="animate-spin duration-300">
-                <FontAwesomeIcon icon={faSpinner} />
-              </span>
-            ) : (
-              <FontAwesomeIcon icon={faTrash} />
-            )}
-            <p className="font-sf-pro">Hapus</p>
-          </button>
-        }
-      />
     </div>
   )
 }

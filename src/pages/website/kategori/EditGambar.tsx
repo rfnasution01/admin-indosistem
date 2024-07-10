@@ -44,12 +44,12 @@ export default function EditGambar() {
     const values = form.getValues()
 
     const body = {
-      id_pengumuman: idKategori,
-      id_gambar: idGambar,
-      id_mading: idKategori,
-      id_prestasi: idKategori,
-      id_agenda: idKategori,
-      id_berita: idKategori,
+      id_pengumuman: idGambar,
+      id_gambar: idKategori,
+      id_mading: idGambar,
+      id_prestasi: idGambar,
+      id_agenda: idGambar,
+      id_berita: idGambar,
       keterangan: values?.keterangan,
       url_gambar: urls,
     }
@@ -77,7 +77,7 @@ export default function EditGambar() {
         transition: Bounce,
       })
       setTimeout(() => {
-        localStorage.setItem('editID', idKategori)
+        localStorage.setItem('editID', idGambar)
         navigate(-1)
       }, 3000)
     }
@@ -112,7 +112,7 @@ export default function EditGambar() {
 
   return (
     <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto rounded-3x bg-white p-48">
-      <Breadcrumb editID={idKategori} />
+      <Breadcrumb editID={idGambar} />
       <div className="scrollbar flex flex-1 flex-col gap-32 overflow-y-auto">
         <p className="font-roboto text-[2.4rem]">
           Form {convertSlugToText(lastPathname)}

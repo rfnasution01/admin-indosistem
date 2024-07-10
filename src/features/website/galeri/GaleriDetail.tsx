@@ -13,7 +13,6 @@ import {
 import { IconComponent } from '@/components/LabelComponent/IconComponent'
 import dayjs from 'dayjs'
 import DefaultImg from '@/assets/images/default.jpg'
-import { Searching } from '@/components/Searching'
 import { convertSlugToText } from '@/utils/formatText'
 import { Dispatch, SetStateAction } from 'react'
 import { MenubarAction } from '@/components/Menubar/MenubarAction'
@@ -24,10 +23,8 @@ export function GaleriDetail({
   detail,
   photo,
   meta,
-  search,
   setPageNumber,
   setPageSize,
-  setSearch,
   handleSubmitDeleteGambar,
   setIsShowDelete,
   isLoadingDeleteGaleri,
@@ -40,9 +37,7 @@ export function GaleriDetail({
   meta: Meta
   setPageNumber: Dispatch<SetStateAction<number>>
   setPageSize: Dispatch<SetStateAction<number>>
-  setSearch: Dispatch<SetStateAction<string>>
   setIsShowDelete: Dispatch<SetStateAction<boolean>>
-  search: string
   handleSubmitDeleteGambar: (id: string) => Promise<void>
   isLoadingDeleteGaleri: boolean
   isShowDelete: boolean
@@ -91,13 +86,7 @@ export function GaleriDetail({
       />
       <div className="flex items-center justify-between gap-32 phones:flex-col-reverse phones:items-start">
         <p className="font-roboto text-[2.4rrem] text-warna-dark">Galeri</p>
-        <div className="flex w-1/2 items-center gap-32 phones:w-full">
-          <Searching
-            setPageNumber={setPageNumber}
-            setSearch={setSearch}
-            className="w-full phones:w-full"
-            search={search}
-          />
+        <div className="flex items-center gap-32 phones:w-full">
           <Link
             to="tambah-gambar"
             className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
