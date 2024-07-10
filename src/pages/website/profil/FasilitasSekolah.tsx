@@ -22,7 +22,7 @@ export default function FasilitasSekolah() {
 
   const [search, setSearch] = useState<string>('')
   const [pageNumber, setPageNumber] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<number>(5)
+  const [pageSize, setPageSize] = useState<number>(12)
   const [isShow, setIsShow] = useState<boolean>(false)
 
   const [fasilitas, setFasilitas] = useState<GetFasilitasType[]>([])

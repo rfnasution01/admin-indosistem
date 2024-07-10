@@ -18,7 +18,7 @@ export default function VisiMisi() {
   const [menu, setMenu] = useState<string>('Daftar Guru')
   const [search, setSearch] = useState<string>('')
   const [pageNumber, setPageNumber] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<number>(5)
+  const [pageSize, setPageSize] = useState<number>(12)
 
   // --- Data Guru ---
   const [dataGuru, setDataGuru] = useState<GetGuruStaffType[]>()

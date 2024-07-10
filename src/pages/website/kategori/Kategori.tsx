@@ -43,7 +43,7 @@ export default function Kategori() {
   const [search, setSearch] = useState<string>('')
   const [id_kategori, setIdKategori] = useState<string>('')
   const [pageNumber, setPageNumber] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<number>(5)
+  const [pageSize, setPageSize] = useState<number>(12)
   const [isShowDelete, setIsShowDelete] = useState<boolean>(false)
   const [isShowPublish, setIsShowPublish] = useState<boolean>(false)
 

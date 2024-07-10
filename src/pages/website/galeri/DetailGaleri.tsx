@@ -19,7 +19,7 @@ export default function DetailGaleri() {
   const idEdit = localStorage.getItem('editID') ?? null
 
   const [pageNumber, setPageNumber] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<number>(5)
+  const [pageSize, setPageSize] = useState<number>(12)
   const [isShowDelete, setIsShowDelete] = useState<boolean>(false)
 
   // --- Data DetailGaleri ---
