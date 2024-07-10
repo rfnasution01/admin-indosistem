@@ -11,6 +11,7 @@ import {
 import { Link } from 'react-router-dom'
 import { Fasilitas } from '../Table/TableFasilitas'
 import { ValidasiDelete } from '../Dialog/ValidasiDelete'
+import { usePathname } from '@/hooks/usePathname'
 
 type Props<T> = {
   data: T
@@ -18,6 +19,7 @@ type Props<T> = {
   setIsShowDelete: Dispatch<SetStateAction<boolean>>
   isShowDelete: boolean
   isLoadingDelete: boolean
+  editID?: string
 }
 
 export function MenubarAction<T extends Fasilitas>({
@@ -26,7 +28,9 @@ export function MenubarAction<T extends Fasilitas>({
   setIsShowDelete,
   isLoadingDelete,
   isShowDelete,
+  editID,
 }: Props<T>) {
+  const { thirdPathname } = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const handleMenuClick = () => {
@@ -50,28 +54,45 @@ export function MenubarAction<T extends Fasilitas>({
         {isMenuOpen && (
           <MenubarContent className="absolute right-[2rem] top-[-11rem] w-[20rem] bg-white p-32 text-[2rem] text-warna-dark shadow-lg transition-all duration-300">
             <div className="flex flex-col gap-12">
-              <Link
-                to={'detail'}
-                onClick={() => {
-                  localStorage.setItem('editID', data?.id)
-                  localStorage.setItem('editData', JSON.stringify(data))
-                }}
-                className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 text-warna-primary hover:border-warna-primary hover:bg-warna-primary hover:bg-opacity-10"
-              >
-                <FontAwesomeIcon icon={faBinoculars} />
-                <p>Detail</p>
-              </Link>
-              <Link
-                to={'edit'}
-                onClick={() => {
-                  localStorage.setItem('editID', data?.id)
-                  localStorage.setItem('editData', JSON.stringify(data))
-                }}
-                className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 hover:border-warna-dark hover:bg-warna-dark hover:bg-opacity-10"
-              >
-                <FontAwesomeIcon icon={faPencil} />
-                <p>Edit</p>
-              </Link>
+              {thirdPathname !== 'detail' && (
+                <Link
+                  to={'detail'}
+                  onClick={() => {
+                    localStorage.setItem('editID', data?.id)
+                    localStorage.setItem('editData', JSON.stringify(data))
+                  }}
+                  className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 text-warna-primary hover:border-warna-primary hover:bg-warna-primary hover:bg-opacity-10"
+                >
+                  <FontAwesomeIcon icon={faBinoculars} />
+                  <p>Detail</p>
+                </Link>
+              )}
+              {thirdPathname === 'detail' ? (
+                <Link
+                  to={'edit-gambar'}
+                  onClick={() => {
+                    localStorage.setItem('editID', editID)
+                    localStorage.setItem('ID', data?.id)
+                    localStorage.setItem('editData', JSON.stringify(data))
+                  }}
+                  className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 hover:border-warna-dark hover:bg-warna-dark hover:bg-opacity-10"
+                >
+                  <FontAwesomeIcon icon={faPencil} />
+                  <p>Edit</p>
+                </Link>
+              ) : (
+                <Link
+                  to={'edit'}
+                  onClick={() => {
+                    localStorage.setItem('editID', data?.id)
+                    localStorage.setItem('editData', JSON.stringify(data))
+                  }}
+                  className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 hover:border-warna-dark hover:bg-warna-dark hover:bg-opacity-10"
+                >
+                  <FontAwesomeIcon icon={faPencil} />
+                  <p>Edit</p>
+                </Link>
+              )}
               <button
                 className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 text-warna-red hover:border-warna-red hover:bg-warna-red hover:bg-opacity-10"
                 type="button"

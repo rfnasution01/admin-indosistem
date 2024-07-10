@@ -17,6 +17,7 @@ import {
 import { ValidasiKonfirmasi } from '@/components/Dialog/ValidasiKonfirmasi'
 import clsx from 'clsx'
 import { PreviewTambahGambar } from '@/features/website/kategori'
+import { usePathname } from '@/hooks/usePathname'
 
 export default function FormTambahGambar({
   form,
@@ -35,6 +36,7 @@ export default function FormTambahGambar({
   isShow: boolean
   isSubmit: boolean
 }) {
+  const { secondPathname } = usePathname()
   // --- Upload File ---
   const [
     uploadFileMutation,
@@ -200,14 +202,26 @@ export default function FormTambahGambar({
                         </FormItem>
                       )}
                     />
-                    <FormLabelInput
-                      name={`gambar.${index}.keterangan`}
-                      form={form}
-                      placeholder="Masukkan keterangan"
-                      className="flex-1"
-                      type="text"
-                      isDisabled={isLoading}
-                    />
+                    {secondPathname !== 'galeri' && (
+                      <FormLabelInput
+                        name={`gambar.${index}.keterangan`}
+                        form={form}
+                        placeholder="Masukkan keterangan"
+                        className="flex-1"
+                        type="text"
+                        isDisabled={isLoading}
+                      />
+                    )}
+                    {secondPathname === 'galeri' && (
+                      <FormLabelInput
+                        name={`gambar.${index}.judul`}
+                        form={form}
+                        placeholder="Masukkan judul"
+                        className="flex-1"
+                        type="text"
+                        isDisabled={isLoading}
+                      />
+                    )}
                     <button
                       type="button"
                       onClick={() => remove(index)}

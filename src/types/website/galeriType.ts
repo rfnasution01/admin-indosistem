@@ -22,13 +22,14 @@ export type PostAlbumPhotoType = {
 export type PostGambarType = {
   id_galeri: string
   gambar: {
-    url_gambar: string
-    keterangan: string
+    url_gambar?: string
+    keterangan?: string
   }[]
 }
 
 export type UpdateGambarType = {
+  id_galeri: string
+  id_gambar: string
   judul: string
   url_gambar: string
-  photo: PostAlbumPhotoType[]
 }

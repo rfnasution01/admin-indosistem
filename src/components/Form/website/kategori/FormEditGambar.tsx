@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faSave, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { ValidasiKonfirmasi } from '@/components/Dialog/ValidasiKonfirmasi'
 import { PreviewEditGambar } from '@/features/website/kategori'
+import { usePathname } from '@/hooks/usePathname'
 
 export default function FormEditGambar({
   form,
@@ -31,6 +32,8 @@ export default function FormEditGambar({
   setUrls: Dispatch<SetStateAction<string>>
   urls: string
 }) {
+  const { secondPathname } = usePathname()
+
   // --- Upload File ---
   const [
     uploadFileMutation,
@@ -106,18 +109,33 @@ export default function FormEditGambar({
           className="flex flex-col gap-32"
           onSubmit={form.handleSubmit(handleSubmit)}
         >
-          <div className="flex gap-64 phones:flex-col phones:gap-32">
-            <FormLabelInput
-              name={`keterangan`}
-              form={form}
-              label="Keterangan"
-              placeholder="Masukkan keterangan fasilitas"
-              className="w-1/2 hover:cursor-not-allowed phones:w-full "
-              type="text"
-              isDisabled={isLoading}
-            />
-            <div className="w-1/2 phones:hidden" />
-          </div>
+          {secondPathname === 'galeri' ? (
+            <div className="flex gap-64 phones:flex-col phones:gap-32">
+              <FormLabelInput
+                name={`judul`}
+                form={form}
+                label="Judul"
+                placeholder="Masukkan judul"
+                className="w-1/2 hover:cursor-not-allowed phones:w-full "
+                type="text"
+                isDisabled={isLoading}
+              />
+              <div className="w-1/2 phones:hidden" />
+            </div>
+          ) : (
+            <div className="flex gap-64 phones:flex-col phones:gap-32">
+              <FormLabelInput
+                name={`keterangan`}
+                form={form}
+                label="Keterangan"
+                placeholder="Masukkan keterangan"
+                className="w-1/2 hover:cursor-not-allowed phones:w-full "
+                type="text"
+                isDisabled={isLoading}
+              />
+              <div className="w-1/2 phones:hidden" />
+            </div>
+          )}
 
           <FormLabelFile
             urls={urls}
@@ -160,7 +178,11 @@ export default function FormEditGambar({
           <div className="flex w-full flex-col gap-32 rounded-2x bg-warna-pale-blue p-32 text-[2rem] text-warna-dark phones:text-[2.4rem]">
             <PreviewEditGambar
               photo={urls}
-              keterangan={form.watch('keterangan')}
+              keterangan={
+                secondPathname === 'galeri'
+                  ? form.watch('judul')
+                  : form.watch('keterangan')
+              }
             />
           </div>
         }

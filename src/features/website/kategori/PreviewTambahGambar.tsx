@@ -3,7 +3,7 @@ import DefaultImg from '@/assets/images/default.jpg'
 export function PreviewTambahGambar({
   gambar,
 }: {
-  gambar: { url_gambar: string; keterangan: string }[]
+  gambar: { url_gambar: string; keterangan: string; judul: string }[]
 }) {
   return (
     <div className="scrollbar flex h-full gap-48 overflow-y-auto phones:flex-col phones:items-start phones:gap-32">
@@ -21,7 +21,8 @@ export function PreviewTambahGambar({
                 className="h-[30rem] w-[50rem] rounded-2xl filter"
                 loading="lazy"
               />
-              <p>{item?.keterangan}</p>
+              {item?.keterangan && <p>{item?.keterangan}</p>}
+              {item?.judul && <p>{item?.judul}</p>}
             </div>
           ))}
       </div>

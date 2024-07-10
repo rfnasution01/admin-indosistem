@@ -49,7 +49,7 @@ export const WebsiteAlbumEndpoints = api.injectEndpoints({
       invalidatesTags: ['website-album', 'website-album-detail'],
     }),
 
-    createGambar: builder.mutation<void, { body: PostGambarType }>({
+    createGambarAlbum: builder.mutation<void, { body: PostGambarType }>({
       query: ({ body }) => ({
         url: `admin/website/galeri_tambah_gambar`,
         method: 'POST',
@@ -61,7 +61,7 @@ export const WebsiteAlbumEndpoints = api.injectEndpoints({
         'website-album-detail',
       ],
     }),
-    updateGambar: builder.mutation<void, { body: UpdateGambarType }>({
+    updateGambarAlbum: builder.mutation<void, { body: UpdateGambarType }>({
       query: ({ body }) => ({
         url: `admin/website/galeri_edit_gambar`,
         method: 'POST',
@@ -73,7 +73,7 @@ export const WebsiteAlbumEndpoints = api.injectEndpoints({
         'website-album-gambar',
       ],
     }),
-    deleteGambar: builder.mutation<void, DeleteType>({
+    deleteGambarAlbum: builder.mutation<void, DeleteType>({
       query: ({ id }) => ({
         url: `admin/website/galeri_hapus_gambar/${id}`,
         method: 'DELETE',
@@ -98,8 +98,8 @@ export const {
   useGetAlbumQuery,
   useGetAlbumDetailQuery,
   useCreateAlbumMutation,
-  useCreateGambarMutation,
-  useUpdateGambarMutation,
-  useDeleteGambarMutation,
+  useCreateGambarAlbumMutation,
+  useUpdateGambarAlbumMutation,
+  useDeleteGambarAlbumMutation,
   useDeleteAlbumMutation,
 } = WebsiteAlbumEndpoints

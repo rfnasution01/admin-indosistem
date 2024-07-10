@@ -86,3 +86,15 @@ export const GaleriPage = loadable(
 export const EditGaleriPage = loadable(
   () => import('@/pages/website/galeri/UpdateGaleri'),
 )
+
+export const DetailGaleriPage = loadable(
+  () => import('@/pages/website/galeri/DetailGaleri'),
+)
+
+export const TambahGambarAlbumPage = loadable(
+  () => import('@/pages/website/galeri/TambahGambar'),
+)
+
+export const EditGambarAlbumPage = loadable(
+  () => import('@/pages/website/galeri/EditGambar'),
+)

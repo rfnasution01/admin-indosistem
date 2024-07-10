@@ -14,11 +14,11 @@ export const TambahGaleriSchema = zod.object({
   gambar: zod.array(ListGambarSchema).optional().nullable(),
 })
 
-export const TambahGambarSchema = zod.object({
+export const TambahGambarAlbumSchema = zod.object({
   gambar: zod.array(ListGambarSchema).optional().nullable(),
 })
 
-export const EditGambarSchema = zod.object({
+export const EditGambarAlbumSchema = zod.object({
   judul: zod.string().optional().nullable().nullish(),
   url_gambar: zod.string().optional().nullable().nullish(),
 })
