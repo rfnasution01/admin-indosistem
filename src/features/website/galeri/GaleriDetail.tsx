@@ -81,7 +81,7 @@ export function GaleriDetail({
             : detail?.url_gambar
         }
         alt={detail?.judul}
-        className="h-[50rem] w-full object-cover filter"
+        className="h-[50rem] w-full object-cover filter phones:h-[30rem]"
         loading="lazy"
       />
       <div className="flex items-center justify-between gap-32 phones:flex-col-reverse phones:items-start">
@@ -101,7 +101,7 @@ export function GaleriDetail({
       {photo?.length > 0 ? (
         <div className="grid grid-cols-4 gap-32">
           {photo?.map((item, idx) => (
-            <div key={idx} className="col-span-1 phones:col-span-4">
+            <div key={idx} className="col-span-1 phones:col-span-2">
               <div className="relative w-full">
                 <img
                   src={
@@ -110,7 +110,7 @@ export function GaleriDetail({
                       : item?.url_gambar
                   }
                   alt={item?.judul}
-                  className="h-[20rem] w-full rounded-2xl object-cover filter"
+                  className="h-[20rem] w-full rounded-2xl object-cover filter phones:h-[12rem]"
                   loading="lazy"
                 />
                 <div className="absolute left-0 top-0 h-full w-full transform bg-black bg-opacity-0">
