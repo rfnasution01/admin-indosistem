@@ -89,7 +89,7 @@ export function KategoriPublish({
       ) : (
         <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto">
           {kategori?.length === 0 ? (
-            <p>Data tidak ditemukan</p>
+            <p>Tidak ada data</p>
           ) : (
             kategori?.map((item, idx) => (
               <div

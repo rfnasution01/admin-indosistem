@@ -25,7 +25,8 @@ export function Breadcrumb({ editID }: { editID?: string }) {
               secondPathname === 'agenda' ||
               secondPathname === 'prestasi' ||
               secondPathname === 'mading' ||
-              secondPathname === 'galeri'
+              secondPathname === 'galeri' ||
+              secondPathname === 'kontak'
             ? convertSlugToText(secondPathname)
             : convertSlugToText(thirdPathname)}
       </p>

@@ -98,3 +98,11 @@ export const TambahGambarAlbumPage = loadable(
 export const EditGambarAlbumPage = loadable(
   () => import('@/pages/website/galeri/EditGambar'),
 )
+
+export const KontakPage = loadable(
+  () => import('@/pages/website/kontak/Kontak'),
+)
+
+export const TambahKontakPage = loadable(
+  () => import('@/pages/website/kontak/TambahKontak'),
+)

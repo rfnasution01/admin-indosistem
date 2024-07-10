@@ -48,7 +48,7 @@ export function BeritaDashboard() {
             <div className="flex w-full flex-col gap-32 rounded-2x border border-warna-pale-grey p-32 text-warna-dark shadow">
               <p className="font-roboto text-[2.4rem]">⭐ Berita Populer</p>
               {dashboard?.populer?.length === 0 ? (
-                <p>Data tidak ditemukan</p>
+                <p>Tidak ada data</p>
               ) : (
                 <div className="flex flex-col gap-16">
                   {dashboard?.populer?.slice(0, 4)?.map((item, idx) => (
@@ -74,7 +74,7 @@ export function BeritaDashboard() {
             <div className="flex w-full flex-col gap-32 rounded-2x border border-warna-pale-grey p-32 text-warna-dark shadow">
               <p className="font-roboto text-[2.4rem]">🕒 Berita Terkini</p>
               {dashboard?.terbaru?.length === 0 ? (
-                <p>Data tidak ditemukan</p>
+                <p>Tidak ada data</p>
               ) : (
                 <div className="flex flex-col gap-16">
                   {dashboard?.terbaru?.slice(0, 4)?.map((item, idx) => (

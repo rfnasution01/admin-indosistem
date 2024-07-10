@@ -12,6 +12,7 @@ import {
   GaleriPage,
   GuruStaffPage,
   KategoriPage,
+  KontakPage,
   LoginLayout,
   MainLayout,
   ProfilWebsiteLayout,
@@ -19,6 +20,7 @@ import {
   TambahFasilitasSekolahPage,
   TambahGambarAlbumPage,
   TambahGambarKategoriPage,
+  TambahKontakPage,
   TambahProfilPage,
   TambahProgramLayananPage,
   TambahTestimoniPage,
@@ -134,7 +136,17 @@ export const router = createBrowserRouter([
           },
           {
             path: 'kontak',
-            element: <ComingSoonPage />,
+            element: <CommonLayout />,
+            children: [
+              {
+                path: '',
+                element: <KontakPage />,
+              },
+              {
+                path: 'edit',
+                element: <TambahKontakPage />,
+              },
+            ],
           },
           {
             path: 'profil',
