@@ -78,3 +78,11 @@ export const TambahGambarKategoriPage = loadable(
 export const EditGambarKategoriPage = loadable(
   () => import('@/pages/website/kategori/EditGambar'),
 )
+
+export const GaleriPage = loadable(
+  () => import('@/pages/website/galeri/Galeri'),
+)
+
+export const EditGaleriPage = loadable(
+  () => import('@/pages/website/galeri/UpdateGaleri'),
+)

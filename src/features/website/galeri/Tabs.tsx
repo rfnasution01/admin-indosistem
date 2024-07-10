@@ -1,16 +1,7 @@
-import { usePathname } from '@/hooks/usePathname'
 import clsx from 'clsx'
 import { Dispatch, SetStateAction } from 'react'
 
-const tabs = {
-  pengumuman: ['Publish', 'Draft', 'Semua Pengumuman'],
-  mading: ['Publish', 'Draft', 'Semua Mading'],
-  berita: ['Dashboard', 'Publish', 'Draft', 'Semua Berita'],
-  agenda: ['Publish', 'Draft', 'Semua Agenda'],
-  prestasi: ['Publish', 'Draft', 'Semua Prestasi'],
-}
-
-export function KategoriTab({
+export function GaleriTab({
   menu,
   setMenu,
   setPageSize,
@@ -23,15 +14,9 @@ export function KategoriTab({
   setPageSize: Dispatch<SetStateAction<number>>
   setPageNumber: Dispatch<SetStateAction<number>>
 }) {
-  const { secondPathname } = usePathname()
-
-  const getTab = (path) => tabs[path] || []
-
-  const tab = getTab(secondPathname)
-
   return (
     <div className="scrollbar flex w-full items-center gap-32 overflow-x-auto border-b border-warna-pale-grey px-48 pt-48">
-      {tab.map((item, idx) => (
+      {['Album'].map((item, idx) => (
         <p
           key={idx}
           onClick={() => {

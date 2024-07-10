@@ -10,7 +10,10 @@ export function CardBerita({
   view,
 }: {
   id: string
-  gambar: string
+  gambar: {
+    keterangan: string
+    gambar: string
+  }
   judul: string
   penulis: string
   view: string
@@ -24,9 +27,11 @@ export function CardBerita({
       className="flex transform gap-16 transition-transform duration-300 ease-in-out hover:scale-105 phones:flex-col"
     >
       <img
-        src={gambar === '' || !gambar ? DefaultImg : gambar}
-        alt={judul}
-        className="h-[8rem] w-[10rem] rounded-2xl"
+        src={
+          gambar?.gambar === '' || !gambar?.gambar ? DefaultImg : gambar?.gambar
+        }
+        alt={gambar?.keterangan}
+        className="h-[8rem] w-[10rem] rounded-2xl phones:h-[20rem] phones:w-full"
         loading="lazy"
       />
       <div className="flex flex-1 flex-col gap-8">

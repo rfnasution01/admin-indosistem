@@ -32,6 +32,7 @@ export type ParamsType = {
   id_kategori?: string
   jenis?: string
   status?: string
+  id?: string
 }
 
 export type DeleteType = {

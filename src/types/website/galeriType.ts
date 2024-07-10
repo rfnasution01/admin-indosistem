@@ -4,18 +4,19 @@ export type GetAlbumType = {
   url_gambar: string
   create_at: string
   create_user: string
+  jumlah_photo: number
 }
 
 export type PostAlbumBody = {
   id?: string
   judul: string
-  url_gambar: string
+  url_gambar?: string
   photo?: PostAlbumPhotoType[]
 }
 
 export type PostAlbumPhotoType = {
-  url_gambar: string
-  judul: string
+  url_gambar?: string
+  judul?: string
 }
 
 export type PostGambarType = {

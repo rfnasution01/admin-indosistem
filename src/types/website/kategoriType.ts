@@ -96,5 +96,8 @@ export type NewsType = {
   tanggal: string
   hits: string
   nama: string
-  gambar: string
+  gambar: {
+    keterangan: string
+    gambar: string
+  }
 }

@@ -13,25 +13,29 @@ export const WebsiteAlbumEndpoints = api.injectEndpoints({
       Res<{ data: GetAlbumType[]; meta: Meta }>,
       ParamsType
     >({
-      query: ({ page_number, page_size }) => ({
+      query: ({ page_number, page_size, search }) => ({
         url: `admin/website/galeri`,
         method: 'GET',
         params: {
           page_number: page_number,
           page_size: page_size,
+          search: search,
         },
       }),
       providesTags: ['website-album'],
     }),
     getAlbumDetail: builder.query<
       Res<{ data: GetAlbumType; photo: GetAlbumType[]; meta: Meta }>,
-      DeleteType
+      ParamsType
     >({
-      query: ({ id }) => ({
+      query: ({ id, page_number, page_size, search }) => ({
         url: `admin/website/galeri_detail`,
         method: 'GET',
         params: {
           id: id,
+          page_number: page_number,
+          page_size: page_size,
+          search: search,
         },
       }),
       providesTags: ['website-album-detail'],

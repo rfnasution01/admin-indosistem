@@ -3,9 +3,11 @@ import {
   ComingSoonPage,
   CommonLayout,
   DetailKategoriPage,
+  EditGaleriPage,
   EditGambarKategoriPage,
   EditKategoriPage,
   FasilitasSekolahPage,
+  GaleriPage,
   GuruStaffPage,
   KategoriPage,
   LoginLayout,
@@ -93,7 +95,39 @@ export const router = createBrowserRouter([
 
           {
             path: 'galeri',
-            element: <ComingSoonPage />,
+            element: <CommonLayout />,
+            children: [
+              {
+                path: '',
+                element: <GaleriPage />,
+              },
+              {
+                path: 'detail',
+                element: <CommonLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <DetailKategoriPage />,
+                  },
+                  {
+                    path: 'tambah-gambar',
+                    element: <TambahGambarKategoriPage />,
+                  },
+                  {
+                    path: 'edit-gambar',
+                    element: <EditGambarKategoriPage />,
+                  },
+                ],
+              },
+              {
+                path: 'edit',
+                element: <EditGaleriPage />,
+              },
+              {
+                path: 'tambah',
+                element: <EditGaleriPage />,
+              },
+            ],
           },
           {
             path: 'kontak',
