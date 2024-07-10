@@ -42,6 +42,9 @@ export const api = createApi({
     'website-kategori',
     'website-kategori-detail',
     'website-gambar',
+    'website-album',
+    'website-album-detail',
+    'website-album-gambar',
   ],
   // * it's okay to disable eslint here, because the warning is unnecessary. Each endpoint will be injected from an api slice.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
