@@ -26,6 +26,7 @@ export default function DetailKotakMasuk() {
 
   const [detail, setDetail] = useState<KontakMasukDetail>()
   const [chat, setChat] = useState<ChatType[]>([])
+  const [isShow, setIsShow] = useState<boolean>(false)
 
   const {
     data: dataDetail,
@@ -239,6 +240,7 @@ export default function DetailKotakMasuk() {
         theme: 'light',
         transition: Bounce,
       })
+      setIsShow(false)
     }
   }, [isSuccessClose])
 
@@ -283,6 +285,8 @@ export default function DetailKotakMasuk() {
             isLoadingChat={isLoadingChat}
             isLoadingClose={isLoadingClose}
             tiket={detail}
+            isShow={isShow}
+            setIsShow={setIsShow}
           />
         </div>
       )}

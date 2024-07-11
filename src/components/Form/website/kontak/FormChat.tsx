@@ -131,10 +131,10 @@ export function FormChat({
                 Kirim
               </button>
             </div>
+            {closeButton}
           </form>
         </Form>
       )}
-      {closeButton}
     </div>
   )
 }

@@ -24,6 +24,8 @@ export function DetailPesanChat({
   loadingFile,
   isLoadingChat,
   isLoadingClose,
+  isShow,
+  setIsShow,
 }: {
   chat: ChatType[]
   tiket: KontakMasukDetail
@@ -39,10 +41,12 @@ export function DetailPesanChat({
   loadingFile: boolean
   isLoadingChat: boolean
   isLoadingClose: boolean
+  isShow: boolean
+  setIsShow: Dispatch<SetStateAction<boolean>>
 }) {
   return (
-    <div className="scrollbar h-full w-2/3 overflow-y-auto py-32 pl-32 phones:h-auto phones:w-full">
-      <div className="flex h-full flex-col gap-32">
+    <div className="scrollbar h-full w-2/3 overflow-y-auto py-32 pl-32 phones:h-auto phones:w-full phones:overflow-visible">
+      <div className="flex h-full flex-col gap-32 phones:h-auto">
         <div className="scrollbar flex flex-1 flex-col gap-32 overflow-y-auto">
           {chat?.map((item, idx) => (
             <div className={`flex w-full flex-col gap-24`} key={idx}>
@@ -50,7 +54,7 @@ export function DetailPesanChat({
                 className={`flex w-full gap-32 ${item?.jenis !== 'UMUM' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`flex w-3/5 gap-32 ${item?.jenis !== 'UMUM' ? 'flex-row-reverse' : 'flex-row'}`}
+                  className={`flex w-3/5 gap-32 phones:w-4/5 ${item?.jenis !== 'UMUM' ? 'flex-row-reverse' : 'flex-row'}`}
                 >
                   <div
                     className={clsx(
@@ -78,7 +82,7 @@ export function DetailPesanChat({
                             <img
                               src={list?.dokumen}
                               alt="Dokumen"
-                              className="h-[6rem] w-full rounded-2xl object-cover filter"
+                              className="h-[8rem] w-full rounded-2xl object-cover filter"
                               loading="lazy"
                             />
                           </Link>
@@ -121,6 +125,8 @@ export function DetailPesanChat({
                 loadingClose={isLoadingClose}
                 form={formClose}
                 data={tiket}
+                setIsShow={setIsShow}
+                isShow={isShow}
               />
             }
           />

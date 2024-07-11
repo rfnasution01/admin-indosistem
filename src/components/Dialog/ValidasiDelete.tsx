@@ -9,10 +9,12 @@ export function ValidasiDelete({
   isOpen,
   setIsOpen,
   child,
+  isTutup,
 }: {
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
   child: ReactNode
+  isTutup?: boolean
 }) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -34,7 +36,8 @@ export function ValidasiDelete({
             </DialogPrimitive.Close>
           </DialogHeader>
           <p className="text-sim-grey text-center text-[2.4rem]">
-            Apakah anda yakin ingin menghapus data?
+            Apakah anda yakin ingin{' '}
+            {isTutup ? 'menutup tiket' : 'menghapus data'}?
           </p>
           <div className="flex items-center justify-center gap-32 text-[2rem]">
             <button

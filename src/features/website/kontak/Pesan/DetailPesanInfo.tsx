@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom'
 
 export function DetailPesanInfo({ detail }: { detail: KontakMasukDetail }) {
   return (
-    <div className="scrollbar h-full w-1/3 overflow-y-auto border-r border-warna-pale-grey py-32 pr-32 phones:h-auto phones:w-full phones:border-none">
-      <div className="flex gap-32">
+    <div className="scrollbar h-full w-1/3 overflow-y-auto border-r border-warna-pale-grey py-32 pr-32 phones:h-auto phones:w-full phones:overflow-visible phones:border-none">
+      <div className="flex gap-32 phones:h-auto">
         <div className="flex h-[7rem] w-[7rem] items-center justify-center rounded-full bg-warna-primary text-white">
           {getInitials(`${detail?.nama_depan} ${detail?.nama_belakang}`)}
         </div>
@@ -52,13 +52,13 @@ export function DetailPesanInfo({ detail }: { detail: KontakMasukDetail }) {
               <p className="border-b border-warna-pale-grey pb-8">
                 {detail?.lampiran?.length} Atttachment
               </p>
-              <div className="grid grid-cols-2 gap-32">
+              <div className="grid grid-cols-4 gap-32">
                 {detail?.lampiran?.map((item, idx) => (
                   <Link
                     to={item?.dokumen}
                     key={idx}
                     target="_blank"
-                    className="col-span-1 transform transition-transform duration-300 ease-in-out hover:scale-105 phones:col-span-2"
+                    className="col-span-2 transform transition-transform duration-300 ease-in-out hover:scale-105 phones:col-span-2"
                   >
                     <img
                       src={item?.dokumen}
