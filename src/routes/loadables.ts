@@ -110,3 +110,19 @@ export const TambahKontakPage = loadable(
 export const DetailKontakPage = loadable(
   () => import('@/pages/website/kontak/DetailKotakMasuk'),
 )
+
+export const SliderPage = loadable(
+  () => import('@/pages/website/konten/Slider'),
+)
+
+export const HalamanPage = loadable(
+  () => import('@/pages/website/konten/Halaman'),
+)
+
+export const FAQPage = loadable(() => import('@/pages/website/konten/FAQ'))
+
+export const MenuPage = loadable(() => import('@/pages/website/konten/Menu'))
+
+export const DownloadPage = loadable(
+  () => import('@/pages/website/konten/Download'),
+)

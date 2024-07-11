@@ -5,19 +5,24 @@ import {
   DetailGaleriPage,
   DetailKategoriPage,
   DetailKontakPage,
+  DownloadPage,
   EditGaleriPage,
   EditGambarAlbumPage,
   EditGambarKategoriPage,
   EditKategoriPage,
+  FAQPage,
   FasilitasSekolahPage,
   GaleriPage,
   GuruStaffPage,
+  HalamanPage,
   KategoriPage,
   KontakPage,
   LoginLayout,
   MainLayout,
+  MenuPage,
   ProfilWebsiteLayout,
   ProgramLayananPage,
+  SliderPage,
   TambahFasilitasSekolahPage,
   TambahGambarAlbumPage,
   TambahGambarKategoriPage,
@@ -222,6 +227,66 @@ export const router = createBrowserRouter([
                   {
                     path: ':aksi',
                     element: <TambahTestimoniPage />,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            path: 'konten',
+            element: <CommonLayout />,
+            children: [
+              {
+                path: '',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'slider',
+                element: <CommonLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <SliderPage />,
+                  },
+                ],
+              },
+              {
+                path: 'halaman',
+                element: <CommonLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <HalamanPage />,
+                  },
+                ],
+              },
+              {
+                path: 'menu',
+                element: <CommonLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <MenuPage />,
+                  },
+                ],
+              },
+              {
+                path: 'faq',
+                element: <CommonLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <FAQPage />,
+                  },
+                ],
+              },
+              {
+                path: 'download',
+                element: <CommonLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <DownloadPage />,
                   },
                 ],
               },

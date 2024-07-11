@@ -168,7 +168,7 @@ export function WebsiteMainHeader({
             {/* --- Mobile --- */}
             <span
               onClick={() => setIsOpen(!isOpen)}
-              className="px-32 text-[3.2rem] text-warna-dark"
+              className="hidden px-32 text-[3.2rem] text-warna-dark phones:block"
             >
               {isOpen ? (
                 <FontAwesomeIcon icon={faClose} />
