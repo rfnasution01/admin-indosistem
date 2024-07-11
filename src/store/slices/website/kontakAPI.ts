@@ -1,9 +1,11 @@
 import { api, Res } from '@/store/api'
 import { ParamsType } from '@/types/website/menuType'
 import {
+  ClosePesanBody,
   GetKontakMasukDetailType,
   GetKontakMasukType,
   GetKontakType,
+  PostPesanBody,
 } from '@/types/website/profil/kontakType'
 
 export const WebsiteKontakEndpoints = api.injectEndpoints({
@@ -25,6 +27,7 @@ export const WebsiteKontakEndpoints = api.injectEndpoints({
           search: search,
         },
       }),
+      providesTags: ['website-pesan'],
     }),
     getKontakMasukDetail: builder.query<
       Res<GetKontakMasukDetailType>,
@@ -37,6 +40,7 @@ export const WebsiteKontakEndpoints = api.injectEndpoints({
           id: id,
         },
       }),
+      providesTags: ['website-pesan'],
     }),
     createKontak: builder.mutation<void, { body: GetKontakType }>({
       query: ({ body }) => ({
@@ -46,6 +50,22 @@ export const WebsiteKontakEndpoints = api.injectEndpoints({
       }),
       invalidatesTags: ['website-kontak'],
     }),
+    createPesan: builder.mutation<void, { body: PostPesanBody }>({
+      query: ({ body }) => ({
+        url: `admin/website/kontak_pesan`,
+        method: 'POST',
+        body: body,
+      }),
+      invalidatesTags: ['website-pesan'],
+    }),
+    closePesan: builder.mutation<void, { body: ClosePesanBody }>({
+      query: ({ body }) => ({
+        url: `admin/website/kontak_close`,
+        method: 'POST',
+        body: body,
+      }),
+      invalidatesTags: ['website-pesan'],
+    }),
   }),
 })
 
@@ -54,4 +74,6 @@ export const {
   useGetKontakMasukQuery,
   useGetKontakQuery,
   useCreateKontakMutation,
+  useCreatePesanMutation,
+  useClosePesanMutation,
 } = WebsiteKontakEndpoints

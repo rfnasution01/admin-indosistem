@@ -141,7 +141,7 @@ export default function Galeri() {
         />
       </div>
 
-      <div className="scrollbar flex h-full flex-1 overflow-y-auto px-48 pb-48">
+      <div className="scrollbar flex h-full flex-1 overflow-y-auto px-48">
         {menu === `Album` ? (
           <GaleriAlbum
             data={galeri}

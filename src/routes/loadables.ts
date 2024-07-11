@@ -106,3 +106,7 @@ export const KontakPage = loadable(
 export const TambahKontakPage = loadable(
   () => import('@/pages/website/kontak/TambahKontak'),
 )
+
+export const DetailKontakPage = loadable(
+  () => import('@/pages/website/kontak/DetailKotakMasuk'),
+)

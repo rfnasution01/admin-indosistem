@@ -5,6 +5,9 @@ import DefaultImg from '@/assets/images/default.jpg'
 import { GetFasilitasType } from '@/types/website/profil/fasilitasType'
 import { GetTestimoniType } from '@/types/website/profil/testimoniType'
 import { GetKategoriType } from '@/types/website/kategoriType'
+import { KontakMasuk } from '@/types/website/profil/kontakType'
+import dayjs from 'dayjs'
+import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
 
 export const columnsListDataGuru: Column<GetGuruStaffType>[] = [
   {
@@ -180,5 +183,85 @@ export const columnsListDataKategori: Column<GetKategoriType>[] = [
     header: 'Gambar',
     key: 'jlh_photo',
     width: '!min-w-[12rem]',
+  },
+]
+
+export const columnsListDataPesan: Column<KontakMasuk>[] = [
+  {
+    header: 'Tanggal',
+    key: 'create_at',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div>{dayjs(rowData?.create_at).locale('id').format('DD/MM/YYYY')}</div>
+      )
+    },
+  },
+  {
+    header: 'Kode Tiket',
+    key: 'kode_tiket',
+    width: '!min-w-[12rem]',
+  },
+  {
+    header: 'Nama',
+    key: 'nama_depan',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div className="flex flex-col font-roboto text-warna-dark">
+          <p>
+            {capitalizeFirstLetterFromLowercase(
+              rowData?.nama_depan?.toLowerCase(),
+            )}{' '}
+            {capitalizeFirstLetterFromLowercase(
+              rowData?.nama_belakang?.toLowerCase(),
+            )}
+          </p>
+          <p className="text-warna-grey">{rowData?.email}</p>
+          <p className="text-warna-grey">{rowData?.hp}</p>
+        </div>
+      )
+    },
+  },
+  {
+    header: 'Pesan',
+    key: 'pesan',
+    width: 'w-[30%]',
+    renderCell: (rowData) => {
+      return (
+        <div className="line-clamp-5" style={{ lineHeight: '130%' }}>
+          {rowData?.pesan}
+        </div>
+      )
+    },
+  },
+  {
+    header: 'Status',
+    key: 'status',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div className="flex">
+          <div
+            className={clsx(
+              'rounded-2xl px-24 py-8 text-center text-[1.8rem] text-white',
+              {
+                'bg-orange-300': rowData?.status === 0,
+                'bg-warna-dark': rowData?.status === 1,
+                'bg-warna-red': rowData?.status === 2,
+              },
+            )}
+          >
+            {rowData?.status === 0
+              ? 'Menunggu'
+              : rowData?.status === 1
+                ? 'Diproses'
+                : rowData?.status === 2
+                  ? 'Ditutup'
+                  : ''}
+          </div>
+        </div>
+      )
+    },
   },
 ]

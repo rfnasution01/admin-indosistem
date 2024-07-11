@@ -4,6 +4,7 @@ import {
   CommonLayout,
   DetailGaleriPage,
   DetailKategoriPage,
+  DetailKontakPage,
   EditGaleriPage,
   EditGambarAlbumPage,
   EditGambarKategoriPage,
@@ -145,6 +146,10 @@ export const router = createBrowserRouter([
               {
                 path: 'edit',
                 element: <TambahKontakPage />,
+              },
+              {
+                path: 'detail',
+                element: <DetailKontakPage />,
               },
             ],
           },

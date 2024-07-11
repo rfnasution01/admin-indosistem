@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { KontakDetail, KontakTab } from '@/features/website/kontak'
+import { PesanMasukTable } from '@/features/website/kontak/Pesan'
 
 export default function Kontak() {
   const [menu, setMenu] = useState<string>('Kontak')
@@ -13,8 +14,14 @@ export default function Kontak() {
         <KontakTab menu={menu} setMenu={setMenu} />
       </div>
 
-      <div className="scrollbar flex h-full flex-1 overflow-y-auto px-48 pb-48">
-        {menu === `Kontak` ? <KontakDetail /> : <ComingSoonPage />}
+      <div className="scrollbar flex h-full flex-1 overflow-y-auto px-48 pb-0">
+        {menu === `Kontak` ? (
+          <KontakDetail />
+        ) : menu === 'Pesan Masuk' ? (
+          <PesanMasukTable />
+        ) : (
+          <ComingSoonPage />
+        )}
       </div>
 
       <ToastContainer />

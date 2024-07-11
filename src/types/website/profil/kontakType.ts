@@ -37,7 +37,7 @@ export type KontakMasuk = {
 
 export type GetKontakMasukDetailType = {
   data: KontakMasukDetail
-  chat: []
+  chat: ChatType[]
 }
 
 export type KontakMasukDetail = {
@@ -54,6 +54,28 @@ export type KontakMasukDetail = {
   process_user: string
   close_at: string
   close_user: string
-  lampiran: []
+  lampiran: LampiranType[]
   belum_baca: number
+}
+
+export type LampiranType = {
+  dokumen?: string
+}
+
+export type ChatType = {
+  jenis: string
+  isi: string
+  user: string
+  baca: number
+  create_at: string
+  lampiran: LampiranType[]
+}
+
+export type PostPesanBody = {
+  isi: string
+  lampiran: string[]
+}
+
+export type ClosePesanBody = {
+  id: string
 }

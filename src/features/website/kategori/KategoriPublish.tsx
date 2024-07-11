@@ -124,7 +124,7 @@ export function KategoriPublish({
                           onClick={() => {
                             localStorage.setItem('editID', item?.id)
                           }}
-                          className="flex items-center gap-12 text-nowrap rounded-2xl border border-warna-primary px-24 py-12 text-warna-primary hover:bg-warna-primary hover:text-white"
+                          className="flex items-center gap-12 text-nowrap rounded-2xl border border-warna-primary px-24 py-12 text-warna-primary hover:bg-warna-primary  hover:text-white"
                         >
                           <FontAwesomeIcon icon={faBinoculars} />
                           <p className="phones:hidden">
