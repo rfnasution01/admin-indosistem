@@ -14,7 +14,7 @@ export function ValidasiIsCheck({
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
   child: ReactNode
-  publish: string
+  publish: string | number
 }) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

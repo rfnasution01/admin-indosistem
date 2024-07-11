@@ -9,7 +9,7 @@ import {
   faSpinner,
 } from '@fortawesome/free-solid-svg-icons'
 import { MenubarAction } from '../Menubar/MenubarAction'
-import { ActiveContent } from '../ActiveContent'
+import { ActiveContentSlider } from '../ActiveContent/KontenSlider'
 import { ValidasiIsCheck } from '../Dialog/ValidasiIsCheck'
 
 export type Column<T> = {
@@ -19,12 +19,12 @@ export type Column<T> = {
   width?: string
 }
 
-export interface Kategori {
+export interface Slider {
   id: string
-  publish?: string
+  status?: number
 }
 
-type Props<T extends Kategori, P> = {
+type Props<T extends Slider, P> = {
   data: T[]
   columns: Column<T>[] | ((props: P) => Column<T>[])
   containerClasses?: string
@@ -37,18 +37,18 @@ type Props<T extends Kategori, P> = {
   isNumber?: boolean
   currentPage?: number
   pageSize?: number
-  isKategori?: boolean
+  isSlider?: boolean
   handleSubmitDelete?: (id: string) => Promise<void>
   setIsShowDelete?: Dispatch<SetStateAction<boolean>>
   isShowDelete?: boolean
   isLoadingDelete?: boolean
-  handleSubmitPublish: (id: string, publish: string) => Promise<void>
-  setIsShowPublish?: Dispatch<SetStateAction<boolean>>
-  isShowPublish?: boolean
-  isLoadingPublish?: boolean
+  handleSubmitStatus: (id: string, status: number) => Promise<void>
+  setIsShowStatus?: Dispatch<SetStateAction<boolean>>
+  isShowStatus?: boolean
+  isLoadingStatus?: boolean
 }
 
-export function TableKategori<T extends Kategori, P>({
+export function TableSlider<T extends Slider, P>({
   data,
   columns,
   containerClasses = '',
@@ -61,15 +61,15 @@ export function TableKategori<T extends Kategori, P>({
   isNumber,
   currentPage,
   pageSize,
-  isKategori,
+  isSlider,
   handleSubmitDelete,
   isShowDelete,
   isLoadingDelete,
   setIsShowDelete,
-  handleSubmitPublish,
-  setIsShowPublish,
-  isLoadingPublish,
-  isShowPublish,
+  handleSubmitStatus,
+  setIsShowStatus,
+  isLoadingStatus,
+  isShowStatus,
 }: Props<T, P>) {
   const [rowIsOpen, setRowIsOpen] = useState<number | null>(null)
   const [id, setId] = useState<number>()
@@ -113,13 +113,13 @@ export function TableKategori<T extends Kategori, P>({
                       </th>
                     ))}
 
-                  {/* --- Kategori --- */}
-                  {isKategori && (
+                  {/* --- Slider --- */}
+                  {isSlider && (
                     <th className="text-sim-primary sticky top-0 border-b-2 bg-warna-pale-blue px-24 py-24 text-center uppercase">
-                      Publish
+                      Status
                     </th>
                   )}
-                  {isKategori && (
+                  {isSlider && (
                     <th className="text-sim-primary sticky top-0 border-b-2 bg-warna-pale-blue px-24 py-24 text-left uppercase"></th>
                   )}
                   {/* ----- Detail Header ----- */}
@@ -164,18 +164,18 @@ export function TableKategori<T extends Kategori, P>({
                           </td>
                         ))}
 
-                      {/* ----- Kategori ----- */}
-                      {isKategori && (
+                      {/* ----- Slider ----- */}
+                      {isSlider && (
                         <td className="px-24 py-12 text-center align-top leading-medium">
-                          <ActiveContent
-                            setIsShow={setIsShowPublish}
+                          <ActiveContentSlider
+                            setIsShow={setIsShowStatus}
                             data={row}
                             setId={setId}
                             index={rowIndex}
                           />
                         </td>
                       )}
-                      {isKategori && (
+                      {isSlider && (
                         <td className="px-24 py-12 align-top leading-medium">
                           <MenubarAction
                             data={row}
@@ -217,38 +217,38 @@ export function TableKategori<T extends Kategori, P>({
 
                     {id === rowIndex && (
                       <ValidasiIsCheck
-                        isOpen={isShowPublish}
-                        setIsOpen={setIsShowPublish}
-                        publish={row?.publish}
+                        isOpen={isShowStatus}
+                        setIsOpen={setIsShowStatus}
+                        publish={row?.status}
                         child={
                           <button
                             type="button"
-                            disabled={isLoadingPublish}
+                            disabled={isLoadingStatus}
                             onClick={() =>
-                              handleSubmitPublish(
+                              handleSubmitStatus(
                                 row?.id,
-                                row?.publish === '1' ? '0' : '1',
+                                row?.status === 1 ? 0 : 1,
                               )
                             }
                             className={clsx(
                               'flex items-center gap-12 rounded-2xl px-24 py-12 text-white hover:bg-opacity-80',
                               {
-                                'bg-warna-red': row?.publish === '1',
-                                'bg-warna-primary': row?.publish !== '1',
+                                'bg-warna-red': row?.status === 1,
+                                'bg-warna-primary': row?.status !== 1,
                               },
                             )}
                           >
-                            {isLoadingPublish ? (
+                            {isLoadingStatus ? (
                               <span className="animate-spin duration-300">
                                 <FontAwesomeIcon icon={faSpinner} />
                               </span>
-                            ) : row?.publish === '1' ? (
+                            ) : row?.status === 1 ? (
                               <FontAwesomeIcon icon={faEyeSlash} />
                             ) : (
                               <FontAwesomeIcon icon={faEye} />
                             )}
                             <p className="font-sf-pro">
-                              {row?.publish === '1' ? 'Draft' : 'Publish'}
+                              {row?.status === 1 ? 'Draft' : 'Publish'}
                             </p>
                           </button>
                         }

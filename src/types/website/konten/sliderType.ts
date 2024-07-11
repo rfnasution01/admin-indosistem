@@ -10,8 +10,8 @@ export type SliderType = {
   judul: string
   gambar: string
   url: string
-  aktif: string
-  urutan: string
+  aktif: number
+  urutan: number
   create_at: string
   create_user: string
 }

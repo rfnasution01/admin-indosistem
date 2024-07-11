@@ -1,7 +1,7 @@
 import { faSquareCheck, faSquareXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Dispatch, SetStateAction } from 'react'
-import { Kategori } from '../Table/TableKategori'
+import { Slider } from '../Table/TableSlider'
 
 type Props<T> = {
   data: T
@@ -10,7 +10,7 @@ type Props<T> = {
   index: number
 }
 
-export function ActiveContent<T extends Kategori>({
+export function ActiveContentSlider<T extends Slider>({
   data,
   setIsShow,
   setId,
@@ -23,7 +23,7 @@ export function ActiveContent<T extends Kategori>({
         setIsShow(true)
       }}
     >
-      {data?.publish === '1' ? (
+      {data?.status === 1 ? (
         <FontAwesomeIcon icon={faSquareCheck} size="lg" color="green" />
       ) : (
         <FontAwesomeIcon icon={faSquareXmark} size="lg" color="red" />

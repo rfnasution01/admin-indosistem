@@ -8,6 +8,9 @@ import { GetKategoriType } from '@/types/website/kategoriType'
 import { KontakMasuk } from '@/types/website/profil/kontakType'
 import dayjs from 'dayjs'
 import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
+import { SliderType } from '@/types/website/konten/sliderType'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSquareCheck, faSquareXmark } from '@fortawesome/free-solid-svg-icons'
 
 export const columnsListDataGuru: Column<GetGuruStaffType>[] = [
   {
@@ -259,6 +262,82 @@ export const columnsListDataPesan: Column<KontakMasuk>[] = [
                 : rowData?.status === 2
                   ? 'Ditutup'
                   : ''}
+          </div>
+        </div>
+      )
+    },
+  },
+]
+
+export const columnsListDataSlider: Column<SliderType>[] = [
+  {
+    header: 'Judul',
+    key: 'judul',
+    width: 'w-[30%]',
+    renderCell: (rowData) => {
+      return (
+        <div className="flex flex-col gap-24 text-warna-grey">
+          <p className="line-clamp-5 font-roboto text-[2.2rem] text-warna-dark">
+            {rowData?.judul}
+          </p>
+          <div className="flex flex-col gap-4">
+            <p>Dibuat: {rowData?.create_user}</p>
+            <p>
+              Tanggal dibuat:{' '}
+              {dayjs(rowData?.create_at).locale('id').format('DD/MM/YYYY')}
+            </p>
+          </div>
+        </div>
+      )
+    },
+  },
+  {
+    header: 'Gambar',
+    key: 'tanggal',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <img
+          src={
+            rowData?.gambar === '' || !rowData?.gambar
+              ? DefaultImg
+              : rowData?.gambar
+          }
+          alt={rowData?.judul}
+          className="h-[10rem] w-[20rem] rounded-2xl object-cover filter"
+          loading="lazy"
+        />
+      )
+    },
+  },
+  {
+    header: 'Url',
+    key: 'url',
+    width: '!min-w-[12rem]',
+  },
+  {
+    header: 'Status',
+    key: 'aktif',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div className="flex">
+          <div
+            className={clsx(
+              'rounded-2xl px-24 py-8 text-center text-[1.8rem] text-white',
+              {
+                'bg-warna-dark': rowData?.aktif === 0,
+                'bg-warna-red': rowData?.aktif === 1,
+              },
+            )}
+          >
+            {rowData?.aktif === 0 ? (
+              <FontAwesomeIcon icon={faSquareXmark} />
+            ) : rowData?.aktif === 1 ? (
+              <FontAwesomeIcon icon={faSquareCheck} />
+            ) : (
+              ''
+            )}
           </div>
         </div>
       )
