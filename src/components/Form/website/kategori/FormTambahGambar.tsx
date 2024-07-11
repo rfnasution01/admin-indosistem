@@ -12,6 +12,7 @@ import {
   faImage,
   faSave,
   faSpinner,
+  faTrash,
 } from '@fortawesome/free-solid-svg-icons'
 import { ValidasiKonfirmasi } from '@/components/Dialog/ValidasiKonfirmasi'
 import clsx from 'clsx'
@@ -124,17 +125,38 @@ export default function FormTambahGambar({
                 {fields.map((item, index) => (
                   <div key={item?.id} className="col-span-1 phones:col-span-3">
                     <div className="col-span-1 phones:col-span-2">
-                      <img
-                        src={
-                          form.watch(`gambar.${index}.url_gambar`) === '' ||
-                          !form.watch(`gambar.${index}.url_gambar`)
-                            ? DefaultImg
-                            : form.watch(`gambar.${index}.url_gambar`)
-                        }
-                        alt={`Gambar ${index + 1}`}
-                        className="h-[20rem] w-full rounded-2xl object-cover"
-                        loading="lazy"
-                      />
+                      <div className="relative w-full">
+                        <div className="relative w-full">
+                          <img
+                            src={
+                              form.watch(`gambar.${index}.url_gambar`) === '' ||
+                              !form.watch(`gambar.${index}.url_gambar`)
+                                ? DefaultImg
+                                : form.watch(`gambar.${index}.url_gambar`)
+                            }
+                            alt={`Gambar ${index + 1}`}
+                            className="h-[20rem] w-full rounded-2xl object-cover"
+                            loading="lazy"
+                          />
+                          {!(
+                            form.watch(`gambar.${index}.url_gambar`) == '' ||
+                            !form.watch(`gambar.${index}.url_gambar`)
+                          ) && (
+                            <span
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                form.setValue(
+                                  `gambar.${index}.url_gambar`,
+                                  null,
+                                )
+                              }}
+                              className="absolute right-2 top-2 rounded-lg bg-danger-700 p-4 text-white hover:cursor-pointer hover:bg-danger"
+                            >
+                              <FontAwesomeIcon icon={faTrash} />
+                            </span>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ))}

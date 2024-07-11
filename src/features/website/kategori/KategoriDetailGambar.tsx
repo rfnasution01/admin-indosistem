@@ -36,9 +36,9 @@ export function KategoriDetailGambar({
         </div>
       </div>
       {gambar?.length > 0 ? (
-        <div className="grid grid-cols-4 gap-32">
+        <div className="grid grid-cols-6 gap-32">
           {gambar?.map((item, idx) => (
-            <div key={idx} className="col-span-1 phones:col-span-4">
+            <div key={idx} className="col-span-1 phones:col-span-3">
               <div className="relative w-full">
                 <img
                   src={
@@ -47,7 +47,7 @@ export function KategoriDetailGambar({
                       : item?.gambar
                   }
                   alt={item?.keterangan}
-                  className="h-[20rem] w-full rounded-2xl object-cover filter"
+                  className="h-[15rem] w-full rounded-2xl object-cover filter"
                   loading="lazy"
                 />
                 <div className="absolute left-0 top-0 h-full w-full transform bg-black bg-opacity-0">

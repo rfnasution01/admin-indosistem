@@ -1,6 +1,7 @@
 import { Searching } from '@/components/Searching'
 import { usePathname } from '@/hooks/usePathname'
 import {
+  faBinoculars,
   faClipboard,
   faEye,
   faEyeSlash,
@@ -118,6 +119,18 @@ export function KategoriPublish({
                     </div>
                     <div className="flex items-start">
                       <div className="flex items-center gap-12">
+                        <Link
+                          to="detail"
+                          onClick={() => {
+                            localStorage.setItem('editID', item?.id)
+                          }}
+                          className="flex items-center gap-12 text-nowrap rounded-2xl border border-warna-primary px-24 py-12 text-warna-primary hover:bg-warna-primary hover:text-white"
+                        >
+                          <FontAwesomeIcon icon={faBinoculars} />
+                          <p className="phones:hidden">
+                            Detail {convertSlugToText(secondPathname)}
+                          </p>
+                        </Link>
                         <Link
                           to="edit"
                           onClick={() => {
