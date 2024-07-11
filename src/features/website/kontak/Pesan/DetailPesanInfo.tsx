@@ -71,6 +71,36 @@ export function DetailPesanInfo({ detail }: { detail: KontakMasukDetail }) {
               </div>
             </>
           )}
+
+          {detail?.status > 0 && (
+            <div
+              className={clsx('rounded-2xl p-24 text-white', {
+                'bg-warna-red': detail?.status === 2,
+                'bg-warna-dark': detail?.status === 1,
+              })}
+              style={{ lineHeight: '130%' }}
+            >
+              Tiket ini{' '}
+              {detail?.status === 1 ? 'sedang di proses' : 'sudah di tutup'}{' '}
+              oleh{' '}
+              <span className="font-roboto">
+                {detail?.status === 1
+                  ? detail?.process_user
+                  : detail?.close_user}{' '}
+                pada{' '}
+                <span>
+                  {detail?.status === 1
+                    ? dayjs(detail?.process_at)
+                        .locale('id')
+                        .format('DD/MM/YYYY HH:mm')
+                    : dayjs(detail?.close_at)
+                        .locale('id')
+                        .format('DD/MM/YYYY HH:mm')}{' '}
+                  WIB
+                </span>
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </div>
