@@ -3,6 +3,7 @@ import {
   ComingSoonPage,
   CommonLayout,
   DetailGaleriPage,
+  DetailHalamanPage,
   DetailKategoriPage,
   DetailKontakPage,
   DownloadPage,
@@ -26,6 +27,7 @@ import {
   TambahFasilitasSekolahPage,
   TambahGambarAlbumPage,
   TambahGambarKategoriPage,
+  TambahHalamanPage,
   TambahKontakPage,
   TambahProfilPage,
   TambahProgramLayananPage,
@@ -266,6 +268,18 @@ export const router = createBrowserRouter([
                   {
                     path: '',
                     element: <HalamanPage />,
+                  },
+                  {
+                    path: 'tambah',
+                    element: <TambahHalamanPage />,
+                  },
+                  {
+                    path: 'edit',
+                    element: <TambahHalamanPage />,
+                  },
+                  {
+                    path: 'detail',
+                    element: <DetailHalamanPage />,
                   },
                 ],
               },

@@ -130,3 +130,11 @@ export const DownloadPage = loadable(
 export const TambahSliderPage = loadable(
   () => import('@/pages/website/konten/TambahSlider'),
 )
+
+export const TambahHalamanPage = loadable(
+  () => import('@/pages/website/konten/TambahHalaman'),
+)
+
+export const DetailHalamanPage = loadable(
+  () => import('@/pages/website/konten/DetailHalaman'),
+)

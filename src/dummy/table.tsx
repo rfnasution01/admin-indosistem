@@ -9,6 +9,7 @@ import { KontakMasuk } from '@/types/website/profil/kontakType'
 import dayjs from 'dayjs'
 import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
 import { SliderType } from '@/types/website/konten/sliderType'
+import { HalamanType } from '@/types/website/konten/halamanType'
 
 export const columnsListDataGuru: Column<GetGuruStaffType>[] = [
   {
@@ -313,32 +314,54 @@ export const columnsListDataSlider: Column<SliderType>[] = [
     key: 'url',
     width: '!min-w-[12rem]',
   },
-  // {
-  //   header: 'Status',
-  //   key: 'aktif',
-  //   width: '!min-w-[12rem]',
-  //   renderCell: (rowData) => {
-  //     return (
-  //       <div className="flex">
-  //         <div
-  //           className={clsx(
-  //             'rounded-2xl px-24 py-8 text-center text-[1.8rem] text-white',
-  //             {
-  //               'bg-warna-dark': rowData?.aktif === 0,
-  //               'bg-warna-red': rowData?.aktif === 1,
-  //             },
-  //           )}
-  //         >
-  //           {rowData?.aktif === 0 ? (
-  //             <FontAwesomeIcon icon={faSquareXmark} />
-  //           ) : rowData?.aktif === 1 ? (
-  //             <FontAwesomeIcon icon={faSquareCheck} />
-  //           ) : (
-  //             ''
-  //           )}
-  //         </div>
-  //       </div>
-  //     )
-  //   },
-  // },
+]
+
+export const columnsListDataHalaman: Column<HalamanType>[] = [
+  {
+    header: 'Judul',
+    key: 'judul',
+    width: 'w-[30%]',
+  },
+  {
+    header: 'Gambar',
+    key: 'tanggal',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <img
+          src={
+            rowData?.url_gambar === '' || !rowData?.url_gambar
+              ? DefaultImg
+              : rowData?.url_gambar
+          }
+          alt={rowData?.judul}
+          className="h-[10rem] w-[20rem] rounded-2xl object-cover filter"
+          loading="lazy"
+        />
+      )
+    },
+  },
+  {
+    header: 'Isi',
+    key: 'isi',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div
+          dangerouslySetInnerHTML={{ __html: rowData?.isi }}
+          className="article-content line-clamp-5"
+        />
+      )
+    },
+  },
+  {
+    header: 'Jenis',
+    key: 'jenis',
+    width: 'w-[30%]',
+  },
+  {
+    header: 'Dibaca',
+    key: 'hits',
+    width: 'w-[30%]',
+  },
 ]

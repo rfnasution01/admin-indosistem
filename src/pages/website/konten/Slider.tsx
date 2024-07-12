@@ -196,7 +196,7 @@ export default function Slider() {
   return (
     <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto rounded-3x bg-white p-48">
       <div className="flex w-full flex-col gap-32">
-        <div className="flex items-center justify-between gap-32 phones:flex-col phones:items-start">
+        <div className="flex items-center justify-between gap-32 phones:items-start">
           <div className="flex w-2/3 items-center gap-32 phones:w-full phones:flex-col phones:items-start">
             <Searching
               setPageNumber={setPageNumber}
@@ -232,6 +232,7 @@ export default function Slider() {
               handleSubmitDelete={handleSubmitDelete}
               isLoadingDelete={isLoadingDeleteSlider}
               isSlider
+              isDetail
               handleSubmitStatus={handleSubmitStatus}
               isLoadingStatus={isLoadingStatusSlider}
               setIsShowStatus={setIsShowStatus}

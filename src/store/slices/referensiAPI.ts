@@ -57,6 +57,12 @@ export const ReferensiEndpoints = api.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getJenisHalaman: builder.query<Res<ReferensiType[]>, void>({
+      query: () => ({
+        url: `referensi/jenis_halaman`,
+        method: 'GET',
+      }),
+    }),
     createFile: builder.mutation<{ url: string }, FormData>({
       query: (foto) => ({
         url: 'admin/upload',
@@ -79,4 +85,5 @@ export const {
   useGetPengumumanKategoriQuery,
   useGetPrestasiQuery,
   useGetTagQuery,
+  useGetJenisHalamanQuery,
 } = ReferensiEndpoints

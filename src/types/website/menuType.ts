@@ -33,6 +33,7 @@ export type ParamsType = {
   jenis?: string
   status?: string
   id?: string
+  id_jenis?: string
 }
 
 export type DeleteType = {

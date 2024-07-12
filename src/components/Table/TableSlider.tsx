@@ -46,6 +46,7 @@ type Props<T extends Slider, P> = {
   setIsShowStatus?: Dispatch<SetStateAction<boolean>>
   isShowStatus?: boolean
   isLoadingStatus?: boolean
+  isDetail?: boolean
 }
 
 export function TableSlider<T extends Slider, P>({
@@ -62,6 +63,7 @@ export function TableSlider<T extends Slider, P>({
   currentPage,
   pageSize,
   isSlider,
+  isDetail,
   handleSubmitDelete,
   isShowDelete,
   isLoadingDelete,
@@ -119,7 +121,7 @@ export function TableSlider<T extends Slider, P>({
                       Status
                     </th>
                   )}
-                  {isSlider && (
+                  {isDetail && (
                     <th className="text-sim-primary sticky top-0 border-b-2 bg-warna-pale-blue px-24 py-24 text-left uppercase"></th>
                   )}
                   {/* ----- Detail Header ----- */}
@@ -175,7 +177,7 @@ export function TableSlider<T extends Slider, P>({
                           />
                         </td>
                       )}
-                      {isSlider && (
+                      {isDetail && (
                         <td className="px-24 py-12 align-top leading-medium">
                           <MenubarAction
                             data={row}

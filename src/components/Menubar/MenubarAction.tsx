@@ -54,7 +54,7 @@ export function MenubarAction<T extends Fasilitas>({
         {isMenuOpen && (
           <MenubarContent className="absolute right-[2rem] top-[-11rem] w-[20rem] bg-white p-32 text-[2rem] text-warna-dark shadow-lg transition-all duration-300">
             <div className="flex flex-col gap-12">
-              {thirdPathname !== 'detail' && (
+              {thirdPathname !== 'detail' && thirdPathname !== 'slider' && (
                 <Link
                   to={'detail'}
                   onClick={() => {
