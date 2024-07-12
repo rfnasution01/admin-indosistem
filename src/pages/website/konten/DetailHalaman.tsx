@@ -30,7 +30,6 @@ export default function DetailHalaman() {
   } = useGetDetailHalamanQuery(
     {
       id: id,
-      jenis: secondPathname,
     },
     { skip: !id },
   )

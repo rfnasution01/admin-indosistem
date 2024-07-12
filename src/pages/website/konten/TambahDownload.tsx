@@ -48,7 +48,7 @@ export default function UpdateDownloadKonten() {
       id: isEdit ? idEdit : null,
       judul: values?.judul ?? '',
       jenis_file: values?.jenis_file ?? '',
-      url_file: urls ?? '',
+      url_file: values?.jenis_file === 'Link' ? values?.url_file : urls,
       id_kategori: values?.id_kategori ?? '',
     }
 
@@ -113,7 +113,7 @@ export default function UpdateDownloadKonten() {
       form.setValue('url_file', item?.url_file)
       form.setValue('id_kategori', item?.id_kategori)
       form.setValue('nama_kategori', item?.kategori)
-      if (item?.jenis_file === 'Link') {
+      if (item?.jenis_file === 'Upload') {
         setUrls(item?.url_file)
       }
     }

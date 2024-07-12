@@ -146,3 +146,11 @@ export const TambahFAQPage = loadable(
 export const TambahDownloadPage = loadable(
   () => import('@/pages/website/konten/TambahDownload'),
 )
+
+export const DetailDownloadPage = loadable(
+  () => import('@/pages/website/konten/DetailDownload'),
+)
+
+export const DetailFAQPage = loadable(
+  () => import('@/pages/website/konten/DetailFAQ'),
+)

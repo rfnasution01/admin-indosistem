@@ -2,6 +2,8 @@ import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
   ComingSoonPage,
   CommonLayout,
+  DetailDownloadPage,
+  DetailFAQPage,
   DetailGaleriPage,
   DetailHalamanPage,
   DetailKategoriPage,
@@ -311,6 +313,10 @@ export const router = createBrowserRouter([
                     path: 'edit',
                     element: <TambahFAQPage />,
                   },
+                  {
+                    path: 'detail',
+                    element: <DetailFAQPage />,
+                  },
                 ],
               },
               {
@@ -328,6 +334,10 @@ export const router = createBrowserRouter([
                   {
                     path: 'edit',
                     element: <TambahDownloadPage />,
+                  },
+                  {
+                    path: 'detail',
+                    element: <DetailDownloadPage />,
                   },
                 ],
               },

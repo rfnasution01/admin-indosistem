@@ -40,7 +40,7 @@ export function PreviewDownload({
               </p>
             )}
           </div>
-          {gambar && (
+          {jenis_file === 'Link' && (
             <Link
               to={gambar}
               target="_blank"

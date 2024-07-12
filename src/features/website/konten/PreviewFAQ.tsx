@@ -10,13 +10,15 @@ export function PreviewFAQ({
   return (
     <div className="scrollbar flex h-full gap-48 overflow-y-auto phones:flex-col phones:items-start phones:gap-32">
       <div className="flex flex-1 flex-col gap-16">
-        {pertanyaan && <p className="font-roboto">{pertanyaan}</p>}
-        <div className="flex flex-wrap items-center  gap-24">
+        <div className="flex">
           {name_jenis && (
             <p className="rounded-2xl bg-warna-grey px-24 py-12 text-[1.8rem] text-white">
               {name_jenis}
             </p>
           )}
+        </div>
+        <div className="flex flex-wrap items-center  gap-24">
+          {pertanyaan && <p className="font-roboto">{pertanyaan}</p>}
           {jawaban && (
             <div
               style={{ lineHeight: '130%' }}

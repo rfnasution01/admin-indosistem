@@ -1,12 +1,15 @@
 import { Pagination } from '@/components/Pagination'
 import { Searching } from '@/components/Searching'
-import { FormListDataPerPage } from '@/components/Select/website'
-import { TestimoniSchema } from '@/schemas/website/testimoniSchema'
+import {
+  FormListDataPerPage,
+  SelectListAgenda,
+  SelectListBerita,
+  SelectListMading,
+  SelectListPrestasi,
+} from '@/components/Select/website'
 import { Meta } from '@/store/api'
 import { Dispatch, SetStateAction } from 'react'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as zod from 'zod'
-import { useForm } from 'react-hook-form'
+import { UseFormReturn } from 'react-hook-form'
 import { Form } from '@/components/Form'
 import { TableKategori } from '@/components/Table/TableKategori'
 import { columnsListDataKategori } from '@/dummy/table'
@@ -37,6 +40,7 @@ export function KategoriTable({
   isShowPublish,
   setIsShowPublish,
   handleSubmitPublish,
+  form,
 }: {
   data: GetKategoriType[]
   meta: Meta
@@ -56,13 +60,9 @@ export function KategoriTable({
   setIsShowPublish: Dispatch<SetStateAction<boolean>>
   isShowPublish: boolean
   isLoadingPublish: boolean
+  form: UseFormReturn
 }) {
   const { secondPathname } = usePathname()
-
-  const form = useForm<zod.infer<typeof TestimoniSchema>>({
-    resolver: zodResolver(TestimoniSchema),
-    defaultValues: {},
-  })
 
   return (
     <div className="flex w-full flex-col gap-32">
@@ -76,14 +76,49 @@ export function KategoriTable({
           />
           <Form {...form}>
             <form>
-              <SelectListPengumuman
-                useFormReturn={form}
-                name="kategori"
-                placeholder="Pilih Kategori"
-                setIdKategori={setIdKategori}
-                isDisabled={isLoading}
-                className="phones:w-full"
-              />
+              {secondPathname === 'pengumuman' ? (
+                <SelectListPengumuman
+                  name="kategori"
+                  placeholder="Pilih Kategori"
+                  useFormReturn={form}
+                  isDisabled={isLoading}
+                  setIdKategori={setIdKategori}
+                />
+              ) : secondPathname === 'mading' ? (
+                <SelectListMading
+                  name="kategori"
+                  placeholder="Pilih Kategori"
+                  setIdKategori={setIdKategori}
+                  useFormReturn={form}
+                  isDisabled={isLoading}
+                />
+              ) : secondPathname === 'berita' ? (
+                <SelectListBerita
+                  name="kategori"
+                  placeholder="Pilih Kategori"
+                  useFormReturn={form}
+                  isDisabled={isLoading}
+                  setIdKategori={setIdKategori}
+                />
+              ) : secondPathname === 'agenda' ? (
+                <SelectListAgenda
+                  name="kategori"
+                  placeholder="Pilih Kategori"
+                  useFormReturn={form}
+                  isDisabled={isLoading}
+                  setIdKategori={setIdKategori}
+                />
+              ) : secondPathname === 'prestasi' ? (
+                <SelectListPrestasi
+                  name="kategori"
+                  placeholder="Pilih Kategori"
+                  useFormReturn={form}
+                  isDisabled={isLoading}
+                  setIdKategori={setIdKategori}
+                />
+              ) : (
+                <></>
+              )}
             </form>
           </Form>
         </div>

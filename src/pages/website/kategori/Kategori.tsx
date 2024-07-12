@@ -19,6 +19,10 @@ import {
   useUpdatePublishMutation,
 } from '@/store/slices/website/kategoriAPI'
 import { convertSlugToText } from '@/utils/formatText'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod'
+import { useForm } from 'react-hook-form'
+import { KategoriSchema } from '@/schemas/website/kategoriSchema'
 
 export default function Kategori() {
   const navigate = useNavigate()
@@ -47,6 +51,11 @@ export default function Kategori() {
   const [isShowDelete, setIsShowDelete] = useState<boolean>(false)
   const [isShowPublish, setIsShowPublish] = useState<boolean>(false)
 
+  const form = useForm<zod.infer<typeof KategoriSchema>>({
+    resolver: zodResolver(KategoriSchema),
+    defaultValues: {},
+  })
+
   // --- Data Kategori ---
   const [kategori, setKategori] = useState<GetKategoriType[]>()
   const [meta, setMeta] = useState<Meta>()
@@ -57,6 +66,7 @@ export default function Kategori() {
     isLoading: isLoadingKategori,
     isError: isErrorKategori,
     error: errorKategori,
+    isSuccess: isSuccessKategori,
   } = useGetKategoriQuery({
     id_kategori: id_kategori,
     search: search,
@@ -74,6 +84,13 @@ export default function Kategori() {
       setMeta(dataKategori?.data?.meta)
     }
   }, [dataKategori?.data, pageNumber, pageSize, search, id_kategori, menu])
+
+  useEffect(() => {
+    if (isSuccessKategori) {
+      form.reset()
+      setIdKategori('')
+    }
+  }, [isSuccessKategori])
 
   useEffect(() => {
     if (isErrorKategori) {
@@ -245,6 +262,7 @@ export default function Kategori() {
             setIsShowPublish={setIsShowPublish}
             isShowPublish={isShowPublish}
             handleSubmitPublish={handleSubmitPublish}
+            form={form}
           />
         ) : menu === 'Publish' ? (
           <KategoriPublish
