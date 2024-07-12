@@ -4,4 +4,6 @@ export const TambahSliderSchema = zod.object({
   judul: zod.string().optional().nullable().nullish(),
   gambar: zod.string().optional().nullable().nullish(),
   url: zod.string().optional().nullable().nullish(),
+  aktif: zod.string().optional().nullable().nullish(),
+  urutan: zod.string().optional().nullable().nullish(),
 })

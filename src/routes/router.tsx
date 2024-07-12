@@ -29,6 +29,7 @@ import {
   TambahKontakPage,
   TambahProfilPage,
   TambahProgramLayananPage,
+  TambahSliderPage,
   TambahTestimoniPage,
   TentangSekolahPage,
   TestimoniPage,
@@ -247,6 +248,14 @@ export const router = createBrowserRouter([
                   {
                     path: '',
                     element: <SliderPage />,
+                  },
+                  {
+                    path: 'tambah',
+                    element: <TambahSliderPage />,
+                  },
+                  {
+                    path: 'edit',
+                    element: <TambahSliderPage />,
                   },
                 ],
               },

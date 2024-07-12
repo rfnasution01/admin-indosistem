@@ -24,7 +24,15 @@ export function FormLabelInput({
   name: string
   prefix?: JSX.Element
   suffix?: JSX.Element
-  type?: 'text' | 'number' | 'password' | 'date' | 'file' | 'time' | 'email'
+  type?:
+    | 'text'
+    | 'number'
+    | 'password'
+    | 'date'
+    | 'file'
+    | 'time'
+    | 'email'
+    | 'url'
   handlerClick?: () => void
   className?: string
   isDisabled?: boolean

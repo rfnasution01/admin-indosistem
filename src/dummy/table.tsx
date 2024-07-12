@@ -9,8 +9,6 @@ import { KontakMasuk } from '@/types/website/profil/kontakType'
 import dayjs from 'dayjs'
 import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
 import { SliderType } from '@/types/website/konten/sliderType'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSquareCheck, faSquareXmark } from '@fortawesome/free-solid-svg-icons'
 
 export const columnsListDataGuru: Column<GetGuruStaffType>[] = [
   {
@@ -315,32 +313,32 @@ export const columnsListDataSlider: Column<SliderType>[] = [
     key: 'url',
     width: '!min-w-[12rem]',
   },
-  {
-    header: 'Status',
-    key: 'aktif',
-    width: '!min-w-[12rem]',
-    renderCell: (rowData) => {
-      return (
-        <div className="flex">
-          <div
-            className={clsx(
-              'rounded-2xl px-24 py-8 text-center text-[1.8rem] text-white',
-              {
-                'bg-warna-dark': rowData?.aktif === 0,
-                'bg-warna-red': rowData?.aktif === 1,
-              },
-            )}
-          >
-            {rowData?.aktif === 0 ? (
-              <FontAwesomeIcon icon={faSquareXmark} />
-            ) : rowData?.aktif === 1 ? (
-              <FontAwesomeIcon icon={faSquareCheck} />
-            ) : (
-              ''
-            )}
-          </div>
-        </div>
-      )
-    },
-  },
+  // {
+  //   header: 'Status',
+  //   key: 'aktif',
+  //   width: '!min-w-[12rem]',
+  //   renderCell: (rowData) => {
+  //     return (
+  //       <div className="flex">
+  //         <div
+  //           className={clsx(
+  //             'rounded-2xl px-24 py-8 text-center text-[1.8rem] text-white',
+  //             {
+  //               'bg-warna-dark': rowData?.aktif === 0,
+  //               'bg-warna-red': rowData?.aktif === 1,
+  //             },
+  //           )}
+  //         >
+  //           {rowData?.aktif === 0 ? (
+  //             <FontAwesomeIcon icon={faSquareXmark} />
+  //           ) : rowData?.aktif === 1 ? (
+  //             <FontAwesomeIcon icon={faSquareCheck} />
+  //           ) : (
+  //             ''
+  //           )}
+  //         </div>
+  //       </div>
+  //     )
+  //   },
+  // },
 ]

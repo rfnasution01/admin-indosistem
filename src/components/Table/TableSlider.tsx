@@ -21,7 +21,7 @@ export type Column<T> = {
 
 export interface Slider {
   id: string
-  status?: number
+  aktif?: number
 }
 
 type Props<T extends Slider, P> = {
@@ -219,22 +219,19 @@ export function TableSlider<T extends Slider, P>({
                       <ValidasiIsCheck
                         isOpen={isShowStatus}
                         setIsOpen={setIsShowStatus}
-                        publish={row?.status}
+                        publish={row?.aktif.toString()}
                         child={
                           <button
                             type="button"
                             disabled={isLoadingStatus}
-                            onClick={() =>
-                              handleSubmitStatus(
-                                row?.id,
-                                row?.status === 1 ? 0 : 1,
-                              )
-                            }
+                            onClick={() => {
+                              handleSubmitStatus(row?.id, row?.aktif)
+                            }}
                             className={clsx(
                               'flex items-center gap-12 rounded-2xl px-24 py-12 text-white hover:bg-opacity-80',
                               {
-                                'bg-warna-red': row?.status === 1,
-                                'bg-warna-primary': row?.status !== 1,
+                                'bg-warna-red': row?.aktif === 1,
+                                'bg-warna-primary': row?.aktif !== 1,
                               },
                             )}
                           >
@@ -242,13 +239,13 @@ export function TableSlider<T extends Slider, P>({
                               <span className="animate-spin duration-300">
                                 <FontAwesomeIcon icon={faSpinner} />
                               </span>
-                            ) : row?.status === 1 ? (
+                            ) : row?.aktif === 1 ? (
                               <FontAwesomeIcon icon={faEyeSlash} />
                             ) : (
                               <FontAwesomeIcon icon={faEye} />
                             )}
                             <p className="font-sf-pro">
-                              {row?.status === 1 ? 'Draft' : 'Publish'}
+                              {row?.aktif === 1 ? 'Draft' : 'Publish'}
                             </p>
                           </button>
                         }

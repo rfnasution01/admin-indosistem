@@ -126,3 +126,7 @@ export const MenuPage = loadable(() => import('@/pages/website/konten/Menu'))
 export const DownloadPage = loadable(
   () => import('@/pages/website/konten/Download'),
 )
+
+export const TambahSliderPage = loadable(
+  () => import('@/pages/website/konten/TambahSlider'),
+)
