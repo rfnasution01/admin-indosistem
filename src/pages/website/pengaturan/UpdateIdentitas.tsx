@@ -8,11 +8,11 @@ import { Bounce, toast, ToastContainer } from 'react-toastify'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import { convertSlugToText } from '@/utils/formatText'
 import 'react-toastify/dist/ReactToastify.css'
-import FormTambahFAQ from '@/components/Form/website/konten/FormTambahFAQ'
-import { useCreateFAQMutation } from '@/store/slices/website/kontenAPI/faqAPI'
-import { TambahFAQSchema } from '@/schemas/website/faqSchema'
+import { UpdateIdentitasSchema } from '@/schemas/website/pengaturanSchema'
+import { useUpdatePengaturanIdentitasMutation } from '@/store/slices/website/pengaturanAPI'
+import FormUpddateIdentitas from '@/components/Form/website/pengaturan/FormUpdateIdentitas'
 
-export default function UpdateFAQKonten() {
+export default function UpdateIdentitasKonten() {
   const navigate = useNavigate()
 
   const { lastPathname, secondPathname } = usePathname()
@@ -20,40 +20,44 @@ export default function UpdateFAQKonten() {
   const isEdit = lastPathname === 'edit'
   const idEdit = localStorage.getItem('editID') ?? null
   const data = localStorage.getItem('editData') ?? ''
+  const [logo, setLogo] = useState<string>()
+  const [favicon, setFavicon] = useState<string>()
 
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
   const [isShow, setIsShow] = useState<boolean>(false)
 
-  const form = useForm<zod.infer<typeof TambahFAQSchema>>({
-    resolver: zodResolver(TambahFAQSchema),
+  const form = useForm<zod.infer<typeof UpdateIdentitasSchema>>({
+    resolver: zodResolver(UpdateIdentitasSchema),
     defaultValues: {},
   })
 
-  // --- Create Tambah FAQ ---
+  // --- Create Tambah Identitas ---
   const [
-    createUpdateFAQ,
+    createUpdateIdentitas,
     {
-      isError: isErrorUpdateFAQ,
-      error: errorUpdateFAQ,
-      isLoading: isLoadingUpdateFAQ,
-      isSuccess: isSuccessUpdateFAQ,
+      isError: isErrorUpdateIdentitas,
+      error: errorUpdateIdentitas,
+      isLoading: isLoadingUpdateIdentitas,
+      isSuccess: isSuccessUpdateIdentitas,
     },
-  ] = useCreateFAQMutation()
+  ] = useUpdatePengaturanIdentitasMutation()
 
   const handleSubmit = async () => {
     const values = form.getValues()
 
     const body = {
       id: isEdit ? idEdit : null,
-      pertanyaan: values?.pertanyaan ?? '',
-      jawaban: values?.jawaban ?? '',
-      urutan: '1',
-      id_kategori: values?.id_kategori ?? '',
+      nama_website: values?.nama_website ?? '',
+      logo: logo ?? '',
+      favicon: favicon ?? '',
+      footer: values?.footer ?? '',
+      deskripsi: values?.deskripsi ?? '',
+      keyword: values?.keyword ?? '',
     }
 
     if (isSubmit && isShow) {
       try {
-        await createUpdateFAQ({
+        await createUpdateIdentitas({
           body: body,
         })
       } catch (error) {
@@ -63,7 +67,7 @@ export default function UpdateFAQKonten() {
   }
 
   useEffect(() => {
-    if (isSuccessUpdateFAQ) {
+    if (isSuccessUpdateIdentitas) {
       toast.success(
         `${isEdit ? 'Update' : 'Tambah'} ${convertSlugToText(secondPathname).toLowerCase()} berhasil`,
         {
@@ -83,11 +87,11 @@ export default function UpdateFAQKonten() {
         navigate(-1)
       }, 3000)
     }
-  }, [isSuccessUpdateFAQ])
+  }, [isSuccessUpdateIdentitas])
 
   useEffect(() => {
-    if (isErrorUpdateFAQ) {
-      const errorMsg = errorUpdateFAQ as { data?: { message?: string } }
+    if (isErrorUpdateIdentitas) {
+      const errorMsg = errorUpdateIdentitas as { data?: { message?: string } }
 
       toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
         position: 'bottom-right',
@@ -101,16 +105,20 @@ export default function UpdateFAQKonten() {
         transition: Bounce,
       })
     }
-  }, [isErrorUpdateFAQ, errorUpdateFAQ])
+  }, [isErrorUpdateIdentitas, errorUpdateIdentitas])
 
   useEffect(() => {
-    if (data && isEdit) {
+    if (data) {
       const item = JSON.parse(data)
 
-      form.setValue('pertanyaan', item?.pertanyaan)
-      form.setValue('jawaban', item?.jawaban)
-      form.setValue('id_kategori', item?.id_kategori)
-      form.setValue('nama_kategori', item?.kategori)
+      form.setValue('nama_website', item?.nama_website)
+      form.setValue('logo', item?.logo)
+      form.setValue('favicon', item?.favicon)
+      form.setValue('footer', item?.footer)
+      form.setValue('deskripsi', item?.deskripsi)
+      form.setValue('keyword', item?.keyword)
+      setLogo(item?.logo)
+      setFavicon(item?.favicon)
     }
   }, [data])
 
@@ -122,15 +130,18 @@ export default function UpdateFAQKonten() {
           Form {convertSlugToText(lastPathname)}{' '}
           {convertSlugToText(secondPathname)}
         </p>
-
-        <FormTambahFAQ
+        <FormUpddateIdentitas
           form={form}
-          isLoading={isLoadingUpdateFAQ}
+          isLoading={isLoadingUpdateIdentitas}
           handleSubmit={handleSubmit}
           setIsShow={setIsShow}
           setIsSubmit={setIsSubmit}
           isShow={isShow}
           isSubmit={isSubmit}
+          logo={logo}
+          setLogo={setLogo}
+          favicon={favicon}
+          setFavicon={setFavicon}
         />
       </div>
       <ToastContainer />

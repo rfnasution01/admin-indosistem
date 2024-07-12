@@ -154,3 +154,11 @@ export const DetailDownloadPage = loadable(
 export const DetailFAQPage = loadable(
   () => import('@/pages/website/konten/DetailFAQ'),
 )
+
+export const IdentitasPage = loadable(
+  () => import('@/pages/website/pengaturan/Identitas'),
+)
+
+export const UpdateIdentitasPage = loadable(
+  () => import('@/pages/website/pengaturan/UpdateIdentitas'),
+)

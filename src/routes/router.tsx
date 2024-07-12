@@ -18,6 +18,7 @@ import {
   GaleriPage,
   GuruStaffPage,
   HalamanPage,
+  IdentitasPage,
   KategoriPage,
   KontakPage,
   LoginLayout,
@@ -39,6 +40,7 @@ import {
   TambahTestimoniPage,
   TentangSekolahPage,
   TestimoniPage,
+  UpdateIdentitasPage,
   VisiMisiPage,
   WebsiteMainLayout,
 } from './loadables'
@@ -338,6 +340,30 @@ export const router = createBrowserRouter([
                   {
                     path: 'detail',
                     element: <DetailDownloadPage />,
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            path: 'setting',
+            element: <CommonLayout />,
+            children: [
+              {
+                path: '',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'identitas',
+                element: <CommonLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <IdentitasPage />,
+                  },
+                  {
+                    path: 'edit',
+                    element: <UpdateIdentitasPage />,
                   },
                 ],
               },
