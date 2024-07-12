@@ -89,8 +89,8 @@ export function SelectListPengumuman({
             )}
           >
             {headerLabel && (
-              <div className="text-sim-dark phones:w-full phones:text-left">
-                <FormLabel>{headerLabel}</FormLabel>
+              <div className="text-warna-dark phones:w-full phones:text-left">
+                <FormLabel className="font-roboto">{headerLabel}</FormLabel>
               </div>
             )}
             <div className="w-full phones:w-full">

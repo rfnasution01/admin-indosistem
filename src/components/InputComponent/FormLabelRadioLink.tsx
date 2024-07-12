@@ -4,7 +4,7 @@ import { FormField, FormItem, FormLabel, FormMessage } from '@/components/Form'
 import { Input } from '.'
 import { ReactNode } from 'react'
 
-export function FormLabelRadio({
+export function FormLabelRadioLink({
   form,
   label,
   name,
@@ -30,22 +30,22 @@ export function FormLabelRadio({
             <label className="flex items-center gap-x-4">
               <Input
                 type="radio"
-                value="1"
-                checked={field.value === '1'}
-                onChange={() => field.onChange('1')}
+                value="Link"
+                checked={field.value === 'Link'}
+                onChange={() => field.onChange('Link')}
                 disabled={isDisabled}
               />
-              Ya
+              Link
             </label>
             <label className="flex items-center gap-x-4">
               <Input
                 type="radio"
-                value="0"
-                checked={field.value === '0'}
-                onChange={() => field.onChange('0')}
+                value="Upload"
+                checked={field.value === 'Upload'}
+                onChange={() => field.onChange('Upload')}
                 disabled={isDisabled}
               />
-              Tidak
+              Upload
             </label>
           </div>
           <FormMessage />

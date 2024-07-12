@@ -138,3 +138,11 @@ export const TambahHalamanPage = loadable(
 export const DetailHalamanPage = loadable(
   () => import('@/pages/website/konten/DetailHalaman'),
 )
+
+export const TambahFAQPage = loadable(
+  () => import('@/pages/website/konten/TambahFAQ'),
+)
+
+export const TambahDownloadPage = loadable(
+  () => import('@/pages/website/konten/TambahDownload'),
+)

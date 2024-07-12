@@ -1,5 +1,6 @@
 import { GetAkreditasiType, ReferensiType } from '@/types/referensiType'
 import { Res, api } from '../api'
+import { ParamsType } from '@/types/website/menuType'
 
 export const ReferensiEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -63,6 +64,13 @@ export const ReferensiEndpoints = api.injectEndpoints({
         method: 'GET',
       }),
     }),
+
+    getJenisDownload: builder.query<Res<ReferensiType[]>, ParamsType>({
+      query: ({ jenis }) => ({
+        url: `referensi/kategori_${jenis}`,
+        method: 'GET',
+      }),
+    }),
     createFile: builder.mutation<{ url: string }, FormData>({
       query: (foto) => ({
         url: 'admin/upload',
@@ -86,4 +94,5 @@ export const {
   useGetPrestasiQuery,
   useGetTagQuery,
   useGetJenisHalamanQuery,
+  useGetJenisDownloadQuery,
 } = ReferensiEndpoints

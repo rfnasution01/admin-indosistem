@@ -27,9 +27,11 @@ export function FormLabelTipTap({
       name={name}
       render={({ field }) => (
         <FormItem
-          className={`${classname} flex flex-col gap-y-8 text-[2rem] text-black`}
+          className={`flex w-full flex-col gap-12 text-[2rem] text-warna-dark ${classname}`}
         >
-          {headerLabel && <FormLabel>{headerLabel}</FormLabel>}
+          {headerLabel && (
+            <FormLabel className="font-roboto">{headerLabel}</FormLabel>
+          )}
           <FormControl>
             <Tiptap
               content={field.value}

@@ -8,11 +8,11 @@ import { Bounce, toast, ToastContainer } from 'react-toastify'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import { convertSlugToText } from '@/utils/formatText'
 import 'react-toastify/dist/ReactToastify.css'
-import { TambahHalamanSchema } from '@/schemas/website/halamanSchema'
-import { useCreateHalamanMutation } from '@/store/slices/website/kontenAPI/halamanAPI'
-import FormTambahHalaman from '@/components/Form/website/konten/FormTambahHalaman'
+import { TambahFAQSchema } from '@/schemas/website/FAQSchema'
+import FormTambahFAQ from '@/components/Form/website/konten/FormTambahFAQ'
+import { useCreateFAQMutation } from '@/store/slices/website/kontenAPI/faqAPI'
 
-export default function UpdateHalamanKonten() {
+export default function UpdateFAQKonten() {
   const navigate = useNavigate()
 
   const { lastPathname, secondPathname } = usePathname()
@@ -20,41 +20,40 @@ export default function UpdateHalamanKonten() {
   const isEdit = lastPathname === 'edit'
   const idEdit = localStorage.getItem('editID') ?? null
   const data = localStorage.getItem('editData') ?? ''
-  const [urls, setUrls] = useState<string>()
 
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
   const [isShow, setIsShow] = useState<boolean>(false)
 
-  const form = useForm<zod.infer<typeof TambahHalamanSchema>>({
-    resolver: zodResolver(TambahHalamanSchema),
+  const form = useForm<zod.infer<typeof TambahFAQSchema>>({
+    resolver: zodResolver(TambahFAQSchema),
     defaultValues: {},
   })
 
-  // --- Create Tambah Halaman ---
+  // --- Create Tambah FAQ ---
   const [
-    createUpdateHalaman,
+    createUpdateFAQ,
     {
-      isError: isErrorUpdateHalaman,
-      error: errorUpdateHalaman,
-      isLoading: isLoadingUpdateHalaman,
-      isSuccess: isSuccessUpdateHalaman,
+      isError: isErrorUpdateFAQ,
+      error: errorUpdateFAQ,
+      isLoading: isLoadingUpdateFAQ,
+      isSuccess: isSuccessUpdateFAQ,
     },
-  ] = useCreateHalamanMutation()
+  ] = useCreateFAQMutation()
 
   const handleSubmit = async () => {
     const values = form.getValues()
 
     const body = {
       id: isEdit ? idEdit : null,
-      judul: values?.judul ?? '',
-      url_gambar: urls ?? '',
-      isi: values?.isi ?? '',
-      id_jenis: values?.id_jenis ?? '',
+      pertanyaan: values?.pertanyaan ?? '',
+      jawaban: values?.jawaban ?? '',
+      urutan: '1',
+      id_kategori: values?.id_kategori ?? '',
     }
 
     if (isSubmit && isShow) {
       try {
-        await createUpdateHalaman({
+        await createUpdateFAQ({
           body: body,
         })
       } catch (error) {
@@ -64,7 +63,7 @@ export default function UpdateHalamanKonten() {
   }
 
   useEffect(() => {
-    if (isSuccessUpdateHalaman) {
+    if (isSuccessUpdateFAQ) {
       toast.success(
         `${isEdit ? 'Update' : 'Tambah'} ${convertSlugToText(secondPathname).toLowerCase()} berhasil`,
         {
@@ -84,11 +83,11 @@ export default function UpdateHalamanKonten() {
         navigate(-1)
       }, 3000)
     }
-  }, [isSuccessUpdateHalaman])
+  }, [isSuccessUpdateFAQ])
 
   useEffect(() => {
-    if (isErrorUpdateHalaman) {
-      const errorMsg = errorUpdateHalaman as { data?: { message?: string } }
+    if (isErrorUpdateFAQ) {
+      const errorMsg = errorUpdateFAQ as { data?: { message?: string } }
 
       toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
         position: 'bottom-right',
@@ -102,17 +101,16 @@ export default function UpdateHalamanKonten() {
         transition: Bounce,
       })
     }
-  }, [isErrorUpdateHalaman, errorUpdateHalaman])
+  }, [isErrorUpdateFAQ, errorUpdateFAQ])
 
   useEffect(() => {
     if (data && isEdit) {
       const item = JSON.parse(data)
 
-      form.setValue('judul', item?.judul)
-      form.setValue('url_gambar', item?.url_gambar)
-      form.setValue('isi', item?.isi)
-      form.setValue('id_jenis', item?.id_jenis)
-      setUrls(item?.url_gambar)
+      form.setValue('pertanyaan', item?.pertanyaan)
+      form.setValue('jawaban', item?.jawaban)
+      form.setValue('id_kategori', item?.id_kategori)
+      form.setValue('nama_kategori', item?.kategori)
     }
   }, [data])
 
@@ -124,16 +122,15 @@ export default function UpdateHalamanKonten() {
           Form {convertSlugToText(lastPathname)}{' '}
           {convertSlugToText(secondPathname)}
         </p>
-        <FormTambahHalaman
+
+        <FormTambahFAQ
           form={form}
-          isLoading={isLoadingUpdateHalaman}
+          isLoading={isLoadingUpdateFAQ}
           handleSubmit={handleSubmit}
           setIsShow={setIsShow}
           setIsSubmit={setIsSubmit}
           isShow={isShow}
           isSubmit={isSubmit}
-          urls={urls}
-          setUrls={setUrls}
         />
       </div>
       <ToastContainer />

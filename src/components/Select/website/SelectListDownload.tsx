@@ -11,7 +11,7 @@ import { UseFormReturn } from 'react-hook-form'
 import Select, { components } from 'react-select'
 import { customStyles } from '@/types/selectType'
 import { ReferensiType } from '@/types/referensiType'
-import { useGetJenisHalamanQuery } from '@/store/slices/referensiAPI'
+import { useGetJenisDownloadQuery } from '@/store/slices/referensiAPI'
 
 type inputProps = {
   placeholder: string
@@ -20,36 +20,40 @@ type inputProps = {
   headerLabel?: string
   useFormReturn: UseFormReturn
   className?: string
+  jenis?: string
   setIdKategori?: Dispatch<SetStateAction<string>>
 }
 
-export function SelectListJenisHalaman({
+export function SelectListDownload({
   name,
   headerLabel,
   placeholder,
   isDisabled,
   useFormReturn,
+  jenis,
   className,
   setIdKategori,
 }: inputProps) {
   const [query, setQuery] = useState<string>(null)
-  const [listJenisHalaman, setListJenisHalaman] = useState<ReferensiType[]>([])
+  const [listDownload, setListDownload] = useState<ReferensiType[]>([])
 
-  const { data, isSuccess, isLoading, isFetching } = useGetJenisHalamanQuery()
+  const { data, isSuccess, isLoading, isFetching } = useGetJenisDownloadQuery({
+    jenis: jenis,
+  })
 
   useEffect(() => {
     if (!isFetching) {
       if (data?.meta?.page > 1) {
-        setListJenisHalaman((prevData) => [...prevData, ...(data?.data ?? [])])
+        setListDownload((prevData) => [...prevData, ...(data?.data ?? [])])
       } else {
-        setListJenisHalaman([...(data?.data ?? [])])
+        setListDownload([...(data?.data ?? [])])
       }
     }
   }, [data])
 
-  let JenisHalamanOption = []
+  let DownloadOption = []
   if (isSuccess) {
-    JenisHalamanOption = listJenisHalaman.map((item) => {
+    DownloadOption = listDownload.map((item) => {
       return {
         value: item?.id,
         label: item?.nama,
@@ -147,9 +151,9 @@ export function SelectListJenisHalaman({
                     }),
                   }}
                   className={'z-50 text-[2rem]'}
-                  options={JenisHalamanOption}
+                  options={DownloadOption}
                   value={
-                    JenisHalamanOption.filter(
+                    DownloadOption.filter(
                       (item) => item.value === field.value,
                     )[0]
                   }
@@ -157,7 +161,10 @@ export function SelectListJenisHalaman({
                   onInputChange={search}
                   onChange={(optionSelected) => {
                     field.onChange(optionSelected?.value)
-                    useFormReturn.setValue('nama_jenis', optionSelected?.label)
+                    useFormReturn.setValue(
+                      'nama_kategori',
+                      optionSelected?.label,
+                    )
                     if (setIdKategori) {
                       setIdKategori(optionSelected?.value)
                     }

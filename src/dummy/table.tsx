@@ -10,6 +10,8 @@ import dayjs from 'dayjs'
 import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
 import { SliderType } from '@/types/website/konten/sliderType'
 import { HalamanType } from '@/types/website/konten/halamanType'
+import { FAQType } from '@/types/website/konten/faqType'
+import { DownloadType } from '@/types/website/konten/downloadType'
 
 export const columnsListDataGuru: Column<GetGuruStaffType>[] = [
   {
@@ -357,11 +359,85 @@ export const columnsListDataHalaman: Column<HalamanType>[] = [
   {
     header: 'Jenis',
     key: 'jenis',
-    width: 'w-[30%]',
+    width: '!min-w-[12rem]',
   },
   {
     header: 'Dibaca',
     key: 'hits',
+    width: '!min-w-[12rem]',
+  },
+]
+
+export const columnsListDataFAQ: Column<FAQType>[] = [
+  {
+    header: 'Pertanyaan',
+    key: 'pertanyaan',
     width: 'w-[30%]',
+  },
+  {
+    header: 'Jawaban',
+    key: 'jawaban',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div
+          dangerouslySetInnerHTML={{ __html: rowData?.jawaban }}
+          className="article-content line-clamp-5"
+        />
+      )
+    },
+  },
+  {
+    header: 'Kategori',
+    key: 'kategori',
+    width: '!min-w-[12rem]',
+  },
+]
+
+export const columnsListDataDownload: Column<DownloadType>[] = [
+  {
+    header: 'Judul',
+    key: 'judul',
+    width: 'w-[30%]',
+  },
+  {
+    header: 'Jenis File',
+    key: 'jenis_file',
+    width: '!min-w-[12rem]',
+  },
+  {
+    header: 'Url',
+    key: 'url_file',
+    width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div>
+          {rowData?.jenis_file === 'Link' ? (
+            rowData?.url_file
+          ) : (
+            <img
+              src={
+                rowData?.url_file === '' || !rowData?.url_file
+                  ? DefaultImg
+                  : rowData?.url_file
+              }
+              alt={rowData?.judul}
+              className="h-[10rem] w-[20rem] rounded-2xl object-cover filter"
+              loading="lazy"
+            />
+          )}
+        </div>
+      )
+    },
+  },
+  {
+    header: 'Hits',
+    key: 'hits',
+    width: '!min-w-[12rem]',
+  },
+  {
+    header: 'Kategori',
+    key: 'kategori',
+    width: '!min-w-[12rem]',
   },
 ]

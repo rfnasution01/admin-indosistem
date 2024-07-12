@@ -24,6 +24,8 @@ import {
   ProfilWebsiteLayout,
   ProgramLayananPage,
   SliderPage,
+  TambahDownloadPage,
+  TambahFAQPage,
   TambahFasilitasSekolahPage,
   TambahGambarAlbumPage,
   TambahGambarKategoriPage,
@@ -301,6 +303,14 @@ export const router = createBrowserRouter([
                     path: '',
                     element: <FAQPage />,
                   },
+                  {
+                    path: 'tambah',
+                    element: <TambahFAQPage />,
+                  },
+                  {
+                    path: 'edit',
+                    element: <TambahFAQPage />,
+                  },
                 ],
               },
               {
@@ -310,6 +320,14 @@ export const router = createBrowserRouter([
                   {
                     path: '',
                     element: <DownloadPage />,
+                  },
+                  {
+                    path: 'tambah',
+                    element: <TambahDownloadPage />,
+                  },
+                  {
+                    path: 'edit',
+                    element: <TambahDownloadPage />,
                   },
                 ],
               },

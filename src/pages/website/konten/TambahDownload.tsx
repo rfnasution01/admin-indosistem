@@ -8,11 +8,11 @@ import { Bounce, toast, ToastContainer } from 'react-toastify'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import { convertSlugToText } from '@/utils/formatText'
 import 'react-toastify/dist/ReactToastify.css'
-import { TambahHalamanSchema } from '@/schemas/website/halamanSchema'
-import { useCreateHalamanMutation } from '@/store/slices/website/kontenAPI/halamanAPI'
-import FormTambahHalaman from '@/components/Form/website/konten/FormTambahHalaman'
+import { TambahDownloadSchema } from '@/schemas/website/DownloadSchema'
+import FormTambahDownload from '@/components/Form/website/konten/FormTambahDownload'
+import { useCreateDownloadMutation } from '@/store/slices/website/kontenAPI/downloadAPI'
 
-export default function UpdateHalamanKonten() {
+export default function UpdateDownloadKonten() {
   const navigate = useNavigate()
 
   const { lastPathname, secondPathname } = usePathname()
@@ -25,21 +25,21 @@ export default function UpdateHalamanKonten() {
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
   const [isShow, setIsShow] = useState<boolean>(false)
 
-  const form = useForm<zod.infer<typeof TambahHalamanSchema>>({
-    resolver: zodResolver(TambahHalamanSchema),
+  const form = useForm<zod.infer<typeof TambahDownloadSchema>>({
+    resolver: zodResolver(TambahDownloadSchema),
     defaultValues: {},
   })
 
-  // --- Create Tambah Halaman ---
+  // --- Create Tambah Download ---
   const [
-    createUpdateHalaman,
+    createUpdateDownload,
     {
-      isError: isErrorUpdateHalaman,
-      error: errorUpdateHalaman,
-      isLoading: isLoadingUpdateHalaman,
-      isSuccess: isSuccessUpdateHalaman,
+      isError: isErrorUpdateDownload,
+      error: errorUpdateDownload,
+      isLoading: isLoadingUpdateDownload,
+      isSuccess: isSuccessUpdateDownload,
     },
-  ] = useCreateHalamanMutation()
+  ] = useCreateDownloadMutation()
 
   const handleSubmit = async () => {
     const values = form.getValues()
@@ -47,14 +47,14 @@ export default function UpdateHalamanKonten() {
     const body = {
       id: isEdit ? idEdit : null,
       judul: values?.judul ?? '',
-      url_gambar: urls ?? '',
-      isi: values?.isi ?? '',
-      id_jenis: values?.id_jenis ?? '',
+      jenis_file: values?.jenis_file ?? '',
+      url_file: urls ?? '',
+      id_kategori: values?.id_kategori ?? '',
     }
 
     if (isSubmit && isShow) {
       try {
-        await createUpdateHalaman({
+        await createUpdateDownload({
           body: body,
         })
       } catch (error) {
@@ -64,7 +64,7 @@ export default function UpdateHalamanKonten() {
   }
 
   useEffect(() => {
-    if (isSuccessUpdateHalaman) {
+    if (isSuccessUpdateDownload) {
       toast.success(
         `${isEdit ? 'Update' : 'Tambah'} ${convertSlugToText(secondPathname).toLowerCase()} berhasil`,
         {
@@ -84,11 +84,11 @@ export default function UpdateHalamanKonten() {
         navigate(-1)
       }, 3000)
     }
-  }, [isSuccessUpdateHalaman])
+  }, [isSuccessUpdateDownload])
 
   useEffect(() => {
-    if (isErrorUpdateHalaman) {
-      const errorMsg = errorUpdateHalaman as { data?: { message?: string } }
+    if (isErrorUpdateDownload) {
+      const errorMsg = errorUpdateDownload as { data?: { message?: string } }
 
       toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
         position: 'bottom-right',
@@ -102,17 +102,20 @@ export default function UpdateHalamanKonten() {
         transition: Bounce,
       })
     }
-  }, [isErrorUpdateHalaman, errorUpdateHalaman])
+  }, [isErrorUpdateDownload, errorUpdateDownload])
 
   useEffect(() => {
     if (data && isEdit) {
       const item = JSON.parse(data)
 
       form.setValue('judul', item?.judul)
-      form.setValue('url_gambar', item?.url_gambar)
-      form.setValue('isi', item?.isi)
-      form.setValue('id_jenis', item?.id_jenis)
-      setUrls(item?.url_gambar)
+      form.setValue('jenis_file', item?.jenis_file)
+      form.setValue('url_file', item?.url_file)
+      form.setValue('id_kategori', item?.id_kategori)
+      form.setValue('nama_kategori', item?.kategori)
+      if (item?.jenis_file === 'Link') {
+        setUrls(item?.url_file)
+      }
     }
   }, [data])
 
@@ -124,9 +127,9 @@ export default function UpdateHalamanKonten() {
           Form {convertSlugToText(lastPathname)}{' '}
           {convertSlugToText(secondPathname)}
         </p>
-        <FormTambahHalaman
+        <FormTambahDownload
           form={form}
-          isLoading={isLoadingUpdateHalaman}
+          isLoading={isLoadingUpdateDownload}
           handleSubmit={handleSubmit}
           setIsShow={setIsShow}
           setIsSubmit={setIsSubmit}

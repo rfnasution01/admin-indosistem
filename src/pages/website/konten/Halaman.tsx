@@ -10,7 +10,10 @@ import { Searching } from '@/components/Searching'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { convertSlugToText } from '@/utils/formatText'
-import { FormListDataPerPage } from '@/components/Select/website'
+import {
+  FormListDataPerPage,
+  SelectListJenisHalaman,
+} from '@/components/Select/website'
 import { Pagination } from '@/components/Pagination'
 import { Loading } from '@/components/Loading'
 import { HalamanType } from '@/types/website/konten/halamanType'
@@ -20,6 +23,11 @@ import {
 } from '@/store/slices/website/kontenAPI/halamanAPI'
 import { TableSlider } from '@/components/Table/TableSlider'
 import { columnsListDataHalaman } from '@/dummy/table'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod'
+import { useForm } from 'react-hook-form'
+import { KategoriSchema } from '@/schemas/website/kategoriSchema'
+import { Form } from '@/components/Form'
 
 export default function Halaman() {
   const navigate = useNavigate()
@@ -30,6 +38,7 @@ export default function Halaman() {
   const [pageSize, setPageSize] = useState<number>(12)
   const [isShowDelete, setIsShowDelete] = useState<boolean>(false)
   const [isShowStatus, setIsShowStatus] = useState<boolean>(false)
+  const [idKategori, setIdKategori] = useState<string>()
 
   // --- Data Halaman ---
   const [halaman, setHalaman] = useState<HalamanType[]>()
@@ -45,6 +54,7 @@ export default function Halaman() {
     search: search,
     page_number: pageNumber,
     page_size: pageSize,
+    id_jenis: idKategori ?? '',
   })
 
   const loadingHalaman = isLoadingHalaman || isFetchingHalaman
@@ -54,7 +64,7 @@ export default function Halaman() {
       setHalaman(dataHalaman?.data?.data)
       setMeta(dataHalaman?.data?.meta)
     }
-  }, [dataHalaman?.data, pageNumber, pageSize, search])
+  }, [dataHalaman?.data, pageNumber, pageSize, search, idKategori])
 
   useEffect(() => {
     if (isErrorHalaman) {
@@ -193,6 +203,11 @@ export default function Halaman() {
     }
   }, [isErrorStatusHalaman, errorStatusHalaman])
 
+  const form = useForm<zod.infer<typeof KategoriSchema>>({
+    resolver: zodResolver(KategoriSchema),
+    defaultValues: {},
+  })
+
   return (
     <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto rounded-3x bg-white p-48">
       <div className="flex w-full flex-col gap-32">
@@ -204,6 +219,18 @@ export default function Halaman() {
               className="w-1/2 phones:w-full"
               search={search}
             />
+            <Form {...form}>
+              <form>
+                <SelectListJenisHalaman
+                  useFormReturn={form}
+                  name="kategori"
+                  placeholder="Pilih Kategori"
+                  setIdKategori={setIdKategori}
+                  isDisabled={isLoadingHalaman}
+                  className="phones:w-full"
+                />
+              </form>
+            </Form>
           </div>
           <Link
             to="tambah"
