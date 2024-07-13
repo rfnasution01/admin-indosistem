@@ -170,3 +170,7 @@ export const PolicyPage = loadable(
 export const UpdatePolicyPage = loadable(
   () => import('@/pages/website/pengaturan/UpdatePolicy'),
 )
+
+export const TambahMenuPage = loadable(
+  () => import('@/pages/website/konten/TambahMenu'),
+)

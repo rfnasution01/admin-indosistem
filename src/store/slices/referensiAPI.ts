@@ -89,6 +89,12 @@ export const ReferensiEndpoints = api.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getListKonten: builder.query<Res<ReferensiType[]>, ParamsType>({
+      query: ({ jenis }) => ({
+        url: `${jenis}`,
+        method: 'GET',
+      }),
+    }),
     createFile: builder.mutation<{ url: string }, FormData>({
       query: (foto) => ({
         url: 'admin/upload',
@@ -116,4 +122,5 @@ export const {
   useGetPosisiMenuQuery,
   useGetJenisMenuQuery,
   useGetRouteMenuQuery,
+  useGetListKontenQuery,
 } = ReferensiEndpoints

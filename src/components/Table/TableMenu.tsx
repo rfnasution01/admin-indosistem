@@ -8,9 +8,9 @@ import {
   faEyeSlash,
   faSpinner,
 } from '@fortawesome/free-solid-svg-icons'
-import { MenubarAction } from '../Menubar/MenubarAction'
-import { ActiveContentSlider } from '../ActiveContent/KontenSlider'
 import { ValidasiIsCheck } from '../Dialog/ValidasiIsCheck'
+import { MenubarActionMenu } from '../Menubar/MenubarActionMenu'
+import { ActiveContentSlider } from '../ActiveContent/KontenSlider'
 
 export type Column<T> = {
   header: string
@@ -19,12 +19,14 @@ export type Column<T> = {
   width?: string
 }
 
-export interface Slider {
+export interface Menu {
   id: string
   aktif?: number | string
+  id_parent?: string
+  jenis_menu?: string
 }
 
-type Props<T extends Slider, P> = {
+type Props<T extends Menu, P> = {
   data: T[]
   columns: Column<T>[] | ((props: P) => Column<T>[])
   containerClasses?: string
@@ -37,7 +39,7 @@ type Props<T extends Slider, P> = {
   isNumber?: boolean
   currentPage?: number
   pageSize?: number
-  isSlider?: boolean
+  isMenu?: boolean
   handleSubmitDelete?: (id: string) => Promise<void>
   setIsShowDelete?: Dispatch<SetStateAction<boolean>>
   isShowDelete?: boolean
@@ -47,9 +49,10 @@ type Props<T extends Slider, P> = {
   isShowStatus?: boolean
   isLoadingStatus?: boolean
   isDetail?: boolean
+  posisi?: string
 }
 
-export function TableSlider<T extends Slider, P>({
+export function TableMenu<T extends Menu, P>({
   data,
   columns,
   containerClasses = '',
@@ -62,7 +65,7 @@ export function TableSlider<T extends Slider, P>({
   isNumber,
   currentPage,
   pageSize,
-  isSlider,
+  isMenu,
   isDetail,
   handleSubmitDelete,
   isShowDelete,
@@ -72,6 +75,7 @@ export function TableSlider<T extends Slider, P>({
   setIsShowStatus,
   isLoadingStatus,
   isShowStatus,
+  posisi,
 }: Props<T, P>) {
   const [rowIsOpen, setRowIsOpen] = useState<number | null>(null)
   const [id, setId] = useState<number>()
@@ -115,8 +119,8 @@ export function TableSlider<T extends Slider, P>({
                       </th>
                     ))}
 
-                  {/* --- Slider --- */}
-                  {isSlider && (
+                  {/* --- Menu --- */}
+                  {isMenu && (
                     <th className="text-sim-primary sticky top-0 border-b-2 bg-warna-pale-blue px-24 py-24 text-center uppercase">
                       Status
                     </th>
@@ -166,8 +170,8 @@ export function TableSlider<T extends Slider, P>({
                           </td>
                         ))}
 
-                      {/* ----- Slider ----- */}
-                      {isSlider && (
+                      {/* ----- Menu ----- */}
+                      {isMenu && (
                         <td className="px-24 py-12 text-center align-top leading-medium">
                           <ActiveContentSlider
                             setIsShow={setIsShowStatus}
@@ -179,12 +183,13 @@ export function TableSlider<T extends Slider, P>({
                       )}
                       {isDetail && (
                         <td className="px-24 py-12 align-top leading-medium">
-                          <MenubarAction
+                          <MenubarActionMenu
                             data={row}
                             handleSubmitDelete={handleSubmitDelete}
                             isLoadingDelete={isLoadingDelete}
                             isShowDelete={isShowDelete}
                             setIsShowDelete={setIsShowDelete}
+                            posisi={posisi}
                           />
                         </td>
                       )}

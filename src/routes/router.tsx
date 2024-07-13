@@ -35,6 +35,7 @@ import {
   TambahGambarKategoriPage,
   TambahHalamanPage,
   TambahKontakPage,
+  TambahMenuPage,
   TambahProfilPage,
   TambahProgramLayananPage,
   TambahSliderPage,
@@ -298,6 +299,14 @@ export const router = createBrowserRouter([
                   {
                     path: '',
                     element: <MenuPage />,
+                  },
+                  {
+                    path: 'tambah',
+                    element: <TambahMenuPage />,
+                  },
+                  {
+                    path: 'edit',
+                    element: <TambahMenuPage />,
                   },
                 ],
               },

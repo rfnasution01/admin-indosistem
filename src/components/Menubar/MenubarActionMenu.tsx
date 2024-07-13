@@ -5,14 +5,14 @@ import {
   faBinoculars,
   faEllipsis,
   faPencil,
-  faPlus,
   faSpinner,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
-import { Fasilitas } from '../Table/TableFasilitas'
 import { ValidasiDelete } from '../Dialog/ValidasiDelete'
 import { usePathname } from '@/hooks/usePathname'
+import { MenubarDropDownMenu } from './MenubarDropdownMenu'
+import { Menu } from '../Table/TableMenu'
 
 type Props<T> = {
   data: T
@@ -21,15 +21,17 @@ type Props<T> = {
   isShowDelete: boolean
   isLoadingDelete: boolean
   editID?: string
+  posisi?: string
 }
 
-export function MenubarAction<T extends Fasilitas>({
+export function MenubarActionMenu<T extends Menu>({
   data,
   handleSubmitDelete,
   setIsShowDelete,
   isLoadingDelete,
   isShowDelete,
   editID,
+  posisi,
 }: Props<T>) {
   const { thirdPathname } = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -71,17 +73,7 @@ export function MenubarAction<T extends Fasilitas>({
                   </Link>
                 )}
               {thirdPathname === 'menu' && (
-                <Link
-                  to={'tambah'}
-                  onClick={() => {
-                    localStorage.setItem('editID', data?.id)
-                    localStorage.setItem('editData', JSON.stringify(data))
-                  }}
-                  className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 text-warna-primary hover:border-warna-primary hover:bg-warna-primary hover:bg-opacity-10"
-                >
-                  <FontAwesomeIcon icon={faPlus} />
-                  <p>Tambah</p>
-                </Link>
+                <MenubarDropDownMenu posisi={posisi} id_parent={data?.id} />
               )}
               {thirdPathname === 'detail' ? (
                 <Link
@@ -102,6 +94,12 @@ export function MenubarAction<T extends Fasilitas>({
                   onClick={() => {
                     localStorage.setItem('editID', data?.id)
                     localStorage.setItem('editData', JSON.stringify(data))
+                    const menu = {
+                      posisi: posisi,
+                      jenis_menu: data?.jenis_menu,
+                      id_parent: data?.id_parent,
+                    }
+                    localStorage.setItem('parentData', JSON.stringify(menu))
                   }}
                   className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 hover:border-warna-dark hover:bg-warna-dark hover:bg-opacity-10"
                 >

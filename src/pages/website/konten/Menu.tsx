@@ -14,8 +14,8 @@ import {
 } from '@/store/slices/website/menuKontenAPI'
 import { Bounce, toast } from 'react-toastify'
 import { usePathname } from '@/hooks/usePathname'
-import { TableSlider } from '@/components/Table/TableSlider'
 import { columnsListDataMenu } from '@/dummy/table'
+import { TableMenu } from '@/components/Table/TableMenu'
 
 export default function Menu() {
   const { thirdPathname } = usePathname()
@@ -169,7 +169,7 @@ export default function Menu() {
         </Form>
         {idKategori && <MenubarDropDown posisi={idKategori} />}
       </div>
-      <TableSlider
+      <TableMenu
         data={menu}
         columns={columnsListDataMenu}
         containerClasses="w-full h-full flex-1 overflow-y-auto scrollbar"
@@ -185,7 +185,7 @@ export default function Menu() {
         setIsShowStatus={setIsShowStatus}
         isShowStatus={isShowStatus}
         isDetail
-        isSlider
+        isMenu
         posisi={idKategori}
       />
     </div>

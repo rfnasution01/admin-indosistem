@@ -458,5 +458,26 @@ export const columnsListDataMenu: Column<GetMenuType>[] = [
     header: 'Url',
     key: 'url_gambar',
     width: '!min-w-[12rem]',
+    renderCell: (rowData) => {
+      return (
+        <div className="flex flex-col gap-32">
+          {rowData?.url_gambar && (
+            <img
+              src={
+                rowData?.url_gambar === '' || !rowData?.url_gambar
+                  ? DefaultImg
+                  : rowData?.url_gambar
+              }
+              alt={rowData?.nama_menu}
+              className="h-[10rem] w-[20rem] rounded-2xl object-cover filter"
+              loading="lazy"
+            />
+          )}
+          {rowData?.deskripsi_singkat && (
+            <p className="line-clamp-5">{rowData?.deskripsi_singkat}</p>
+          )}
+        </div>
+      )
+    },
   },
 ]
