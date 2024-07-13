@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faSave, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { ValidasiKonfirmasi } from '@/components/Dialog/ValidasiKonfirmasi'
 import { SelectListKonten } from '@/components/Select/website'
+import { PreviewMenu } from '@/features/website/konten'
 
 export default function FormTambahMenu({
   form,
@@ -205,12 +206,14 @@ export default function FormTambahMenu({
         setIsOpen={setIsShow}
         children={
           <div className="flex w-full flex-col gap-32 rounded-2x bg-warna-pale-blue p-32 text-[2rem] text-warna-dark phones:text-[2.4rem]">
-            {/* <PreviewMenu
-              judul={form?.watch('judul')}
+            <PreviewMenu
               gambar={urls}
-              url={form?.watch('url')}
-              aktif={form?.watch('aktif')}
-            /> */}
+              jenis_menu={form?.watch('jenis_menu')}
+              posisi={form?.watch('posisi')}
+              nama_menu={form?.watch('nama_menu')}
+              kategori={form?.watch('nama_kategori')}
+              deskripsi={form?.watch('deskripsi_singkat')}
+            />
           </div>
         }
         childrenButton={

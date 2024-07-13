@@ -6,11 +6,10 @@ import {
   FormMessage,
 } from '@/components/Form'
 import { cn } from '@/utils/cn'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import Select, { components } from 'react-select'
 import { customStyles } from '@/types/selectType'
-import { useGetPosisiMenuQuery } from '@/store/slices/referensiAPI'
 
 type inputProps = {
   placeholder: string
@@ -20,6 +19,10 @@ type inputProps = {
   useFormReturn: UseFormReturn
   className?: string
   setIdKategori?: Dispatch<SetStateAction<string>>
+  listPosisiMenu: string[]
+  isSuccess: boolean
+  isLoading: boolean
+  isFetching: boolean
 }
 
 export function SelectListPosisiMenu({
@@ -30,21 +33,12 @@ export function SelectListPosisiMenu({
   useFormReturn,
   className,
   setIdKategori,
+  listPosisiMenu,
+  isFetching,
+  isLoading,
+  isSuccess,
 }: inputProps) {
   const [query, setQuery] = useState<string>(null)
-  const [listPosisiMenu, setListPosisiMenu] = useState<string[]>([])
-
-  const { data, isSuccess, isLoading, isFetching } = useGetPosisiMenuQuery()
-
-  useEffect(() => {
-    if (!isFetching) {
-      if (data?.meta?.page > 1) {
-        setListPosisiMenu((prevData) => [...prevData, ...(data?.data ?? [])])
-      } else {
-        setListPosisiMenu([...(data?.data ?? [])])
-      }
-    }
-  }, [data])
 
   let PosisiMenuOption = []
   if (isSuccess) {
@@ -72,6 +66,11 @@ export function SelectListPosisiMenu({
         </div>
       </components.Option>
     )
+  }
+
+  const defaultValue = {
+    value: listPosisiMenu?.[0],
+    label: listPosisiMenu?.[0],
   }
 
   return (
@@ -147,6 +146,7 @@ export function SelectListPosisiMenu({
                   }}
                   className={'z-50 text-[2rem]'}
                   options={PosisiMenuOption}
+                  defaultValue={defaultValue}
                   value={
                     PosisiMenuOption.filter(
                       (item) => item.value === field.value,

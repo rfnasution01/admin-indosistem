@@ -37,7 +37,7 @@ export function ValidasiIsCheck({
           </DialogHeader>
           <p className="text-sim-grey text-center text-[2.4rem]">
             Apakah anda yakin{' '}
-            {publish.toString() === '1'
+            {publish?.toString() === '1'
               ? 'mengembalikan ke draft'
               : 'ingin mempublish'}{' '}
             data?

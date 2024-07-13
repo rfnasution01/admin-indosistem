@@ -41,11 +41,6 @@ export default function UpdateSliderKonten() {
     },
   ] = useCreateSliderMutation()
 
-  //   const values = form.watch()
-  //   values?.list?.forEach((item, index) => {
-  //     item.urutan = (index + 1).toString()
-  //   })
-
   const handleSubmit = async () => {
     const values = form.getValues()
 
@@ -117,7 +112,7 @@ export default function UpdateSliderKonten() {
       form.setValue('judul', item?.judul)
       form.setValue('gambar', item?.gambar)
       form.setValue('url', item?.url)
-      form.setValue('aktif', item?.aktif.toString())
+      form.setValue('aktif', item?.aktif?.toString())
       setUrls(item?.gambar)
     }
   }, [data])

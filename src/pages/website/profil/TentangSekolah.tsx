@@ -176,7 +176,7 @@ export default function TentangSekolah() {
 
   const values = form.watch()
   values?.list?.forEach((item, index) => {
-    item.urutan = (index + 1).toString()
+    item.urutan = (index + 1)?.toString()
   })
 
   const handleSubmit = async () => {

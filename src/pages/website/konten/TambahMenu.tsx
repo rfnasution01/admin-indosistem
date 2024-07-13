@@ -48,13 +48,13 @@ export default function UpdateMenuKonten() {
 
     const body = {
       id: isEdit ? idEdit : null,
-      nama_menu: values?.nama_menu,
-      posisi: values?.posisi,
-      jenis_menu: values?.jenis_menu,
-      id_konten: values?.id_konten,
-      deskripsi_singkat: values?.deskrispsi_singkat,
+      nama_menu: values?.nama_menu ?? '',
+      posisi: values?.posisi ?? '',
+      jenis_menu: values?.jenis_menu ?? '',
+      id_konten: values?.id_konten ?? '',
+      deskripsi_singkat: values?.deskrispsi_singkat ?? '',
       url_gambar: urls,
-      id_parent: values?.id_parent,
+      id_parent: values?.id_parent ?? '',
       urutan: '1',
     }
 
@@ -115,8 +115,6 @@ export default function UpdateMenuKonten() {
 
     if (data && isEdit && parentData) {
       const item = JSON.parse(data)
-
-      console.log({ item })
 
       form.setValue('nama_menu', item?.nama_menu)
       form.setValue('jenis_menu', item?.jenis_menu)
