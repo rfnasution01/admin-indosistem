@@ -12,6 +12,7 @@ import { SliderType } from '@/types/website/konten/sliderType'
 import { HalamanType } from '@/types/website/konten/halamanType'
 import { FAQType } from '@/types/website/konten/faqType'
 import { DownloadType } from '@/types/website/konten/downloadType'
+import { GetMenuType } from '@/types/website/konten/menuType'
 
 export const columnsListDataGuru: Column<GetGuruStaffType>[] = [
   {
@@ -438,6 +439,24 @@ export const columnsListDataDownload: Column<DownloadType>[] = [
   {
     header: 'Kategori',
     key: 'kategori',
+    width: '!min-w-[12rem]',
+  },
+]
+
+export const columnsListDataMenu: Column<GetMenuType>[] = [
+  {
+    header: 'Nama Menu',
+    key: 'nama_menu',
+    width: 'w-[30%]',
+  },
+  {
+    header: 'Jenis',
+    key: 'jenis_menu',
+    width: '!min-w-[12rem]',
+  },
+  {
+    header: 'Url',
+    key: 'url_gambar',
     width: '!min-w-[12rem]',
   },
 ]

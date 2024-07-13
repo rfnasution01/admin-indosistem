@@ -21,7 +21,8 @@ export type Column<T> = {
 
 export interface Slider {
   id: string
-  aktif?: number
+  aktif?: number | string
+  jenis_menu?: string
 }
 
 type Props<T extends Slider, P> = {
@@ -47,6 +48,7 @@ type Props<T extends Slider, P> = {
   isShowStatus?: boolean
   isLoadingStatus?: boolean
   isDetail?: boolean
+  posisi?: string
 }
 
 export function TableSlider<T extends Slider, P>({
@@ -72,6 +74,7 @@ export function TableSlider<T extends Slider, P>({
   setIsShowStatus,
   isLoadingStatus,
   isShowStatus,
+  posisi,
 }: Props<T, P>) {
   const [rowIsOpen, setRowIsOpen] = useState<number | null>(null)
   const [id, setId] = useState<number>()
@@ -185,6 +188,10 @@ export function TableSlider<T extends Slider, P>({
                             isLoadingDelete={isLoadingDelete}
                             isShowDelete={isShowDelete}
                             setIsShowDelete={setIsShowDelete}
+                            parent={{
+                              posisi: posisi,
+                              jenis_menu: row?.jenis_menu,
+                            }}
                           />
                         </td>
                       )}
@@ -227,13 +234,13 @@ export function TableSlider<T extends Slider, P>({
                             type="button"
                             disabled={isLoadingStatus}
                             onClick={() => {
-                              handleSubmitStatus(row?.id, row?.aktif)
+                              handleSubmitStatus(row?.id, Number(row?.aktif))
                             }}
                             className={clsx(
                               'flex items-center gap-12 rounded-2xl px-24 py-12 text-white hover:bg-opacity-80',
                               {
-                                'bg-warna-red': row?.aktif === 1,
-                                'bg-warna-primary': row?.aktif !== 1,
+                                'bg-warna-red': Number(row?.aktif) === 1,
+                                'bg-warna-primary': Number(row?.aktif) !== 1,
                               },
                             )}
                           >
@@ -241,13 +248,13 @@ export function TableSlider<T extends Slider, P>({
                               <span className="animate-spin duration-300">
                                 <FontAwesomeIcon icon={faSpinner} />
                               </span>
-                            ) : row?.aktif === 1 ? (
+                            ) : Number(row?.aktif) === 1 ? (
                               <FontAwesomeIcon icon={faEyeSlash} />
                             ) : (
                               <FontAwesomeIcon icon={faEye} />
                             )}
                             <p className="font-sf-pro">
-                              {row?.aktif === 1 ? 'Draft' : 'Publish'}
+                              {Number(row?.aktif) === 1 ? 'Draft' : 'Publish'}
                             </p>
                           </button>
                         }

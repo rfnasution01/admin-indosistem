@@ -71,6 +71,24 @@ export const ReferensiEndpoints = api.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getPosisiMenu: builder.query<Res<string[]>, void>({
+      query: () => ({
+        url: `referensi/posisi_menu`,
+        method: 'GET',
+      }),
+    }),
+    getJenisMenu: builder.query<Res<string[]>, void>({
+      query: () => ({
+        url: `referensi/jenis_menu`,
+        method: 'GET',
+      }),
+    }),
+    getRouteMenu: builder.query<Res<ReferensiType[]>, void>({
+      query: () => ({
+        url: `referensi/route_menu`,
+        method: 'GET',
+      }),
+    }),
     createFile: builder.mutation<{ url: string }, FormData>({
       query: (foto) => ({
         url: 'admin/upload',
@@ -95,4 +113,7 @@ export const {
   useGetTagQuery,
   useGetJenisHalamanQuery,
   useGetJenisDownloadQuery,
+  useGetPosisiMenuQuery,
+  useGetJenisMenuQuery,
+  useGetRouteMenuQuery,
 } = ReferensiEndpoints

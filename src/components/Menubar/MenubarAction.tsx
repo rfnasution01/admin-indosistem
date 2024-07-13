@@ -5,6 +5,7 @@ import {
   faBinoculars,
   faEllipsis,
   faPencil,
+  faPlus,
   faSpinner,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons'
@@ -20,6 +21,10 @@ type Props<T> = {
   isShowDelete: boolean
   isLoadingDelete: boolean
   editID?: string
+  parent?: {
+    posisi: string
+    jenis_menu: string
+  }
 }
 
 export function MenubarAction<T extends Fasilitas>({
@@ -29,6 +34,7 @@ export function MenubarAction<T extends Fasilitas>({
   isLoadingDelete,
   isShowDelete,
   editID,
+  parent,
 }: Props<T>) {
   const { thirdPathname } = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -54,17 +60,37 @@ export function MenubarAction<T extends Fasilitas>({
         {isMenuOpen && (
           <MenubarContent className="absolute right-[2rem] top-[-11rem] w-[20rem] bg-white p-32 text-[2rem] text-warna-dark shadow-lg transition-all duration-300">
             <div className="flex flex-col gap-12">
-              {thirdPathname !== 'detail' && thirdPathname !== 'slider' && (
+              {thirdPathname !== 'detail' &&
+                thirdPathname !== 'menu' &&
+                thirdPathname !== 'slider' && (
+                  <Link
+                    to={'detail'}
+                    onClick={() => {
+                      localStorage.setItem('editID', data?.id)
+                      localStorage.setItem('editData', JSON.stringify(data))
+                    }}
+                    className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 text-warna-primary hover:border-warna-primary hover:bg-warna-primary hover:bg-opacity-10"
+                  >
+                    <FontAwesomeIcon icon={faBinoculars} />
+                    <p>Detail</p>
+                  </Link>
+                )}
+              {thirdPathname === 'menu' && (
                 <Link
-                  to={'detail'}
+                  to={'tambah'}
                   onClick={() => {
-                    localStorage.setItem('editID', data?.id)
-                    localStorage.setItem('editData', JSON.stringify(data))
+                    const menu = {
+                      posisi: parent?.posisi,
+                      jenis_menu: parent?.jenis_menu,
+                      id_parent: data?.id,
+                    }
+
+                    localStorage.setItem('parentData', JSON.stringify(menu))
                   }}
                   className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 text-warna-primary hover:border-warna-primary hover:bg-warna-primary hover:bg-opacity-10"
                 >
-                  <FontAwesomeIcon icon={faBinoculars} />
-                  <p>Detail</p>
+                  <FontAwesomeIcon icon={faPlus} />
+                  <p>Tambah</p>
                 </Link>
               )}
               {thirdPathname === 'detail' ? (

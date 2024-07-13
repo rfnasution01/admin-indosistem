@@ -23,7 +23,7 @@ export function ActiveContentSlider<T extends Slider>({
         setIsShow(true)
       }}
     >
-      {data?.aktif === 1 ? (
+      {Number(data?.aktif) === 1 ? (
         <FontAwesomeIcon icon={faSquareCheck} size="lg" color="green" />
       ) : (
         <FontAwesomeIcon icon={faSquareXmark} size="lg" color="red" />
