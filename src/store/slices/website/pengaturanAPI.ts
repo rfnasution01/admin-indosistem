@@ -31,9 +31,10 @@ export const WebsitePengaturanEndpoints = api.injectEndpoints({
       providesTags: ['website-pengaturan-policy'],
     }),
     updatePengaturanPolicy: builder.mutation<void, { body: GetPolicyType }>({
-      query: () => ({
+      query: ({ body }) => ({
         url: `admin/website/pengaturan/policy`,
         method: 'POST',
+        body: body,
       }),
       invalidatesTags: ['website-pengaturan-policy'],
     }),

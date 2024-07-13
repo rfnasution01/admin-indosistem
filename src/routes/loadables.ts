@@ -162,3 +162,11 @@ export const IdentitasPage = loadable(
 export const UpdateIdentitasPage = loadable(
   () => import('@/pages/website/pengaturan/UpdateIdentitas'),
 )
+
+export const PolicyPage = loadable(
+  () => import('@/pages/website/pengaturan/Policy'),
+)
+
+export const UpdatePolicyPage = loadable(
+  () => import('@/pages/website/pengaturan/UpdatePolicy'),
+)

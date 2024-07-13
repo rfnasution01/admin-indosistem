@@ -24,6 +24,7 @@ import {
   LoginLayout,
   MainLayout,
   MenuPage,
+  PolicyPage,
   ProfilWebsiteLayout,
   ProgramLayananPage,
   SliderPage,
@@ -41,6 +42,7 @@ import {
   TentangSekolahPage,
   TestimoniPage,
   UpdateIdentitasPage,
+  UpdatePolicyPage,
   VisiMisiPage,
   WebsiteMainLayout,
 } from './loadables'
@@ -364,6 +366,20 @@ export const router = createBrowserRouter([
                   {
                     path: 'edit',
                     element: <UpdateIdentitasPage />,
+                  },
+                ],
+              },
+              {
+                path: 'policy',
+                element: <CommonLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <PolicyPage />,
+                  },
+                  {
+                    path: 'edit',
+                    element: <UpdatePolicyPage />,
                   },
                 ],
               },
