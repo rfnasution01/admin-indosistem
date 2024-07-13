@@ -40,8 +40,6 @@ export function MenubarActionMenu<T extends Menu>({
     setIsMenuOpen(!isMenuOpen)
   }
 
-  console.log({ isShowDelete })
-
   return (
     <Menubar className="px-4">
       <MenubarMenu>

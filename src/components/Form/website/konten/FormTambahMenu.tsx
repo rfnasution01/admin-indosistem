@@ -143,12 +143,21 @@ export default function FormTambahMenu({
               type="text"
               isDisabled={isLoading}
             />
-            <div className="w-1/2 phones:hidden" />
+            <FormLabelInput
+              name={`urutan`}
+              form={form}
+              label="Urutan"
+              placeholder="Masukkan urutan"
+              className="w-1/2 hover:cursor-not-allowed phones:w-full "
+              type="text"
+              isNumber
+              isDisabled={isLoading}
+            />
           </div>
 
           {jenisMenu !== 'URL' && (
             <SelectListKonten
-              name="id_kategori"
+              name="id_konten"
               headerLabel="Kategori Menu"
               placeholder="Pilih Kategori"
               useFormReturn={form}

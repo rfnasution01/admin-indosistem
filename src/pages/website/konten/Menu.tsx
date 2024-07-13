@@ -211,7 +211,6 @@ export default function Menu() {
         loading={loading}
         pageSize={1}
         currentPage={1}
-        isNumber
         handleSubmitDelete={handleSubmitDelete}
         isShowDelete={isShowDelete}
         setIsShowDelete={setIsShowDelete}
@@ -220,9 +219,11 @@ export default function Menu() {
         isLoadingStatus={isLoadingStatusMenu}
         setIsShowStatus={setIsShowStatus}
         isShowStatus={isShowStatus}
+        posisi={posisi}
+        isNumber
         isDetail
         isMenu
-        posisi={posisi}
+        isAccordion
       />
     </div>
   )

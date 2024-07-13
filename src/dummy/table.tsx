@@ -452,12 +452,12 @@ export const columnsListDataMenu: Column<GetMenuType>[] = [
   {
     header: 'Jenis',
     key: 'jenis_menu',
-    width: '!min-w-[12rem]',
+    width: 'w-[10%]',
   },
   {
-    header: 'Url',
+    header: 'Gambar',
     key: 'url_gambar',
-    width: '!min-w-[12rem]',
+    width: 'w-[10%]',
     renderCell: (rowData) => {
       return (
         <div className="flex flex-col gap-32">
@@ -469,15 +469,17 @@ export const columnsListDataMenu: Column<GetMenuType>[] = [
                   : rowData?.url_gambar
               }
               alt={rowData?.nama_menu}
-              className="h-[10rem] w-[20rem] rounded-2xl object-cover filter"
+              className="h-[10rem] w-[20rem] rounded-2xl object-cover filter phones:h-[6rem]"
               loading="lazy"
             />
-          )}
-          {rowData?.deskripsi_singkat && (
-            <p className="line-clamp-5">{rowData?.deskripsi_singkat}</p>
           )}
         </div>
       )
     },
+  },
+  {
+    header: 'Id Konten',
+    key: 'Id_konten',
+    width: 'w-[20%]',
   },
 ]

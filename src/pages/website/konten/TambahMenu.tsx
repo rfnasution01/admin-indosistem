@@ -52,10 +52,10 @@ export default function UpdateMenuKonten() {
       posisi: values?.posisi ?? '',
       jenis_menu: values?.jenis_menu ?? '',
       id_konten: values?.id_konten ?? '',
-      deskripsi_singkat: values?.deskrispsi_singkat ?? '',
-      url_gambar: urls,
+      deskripsi_singkat: values?.deskripsi_singkat ?? '',
+      url_gambar: urls ?? '',
       id_parent: values?.id_parent ?? '',
-      urutan: '1',
+      urutan: values?.urutan ?? '1',
     }
 
     if (isSubmit && isShow) {
@@ -120,9 +120,10 @@ export default function UpdateMenuKonten() {
       form.setValue('jenis_menu', item?.jenis_menu)
       form.setValue('posisi', list?.posisi)
       form.setValue('id_konten', item?.id_konten)
-      form.setValue('deskrispsi_singkat', item?.deskripsi_singkat)
+      form.setValue('deskripsi_singkat', item?.deskripsi_singkat)
       form.setValue('url_gambar', item?.url_gambar)
       form.setValue('id_parent', item?.id_parent)
+      form.setValue('urutan', item?.urutan)
       setUrls(item?.url_gambar)
     } else {
       form.setValue('jenis_menu', list.jenis_menu)
