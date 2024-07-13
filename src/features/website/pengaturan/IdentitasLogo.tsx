@@ -8,22 +8,22 @@ export function IdentitasLogo({
   favicon: string
 }) {
   return (
-    <div className="flex w-1/4 flex-col gap-48 phones:w-full">
-      <div className="flex flex-col gap-16">
+    <div className="flex w-full gap-48 phones:w-full phones:flex-col">
+      <div className="flex w-full flex-col gap-16">
         <p className="font-roboto text-warna-dark">Logo</p>
         <img
           src={logo === '' || !logo ? DefaultImg : logo}
           alt="Logo"
-          className="h-full w-full rounded-2xl"
+          className="h-[50rem] w-full rounded-2xl"
           loading="lazy"
         />
       </div>
-      <div className="flex flex-col gap-16">
+      <div className="flex w-full flex-col gap-16">
         <p className="font-roboto text-warna-dark">Favicon</p>
         <img
           src={favicon === '' || !favicon ? DefaultImg : favicon}
           alt="Favicon"
-          className="h-full w-full rounded-2xl"
+          className="h-[50rem] w-full rounded-2xl"
           loading="lazy"
         />
       </div>

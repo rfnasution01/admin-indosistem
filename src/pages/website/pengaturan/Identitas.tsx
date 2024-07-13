@@ -80,22 +80,32 @@ export default function PengaturanIdentitas() {
           </p>
         </Link>
       </div>
-      <div className="scrollbar flex h-full gap-32 overflow-y-auto phones:flex-col">
+      <div className="scrollbar flex h-full gap-32 overflow-y-auto phones:flex-col phones:gap-48">
         {loadingIdentitas ? (
           <Loading />
         ) : (
           <>
-            <div className="flex w-3/4 flex-col gap-12 phones:w-full">
+            <div className="flex w-1/2 flex-col gap-12 phones:w-full">
               <LabelList
                 label="Nama Website"
                 value={identitas?.nama_website ?? '-'}
+                isSetting
               />
-              <LabelList label="Footer" value={identitas?.footer ?? '-'} />
               <LabelList
+                isSetting
+                label="Footer"
+                value={identitas?.footer ?? '-'}
+              />
+              <LabelList
+                isSetting
                 label="Deskripsi"
                 value={identitas?.deskripsi ?? '-'}
               />
-              <LabelList label="Keyword" value={identitas?.keyword ?? '-'} />
+              <LabelList
+                isSetting
+                label="Keyword"
+                value={identitas?.keyword ?? '-'}
+              />
             </div>
             <IdentitasLogo
               logo={identitas?.logo}
