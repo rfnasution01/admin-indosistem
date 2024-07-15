@@ -15,6 +15,7 @@ export default function FormUpddatePolicy({
   setIsSubmit,
   isSubmit,
   isShow,
+  isUbah,
 }: {
   form: UseFormReturn
   isLoading: boolean
@@ -23,6 +24,7 @@ export default function FormUpddatePolicy({
   setIsShow: Dispatch<SetStateAction<boolean>>
   isShow: boolean
   isSubmit: boolean
+  isUbah: boolean
 }) {
   return (
     <div>
@@ -44,6 +46,7 @@ export default function FormUpddatePolicy({
           <div className="flex justify-end">
             <button
               type="submit"
+              disabled={isLoading || !isUbah}
               onClick={async () => {
                 const isValid = await form.trigger()
 

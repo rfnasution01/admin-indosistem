@@ -21,6 +21,7 @@ export default function FormUpddateIdentitas({
   favicon,
   setFavicon,
   setLogo,
+  isUbah,
 }: {
   form: UseFormReturn
   isLoading: boolean
@@ -33,6 +34,7 @@ export default function FormUpddateIdentitas({
   isSubmit: boolean
   logo: string
   favicon: string
+  isUbah: boolean
 }) {
   // --- Upload File ---
   const [
@@ -48,6 +50,20 @@ export default function FormUpddateIdentitas({
   const handleUploadFoto = async (file: File, isLogo: boolean) => {
     const formatData = new FormData()
     formatData.append('berkas', file)
+
+    if (!isUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
 
     try {
       const res = await uploadFileMutation(formatData)
@@ -121,7 +137,7 @@ export default function FormUpddateIdentitas({
               placeholder="Masukkan nama website"
               className="w-1/2 hover:cursor-not-allowed phones:w-full "
               type="text"
-              isDisabled={isLoading}
+              isDisabled={isLoading || !isUbah}
             />
             <div className="w-1/2 phones:hidden" />
           </div>
@@ -133,7 +149,7 @@ export default function FormUpddateIdentitas({
             placeholder="Masukkan footer"
             className="w-full hover:cursor-not-allowed phones:w-full "
             type="text"
-            isDisabled={isLoading}
+            isDisabled={isLoading || !isUbah}
           />
 
           <FormLabelInput
@@ -143,7 +159,7 @@ export default function FormUpddateIdentitas({
             placeholder="Masukkan deskripsi"
             className="w-full hover:cursor-not-allowed phones:w-full "
             type="text"
-            isDisabled={isLoading}
+            isDisabled={isLoading || !isUbah}
           />
 
           <FormLabelInput
@@ -153,7 +169,7 @@ export default function FormUpddateIdentitas({
             placeholder="Masukkan keyword"
             className="w-full hover:cursor-not-allowed phones:w-full "
             type="text"
-            isDisabled={isLoading}
+            isDisabled={!isUbah}
           />
 
           <FormLabelFileLogo
@@ -165,6 +181,7 @@ export default function FormUpddateIdentitas({
             name="logo"
             handleUploadFoto={handleUploadFoto}
             isLogo
+            isDisabled={!isUbah}
           />
 
           <FormLabelFileLogo
@@ -180,6 +197,7 @@ export default function FormUpddateIdentitas({
           <div className="flex justify-end">
             <button
               type="submit"
+              disabled={isLoading || !isUbah}
               onClick={async () => {
                 const isValid = await form.trigger()
 

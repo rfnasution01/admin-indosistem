@@ -12,10 +12,12 @@ import { convertSlugToText } from '@/utils/formatText'
 import { IdentitasLogo } from '@/features/website/pengaturan'
 import { LabelList } from '@/components/LabelComponent/LabelList'
 import { Loading } from '@/components/Loading'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function PengaturanIdentitas() {
   const navigate = useNavigate()
   const { thirdPathname } = usePathname()
+  const { isHakAksesUbah } = useAkses()
 
   // --- Data Identitas ---
   const [identitas, setIdentitas] = useState<GetIdentitasType>()
@@ -67,18 +69,20 @@ export default function PengaturanIdentitas() {
         <p className="font-roboto text-[2.4rem] text-warna-dark">
           Identitas Website
         </p>
-        <Link
-          to="edit"
-          onClick={() => {
-            localStorage.setItem('editData', JSON.stringify(identitas))
-          }}
-          className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
-        >
-          <FontAwesomeIcon icon={faPencil} />
-          <p className="phones:hidden">
-            Perbaharui {convertSlugToText(thirdPathname)}
-          </p>
-        </Link>
+        {isHakAksesUbah && (
+          <Link
+            to="edit"
+            onClick={() => {
+              localStorage.setItem('editData', JSON.stringify(identitas))
+            }}
+            className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
+          >
+            <FontAwesomeIcon icon={faPencil} />
+            <p className="phones:hidden">
+              Perbaharui {convertSlugToText(thirdPathname)}
+            </p>
+          </Link>
+        )}
       </div>
       <div className="scrollbar flex h-full gap-32 overflow-y-auto phones:flex-col phones:gap-48">
         {loadingIdentitas ? (

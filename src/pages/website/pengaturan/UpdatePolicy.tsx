@@ -11,9 +11,11 @@ import 'react-toastify/dist/ReactToastify.css'
 import { UpdatePolicySchema } from '@/schemas/website/pengaturanSchema'
 import { useUpdatePengaturanPolicyMutation } from '@/store/slices/website/pengaturanAPI'
 import FormUpddatePolicy from '@/components/Form/website/pengaturan/FormUpdatePolicy'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function UpdatePolicyKonten() {
   const navigate = useNavigate()
+  const { isHakAksesUbah } = useAkses()
 
   const { lastPathname, secondPathname } = usePathname()
 
@@ -45,6 +47,20 @@ export default function UpdatePolicyKonten() {
 
     const body = {
       policy: values?.policy ?? '',
+    }
+
+    if (!isHakAksesUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
     }
 
     if (isSubmit && isShow) {
@@ -123,6 +139,7 @@ export default function UpdatePolicyKonten() {
           setIsSubmit={setIsSubmit}
           isShow={isShow}
           isSubmit={isSubmit}
+          isUbah={isHakAksesUbah}
         />
       </div>
       <ToastContainer />

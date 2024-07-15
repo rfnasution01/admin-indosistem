@@ -11,9 +11,11 @@ import 'react-toastify/dist/ReactToastify.css'
 import { UpdateIdentitasSchema } from '@/schemas/website/pengaturanSchema'
 import { useUpdatePengaturanIdentitasMutation } from '@/store/slices/website/pengaturanAPI'
 import FormUpddateIdentitas from '@/components/Form/website/pengaturan/FormUpdateIdentitas'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function UpdateIdentitasKonten() {
   const navigate = useNavigate()
+  const { isHakAksesUbah } = useAkses()
 
   const { lastPathname, secondPathname } = usePathname()
 
@@ -53,6 +55,20 @@ export default function UpdateIdentitasKonten() {
       footer: values?.footer ?? '',
       deskripsi: values?.deskripsi ?? '',
       keyword: values?.keyword ?? '',
+    }
+
+    if (!isHakAksesUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
     }
 
     if (isSubmit && isShow) {
@@ -142,6 +158,7 @@ export default function UpdateIdentitasKonten() {
           setLogo={setLogo}
           favicon={favicon}
           setFavicon={setFavicon}
+          isUbah={isHakAksesUbah}
         />
       </div>
       <ToastContainer />
