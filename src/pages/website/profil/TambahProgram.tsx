@@ -38,9 +38,11 @@ import {
 import FormTambahLayanan from '@/components/Form/website/profil/FormTambahLayanan'
 import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
 import { ValidasiDelete } from '@/components/Dialog/ValidasiDelete'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function TambahProgram() {
   const navigate = useNavigate()
+  const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } = useAkses()
 
   const jenis = localStorage.getItem('jenisID') ?? ''
 
@@ -98,6 +100,34 @@ export default function TambahProgram() {
       isi_singkat: valuesProgram?.isi_singkat,
       isi_lengkap: valuesProgram?.isi_lengkap,
       aktif: valuesProgram?.aktif ?? '1',
+    }
+
+    if (programById && !isHakAksesUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data ini`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
+    if (!programById && !isHakAksesTambah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk menambah data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
     }
 
     const bodyLayanan = {
@@ -297,6 +327,20 @@ export default function TambahProgram() {
   ] = useDeleteProgramMutation()
 
   const handleSubmitDeleteProgram = async (id: string) => {
+    if (!isHakAksesHapus) {
+      toast.error('Maaf anda tidak memiliki akses untuk menghapus data ini', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await deleteProgram({ id: id })
     } catch (error) {
@@ -352,6 +396,19 @@ export default function TambahProgram() {
   ] = useDeleteLayananMutation()
 
   const handleSubmitDeleteLayanan = async (id: string) => {
+    if (!isHakAksesHapus) {
+      toast.error('Maaf, anda tidak memiliki akses untuk menghapus data ini', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
     try {
       await deleteLayanan({ id: id })
     } catch (error) {
@@ -400,7 +457,8 @@ export default function TambahProgram() {
       <Breadcrumb />
       <div className="flex flex-col gap-32">
         <div className="flex">
-          <div
+          <button
+            disabled={!isHakAksesTambah}
             onClick={() => {
               toggleAccordion('tambah')
               if (jenis === 'program') {
@@ -414,11 +472,11 @@ export default function TambahProgram() {
                 setUrls(null)
               }
             }}
-            className="flex items-center gap-24 rounded-2xl bg-warna-dark px-24 py-12 text-white hover:cursor-pointer hover:bg-opacity-80"
+            className="flex items-center gap-24 rounded-2xl bg-warna-dark px-24 py-12 text-white hover:cursor-pointer hover:bg-opacity-80 disabled:cursor-not-allowed"
           >
             <FontAwesomeIcon icon={faPlus} />
             <p>Tambah {capitalizeFirstLetterFromLowercase(jenis)}</p>
-          </div>
+          </button>
         </div>
         {activeAccordion === 'tambah' && (
           <div className="flex flex-col gap-32 transition-all duration-300 ease-in-out">
@@ -433,6 +491,8 @@ export default function TambahProgram() {
                 setIsSubmit={setIsSubmit}
                 isShow={isShow}
                 isSubmit={isSubmit}
+                isTambah={isHakAksesTambah}
+                isUbah={isHakAksesUbah}
               />
             ) : (
               <FormTambahLayanan
@@ -445,6 +505,8 @@ export default function TambahProgram() {
                 setIsSubmit={setIsSubmit}
                 isShow={isShow}
                 isSubmit={isSubmit}
+                isTambah={isHakAksesTambah}
+                isUbah={isHakAksesUbah}
               />
             )}
           </div>
@@ -472,13 +534,14 @@ export default function TambahProgram() {
                 >
                   <div className="flex items-center gap-24">
                     <button
+                      disabled={!isHakAksesHapus}
                       onClick={(e) => {
                         e.preventDefault()
                         e.stopPropagation()
                         setIsShowDelete(true)
                         setDeleteID(list?.id)
                       }}
-                      className="text-warna-red hover:cursor-pointer"
+                      className="text-warna-red hover:cursor-pointer disabled:cursor-not-allowed"
                     >
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
@@ -527,6 +590,9 @@ export default function TambahProgram() {
                         setIsSubmit={setIsSubmit}
                         isShow={isShow}
                         isSubmit={isSubmit}
+                        isTambah={isHakAksesTambah}
+                        isUbah={isHakAksesUbah}
+                        isEdit
                       />
                     ) : (
                       <FormTambahLayanan
@@ -539,6 +605,9 @@ export default function TambahProgram() {
                         setIsSubmit={setIsSubmit}
                         isShow={isShow}
                         isSubmit={isSubmit}
+                        isTambah={isHakAksesTambah}
+                        isUbah={isHakAksesUbah}
+                        isEdit
                       />
                     )}
                   </div>

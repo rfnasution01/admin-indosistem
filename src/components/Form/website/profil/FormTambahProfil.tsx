@@ -64,7 +64,7 @@ export default function FormTambahProfil({
   const handleUploadFoto = async (file: File) => {
     const formatData = new FormData()
     formatData.append('berkas', file)
-    if (!isUbah) {
+    if ((isEdit && !isUbah) || (!isEdit && !isTambah)) {
       toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
         position: 'bottom-right',
         autoClose: 5000,

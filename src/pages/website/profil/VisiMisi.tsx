@@ -18,13 +18,11 @@ import {
   VisiMisiMain,
   VisiMisiTab,
 } from '@/features/website/profil/visiMisiSekolah'
-import { GetMenuWebsiteType } from '@/types/website/menuType'
-import { useGetMenuWebsiteQuery } from '@/store/slices/website/menuAPI'
-import { getPaths, usePathname } from '@/hooks/usePathname'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function VisiMisi() {
   const navigate = useNavigate()
-  const { pathname } = usePathname()
+  const { isHakAksesUbah } = useAkses()
 
   const [menu, setMenu] = useState<string>('Preview')
   const [urls, setUrls] = useState<string>()
@@ -35,20 +33,6 @@ export default function VisiMisi() {
     resolver: zodResolver(TentangSekolahSchema),
     defaultValues: {},
   })
-
-  const [menuUtama, setMenuUtama] = useState<GetMenuWebsiteType[]>([])
-  const { data } = useGetMenuWebsiteQuery()
-
-  useEffect(() => {
-    if (data) {
-      setMenuUtama(data?.data)
-    }
-  }, [data])
-
-  const path = getPaths(pathname.slice(1, pathname?.length))
-
-  const hakAkses = menuUtama?.find((item) => item?.link === path)
-  const isHakAksesUbah = hakAkses?.ubah === '1'
 
   // --- Data VisiMisi ---
   const [dataVisiMisi, setDataVisiMisi] = useState<ProfilSekolahType[]>()

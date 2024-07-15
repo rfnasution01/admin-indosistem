@@ -26,13 +26,11 @@ import {
   TentangSekolahSchema,
 } from '@/schemas/website/tentangSekolahSchema'
 import FormUpdateIdentitas from '@/components/Form/website/profil/FormEditIdentitas'
-import { GetMenuWebsiteType } from '@/types/website/menuType'
-import { useGetMenuWebsiteQuery } from '@/store/slices/website/menuAPI'
-import { getPaths, usePathname } from '@/hooks/usePathname'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function TentangSekolah() {
   const navigate = useNavigate()
-  const { pathname } = usePathname()
+  const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } = useAkses()
 
   const [menu, setMenu] = useState<string>('Preview')
   const [urls, setUrls] = useState<string>()
@@ -48,22 +46,6 @@ export default function TentangSekolah() {
     resolver: zodResolver(IdentitasSekolahSchema),
     defaultValues: {},
   })
-
-  const [menuUtama, setMenuUtama] = useState<GetMenuWebsiteType[]>([])
-  const { data } = useGetMenuWebsiteQuery()
-
-  useEffect(() => {
-    if (data) {
-      setMenuUtama(data?.data)
-    }
-  }, [data])
-
-  const path = getPaths(pathname.slice(1, pathname?.length))
-
-  const hakAkses = menuUtama?.find((item) => item?.link === path)
-  const isHakAksesHapus = hakAkses?.hapus === '1'
-  const isHakAksesUbah = hakAkses?.ubah === '1'
-  const isHakAksesTambah = hakAkses?.ubah === '1'
 
   // --- Data Tentang ---
   const [dataTentang, setDataTentang] = useState<GetTentangSekolahType>()

@@ -25,6 +25,9 @@ export default function FormTambahProgram({
   setIsSubmit,
   isSubmit,
   isShow,
+  isTambah,
+  isUbah,
+  isEdit,
 }: {
   form: UseFormReturn
   isLoading: boolean
@@ -35,6 +38,9 @@ export default function FormTambahProgram({
   isShow: boolean
   isSubmit: boolean
   urls: string
+  isTambah: boolean
+  isUbah: boolean
+  isEdit?: boolean
 }) {
   // --- Upload File ---
   const [
@@ -50,6 +56,20 @@ export default function FormTambahProgram({
   const handleUploadFoto = async (file: File) => {
     const formatData = new FormData()
     formatData.append('berkas', file)
+
+    if ((isEdit && !isUbah) || (!isEdit && !isTambah)) {
+      toast.error(`Maaf anda tidak memiliki akses untuk menambah data`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
 
     try {
       const res = await uploadFileMutation(formatData)
@@ -104,6 +124,11 @@ export default function FormTambahProgram({
     }
   }, [isErrorFile, errorFile])
 
+  const disableEdit = !(isEdit && isUbah)
+  const disableTambah = !(!isEdit && isTambah)
+
+  const disabled = isEdit ? disableEdit : disableTambah
+
   return (
     <div>
       <Form {...form}>
@@ -119,7 +144,7 @@ export default function FormTambahProgram({
               placeholder="Masukkan judul program"
               className="w-1/2 hover:cursor-not-allowed phones:w-full "
               type="text"
-              isDisabled={isLoading}
+              isDisabled={isLoading || disabled}
             />
             <div className="w-1/2 phones:hidden" />
           </div>
@@ -130,6 +155,7 @@ export default function FormTambahProgram({
               useFormReturn={form}
               headerLabel="Isi Singkat"
               placeholder="Masukkan isi paragraf"
+              isDisabled={isLoading || disabled}
             />
           </div>
 
@@ -148,7 +174,7 @@ export default function FormTambahProgram({
             form={form}
             label="Status"
             className="text-sim-dark phones:w-full"
-            isDisabled={isLoading}
+            isDisabled={isLoading || disabled}
           />
 
           <FormLabelFile
@@ -159,11 +185,13 @@ export default function FormTambahProgram({
             loadingFile={loadingFile}
             name="photo"
             handleUploadFoto={handleUploadFoto}
+            isDisabled={!isTambah}
           />
 
           <div className="flex justify-end">
             <button
               type="submit"
+              disabled={isLoading || disabled}
               onClick={async () => {
                 const isValid = await form.trigger()
 
@@ -171,7 +199,7 @@ export default function FormTambahProgram({
                   setIsShow(true)
                 }
               }}
-              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white"
+              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white disabled:cursor-not-allowed"
             >
               <p>Simpan</p>
               {isLoading ? (
