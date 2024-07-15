@@ -11,16 +11,17 @@ import {
   faCheck,
   faDeleteLeft,
   faImage,
-  faPlusCircle,
   faSave,
   faSpinner,
+  faTrash,
 } from '@fortawesome/free-solid-svg-icons'
 import { ValidasiKonfirmasi } from '@/components/Dialog/ValidasiKonfirmasi'
 import { Bounce, toast } from 'react-toastify'
 import clsx from 'clsx'
 import { useCreateFileMutation } from '@/store/slices/referensiAPI'
-import { usePathname } from '@/hooks/usePathname'
 import { PreviewGaleri } from '@/features/website/galeri'
+import DefaultImg from '@/assets/images/default.jpg'
+import { usePathname } from '@/hooks/usePathname'
 
 export default function FormTambahGaleri({
   form,
@@ -32,6 +33,9 @@ export default function FormTambahGaleri({
   isShow,
   setUrls,
   urls,
+  isEdit,
+  isTambah,
+  isUbah,
 }: {
   form: UseFormReturn
   isLoading: boolean
@@ -42,10 +46,11 @@ export default function FormTambahGaleri({
   isSubmit: boolean
   setUrls: Dispatch<SetStateAction<string>>
   urls: string
+  isEdit: boolean
+  isUbah: boolean
+  isTambah: boolean
 }) {
-  const { lastPathname } = usePathname()
-  const isEdit = lastPathname === 'edit'
-
+  const { secondPathname } = usePathname()
   // --- Upload File ---
   const [
     uploadFileMutation,
@@ -60,6 +65,20 @@ export default function FormTambahGaleri({
   const handleUploadFoto = async (file: File, index?: number) => {
     const formatData = new FormData()
     formatData.append('berkas', file)
+
+    if ((isEdit && !isUbah) || (!isEdit && !isTambah)) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
 
     try {
       const res = await uploadFileMutation(formatData)
@@ -124,6 +143,11 @@ export default function FormTambahGaleri({
     name: 'gambar',
   })
 
+  const disableEdit = !(isEdit && isUbah)
+  const disableTambah = !(!isEdit && isTambah)
+
+  const disabled = isEdit ? disableEdit : disableTambah
+
   return (
     <div className="w-full">
       <Form {...form}>
@@ -139,7 +163,7 @@ export default function FormTambahGaleri({
               placeholder="Masukkan judul"
               className="w-1/2 hover:cursor-not-allowed phones:w-full "
               type="text"
-              isDisabled={isLoading}
+              isDisabled={isLoading || disabled}
             />
 
             <div className="w-1/2 phones:hidden" />
@@ -153,142 +177,194 @@ export default function FormTambahGaleri({
             loadingFile={loadingFile}
             name="url_gambar"
             handleUploadFoto={handleUploadFoto}
+            isDisabled={disabled}
           />
 
           {!isEdit && (
             <div className="flex flex-col gap-32 text-warna-dark">
               <div className="flex flex-col gap-32">
                 <p className="font-roboto text-[2rem]">List Galeri</p>
-                {fields.map((item, index) => (
-                  <div key={item.id} className="flex flex-col gap-32">
-                    <div className="flex items-center gap-24">
-                      <FormField
-                        name={`gambar.${index}.url_gambar`}
-                        control={form.control}
-                        render={({ field }) => (
-                          <FormItem className="flex flex-col gap-12">
-                            <FormControl>
-                              <div>
-                                <Input
-                                  className="-z-[1] h-[0.1px] w-[0.1px] overflow-hidden opacity-0"
-                                  {...field}
-                                  id={`berkas-${index}`} // Unique id for each input
-                                  type="file"
-                                  value={''}
-                                  disabled={isLoading || loadingFile}
-                                  placeholder="Lampiran"
-                                  onChange={(e) => {
-                                    if (e.target.files[0].size > 5 * 1000000) {
-                                      return toast.error(
-                                        `File terlalu besar. Maksimal 5 MB`,
-                                        {
-                                          position: 'bottom-right',
-                                          autoClose: 5000,
-                                          hideProgressBar: false,
-                                          closeOnClick: true,
-                                          pauseOnHover: true,
-                                          draggable: true,
-                                          progress: undefined,
-                                          theme: 'light',
-                                          transition: Bounce,
-                                        },
-                                      )
-                                    } else {
-                                      if (e.target.files[0] != null) {
-                                        handleUploadFoto(
-                                          e.target.files[0],
-                                          index,
-                                        )
-                                      }
+                <div className="grid grid-cols-6 gap-32">
+                  {fields.map((item, index) => (
+                    <div
+                      key={item?.id}
+                      className="col-span-1 phones:col-span-3"
+                    >
+                      <div className="col-span-1 phones:col-span-2">
+                        <div className="relative w-full">
+                          <div className="relative w-full">
+                            <img
+                              src={
+                                form.watch(`gambar.${index}.url_gambar`) ===
+                                  '' ||
+                                !form.watch(`gambar.${index}.url_gambar`)
+                                  ? DefaultImg
+                                  : form.watch(`gambar.${index}.url_gambar`)
+                              }
+                              alt={`Gambar ${index + 1}`}
+                              className="h-[20rem] w-full rounded-2xl object-cover"
+                              loading="lazy"
+                            />
+                            {!(
+                              form.watch(`gambar.${index}.url_gambar`) == '' ||
+                              !form.watch(`gambar.${index}.url_gambar`)
+                            ) && (
+                              <button
+                                disabled={!isUbah}
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  form.setValue(
+                                    `gambar.${index}.url_gambar`,
+                                    null,
+                                  )
+                                }}
+                                className="absolute right-2 top-2 rounded-lg bg-danger-700 p-4 text-white hover:cursor-pointer hover:bg-danger"
+                              >
+                                <FontAwesomeIcon icon={faTrash} />
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  <button
+                    disabled={!isUbah}
+                    onClick={() => append({ url_gambar: '', keterangan: '' })}
+                    className="col-span-1 h-[20rem] phones:col-span-3"
+                  >
+                    <div className="flex h-full w-full items-center justify-center rounded-2x border border-warna-pale-grey text-warna-dark hover:cursor-pointer hover:bg-warna-dark hover:text-white">
+                      <div className="flex flex-col justify-center gap-12">
+                        <FontAwesomeIcon icon={faImage} size="xl" />
+                        <p>Tambah gambar</p>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+
+                {fields.map((_item, index) => (
+                  <div
+                    key={index}
+                    className="scrollbar flex w-full items-center gap-24 overflow-x-auto"
+                  >
+                    <FormField
+                      name={`gambar.${index}.url_gambar`}
+                      disabled={!isUbah}
+                      control={form.control}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <div>
+                              <Input
+                                className="-z-[1] h-[0.1px] w-[0.1px] overflow-hidden opacity-0"
+                                {...field}
+                                id={`berkas-${index}`} // Unique id for each input
+                                type="file"
+                                value={''}
+                                disabled={isLoading || loadingFile || !isUbah}
+                                placeholder="Lampiran"
+                                onChange={(e) => {
+                                  if (e.target.files[0].size > 5 * 1000000) {
+                                    return toast.error(
+                                      `File terlalu besar. Maksimal 5 MB`,
+                                      {
+                                        position: 'bottom-right',
+                                        autoClose: 5000,
+                                        hideProgressBar: false,
+                                        closeOnClick: true,
+                                        pauseOnHover: true,
+                                        draggable: true,
+                                        progress: undefined,
+                                        theme: 'light',
+                                        transition: Bounce,
+                                      },
+                                    )
+                                  } else {
+                                    if (e.target.files[0] != null) {
+                                      handleUploadFoto(e.target.files[0], index)
                                     }
-                                  }}
-                                />
-                                <div className="flex flex-col gap-32 phones:flex-col">
-                                  <label
-                                    className="flex flex-col gap-12 font-roboto"
-                                    htmlFor={`berkas-${index}`} // Unique id for each label
-                                  >
-                                    <div className="flex">
-                                      <div
-                                        className={clsx(
-                                          'flex items-center gap-12 rounded-2xl p-12 hover:cursor-pointer hover:bg-opacity-80',
-                                          {
-                                            'bg-warna-dark text-white':
-                                              form.watch(
-                                                `gambar.${index}.url_gambar`,
-                                              ),
-                                            'border border-warna-dark text-warna-dark':
-                                              !form.watch(
-                                                `gambar.${index}.url_gambar`,
-                                              ),
-                                          },
-                                        )}
-                                      >
-                                        {loadingFile ? (
-                                          <span className="animate-spin duration-300">
-                                            <FontAwesomeIcon icon={faSpinner} />
-                                          </span>
-                                        ) : (
-                                          <FontAwesomeIcon icon={faImage} />
-                                        )}
-                                        <p className="text-[1.6rem] uppercase tracking-1.25">
-                                          Unggah
-                                        </p>
-                                      </div>
+                                  }
+                                }}
+                              />
+                              <div className="flex flex-col gap-32 phones:flex-col">
+                                <label
+                                  className="flex flex-col gap-12 font-roboto"
+                                  htmlFor={`berkas-${index}`} // Unique id for each label
+                                >
+                                  <div className="flex">
+                                    <div
+                                      className={clsx(
+                                        'flex items-center gap-12 rounded-2xl p-12 hover:cursor-pointer hover:bg-opacity-80',
+                                        {
+                                          'bg-warna-dark text-white':
+                                            form.watch(
+                                              `gambar.${index}.url_gambar`,
+                                            ),
+                                          'border border-warna-dark text-warna-dark':
+                                            !form.watch(
+                                              `gambar.${index}.url_gambar`,
+                                            ),
+                                        },
+                                      )}
+                                    >
+                                      {loadingFile ? (
+                                        <span className="animate-spin duration-300">
+                                          <FontAwesomeIcon icon={faSpinner} />
+                                        </span>
+                                      ) : (
+                                        <FontAwesomeIcon icon={faImage} />
+                                      )}
+                                      <p className="text-[1.6rem] uppercase tracking-1.25">
+                                        Unggah
+                                      </p>
                                     </div>
-                                  </label>
-                                </div>
+                                  </div>
+                                </label>
                               </div>
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    {secondPathname !== 'galeri' && (
+                      <FormLabelInput
+                        name={`gambar.${index}.keterangan`}
+                        form={form}
+                        placeholder="Masukkan keterangan"
+                        className="flex-1"
+                        type="text"
+                        isDisabled={isLoading || !isUbah}
                       />
+                    )}
+                    {secondPathname === 'galeri' && (
                       <FormLabelInput
                         name={`gambar.${index}.judul`}
                         form={form}
-                        placeholder="Masukkan Judul"
+                        placeholder="Masukkan judul"
                         className="flex-1"
                         type="text"
-                        isDisabled={isLoading}
+                        isDisabled={isLoading || !isUbah}
                       />
-                      <button
-                        type="button"
-                        onClick={() => remove(index)}
-                        className="rounded text-[2rem] text-warna-red"
-                      >
-                        <FontAwesomeIcon icon={faDeleteLeft} size="xl" />
-                      </button>
-                    </div>
-                    <div className="phones: grid grid-cols-4">
-                      {form.watch(`gambar.${index}.url_gambar`) && (
-                        <div className="phones:col-span2 col-span-1">
-                          <img
-                            src={form.watch(`gambar.${index}.url_gambar`)}
-                            alt={`Gambar ${index + 1}`}
-                            className="h-auto w-full"
-                            loading="lazy"
-                          />
-                        </div>
-                      )}
-                    </div>
+                    )}
+                    <button
+                      type="button"
+                      disabled={isLoading || !isUbah}
+                      onClick={() => remove(index)}
+                      className="rounded text-[2rem] text-warna-red"
+                    >
+                      <FontAwesomeIcon icon={faDeleteLeft} size="xl" />
+                    </button>
                   </div>
                 ))}
               </div>
-              <button
-                type="button"
-                onClick={() => append({ url_gambar: '', judul: '' })}
-                className="flex items-center justify-center gap-12 rounded-lg border border-warna-dark px-24 py-12 text-warna-dark hover:bg-warna-dark hover:bg-opacity-80 hover:text-white"
-              >
-                <FontAwesomeIcon icon={faPlusCircle} />
-                <p>Tambah</p>
-              </button>
             </div>
           )}
 
           <div className="flex justify-end">
             <button
               type="submit"
+              disabled={isLoading || disabled}
               onClick={async () => {
                 const isValid = await form.trigger()
 

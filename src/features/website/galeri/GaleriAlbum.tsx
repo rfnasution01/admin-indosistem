@@ -26,6 +26,9 @@ export function GaleriAlbum({
   setIsShowDelete,
   setPageSize,
   pageNumber,
+  isHapus,
+  isTambah,
+  isUbah,
 }: {
   data: GetAlbumType[]
   isLoadingGaleri: boolean
@@ -39,6 +42,9 @@ export function GaleriAlbum({
   isLoadingDeleteGaleri: boolean
   handleSubmitDelete: (id: string) => Promise<void>
   search: string
+  isHapus: boolean
+  isTambah: boolean
+  isUbah: boolean
 }) {
   const { secondPathname } = usePathname()
 
@@ -51,15 +57,17 @@ export function GaleriAlbum({
           className="w-1/3 phones:w-full"
           search={search}
         />
-        <Link
-          to="tambah"
-          className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
-        >
-          <FontAwesomeIcon icon={faPlus} />
-          <p className="phones:hidden">
-            Tambah {convertSlugToText(secondPathname)} Baru
-          </p>
-        </Link>
+        {isTambah && (
+          <Link
+            to="tambah"
+            className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
+          >
+            <FontAwesomeIcon icon={faPlus} />
+            <p className="phones:hidden">
+              Tambah {convertSlugToText(secondPathname)} Baru
+            </p>
+          </Link>
+        )}
       </div>
       {isLoadingGaleri ? (
         <Loading />
@@ -90,6 +98,8 @@ export function GaleriAlbum({
                               setIsShowDelete={setIsShowDelete}
                               isLoadingDelete={isLoadingDeleteGaleri}
                               isShowDelete={isShowDelete}
+                              isHapus={isHapus}
+                              isUbah={isUbah}
                             />
                           </div>
                         </div>

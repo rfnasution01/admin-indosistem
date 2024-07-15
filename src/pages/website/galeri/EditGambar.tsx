@@ -11,11 +11,13 @@ import { useNavigate } from 'react-router-dom'
 import FormEditGambar from '@/components/Form/website/kategori/FormEditGambar'
 import { EditGambarAlbumSchema } from '@/schemas/website/galeriSchema'
 import { useUpdateGambarAlbumMutation } from '@/store/slices/website/galeriAPI'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function EditGambar() {
   const navigate = useNavigate()
-  const [urls, setUrls] = useState<string>()
+  const { isHakAksesUbah } = useAkses()
 
+  const [urls, setUrls] = useState<string>()
   const { lastPathname } = usePathname()
   const idKategori = localStorage.getItem('ID') ?? ''
   const idGambar = localStorage.getItem('editID') ?? ''
@@ -48,6 +50,20 @@ export default function EditGambar() {
       id_gambar: idKategori,
       judul: values?.judul,
       url_gambar: urls,
+    }
+
+    if (!isHakAksesUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
     }
 
     if (isSubmit && isShow) {
@@ -125,6 +141,7 @@ export default function EditGambar() {
           isSubmit={isSubmit}
           urls={urls}
           setUrls={setUrls}
+          isUbah={isHakAksesUbah}
         />
       </div>
       <ToastContainer />

@@ -16,9 +16,11 @@ import {
 } from '@/store/slices/website/galeriAPI'
 import { TambahGaleriSchema } from '@/schemas/website/galeriSchema'
 import FormTambahGaleri from '@/components/Form/website/galeri/FormTambahGaleri'
+import { useAkses } from '@/hooks/useAkses'
 export default function UpdateGaleri() {
   const navigate = useNavigate()
   const { lastPathname, secondPathname } = usePathname()
+  const { isHakAksesTambah, isHakAksesUbah } = useAkses()
 
   const isEdit = lastPathname === 'edit'
   const idEdit = localStorage.getItem('editID') ?? null
@@ -104,6 +106,23 @@ export default function UpdateGaleri() {
       photo: values?.gambar ?? [],
     }
 
+    if ((isEdit && !isHakAksesUbah) || (!isEdit && !isHakAksesTambah)) {
+      toast.error(
+        `Maaf, anda tidak memiliki akses untuk ${isEdit ? 'mengubah' : 'menambah'} data`,
+        {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        },
+      )
+    }
+
     if (isSubmit && isShow) {
       try {
         await createUpdateGaleri({
@@ -185,6 +204,9 @@ export default function UpdateGaleri() {
           isSubmit={isSubmit}
           setUrls={setUrls}
           urls={urls}
+          isEdit={isEdit}
+          isUbah={isHakAksesUbah}
+          isTambah={isHakAksesTambah}
         />
       </div>
       <ToastContainer />

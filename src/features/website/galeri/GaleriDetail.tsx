@@ -31,6 +31,9 @@ export function GaleriDetail({
   isShowDelete,
   pageNumber,
   editID,
+  isHapus,
+  isTambah,
+  isUbah,
 }: {
   detail: GetAlbumType
   photo: GetAlbumType[]
@@ -43,6 +46,9 @@ export function GaleriDetail({
   isShowDelete: boolean
   pageNumber: number
   editID?: string
+  isTambah: boolean
+  isHapus: boolean
+  isUbah: boolean
 }) {
   const { secondPathname } = usePathname()
 
@@ -52,17 +58,19 @@ export function GaleriDetail({
         <p className="font-roboto text-[2.4rem] text-warna-dark">
           {detail?.judul}
         </p>
-        <Link
-          to={`/website/${secondPathname}/edit`}
-          onClick={() => {
-            localStorage.setItem('editID', detail?.id)
-            localStorage.setItem('editData', JSON.stringify(detail))
-          }}
-          className="flex items-center gap-12 rounded-2xl bg-warna-dark px-24 py-12 text-[1.8rem] text-white"
-        >
-          <FontAwesomeIcon icon={faPencil} />
-          <p>Perbaharui Data</p>
-        </Link>
+        {isUbah && (
+          <Link
+            to={`/website/${secondPathname}/edit`}
+            onClick={() => {
+              localStorage.setItem('editID', detail?.id)
+              localStorage.setItem('editData', JSON.stringify(detail))
+            }}
+            className="flex items-center gap-12 rounded-2xl bg-warna-dark px-24 py-12 text-[1.8rem] text-white"
+          >
+            <FontAwesomeIcon icon={faPencil} />
+            <p>Perbaharui Data</p>
+          </Link>
+        )}
       </div>
       <div className="flex flex-wrap items-center gap-32">
         <IconComponent
@@ -87,15 +95,17 @@ export function GaleriDetail({
       <div className="flex items-center justify-between gap-32 phones:flex-col-reverse phones:items-start">
         <p className="font-roboto text-[2.4rrem] text-warna-dark">Galeri</p>
         <div className="flex items-center gap-32 phones:w-full">
-          <Link
-            to="tambah-gambar"
-            className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
-          >
-            <FontAwesomeIcon icon={faPlus} />
-            <p className="text-nowrap phones:hidden">
-              Tambah {convertSlugToText(secondPathname)} Baru
-            </p>
-          </Link>
+          {isTambah && (
+            <Link
+              to="tambah-gambar"
+              className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
+            >
+              <FontAwesomeIcon icon={faPlus} />
+              <p className="text-nowrap phones:hidden">
+                Tambah {convertSlugToText(secondPathname)} Baru
+              </p>
+            </Link>
+          )}
         </div>
       </div>
       {photo?.length > 0 ? (
@@ -124,6 +134,8 @@ export function GaleriDetail({
                           isLoadingDelete={isLoadingDeleteGaleri}
                           isShowDelete={isShowDelete}
                           editID={editID}
+                          isHapus={isHapus}
+                          isUbah={isUbah}
                         />
                       </div>
                     </div>

@@ -12,9 +12,11 @@ import Cookies from 'js-cookie'
 import { Breadcrumb } from '@/components/Breadcrumb'
 import { Loading } from '@/components/Loading'
 import { GaleriDetail } from '@/features/website/galeri'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function DetailGaleri() {
   const navigate = useNavigate()
+  const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } = useAkses()
 
   const idEdit = localStorage.getItem('editID') ?? null
 
@@ -91,6 +93,20 @@ export default function DetailGaleri() {
   ] = useDeleteGambarAlbumMutation()
 
   const handleSubmitDeleteGambar = async (id: string) => {
+    if (!isHakAksesHapus) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk menghapus data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await deleteGambar({ id: id })
     } catch (error) {
@@ -152,6 +168,9 @@ export default function DetailGaleri() {
             handleSubmitDeleteGambar={handleSubmitDeleteGambar}
             pageNumber={pageNumber}
             editID={idEdit}
+            isHapus={isHakAksesHapus}
+            isUbah={isHakAksesUbah}
+            isTambah={isHakAksesTambah}
           />
         )}
       </div>

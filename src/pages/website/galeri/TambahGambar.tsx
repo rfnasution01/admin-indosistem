@@ -11,9 +11,11 @@ import { convertSlugToText } from '@/utils/formatText'
 import FormTambahGambar from '@/components/Form/website/kategori/FormTambahGambar'
 import { useCreateGambarAlbumMutation } from '@/store/slices/website/galeriAPI'
 import { TambahGambarAlbumSchema } from '@/schemas/website/galeriSchema'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function TambahGambar() {
   const navigate = useNavigate()
+  const { isHakAksesUbah } = useAkses()
 
   const { lastPathname } = usePathname()
 
@@ -45,6 +47,23 @@ export default function TambahGambar() {
     const body = {
       id_galeri: idEdit,
       gambar: values?.gambar,
+    }
+
+    if (!isHakAksesUbah) {
+      toast.error(
+        `Maaf, anda tidak memiliki akses untuk ${isEdit ? 'mengubah' : 'menambah'} data`,
+        {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        },
+      )
     }
 
     if (isSubmit && isShow) {
@@ -108,6 +127,7 @@ export default function TambahGambar() {
           setIsSubmit={setIsSubmit}
           isShow={isShow}
           isSubmit={isSubmit}
+          isUbah={isHakAksesUbah}
         />
       </div>
       <ToastContainer />

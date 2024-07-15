@@ -13,10 +13,12 @@ import {
   useGetAlbumQuery,
 } from '@/store/slices/website/galeriAPI'
 import { GaleriAlbum, GaleriTab } from '@/features/website/galeri'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function Galeri() {
   const navigate = useNavigate()
   const { secondPathname } = usePathname()
+  const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } = useAkses()
 
   const [menu, setMenu] = useState<string>('Album')
 
@@ -87,6 +89,20 @@ export default function Galeri() {
   ] = useDeleteAlbumMutation()
 
   const handleSubmitDelete = async (id: string) => {
+    if (!isHakAksesHapus) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk menghapus data ini`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await deleteGaleri({ id: id, jenis: secondPathname })
     } catch (error) {
@@ -156,6 +172,9 @@ export default function Galeri() {
             setIsShowDelete={setIsShowDelete}
             setPageSize={setPageSize}
             pageNumber={pageNumber}
+            isHapus={isHakAksesHapus}
+            isTambah={isHakAksesTambah}
+            isUbah={isHakAksesUbah}
           />
         ) : (
           <ComingSoonPage />
