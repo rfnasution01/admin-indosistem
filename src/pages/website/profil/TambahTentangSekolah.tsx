@@ -1,5 +1,5 @@
 import { Breadcrumb } from '@/components/Breadcrumb'
-import { usePathname } from '@/hooks/usePathname'
+import { getPaths, usePathname } from '@/hooks/usePathname'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Bounce, ToastContainer, toast } from 'react-toastify'
@@ -11,11 +11,13 @@ import { TentangSekolahSchema } from '@/schemas/website/tentangSekolahSchema'
 import { useCreateTentangSekolahMutation } from '@/store/slices/website/profilAPI/tentangAPI'
 import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
 import FormTambahProfil from '@/components/Form/website/profil/FormTambahProfil'
+import { useGetMenuWebsiteQuery } from '@/store/slices/website/menuAPI'
+import { GetMenuWebsiteType } from '@/types/website/menuType'
 
 export default function TambahTentangSekolah() {
   const navigate = useNavigate()
 
-  const { lastPathname, secondPathname } = usePathname()
+  const { lastPathname, secondPathname, pathname } = usePathname()
 
   const [urls, setUrls] = useState<string>()
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
@@ -25,6 +27,21 @@ export default function TambahTentangSekolah() {
     resolver: zodResolver(TentangSekolahSchema),
     defaultValues: {},
   })
+
+  const [menu, setMenu] = useState<GetMenuWebsiteType[]>([])
+  const { data } = useGetMenuWebsiteQuery()
+
+  useEffect(() => {
+    if (data) {
+      setMenu(data?.data)
+    }
+  }, [data])
+
+  const path = getPaths(pathname.slice(1, pathname?.length))
+
+  const hakAkses = menu?.find((item) => item?.link === path)
+  const isHakAksesTambah = hakAkses?.ubah === '1'
+  const isHakAksesUbah = hakAkses?.ubah === '1'
 
   // --- Create Tambah Profil ---
   const [
@@ -118,6 +135,8 @@ export default function TambahTentangSekolah() {
           setIsSubmit={setIsSubmit}
           isShow={isShow}
           isSubmit={isSubmit}
+          isUbah={isHakAksesUbah}
+          isTambah={isHakAksesTambah}
         />
       </div>
       <ToastContainer />

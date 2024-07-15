@@ -22,6 +22,7 @@ export function FormLabelFile({
   handleUploadFoto,
   label,
   name,
+  isDisabled,
 }: {
   form: UseFormReturn | undefined | any
   setUrls: Dispatch<SetStateAction<string>>
@@ -31,6 +32,7 @@ export function FormLabelFile({
   name: string
   label?: string
   handleUploadFoto: (file: File) => Promise<void>
+  isDisabled?: boolean
 }) {
   return (
     <FormField
@@ -46,7 +48,7 @@ export function FormLabelFile({
                 id="berkas"
                 type="file"
                 value={''}
-                disabled={isLoading || loadingFile}
+                disabled={isLoading || loadingFile || isDisabled}
                 placeholder="Lampiran"
                 onChange={(e) => {
                   if (e.target.files[0].size > 5 * 1000000) {
@@ -110,15 +112,16 @@ export function FormLabelFile({
                           className="h-[20rem] w-full rounded-2xl object-cover filter"
                           loading="lazy"
                         />
-                        <span
+                        <button
+                          disabled={isLoading || isDisabled || loadingFile}
                           onClick={(e) => {
                             e.stopPropagation()
                             setUrls(null)
                           }}
-                          className="absolute right-2 top-2 rounded-lg bg-danger-700 p-4 text-white hover:cursor-pointer hover:bg-danger"
+                          className="absolute right-2 top-2 rounded-lg bg-danger-700 p-4 text-white hover:cursor-pointer hover:bg-danger disabled:cursor-not-allowed"
                         >
                           <FontAwesomeIcon icon={faTrash} />
-                        </span>
+                        </button>
                       </div>
                     </div>
                   ) : (

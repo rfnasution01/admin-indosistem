@@ -18,3 +18,11 @@ export const usePathname = () => {
     lastPathname,
   }
 }
+
+export function getPaths(url) {
+  const parts = url?.split('/')
+
+  const result = parts?.slice(1)?.join('/')
+
+  return result
+}

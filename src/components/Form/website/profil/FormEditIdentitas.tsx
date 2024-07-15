@@ -24,6 +24,7 @@ export default function FormUpdateIdentitas({
   setIsSubmit,
   isSubmit,
   isShow,
+  isUbah,
 }: {
   form: UseFormReturn
   isLoading: boolean
@@ -34,6 +35,7 @@ export default function FormUpdateIdentitas({
   isShow: boolean
   isSubmit: boolean
   urls: string
+  isUbah?: boolean
 }) {
   // --- Upload File ---
   const [
@@ -49,6 +51,20 @@ export default function FormUpdateIdentitas({
   const handleUploadFoto = async (file: File) => {
     const formatData = new FormData()
     formatData.append('berkas', file)
+
+    if (!isUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah file`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
 
     try {
       const res = await uploadFileMutation(formatData)
@@ -118,7 +134,7 @@ export default function FormUpdateIdentitas({
               placeholder="Masukkan SK Pendirian"
               className="text-sim-dark"
               type="text"
-              isDisabled={isLoading}
+              isDisabled={isLoading || !isUbah}
             />
 
             <FormLabelInput
@@ -127,7 +143,7 @@ export default function FormUpdateIdentitas({
               label="Tanggal SK Pendirian"
               className="text-sim-dark"
               type="date"
-              isDisabled={isLoading}
+              isDisabled={isLoading || !isUbah}
             />
           </div>
 
@@ -139,7 +155,7 @@ export default function FormUpdateIdentitas({
               placeholder="Masukkan SK Operasional"
               className="text-sim-dark"
               type="text"
-              isDisabled={isLoading}
+              isDisabled={isLoading || !isUbah}
             />
 
             <FormLabelInput
@@ -148,7 +164,7 @@ export default function FormUpdateIdentitas({
               label="Tanggal SK Operasional"
               className="text-sim-dark"
               type="date"
-              isDisabled={isLoading}
+              isDisabled={isLoading || !isUbah}
             />
           </div>
 
@@ -161,7 +177,7 @@ export default function FormUpdateIdentitas({
               placeholder="Pilih Akreditasi"
               name="id_akreditasi"
               className="w-1/2 hover:cursor-not-allowed phones:w-full"
-              isDisabled={isLoading}
+              isDisabled={isLoading || !isUbah}
             />
             <SelectListPenyelenggaraan
               useFormReturn={form}
@@ -169,7 +185,7 @@ export default function FormUpdateIdentitas({
               placeholder="Pilih Penyelenggaraan"
               name="penyelenggaraan"
               className="w-1/2 hover:cursor-not-allowed phones:w-full"
-              isDisabled={isLoading}
+              isDisabled={isLoading || !isUbah}
             />
           </div>
 
@@ -181,7 +197,7 @@ export default function FormUpdateIdentitas({
               placeholder="Masukkan Tanggal Mulai Penyelenggaraan"
               className="text-sim-dark"
               type="time"
-              isDisabled={isLoading}
+              isDisabled={isLoading || !isUbah}
             />
 
             <FormLabelInput
@@ -191,7 +207,7 @@ export default function FormUpdateIdentitas({
               placeholder="Masukkan Tanggal Akhir Penyelenggaraan"
               className="text-sim-dark"
               type="time"
-              isDisabled={isLoading}
+              isDisabled={isLoading || !isUbah}
             />
           </div>
 
@@ -203,7 +219,7 @@ export default function FormUpdateIdentitas({
               placeholder="Masukkan Tanggal Mulai Akreditasi"
               className="text-sim-dark"
               type="date"
-              isDisabled={isLoading}
+              isDisabled={isLoading || !isUbah}
             />
 
             <FormLabelInput
@@ -213,7 +229,7 @@ export default function FormUpdateIdentitas({
               placeholder="Masukkan Tanggal Akhir Akreditasi"
               className="text-sim-dark"
               type="date"
-              isDisabled={isLoading}
+              isDisabled={isLoading || !isUbah}
             />
           </div>
 
@@ -225,7 +241,7 @@ export default function FormUpdateIdentitas({
               placeholder="NIS"
               className="text-sim-dark"
               type="text"
-              isDisabled={isLoading}
+              isDisabled={isLoading || !isUbah}
             />
 
             <FormLabelInput
@@ -235,7 +251,7 @@ export default function FormUpdateIdentitas({
               placeholder="NSS"
               className="text-sim-dark"
               type="text"
-              isDisabled={isLoading}
+              isDisabled={isLoading || !isUbah}
             />
           </div>
 
@@ -247,7 +263,7 @@ export default function FormUpdateIdentitas({
               placeholder="Alamat"
               className="text-sim-dark"
               type="text"
-              isDisabled={isLoading}
+              isDisabled={isLoading || !isUbah}
             />
 
             <FormLabelInput
@@ -257,7 +273,7 @@ export default function FormUpdateIdentitas({
               placeholder="Email"
               className="text-sim-dark"
               type="email"
-              isDisabled={isLoading}
+              isDisabled={isLoading || !isUbah}
             />
           </div>
 
@@ -270,7 +286,7 @@ export default function FormUpdateIdentitas({
               className="text-sim-dark w-1/2"
               type="text"
               isNumber
-              isDisabled={isLoading}
+              isDisabled={isLoading || !isUbah}
             />
 
             <div className="w-1/2 phones:w-full" />
@@ -286,7 +302,7 @@ export default function FormUpdateIdentitas({
               placeholder="Nama Pimpinan"
               className="text-sim-dark"
               type="text"
-              isDisabled={isLoading}
+              isDisabled={isLoading || !isUbah}
             />
 
             <FormLabelInput
@@ -297,7 +313,7 @@ export default function FormUpdateIdentitas({
               className="text-sim-dark"
               type="text"
               isNumber
-              isDisabled={isLoading}
+              isDisabled={isLoading || !isUbah}
             />
           </div>
 
@@ -310,11 +326,13 @@ export default function FormUpdateIdentitas({
             name="photo_pimpinan"
             handleUploadFoto={handleUploadFoto}
             label="Photo Pimpinan"
+            isDisabled={!isUbah}
           />
 
           <div className="flex justify-end">
             <button
               type="submit"
+              disabled={isLoading || !isUbah}
               onClick={async () => {
                 const isValid = await form.trigger()
 
@@ -322,7 +340,7 @@ export default function FormUpdateIdentitas({
                   setIsShow(true)
                 }
               }}
-              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white"
+              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white disabled:cursor-not-allowed"
             >
               <p>Simpan</p>
               {isLoading ? (

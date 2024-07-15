@@ -33,6 +33,8 @@ export default function FormTambahProfil({
   isShow,
   isEdit,
   menu,
+  isUbah,
+  isTambah,
 }: {
   form: UseFormReturn
   isLoading: boolean
@@ -45,6 +47,8 @@ export default function FormTambahProfil({
   urls: string
   isEdit?: boolean
   menu?: string
+  isUbah: boolean
+  isTambah: boolean
 }) {
   // --- Upload File ---
   const [
@@ -60,6 +64,19 @@ export default function FormTambahProfil({
   const handleUploadFoto = async (file: File) => {
     const formatData = new FormData()
     formatData.append('berkas', file)
+    if (!isUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
 
     try {
       const res = await uploadFileMutation(formatData)
@@ -119,6 +136,11 @@ export default function FormTambahProfil({
     name: 'list',
   })
 
+  const disableEdit = !(isEdit && isUbah)
+  const disableTambah = !(!isEdit && isTambah)
+
+  const disabled = isEdit ? disableEdit : disableTambah
+
   return (
     <div>
       <Form {...form}>
@@ -134,7 +156,7 @@ export default function FormTambahProfil({
                 headerLabel="Judul Bagian"
                 placeholder="Pilih judul"
                 className="w-1/2 hover:cursor-not-allowed phones:w-full "
-                isDisabled={isLoading || isEdit}
+                isDisabled={isLoading || (isEdit ? true : disableTambah)}
                 isEdit={isEdit}
               />
               <div className="w-1/2 phones:hidden" />
@@ -147,6 +169,7 @@ export default function FormTambahProfil({
               useFormReturn={form}
               headerLabel={menu === 'Visi' ? 'Visi' : 'Isi Paragraf'}
               placeholder="Masukkan isi paragraf"
+              isDisabled={isLoading || disabled}
             />
           </div>
 
@@ -157,6 +180,7 @@ export default function FormTambahProfil({
                 useFormReturn={form}
                 headerLabel="Sub Misi"
                 placeholder="Masukkan isi paragraf"
+                isDisabled={isLoading || disabled}
               />
             </div>
           )}
@@ -169,7 +193,8 @@ export default function FormTambahProfil({
                   <div key={item.id} className="flex items-center gap-24">
                     <button
                       type="button"
-                      className="rounded rounded-lg text-[2rem] text-warna-dark"
+                      disabled={isLoading || disabled}
+                      className="rounded rounded-lg text-[2rem] text-warna-dark disabled:cursor-not-allowed"
                     >
                       <FontAwesomeIcon icon={faAlignJustify} size="lg" />
                     </button>
@@ -179,12 +204,13 @@ export default function FormTambahProfil({
                       placeholder="Masukkan keterangan"
                       className="flex-1"
                       type="text"
-                      isDisabled={isLoading}
+                      isDisabled={isLoading || disabled}
                     />
                     <button
                       type="button"
                       onClick={() => remove(index)}
-                      className="rounded rounded-lg text-[2rem] text-warna-red"
+                      disabled={isLoading || disabled}
+                      className="rounded rounded-lg text-[2rem] text-warna-red disabled:cursor-not-allowed"
                     >
                       <FontAwesomeIcon icon={faDeleteLeft} size="xl" />
                     </button>
@@ -194,7 +220,8 @@ export default function FormTambahProfil({
               <button
                 type="button"
                 onClick={() => append({ nama: '', urutan: '' })}
-                className="rounded flex items-center justify-center gap-12 rounded-lg border border-warna-dark px-24 py-12 text-warna-dark hover:bg-warna-dark hover:bg-opacity-80 hover:text-white"
+                disabled={isLoading || disabled}
+                className="rounded flex items-center justify-center gap-12 rounded-lg border border-warna-dark px-24 py-12 text-warna-dark hover:bg-warna-dark hover:bg-opacity-80 hover:text-white disabled:cursor-not-allowed"
               >
                 <FontAwesomeIcon icon={faPlusCircle} />
                 <p>Tambah</p>
@@ -210,11 +237,13 @@ export default function FormTambahProfil({
             loadingFile={loadingFile}
             name="berkas"
             handleUploadFoto={handleUploadFoto}
+            isDisabled={!isUbah}
           />
 
           <div className="flex justify-end">
             <button
               type="submit"
+              disabled={isLoading || disabled}
               onClick={async () => {
                 const isValid = await form.trigger()
 
@@ -222,7 +251,7 @@ export default function FormTambahProfil({
                   setIsShow(true)
                 }
               }}
-              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white"
+              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white disabled:cursor-not-allowed"
             >
               <p>Simpan</p>
               {isLoading ? (

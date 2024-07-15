@@ -18,11 +18,17 @@ export function PreviewMain({
   setMenu,
   handleSubmitDelete,
   isLoadingDelete,
+  isUbah,
+  isHapus,
+  isTambah,
 }: {
   data: GetTentangSekolahType
   setMenu: Dispatch<SetStateAction<string>>
   handleSubmitDelete: (id: string) => Promise<void>
   isLoadingDelete: boolean
+  isUbah?: boolean
+  isHapus?: boolean
+  isTambah?: boolean
 }) {
   const [isShowDelete, setIsShowDelete] = useState<boolean>(false)
   const [id, setId] = useState<string>()
@@ -41,7 +47,7 @@ export function PreviewMain({
     <div className="flex w-full flex-col gap-32 text-[2rem]">
       {/* --- Identitas --- */}
       <div className="flex w-full flex-col gap-32 rounded-2x bg-warna-pale-blue p-32 text-warna-dark phones:bg-transparent phones:p-0">
-        <PreviewHeader setMenu={setMenu} jenis="Identitas" />
+        <PreviewHeader setMenu={setMenu} jenis="Identitas" isUbah={isUbah} />
         <PreviewIdentitas
           kode={data?.identitas?.kode}
           nama={data?.identitas?.nama}
@@ -78,6 +84,8 @@ export function PreviewMain({
             <PreviewHeader
               setMenu={setMenu}
               jenis={item?.jenis}
+              isUbah={isUbah}
+              isHapus={isHapus}
               hapus={
                 <button
                   className="flex items-center gap-12 rounded-2xl bg-warna-red px-24 py-12 text-white hover:bg-opacity-80"
@@ -103,7 +111,7 @@ export function PreviewMain({
         ))}
       </div>
 
-      {data?.profil?.length < jenisProfil?.length && (
+      {isTambah && data?.profil?.length < jenisProfil?.length && (
         <Link
           to={'tambah'}
           className="flex items-center justify-center gap-12 rounded-xl bg-slate-700 py-12 text-white hover:bg-slate-900"

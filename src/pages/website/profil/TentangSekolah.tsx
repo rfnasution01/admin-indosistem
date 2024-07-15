@@ -26,9 +26,13 @@ import {
   TentangSekolahSchema,
 } from '@/schemas/website/tentangSekolahSchema'
 import FormUpdateIdentitas from '@/components/Form/website/profil/FormEditIdentitas'
+import { GetMenuWebsiteType } from '@/types/website/menuType'
+import { useGetMenuWebsiteQuery } from '@/store/slices/website/menuAPI'
+import { getPaths, usePathname } from '@/hooks/usePathname'
 
 export default function TentangSekolah() {
   const navigate = useNavigate()
+  const { pathname } = usePathname()
 
   const [menu, setMenu] = useState<string>('Preview')
   const [urls, setUrls] = useState<string>()
@@ -44,6 +48,22 @@ export default function TentangSekolah() {
     resolver: zodResolver(IdentitasSekolahSchema),
     defaultValues: {},
   })
+
+  const [menuUtama, setMenuUtama] = useState<GetMenuWebsiteType[]>([])
+  const { data } = useGetMenuWebsiteQuery()
+
+  useEffect(() => {
+    if (data) {
+      setMenuUtama(data?.data)
+    }
+  }, [data])
+
+  const path = getPaths(pathname.slice(1, pathname?.length))
+
+  const hakAkses = menuUtama?.find((item) => item?.link === path)
+  const isHakAksesHapus = hakAkses?.hapus === '1'
+  const isHakAksesUbah = hakAkses?.ubah === '1'
+  const isHakAksesTambah = hakAkses?.ubah === '1'
 
   // --- Data Tentang ---
   const [dataTentang, setDataTentang] = useState<GetTentangSekolahType>()
@@ -102,6 +122,20 @@ export default function TentangSekolah() {
   ] = useDeleteTentangSekolahMutation()
 
   const handleSubmitDelete = async (id: string) => {
+    if (!isHakAksesHapus) {
+      toast.error('Maaf, anda tidak memiliki akses untuk hapus data', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await deleteTentang({ id: id })
     } catch (error) {
@@ -191,6 +225,20 @@ export default function TentangSekolah() {
       list: values?.list ?? [],
     }
 
+    if (!isHakAksesTambah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk menambah data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     if (isSubmit && isShow) {
       try {
         await createTambahProfil({ body: body })
@@ -202,7 +250,7 @@ export default function TentangSekolah() {
 
   useEffect(() => {
     if (isSuccessTambahProfil) {
-      toast.success(`Edit profil berhasil`, {
+      toast.success(`Tambah profil berhasil`, {
         position: 'bottom-right',
         autoClose: 3000,
         hideProgressBar: false,
@@ -284,6 +332,20 @@ export default function TentangSekolah() {
       nama_pimpinan: values?.nama_pimpinan ?? '',
       nip_pimpinan: values?.nip_pimpinan ?? '',
       photo_pimpinan: urls,
+    }
+
+    if (!isHakAksesUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
     }
 
     if (isShow && isSubmit) {
@@ -412,6 +474,9 @@ export default function TentangSekolah() {
                 setMenu={setMenu}
                 handleSubmitDelete={handleSubmitDelete}
                 isLoadingDelete={isLoadingDeleteTentang}
+                isUbah={isHakAksesUbah}
+                isHapus={isHakAksesHapus}
+                isTambah={isHakAksesTambah}
               />
             ) : menu === 'Identitas' ? (
               <div className="scrollbar flex flex-1 flex-col gap-32 overflow-y-auto ">
@@ -428,6 +493,7 @@ export default function TentangSekolah() {
                   setIsSubmit={setIsSubmit}
                   isShow={isShow}
                   isSubmit={isSubmit}
+                  isUbah={isHakAksesUbah}
                 />
               </div>
             ) : menu === 'Tujuan' || menu === 'Sasaran' || menu === 'Hasil' ? (
@@ -446,6 +512,8 @@ export default function TentangSekolah() {
                   isShow={isShow}
                   isSubmit={isSubmit}
                   isEdit
+                  isUbah={isHakAksesUbah}
+                  isTambah={isHakAksesTambah}
                 />
               </div>
             ) : (
