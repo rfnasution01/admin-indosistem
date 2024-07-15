@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { usePathname } from './usePathname'
 
 export function useAkses() {
-  const { secondPathname, thirdPathname, splittedPath } = usePathname()
+  const { secondPathname, thirdPathname } = usePathname()
   const [menuUtama, setMenuUtama] = useState<GetMenuWebsiteType[]>([])
   const { data } = useGetMenuWebsiteQuery()
 
@@ -13,8 +13,6 @@ export function useAkses() {
       setMenuUtama(data?.data)
     }
   }, [data])
-
-  console.log({ splittedPath })
 
   const path =
     secondPathname === 'profil'

@@ -55,6 +55,20 @@ export default function TambahTentangSekolah() {
       list: values?.list ?? [],
     }
 
+    if (!isHakAksesTambah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data ini`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     if (isSubmit && isShow) {
       try {
         await createTambahProfil({ body: body })

@@ -24,6 +24,9 @@ export default function FormTambahTestimoni({
   setIsSubmit,
   isSubmit,
   isShow,
+  isEdit,
+  isTambah,
+  isUbah,
 }: {
   form: UseFormReturn
   isLoading: boolean
@@ -34,6 +37,9 @@ export default function FormTambahTestimoni({
   isShow: boolean
   isSubmit: boolean
   urls: string
+  isEdit?: boolean
+  isUbah: boolean
+  isTambah: boolean
 }) {
   // --- Upload File ---
   const [
@@ -49,6 +55,20 @@ export default function FormTambahTestimoni({
   const handleUploadFoto = async (file: File) => {
     const formatData = new FormData()
     formatData.append('berkas', file)
+
+    if ((isEdit && !isUbah) || (!isEdit && !isTambah)) {
+      toast.error(`Maaf anda tidak memiliki akses untuk menambah data`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
 
     try {
       const res = await uploadFileMutation(formatData)
@@ -103,6 +123,11 @@ export default function FormTambahTestimoni({
     }
   }, [isErrorFile, errorFile])
 
+  const disableEdit = !(isEdit && isUbah)
+  const disableTambah = !(!isEdit && isTambah)
+
+  const disabled = isEdit ? disableEdit : disableTambah
+
   return (
     <div>
       <Form {...form}>
@@ -118,7 +143,7 @@ export default function FormTambahTestimoni({
               placeholder="Masukkan nama lengkap"
               className="w-1/2 hover:cursor-not-allowed phones:w-full "
               type="text"
-              isDisabled={isLoading}
+              isDisabled={isLoading || disabled}
             />
             <div className="w-1/2 phones:hidden" />
           </div>
@@ -129,6 +154,7 @@ export default function FormTambahTestimoni({
               useFormReturn={form}
               headerLabel="Keterangan Singkat"
               placeholder="Masukkan keterangan singkat"
+              isDisabled={isLoading || disabled}
             />
           </div>
 
@@ -150,11 +176,13 @@ export default function FormTambahTestimoni({
             loadingFile={loadingFile}
             name="url_photo"
             handleUploadFoto={handleUploadFoto}
+            isDisabled={disabled}
           />
 
           <div className="flex justify-end">
             <button
               type="submit"
+              disabled={isLoading || disabled}
               onClick={async () => {
                 const isValid = await form.trigger()
 

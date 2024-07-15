@@ -11,9 +11,11 @@ import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
 import { TestimoniSchema } from '@/schemas/website/testimoniSchema'
 import { useCreateTestimoniMutation } from '@/store/slices/website/profilAPI/testimoniAPI'
 import FormTambahTestimoni from '@/components/Form/website/profil/FormTambahTestimonial'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function TambahTestimoniSekolah() {
   const navigate = useNavigate()
+  const { isHakAksesTambah, isHakAksesUbah } = useAkses()
 
   const { lastPathname, thirdPathname } = usePathname()
 
@@ -50,6 +52,36 @@ export default function TambahTestimoniSekolah() {
       nama: values?.nama ?? '',
       keterangan_singkat: values?.keterangan_singkat ?? '',
       isi: values?.isi ?? '',
+    }
+
+    if (!isHakAksesTambah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data ini`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+    if ((isEdit && !isHakAksesUbah) || (!isEdit && !isHakAksesTambah)) {
+      toast.error(
+        `Maaf, anda tidak memiliki akses untuk ${isEdit ? 'mengubah' : 'menambah'} data ini`,
+        {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        },
+      )
     }
 
     if (isSubmit && isShow) {
@@ -128,6 +160,9 @@ export default function TambahTestimoniSekolah() {
           setIsSubmit={setIsSubmit}
           isShow={isShow}
           isSubmit={isSubmit}
+          isEdit={isEdit}
+          isTambah={isHakAksesTambah}
+          isUbah={isHakAksesUbah}
         />
       </div>
       <ToastContainer />

@@ -16,9 +16,11 @@ import {
 } from '@/store/slices/website/profilAPI/testimoniAPI'
 import { TableFasilitas } from '@/components/Table/TableFasilitas'
 import { columnsListDataTestimoni } from '@/dummy/table'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function TestimoniSekolah() {
   const navigate = useNavigate()
+  const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } = useAkses()
 
   const [search, setSearch] = useState<string>('')
   const [pageNumber, setPageNumber] = useState<number>(1)
@@ -86,6 +88,20 @@ export default function TestimoniSekolah() {
   ] = useDeleteTestimoniMutation()
 
   const handleSubmitDelete = async (id: string) => {
+    if (!isHakAksesHapus) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk menghapus data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await deleteTestimoni({ id: id })
     } catch (error) {
@@ -148,13 +164,15 @@ export default function TestimoniSekolah() {
               />
             )}
           </div>
-          <Link
-            to="tambah"
-            className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-24 py-12 text-white phones:w-1/3"
-          >
-            <FontAwesomeIcon icon={faPlusCircle} />
-            <p className="phones:hidden">Tambah Testimoni</p>
-          </Link>
+          {isHakAksesTambah && (
+            <Link
+              to="tambah"
+              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-24 py-12 text-white phones:w-1/3"
+            >
+              <FontAwesomeIcon icon={faPlusCircle} />
+              <p className="phones:hidden">Tambah Testimoni</p>
+            </Link>
+          )}
         </div>
       </div>
       <TableFasilitas
@@ -170,6 +188,8 @@ export default function TestimoniSekolah() {
         isLoadingDelete={isLoadingDeleteTestimoni}
         setIsShow={setIsShow}
         isShow={isShow}
+        isHapus={isHakAksesHapus}
+        isUbah={isHakAksesUbah}
       />
       <ToastContainer />
     </div>

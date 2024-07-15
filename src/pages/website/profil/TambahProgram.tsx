@@ -102,18 +102,24 @@ export default function TambahProgram() {
       aktif: valuesProgram?.aktif ?? '1',
     }
 
-    if (programById && !isHakAksesUbah) {
-      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data ini`, {
-        position: 'bottom-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
+    if (
+      (programById && !isHakAksesUbah) ||
+      (!programById && !isHakAksesTambah)
+    ) {
+      toast.error(
+        `Maaf, anda tidak memiliki akses untuk ${programById ? 'mengubah' : 'menambah'} data ini`,
+        {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        },
+      )
     }
 
     if (!programById && !isHakAksesTambah) {
