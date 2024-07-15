@@ -23,6 +23,7 @@ export function FormLabelFile({
   label,
   name,
   isDisabled,
+  ratio,
 }: {
   form: UseFormReturn | undefined | any
   setUrls: Dispatch<SetStateAction<string>>
@@ -33,6 +34,7 @@ export function FormLabelFile({
   label?: string
   handleUploadFoto: (file: File) => Promise<void>
   isDisabled?: boolean
+  ratio?: '3x4'
 }) {
   return (
     <FormField
@@ -109,7 +111,9 @@ export function FormLabelFile({
                         <img
                           src={urls}
                           alt="Gambar"
-                          className="h-[20rem] w-full rounded-2xl object-cover filter"
+                          className={clsx('rounded-2x object-cover filter', {
+                            'w-full': ratio === '3x4',
+                          })}
                           loading="lazy"
                         />
                         <button
@@ -118,14 +122,16 @@ export function FormLabelFile({
                             e.stopPropagation()
                             setUrls(null)
                           }}
-                          className="absolute right-2 top-2 rounded-lg bg-danger-700 p-4 text-white hover:cursor-pointer hover:bg-danger disabled:cursor-not-allowed"
+                          className="absolute right-8 top-8 rounded-lg bg-danger-700 p-4 text-white hover:cursor-pointer hover:bg-danger disabled:cursor-not-allowed"
                         >
                           <FontAwesomeIcon icon={faTrash} />
                         </button>
                       </div>
                     </div>
                   ) : (
-                    <div>Belum ada file di upload</div>
+                    <div>
+                      <p>Belum ada file di upload</p>
+                    </div>
                   )}
                 </div>
               </div>
