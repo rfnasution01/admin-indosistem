@@ -551,19 +551,21 @@ export default function TambahProgram() {
                     >
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault()
-                        e.stopPropagation()
-                      }}
-                      // className="hover:cursor-pointer hover:text-warna-primary"
-                    >
-                      {list?.aktif === '1' ? (
-                        <FontAwesomeIcon icon={faEye} />
-                      ) : (
-                        <FontAwesomeIcon icon={faEyeSlash} />
-                      )}
-                    </button>
+                    {jenis === 'program' && (
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault()
+                          e.stopPropagation()
+                        }}
+                        // className="hover:cursor-pointer hover:text-warna-primary"
+                      >
+                        {list?.aktif === '1' ? (
+                          <FontAwesomeIcon icon={faEye} />
+                        ) : (
+                          <FontAwesomeIcon icon={faEyeSlash} />
+                        )}
+                      </button>
+                    )}
                     {jenis === 'program' && list?.judul && (
                       <p className="font-roboto text-warna-dark">
                         {list?.judul}

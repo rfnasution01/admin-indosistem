@@ -127,6 +127,8 @@ export default function FormTambahGambar({
     name: 'gambar',
   })
 
+  console.log(form.watch())
+
   return (
     <div>
       <Form {...form}>
@@ -191,9 +193,9 @@ export default function FormTambahGambar({
                 </button>
               </div>
 
-              {fields.map((_item, index) => (
+              {fields.map((item, index) => (
                 <div
-                  key={index}
+                  key={item?.id}
                   className="scrollbar flex w-full items-center gap-24 overflow-x-auto"
                 >
                   <FormField
@@ -298,7 +300,11 @@ export default function FormTambahGambar({
                   <button
                     type="button"
                     disabled={isLoading || !isUbah}
-                    onClick={() => remove(index)}
+                    onClick={() => {
+                      console.log({ index })
+
+                      remove(index)
+                    }}
                     className="rounded text-[2rem] text-warna-red"
                   >
                     <FontAwesomeIcon icon={faDeleteLeft} size="xl" />

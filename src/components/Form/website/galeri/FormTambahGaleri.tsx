@@ -242,9 +242,9 @@ export default function FormTambahGaleri({
                   </button>
                 </div>
 
-                {fields.map((_item, index) => (
+                {fields.map((item, index) => (
                   <div
-                    key={index}
+                    key={item?.id}
                     className="scrollbar flex w-full items-center gap-24 overflow-x-auto"
                   >
                     <FormField

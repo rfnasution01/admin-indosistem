@@ -29,8 +29,6 @@ export function useAkses() {
   const isHakAksesUbah = hakAkses?.ubah === '1'
   const isHakAksesTambah = hakAkses?.ubah === '1'
 
-  console.log({ hakAkses })
-
   return {
     isHakAksesHapus,
     isHakAksesTambah,

@@ -16,7 +16,6 @@ import { useAkses } from '@/hooks/useAkses'
 export default function TambahGambar() {
   const navigate = useNavigate()
   const { isHakAksesUbah } = useAkses()
-
   const { lastPathname, secondPathname } = usePathname()
 
   const isEdit = lastPathname === 'edit'

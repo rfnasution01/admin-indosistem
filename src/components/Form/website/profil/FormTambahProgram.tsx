@@ -172,7 +172,7 @@ export default function FormTambahProgram({
           <FormLabelRadio
             name="aktif"
             form={form}
-            label="Status"
+            label="Publish"
             className="text-sim-dark phones:w-full"
             isDisabled={isLoading || disabled}
           />
