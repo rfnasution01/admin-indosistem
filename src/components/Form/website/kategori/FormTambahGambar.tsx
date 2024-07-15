@@ -28,7 +28,7 @@ export default function FormTambahGambar({
   setIsSubmit,
   isSubmit,
   isShow,
-  isUbah,
+  isTambah,
 }: {
   form: UseFormReturn
   isLoading: boolean
@@ -37,7 +37,7 @@ export default function FormTambahGambar({
   setIsShow: Dispatch<SetStateAction<boolean>>
   isShow: boolean
   isSubmit: boolean
-  isUbah: boolean
+  isTambah: boolean
 }) {
   const { secondPathname } = usePathname()
   // --- Upload File ---
@@ -55,7 +55,7 @@ export default function FormTambahGambar({
     const formatData = new FormData()
     formatData.append('berkas', file)
 
-    if (!isUbah) {
+    if (!isTambah) {
       toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data ini`, {
         position: 'bottom-right',
         autoClose: 3000,
@@ -161,7 +161,7 @@ export default function FormTambahGambar({
                             !form.watch(`gambar.${index}.url_gambar`)
                           ) && (
                             <button
-                              disabled={!isUbah}
+                              disabled={!isTambah}
                               onClick={(e) => {
                                 e.stopPropagation()
                                 form.setValue(
@@ -180,7 +180,7 @@ export default function FormTambahGambar({
                   </div>
                 ))}
                 <button
-                  disabled={!isUbah}
+                  disabled={!isTambah}
                   onClick={() => append({ url_gambar: '', keterangan: '' })}
                   className="col-span-1 h-[20rem] phones:col-span-3"
                 >
@@ -200,7 +200,7 @@ export default function FormTambahGambar({
                 >
                   <FormField
                     name={`gambar.${index}.url_gambar`}
-                    disabled={!isUbah}
+                    disabled={!isTambah}
                     control={form.control}
                     render={({ field }) => (
                       <FormItem>
@@ -212,7 +212,7 @@ export default function FormTambahGambar({
                               id={`berkas-${index}`} // Unique id for each input
                               type="file"
                               value={''}
-                              disabled={isLoading || loadingFile || !isUbah}
+                              disabled={isLoading || loadingFile || !isTambah}
                               placeholder="Lampiran"
                               onChange={(e) => {
                                 if (e.target.files[0].size > 5 * 1000000) {
@@ -284,7 +284,7 @@ export default function FormTambahGambar({
                       placeholder="Masukkan keterangan"
                       className="flex-1"
                       type="text"
-                      isDisabled={isLoading || !isUbah}
+                      isDisabled={isLoading || !isTambah}
                     />
                   )}
                   {secondPathname === 'galeri' && (
@@ -294,12 +294,12 @@ export default function FormTambahGambar({
                       placeholder="Masukkan judul"
                       className="flex-1"
                       type="text"
-                      isDisabled={isLoading || !isUbah}
+                      isDisabled={isLoading || !isTambah}
                     />
                   )}
                   <button
                     type="button"
-                    disabled={isLoading || !isUbah}
+                    disabled={isLoading || !isTambah}
                     onClick={() => {
                       console.log({ index })
 
@@ -316,7 +316,7 @@ export default function FormTambahGambar({
           <div className="flex justify-end">
             <button
               type="submit"
-              disabled={isLoading || !isUbah}
+              disabled={isLoading || !isTambah}
               onClick={async () => {
                 const isValid = await form.trigger()
 

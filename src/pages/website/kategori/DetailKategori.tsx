@@ -23,7 +23,7 @@ import 'react-toastify/dist/ReactToastify.css'
 export default function DetailKategori() {
   const navigate = useNavigate()
   const { secondPathname } = usePathname()
-  const { isHakAksesUbah, isHakAksesHapus } = useAkses()
+  const { isHakAksesUbah, isHakAksesHapus, isHakAksesTambah } = useAkses()
 
   const id = localStorage.getItem('editID') ?? null
   const [isShowDelete, setIsShowDelete] = useState<boolean>(false)
@@ -172,6 +172,7 @@ export default function DetailKategori() {
               editID={id}
               isHapus={isHakAksesHapus}
               isUbah={isHakAksesUbah}
+              isTambah={isHakAksesTambah}
             />
           </>
         )}

@@ -1,9 +1,7 @@
 import { Loading } from '@/components/Loading'
 import { Searching } from '@/components/Searching'
-import { usePathname } from '@/hooks/usePathname'
 import { Meta } from '@/store/api'
 import { GetAlbumType } from '@/types/website/galeriType'
-import { convertSlugToText } from '@/utils/formatText'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Dispatch, SetStateAction } from 'react'
@@ -46,8 +44,6 @@ export function GaleriAlbum({
   isTambah: boolean
   isUbah: boolean
 }) {
-  const { secondPathname } = usePathname()
-
   return (
     <div className="flex w-full flex-col gap-32">
       <div className="flex items-center justify-between gap-32">
@@ -63,9 +59,7 @@ export function GaleriAlbum({
             className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
           >
             <FontAwesomeIcon icon={faPlus} />
-            <p className="phones:hidden">
-              Tambah {convertSlugToText(secondPathname)} Baru
-            </p>
+            <p className="phones:hidden">Tambah Album Baru</p>
           </Link>
         )}
       </div>

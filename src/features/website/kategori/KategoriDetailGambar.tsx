@@ -15,6 +15,7 @@ export function KategoriDetailGambar({
   editID,
   isUbah,
   isHapus,
+  isTambah,
 }: {
   gambar: KategoriGambarType[]
   setIsShowDelete: Dispatch<SetStateAction<boolean>>
@@ -23,6 +24,7 @@ export function KategoriDetailGambar({
   isShowDelete: boolean
   editID?: string
   isUbah: boolean
+  isTambah: boolean
   isHapus: boolean
 }) {
   return (
@@ -30,7 +32,7 @@ export function KategoriDetailGambar({
       <div className="flex items-center justify-between gap-32 phones:flex-col-reverse phones:items-start">
         <p className="font-roboto text-[2.4rrem] text-warna-dark">Gambar</p>
         <div className="flex items-center gap-32 phones:w-full">
-          {isUbah && (
+          {isTambah && (
             <Link
               to={'tambah-gambar'}
               className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-24 py-12 text-[1.8rem] text-white hover:bg-opacity-80"

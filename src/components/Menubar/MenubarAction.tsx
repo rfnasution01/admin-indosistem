@@ -61,7 +61,9 @@ export function MenubarAction<T extends Fasilitas>({
             <div className="flex flex-col gap-12">
               {thirdPathname !== 'detail' &&
                 thirdPathname !== 'menu' &&
-                thirdPathname !== 'slider' && (
+                thirdPathname !== 'slider' &&
+                thirdPathname !== 'fasilitas' &&
+                thirdPathname !== 'testimonial' && (
                   <Link
                     to={'detail'}
                     onClick={() => {

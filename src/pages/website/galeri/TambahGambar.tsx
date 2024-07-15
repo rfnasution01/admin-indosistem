@@ -15,7 +15,7 @@ import { useAkses } from '@/hooks/useAkses'
 
 export default function TambahGambar() {
   const navigate = useNavigate()
-  const { isHakAksesUbah } = useAkses()
+  const { isHakAksesTambah } = useAkses()
 
   const { lastPathname } = usePathname()
 
@@ -49,7 +49,7 @@ export default function TambahGambar() {
       gambar: values?.gambar,
     }
 
-    if (!isHakAksesUbah) {
+    if (!isHakAksesTambah) {
       toast.error(
         `Maaf, anda tidak memiliki akses untuk ${isEdit ? 'mengubah' : 'menambah'} data`,
         {
@@ -127,7 +127,7 @@ export default function TambahGambar() {
           setIsSubmit={setIsSubmit}
           isShow={isShow}
           isSubmit={isSubmit}
-          isUbah={isHakAksesUbah}
+          isTambah={isHakAksesTambah}
         />
       </div>
       <ToastContainer />
