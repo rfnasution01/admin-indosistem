@@ -23,10 +23,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { useForm } from 'react-hook-form'
 import { KategoriSchema } from '@/schemas/website/kategoriSchema'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function Kategori() {
   const navigate = useNavigate()
   const { secondPathname } = usePathname()
+  const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } = useAkses()
 
   const [menu, setMenu] = useState<string>('')
 
@@ -129,6 +131,20 @@ export default function Kategori() {
   ] = useDeleteKategoriMutation()
 
   const handleSubmitDelete = async (id: string) => {
+    if (!isHakAksesHapus) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk menghapus data ini`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await deleteKategori({ id: id, jenis: secondPathname })
     } catch (error) {
@@ -187,6 +203,21 @@ export default function Kategori() {
       id: id,
       publish: publish,
     }
+
+    if (!isHakAksesUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data ini`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await publishKategori({ body: body, jenis: secondPathname })
     } catch (error) {
@@ -263,6 +294,9 @@ export default function Kategori() {
             isShowPublish={isShowPublish}
             handleSubmitPublish={handleSubmitPublish}
             form={form}
+            isUbah={isHakAksesUbah}
+            isHapus={isHakAksesHapus}
+            isTambah={isHakAksesTambah}
           />
         ) : menu === 'Publish' ? (
           <KategoriPublish
@@ -283,6 +317,9 @@ export default function Kategori() {
             pageNumber={pageNumber}
             setPageSize={setPageSize}
             meta={meta}
+            isHapus={isHakAksesHapus}
+            isTambah={isHakAksesTambah}
+            isUbah={isHakAksesUbah}
           />
         ) : menu === 'Draft' ? (
           <KategoriPublish
@@ -302,6 +339,9 @@ export default function Kategori() {
             pageNumber={pageNumber}
             setPageSize={setPageSize}
             meta={meta}
+            isHapus={isHakAksesHapus}
+            isTambah={isHakAksesTambah}
+            isUbah={isHakAksesUbah}
           />
         ) : menu === 'Dashboard' ? (
           <BeritaDashboard />

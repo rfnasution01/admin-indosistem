@@ -11,9 +11,11 @@ import { convertSlugToText } from '@/utils/formatText'
 import FormTambahGambar from '@/components/Form/website/kategori/FormTambahGambar'
 import { TambahGambarSchema } from '@/schemas/website/kategoriSchema'
 import { useCreateGambarMutation } from '@/store/slices/website/kategoriAPI'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function TambahGambar() {
   const navigate = useNavigate()
+  const { isHakAksesUbah } = useAkses()
 
   const { lastPathname, secondPathname } = usePathname()
 
@@ -49,6 +51,23 @@ export default function TambahGambar() {
       id_prestasi: idEdit,
       id_mading: idEdit,
       gambar: values?.gambar,
+    }
+
+    if (!isHakAksesUbah) {
+      toast.error(
+        `Maaf, anda tidak memiliki akses untuk ${isEdit ? 'mengubah' : 'menambah'} data ini`,
+        {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        },
+      )
     }
 
     if (isSubmit && isShow) {
@@ -99,7 +118,7 @@ export default function TambahGambar() {
 
   return (
     <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto rounded-3x bg-white p-48">
-      <Breadcrumb />
+      <Breadcrumb editID={idEdit} />
       <div className="scrollbar flex flex-1 flex-col gap-32 overflow-y-auto">
         <p className="font-roboto text-[2.4rem]">
           Form {convertSlugToText(lastPathname)}
@@ -112,6 +131,7 @@ export default function TambahGambar() {
           setIsSubmit={setIsSubmit}
           isShow={isShow}
           isSubmit={isSubmit}
+          isUbah={isHakAksesUbah}
         />
       </div>
       <ToastContainer />

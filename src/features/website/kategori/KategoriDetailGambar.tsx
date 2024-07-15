@@ -13,6 +13,8 @@ export function KategoriDetailGambar({
   isShowDelete,
   setIsShowDelete,
   editID,
+  isUbah,
+  isHapus,
 }: {
   gambar: KategoriGambarType[]
   setIsShowDelete: Dispatch<SetStateAction<boolean>>
@@ -20,19 +22,23 @@ export function KategoriDetailGambar({
   isLoadingDeleteKategori: boolean
   isShowDelete: boolean
   editID?: string
+  isUbah: boolean
+  isHapus: boolean
 }) {
   return (
     <div className="flex flex-col gap-32">
       <div className="flex items-center justify-between gap-32 phones:flex-col-reverse phones:items-start">
         <p className="font-roboto text-[2.4rrem] text-warna-dark">Gambar</p>
         <div className="flex items-center gap-32 phones:w-full">
-          <Link
-            to={'tambah-gambar'}
-            className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-24 py-12 text-[1.8rem] text-white hover:bg-opacity-80"
-          >
-            <FontAwesomeIcon icon={faPlus} />
-            <p>Tambah Gambar</p>
-          </Link>
+          {isUbah && (
+            <Link
+              to={'tambah-gambar'}
+              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-24 py-12 text-[1.8rem] text-white hover:bg-opacity-80"
+            >
+              <FontAwesomeIcon icon={faPlus} />
+              <p>Tambah Gambar</p>
+            </Link>
+          )}
         </div>
       </div>
       {gambar?.length > 0 ? (
@@ -61,6 +67,8 @@ export function KategoriDetailGambar({
                           isLoadingDelete={isLoadingDeleteKategori}
                           isShowDelete={isShowDelete}
                           editID={editID}
+                          isUbah={isUbah}
+                          isHapus={isHapus}
                         />
                       </div>
                     </div>

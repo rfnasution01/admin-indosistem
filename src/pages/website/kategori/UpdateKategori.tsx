@@ -16,9 +16,11 @@ import {
   useGetKategoriDetailQuery,
 } from '@/store/slices/website/kategoriAPI'
 import { TambahKategoriSchema } from '@/schemas/website/kategoriSchema'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function UpdateKategori() {
   const navigate = useNavigate()
+  const { isHakAksesTambah, isHakAksesUbah } = useAkses()
 
   const { lastPathname, secondPathname } = usePathname()
 
@@ -105,6 +107,23 @@ export default function UpdateKategori() {
       isi: values?.isi ?? '',
       publish: values?.publish ?? '1',
       gambar: values?.gambar ?? [],
+    }
+
+    if ((isEdit && !isHakAksesUbah) || (!isEdit && !isHakAksesTambah)) {
+      toast.error(
+        `Maaf, anda tidak memiliki akses untuk ${isEdit ? 'mengubah' : 'menambah'} data ini`,
+        {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        },
+      )
     }
 
     if (isSubmit && isShow) {
@@ -207,6 +226,9 @@ export default function UpdateKategori() {
           isShow={isShow}
           isSubmit={isSubmit}
           defaultValues={transformedData}
+          isEdit={isEdit}
+          isTambah={isHakAksesTambah}
+          isUbah={isHakAksesUbah}
         />
       </div>
       <ToastContainer />

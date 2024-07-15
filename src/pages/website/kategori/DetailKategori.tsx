@@ -4,6 +4,7 @@ import {
   KategoriDetail,
   KategoriDetailGambar,
 } from '@/features/website/kategori'
+import { useAkses } from '@/hooks/useAkses'
 import { usePathname } from '@/hooks/usePathname'
 import {
   useDeleteGambarMutation,
@@ -22,6 +23,7 @@ import 'react-toastify/dist/ReactToastify.css'
 export default function DetailKategori() {
   const navigate = useNavigate()
   const { secondPathname } = usePathname()
+  const { isHakAksesUbah, isHakAksesHapus } = useAkses()
 
   const id = localStorage.getItem('editID') ?? null
   const [isShowDelete, setIsShowDelete] = useState<boolean>(false)
@@ -96,6 +98,20 @@ export default function DetailKategori() {
   ] = useDeleteGambarMutation()
 
   const handleSubmitDeleteGambar = async (id: string) => {
+    if (!isHakAksesUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await deleteGambar({ id: id, jenis: secondPathname })
     } catch (error) {
@@ -146,7 +162,7 @@ export default function DetailKategori() {
           <Loading />
         ) : (
           <>
-            <KategoriDetail detail={dataDetailKategori} />
+            <KategoriDetail detail={dataDetailKategori} isUbah />
             <KategoriDetailGambar
               gambar={dataGambarKategori}
               setIsShowDelete={setIsShowDelete}
@@ -154,6 +170,8 @@ export default function DetailKategori() {
               isLoadingDeleteKategori={isLoadingDeleteGambar}
               isShowDelete={isShowDelete}
               editID={id}
+              isHapus={isHakAksesHapus}
+              isUbah={isHakAksesUbah}
             />
           </>
         )}

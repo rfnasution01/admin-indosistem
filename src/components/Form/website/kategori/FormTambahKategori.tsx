@@ -40,6 +40,9 @@ export default function FormTambahKategori({
   isSubmit,
   isShow,
   defaultValues,
+  isTambah,
+  isUbah,
+  isEdit,
 }: {
   form: UseFormReturn
   isLoading: boolean
@@ -49,9 +52,11 @@ export default function FormTambahKategori({
   isShow: boolean
   isSubmit: boolean
   defaultValues?: { value: string; label: string }[]
+  isEdit?: boolean
+  isTambah: boolean
+  isUbah: boolean
 }) {
-  const { lastPathname, secondPathname } = usePathname()
-  const isEdit = lastPathname === 'edit'
+  const { secondPathname } = usePathname()
 
   // --- Upload File ---
   const [
@@ -67,6 +72,20 @@ export default function FormTambahKategori({
   const handleUploadFoto = async (file: File, index: number) => {
     const formatData = new FormData()
     formatData.append('berkas', file)
+
+    if ((isEdit && !isUbah) || (!isEdit && !isTambah)) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data ini`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
 
     try {
       const res = await uploadFileMutation(formatData)
@@ -126,6 +145,11 @@ export default function FormTambahKategori({
     name: 'gambar',
   })
 
+  const disableEdit = !(isEdit && isUbah)
+  const disableTambah = !(!isEdit && isTambah)
+
+  const disabled = isEdit ? disableEdit : disableTambah
+
   return (
     <div className="w-full">
       <Form {...form}>
@@ -139,18 +163,18 @@ export default function FormTambahKategori({
               form={form}
               label="Judul"
               placeholder="Masukkan judul"
-              className="w-1/2 hover:cursor-not-allowed phones:w-full "
+              className="w-1/2 disabled:cursor-not-allowed phones:w-full "
               type="text"
-              isDisabled={isLoading}
+              isDisabled={isLoading || disabled}
             />
             <FormLabelInput
               name={`tanggal`}
               form={form}
               label="Tanggal"
               placeholder="Masukkan tanggal"
-              className="w-1/2 hover:cursor-not-allowed phones:w-full "
+              className="w-1/2 disabled:cursor-not-allowed phones:w-full "
               type="date"
-              isDisabled={isLoading}
+              isDisabled={isLoading || disabled}
             />
           </div>
 
@@ -161,7 +185,8 @@ export default function FormTambahKategori({
                 headerLabel="Kategori"
                 placeholder="Pilih Kategori"
                 useFormReturn={form}
-                isDisabled={isLoading}
+                isDisabled={isLoading || disabled}
+                className="disabled:cursor-not-allowed"
               />
             ) : secondPathname === 'mading' ? (
               <SelectListMading
@@ -169,7 +194,8 @@ export default function FormTambahKategori({
                 headerLabel="Kategori"
                 placeholder="Pilih Kategori"
                 useFormReturn={form}
-                isDisabled={isLoading}
+                isDisabled={isLoading || disabled}
+                className="disabled:cursor-not-allowed"
               />
             ) : secondPathname === 'berita' ? (
               <SelectListBerita
@@ -177,7 +203,8 @@ export default function FormTambahKategori({
                 headerLabel="Kategori"
                 placeholder="Pilih Kategori"
                 useFormReturn={form}
-                isDisabled={isLoading}
+                isDisabled={isLoading || disabled}
+                className="disabled:cursor-not-allowed"
               />
             ) : secondPathname === 'agenda' ? (
               <SelectListAgenda
@@ -185,7 +212,8 @@ export default function FormTambahKategori({
                 headerLabel="Kategori"
                 placeholder="Pilih Kategori"
                 useFormReturn={form}
-                isDisabled={isLoading}
+                isDisabled={isLoading || disabled}
+                className="disabled:cursor-not-allowed"
               />
             ) : secondPathname === 'prestasi' ? (
               <SelectListPrestasi
@@ -193,7 +221,8 @@ export default function FormTambahKategori({
                 headerLabel="Kategori"
                 placeholder="Pilih Kategori"
                 useFormReturn={form}
-                isDisabled={isLoading}
+                isDisabled={isLoading || disabled}
+                className="disabled:cursor-not-allowed"
               />
             ) : (
               <></>
@@ -204,8 +233,9 @@ export default function FormTambahKategori({
                 headerLabel="Tag"
                 placeholder="Pilih Tag"
                 useFormReturn={form}
-                isDisabled={isLoading}
+                isDisabled={isLoading || disabled}
                 defaultValues={defaultValues}
+                className="disabled:cursor-not-allowed"
               />
             )}
             {!isEdit && (
@@ -214,7 +244,7 @@ export default function FormTambahKategori({
                 headerLabel="Tag"
                 placeholder="Pilih Tag"
                 useFormReturn={form}
-                isDisabled={isLoading}
+                isDisabled={isLoading || disabled}
                 defaultValues={defaultValues}
               />
             )}
@@ -231,7 +261,7 @@ export default function FormTambahKategori({
                 placeholder="Masukkan deskripsi singkat"
                 className="w-full hover:cursor-not-allowed phones:w-full "
                 type="text"
-                isDisabled={isLoading}
+                isDisabled={isLoading || disabled}
               />
             </div>
           )}
@@ -251,7 +281,7 @@ export default function FormTambahKategori({
             form={form}
             label="Umumkan sekarang"
             className="text-sim-dark phones:w-full"
-            isDisabled={isLoading}
+            isDisabled={isLoading || disabled}
           />
 
           {!isEdit && (
@@ -279,7 +309,8 @@ export default function FormTambahKategori({
                       </div>
                     </div>
                   ))}
-                  <div
+                  <button
+                    disabled={isLoading || disabled}
                     onClick={() => append({ url_gambar: '', keterangan: '' })}
                     className="col-span-1 h-[20rem] phones:col-span-3"
                   >
@@ -289,7 +320,7 @@ export default function FormTambahKategori({
                         <p>Tambah gambar</p>
                       </div>
                     </div>
-                  </div>
+                  </button>
                 </div>
 
                 {fields.map((_item, index) => (
@@ -299,18 +330,19 @@ export default function FormTambahKategori({
                   >
                     <FormField
                       name={`gambar.${index}.url_gambar`}
+                      disabled={isLoading || disabled}
                       control={form.control}
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
                             <div>
                               <Input
-                                className="-z-[1] h-[0.1px] w-[0.1px] overflow-hidden opacity-0"
+                                className="-z-[1] h-[0.1px] w-[0.1px] overflow-hidden opacity-0 disabled:cursor-not-allowed"
                                 {...field}
                                 id={`berkas-${index}`} // Unique id for each input
                                 type="file"
                                 value={''}
-                                disabled={isLoading || loadingFile}
+                                disabled={isLoading || loadingFile || disabled}
                                 placeholder="Lampiran"
                                 onChange={(e) => {
                                   if (e.target.files[0].size > 5 * 1000000) {
@@ -383,7 +415,7 @@ export default function FormTambahKategori({
                         placeholder="Masukkan keterangan"
                         className="flex-1"
                         type="text"
-                        isDisabled={isLoading}
+                        isDisabled={isLoading || disabled}
                       />
                     )}
                     {secondPathname === 'galeri' && (
@@ -393,11 +425,12 @@ export default function FormTambahKategori({
                         placeholder="Masukkan judul"
                         className="flex-1"
                         type="text"
-                        isDisabled={isLoading}
+                        isDisabled={isLoading || disabled}
                       />
                     )}
                     <button
                       type="button"
+                      disabled={isLoading || disabled}
                       onClick={() => remove(index)}
                       className="rounded text-[2rem] text-warna-red"
                     >
@@ -412,6 +445,7 @@ export default function FormTambahKategori({
           <div className="flex justify-end">
             <button
               type="submit"
+              disabled={isLoading || disabled}
               onClick={async () => {
                 const isValid = await form.trigger()
 

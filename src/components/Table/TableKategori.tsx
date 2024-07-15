@@ -46,6 +46,8 @@ type Props<T extends Kategori, P> = {
   setIsShowPublish?: Dispatch<SetStateAction<boolean>>
   isShowPublish?: boolean
   isLoadingPublish?: boolean
+  isUbah?: boolean
+  isHapus?: boolean
 }
 
 export function TableKategori<T extends Kategori, P>({
@@ -70,6 +72,8 @@ export function TableKategori<T extends Kategori, P>({
   setIsShowPublish,
   isLoadingPublish,
   isShowPublish,
+  isUbah,
+  isHapus,
 }: Props<T, P>) {
   const [rowIsOpen, setRowIsOpen] = useState<number | null>(null)
   const [id, setId] = useState<number>()
@@ -183,6 +187,8 @@ export function TableKategori<T extends Kategori, P>({
                             isLoadingDelete={isLoadingDelete}
                             isShowDelete={isShowDelete}
                             setIsShowDelete={setIsShowDelete}
+                            isHapus={isHapus}
+                            isUbah={isUbah}
                           />
                         </td>
                       )}

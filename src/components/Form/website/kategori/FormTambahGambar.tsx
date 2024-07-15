@@ -28,6 +28,7 @@ export default function FormTambahGambar({
   setIsSubmit,
   isSubmit,
   isShow,
+  isUbah,
 }: {
   form: UseFormReturn
   isLoading: boolean
@@ -36,6 +37,7 @@ export default function FormTambahGambar({
   setIsShow: Dispatch<SetStateAction<boolean>>
   isShow: boolean
   isSubmit: boolean
+  isUbah: boolean
 }) {
   const { secondPathname } = usePathname()
   // --- Upload File ---
@@ -52,6 +54,20 @@ export default function FormTambahGambar({
   const handleUploadFoto = async (file: File, index: number) => {
     const formatData = new FormData()
     formatData.append('berkas', file)
+
+    if (!isUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data ini`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
 
     try {
       const res = await uploadFileMutation(formatData)
@@ -142,7 +158,8 @@ export default function FormTambahGambar({
                             form.watch(`gambar.${index}.url_gambar`) == '' ||
                             !form.watch(`gambar.${index}.url_gambar`)
                           ) && (
-                            <span
+                            <button
+                              disabled={!isUbah}
                               onClick={(e) => {
                                 e.stopPropagation()
                                 form.setValue(
@@ -153,14 +170,15 @@ export default function FormTambahGambar({
                               className="absolute right-2 top-2 rounded-lg bg-danger-700 p-4 text-white hover:cursor-pointer hover:bg-danger"
                             >
                               <FontAwesomeIcon icon={faTrash} />
-                            </span>
+                            </button>
                           )}
                         </div>
                       </div>
                     </div>
                   </div>
                 ))}
-                <div
+                <button
+                  disabled={!isUbah}
                   onClick={() => append({ url_gambar: '', keterangan: '' })}
                   className="col-span-1 h-[20rem] phones:col-span-3"
                 >
@@ -170,7 +188,7 @@ export default function FormTambahGambar({
                       <p>Tambah gambar</p>
                     </div>
                   </div>
-                </div>
+                </button>
               </div>
 
               {fields.map((_item, index) => (
@@ -180,6 +198,7 @@ export default function FormTambahGambar({
                 >
                   <FormField
                     name={`gambar.${index}.url_gambar`}
+                    disabled={!isUbah}
                     control={form.control}
                     render={({ field }) => (
                       <FormItem>
@@ -191,7 +210,7 @@ export default function FormTambahGambar({
                               id={`berkas-${index}`} // Unique id for each input
                               type="file"
                               value={''}
-                              disabled={isLoading || loadingFile}
+                              disabled={isLoading || loadingFile || !isUbah}
                               placeholder="Lampiran"
                               onChange={(e) => {
                                 if (e.target.files[0].size > 5 * 1000000) {
@@ -263,7 +282,7 @@ export default function FormTambahGambar({
                       placeholder="Masukkan keterangan"
                       className="flex-1"
                       type="text"
-                      isDisabled={isLoading}
+                      isDisabled={isLoading || !isUbah}
                     />
                   )}
                   {secondPathname === 'galeri' && (
@@ -273,11 +292,12 @@ export default function FormTambahGambar({
                       placeholder="Masukkan judul"
                       className="flex-1"
                       type="text"
-                      isDisabled={isLoading}
+                      isDisabled={isLoading || !isUbah}
                     />
                   )}
                   <button
                     type="button"
+                    disabled={isLoading || !isUbah}
                     onClick={() => remove(index)}
                     className="rounded text-[2rem] text-warna-red"
                   >
@@ -290,6 +310,7 @@ export default function FormTambahGambar({
           <div className="flex justify-end">
             <button
               type="submit"
+              disabled={isLoading || !isUbah}
               onClick={async () => {
                 const isValid = await form.trigger()
 
@@ -297,7 +318,7 @@ export default function FormTambahGambar({
                   setIsShow(true)
                 }
               }}
-              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white"
+              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white disabled:cursor-not-allowed"
             >
               <p>Simpan</p>
               {isLoading ? (

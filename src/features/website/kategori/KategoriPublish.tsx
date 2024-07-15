@@ -43,6 +43,9 @@ export function KategoriPublish({
   setPageSize,
   pageNumber,
   meta,
+  isHapus,
+  isTambah,
+  isUbah,
 }: {
   isPublish?: boolean
   loadingKategori: boolean
@@ -61,6 +64,9 @@ export function KategoriPublish({
   isShowPublish: boolean
   isLoadingPublish: boolean
   meta: Meta
+  isTambah: boolean
+  isUbah: boolean
+  isHapus: boolean
 }) {
   const { secondPathname } = usePathname()
   const [ID, setID] = useState<string>()
@@ -75,15 +81,17 @@ export function KategoriPublish({
           className="w-1/3 phones:w-full"
           search={search}
         />
-        <Link
-          to="tambah"
-          className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
-        >
-          <FontAwesomeIcon icon={faPlus} />
-          <p className="phones:hidden">
-            Tambah {convertSlugToText(secondPathname)} Baru
-          </p>
-        </Link>
+        {isTambah && (
+          <Link
+            to="tambah"
+            className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
+          >
+            <FontAwesomeIcon icon={faPlus} />
+            <p className="phones:hidden">
+              Tambah {convertSlugToText(secondPathname)} Baru
+            </p>
+          </Link>
+        )}
       </div>
       {loadingKategori ? (
         <Loading />
@@ -131,58 +139,68 @@ export function KategoriPublish({
                             Detail {convertSlugToText(secondPathname)}
                           </p>
                         </Link>
-                        <Link
-                          to="edit"
-                          onClick={() => {
-                            localStorage.setItem('editID', item?.id)
-                          }}
-                          className="flex items-center gap-12 text-nowrap rounded-2xl border border-warna-dark px-24 py-12 hover:bg-warna-dark hover:text-white"
-                        >
-                          <FontAwesomeIcon icon={faPencil} />
-                          <p className="phones:hidden">
-                            Edit {convertSlugToText(secondPathname)}
-                          </p>
-                        </Link>
-                        <button
-                          className={clsx(
-                            'flex items-center gap-12 text-nowrap rounded-2xl px-24 py-12 text-white hover:bg-opacity-80 hover:text-white',
-                            {
-                              'bg-warna-dark': item?.publish === '0',
-                              'bg-warna-grey': item?.publish === '1',
-                            },
-                          )}
-                          type="button"
-                          onClick={() => {
-                            setIsShowPublish(true)
-                            setPublish(item?.publish)
-                            setID(item?.id)
-                          }}
-                        >
-                          <FontAwesomeIcon
-                            icon={
-                              item?.publish === '1' ? faClipboard : faNewspaper
-                            }
-                          />
-                          <p className="phones:hidden">
-                            {item?.publish === '1' ? 'Draft' : 'Publish'}
-                          </p>
-                        </button>
-                        <button
-                          className={clsx(
-                            'flex items-center gap-12 text-nowrap rounded-2xl bg-warna-red px-24 py-12 text-white hover:bg-opacity-80 hover:text-white',
-                            {
-                              hidden: isPublish,
-                            },
-                          )}
-                          type="button"
-                          onClick={() => {
-                            setIsShowDelete(true)
-                            setID(item?.id)
-                          }}
-                        >
-                          <FontAwesomeIcon icon={faTrash} />
-                          <p className="phones:hidden">Hapus</p>
-                        </button>
+                        {isUbah && (
+                          <Link
+                            to="edit"
+                            onClick={() => {
+                              localStorage.setItem('editID', item?.id)
+                            }}
+                            className="flex items-center gap-12 text-nowrap rounded-2xl border border-warna-dark px-24 py-12 hover:bg-warna-dark hover:text-white"
+                          >
+                            <FontAwesomeIcon icon={faPencil} />
+                            <p className="phones:hidden">
+                              Edit {convertSlugToText(secondPathname)}
+                            </p>
+                          </Link>
+                        )}
+                        {isUbah && (
+                          <button
+                            disabled={!isUbah}
+                            className={clsx(
+                              'flex items-center gap-12 text-nowrap rounded-2xl px-24 py-12 text-white hover:bg-opacity-80 hover:text-white disabled:cursor-not-allowed',
+                              {
+                                'bg-warna-dark': item?.publish === '0',
+                                'bg-warna-grey': item?.publish === '1',
+                              },
+                            )}
+                            type="button"
+                            onClick={() => {
+                              setIsShowPublish(true)
+                              setPublish(item?.publish)
+                              setID(item?.id)
+                            }}
+                          >
+                            <FontAwesomeIcon
+                              icon={
+                                item?.publish === '1'
+                                  ? faClipboard
+                                  : faNewspaper
+                              }
+                            />
+                            <p className="phones:hidden">
+                              {item?.publish === '1' ? 'Draft' : 'Publish'}
+                            </p>
+                          </button>
+                        )}
+                        {isHapus && (
+                          <button
+                            disabled={!isHapus}
+                            className={clsx(
+                              'flex items-center gap-12 text-nowrap rounded-2xl bg-warna-red px-24 py-12 text-white hover:bg-opacity-80 hover:text-white disabled:cursor-not-allowed',
+                              {
+                                hidden: isPublish,
+                              },
+                            )}
+                            type="button"
+                            onClick={() => {
+                              setIsShowDelete(true)
+                              setID(item?.id)
+                            }}
+                          >
+                            <FontAwesomeIcon icon={faTrash} />
+                            <p className="phones:hidden">Hapus</p>
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>

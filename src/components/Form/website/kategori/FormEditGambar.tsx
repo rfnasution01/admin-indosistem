@@ -21,6 +21,7 @@ export default function FormEditGambar({
   isShow,
   setUrls,
   urls,
+  isUbah,
 }: {
   form: UseFormReturn
   isLoading: boolean
@@ -31,6 +32,7 @@ export default function FormEditGambar({
   isSubmit: boolean
   setUrls: Dispatch<SetStateAction<string>>
   urls: string
+  isUbah: boolean
 }) {
   const { secondPathname } = usePathname()
 
@@ -48,6 +50,20 @@ export default function FormEditGambar({
   const handleUploadFoto = async (file: File) => {
     const formatData = new FormData()
     formatData.append('berkas', file)
+
+    if (!isUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data ini`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
 
     try {
       const res = await uploadFileMutation(formatData)
@@ -118,7 +134,7 @@ export default function FormEditGambar({
                 placeholder="Masukkan judul"
                 className="w-1/2 hover:cursor-not-allowed phones:w-full "
                 type="text"
-                isDisabled={isLoading}
+                isDisabled={isLoading || !isUbah}
               />
               <div className="w-1/2 phones:hidden" />
             </div>
@@ -131,7 +147,7 @@ export default function FormEditGambar({
                 placeholder="Masukkan keterangan"
                 className="w-1/2 hover:cursor-not-allowed phones:w-full "
                 type="text"
-                isDisabled={isLoading}
+                isDisabled={isLoading || !isUbah}
               />
               <div className="w-1/2 phones:hidden" />
             </div>
@@ -145,11 +161,13 @@ export default function FormEditGambar({
             loadingFile={loadingFile}
             name="url_gambar"
             handleUploadFoto={handleUploadFoto}
+            isDisabled={!isUbah}
           />
 
           <div className="flex justify-end">
             <button
               type="submit"
+              disabled={!isUbah}
               onClick={async () => {
                 const isValid = await form.trigger()
 
@@ -157,7 +175,7 @@ export default function FormEditGambar({
                   setIsShow(true)
                 }
               }}
-              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white"
+              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white disabled:cursor-not-allowed"
             >
               <p>Simpan</p>
               {isLoading ? (

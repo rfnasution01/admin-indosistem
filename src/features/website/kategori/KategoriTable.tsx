@@ -41,6 +41,9 @@ export function KategoriTable({
   setIsShowPublish,
   handleSubmitPublish,
   form,
+  isUbah,
+  isHapus,
+  isTambah,
 }: {
   data: GetKategoriType[]
   meta: Meta
@@ -61,6 +64,9 @@ export function KategoriTable({
   isShowPublish: boolean
   isLoadingPublish: boolean
   form: UseFormReturn
+  isUbah: boolean
+  isHapus: boolean
+  isTambah: boolean
 }) {
   const { secondPathname } = usePathname()
 
@@ -122,15 +128,17 @@ export function KategoriTable({
             </form>
           </Form>
         </div>
-        <Link
-          to="tambah"
-          className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
-        >
-          <FontAwesomeIcon icon={faPlus} />
-          <p className="phones:hidden">
-            Tambah {convertSlugToText(secondPathname)} Baru
-          </p>
-        </Link>
+        {isTambah && (
+          <Link
+            to="tambah"
+            className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
+          >
+            <FontAwesomeIcon icon={faPlus} />
+            <p className="phones:hidden">
+              Tambah {convertSlugToText(secondPathname)} Baru
+            </p>
+          </Link>
+        )}
       </div>
       <TableKategori
         data={data}
@@ -149,6 +157,8 @@ export function KategoriTable({
         isLoadingPublish={isLoadingPublish}
         setIsShowPublish={setIsShowPublish}
         isShowPublish={isShowPublish}
+        isHapus={isHapus}
+        isUbah={isUbah}
       />
       <div className="flex justify-end">
         <div className="flex items-center gap-32">
