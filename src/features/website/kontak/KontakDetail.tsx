@@ -11,7 +11,7 @@ import { usePathname } from '@/hooks/usePathname'
 import { Loading } from '@/components/Loading'
 import { KontakData } from './KontakData'
 
-export function KontakDetail() {
+export function KontakDetail({ isUbah }: { isUbah: boolean }) {
   const navigate = useNavigate()
   const { secondPathname } = usePathname()
 
@@ -62,15 +62,17 @@ export function KontakDetail() {
   return (
     <div className="flex w-full flex-col gap-32">
       <div className="flex w-full items-center justify-end gap-32">
-        <Link
-          to="edit"
-          className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
-        >
-          <FontAwesomeIcon icon={faPencil} />
-          <p className="phones:hidden">
-            Perbaharui Data {convertSlugToText(secondPathname)}
-          </p>
-        </Link>
+        {isUbah && (
+          <Link
+            to="edit"
+            className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
+          >
+            <FontAwesomeIcon icon={faPencil} />
+            <p className="phones:hidden">
+              Perbaharui Data {convertSlugToText(secondPathname)}
+            </p>
+          </Link>
+        )}
       </div>
       {loadingKontak ? (
         <Loading />

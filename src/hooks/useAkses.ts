@@ -2,6 +2,7 @@ import { useGetMenuWebsiteQuery } from '@/store/slices/website/menuAPI'
 import { GetMenuWebsiteType } from '@/types/website/menuType'
 import { useEffect, useState } from 'react'
 import { usePathname } from './usePathname'
+import { convertToSlug } from '@/utils/formatText'
 
 export function useAkses() {
   const { secondPathname, thirdPathname } = usePathname()
@@ -19,7 +20,7 @@ export function useAkses() {
       ? `${secondPathname}/${thirdPathname}`
       : `${secondPathname}`
 
-  const hakAkses = menuUtama?.find((item) => item?.link === path)
+  const hakAkses = menuUtama?.find((item) => convertToSlug(item?.link) === path)
   const isHakAksesHapus = hakAkses?.hapus === '1'
   const isHakAksesUbah = hakAkses?.ubah === '1'
   const isHakAksesTambah = hakAkses?.ubah === '1'

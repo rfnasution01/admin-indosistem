@@ -4,8 +4,11 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { KontakDetail, KontakTab } from '@/features/website/kontak'
 import { PesanMasukTable } from '@/features/website/kontak/Pesan'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function Kontak() {
+  const { isHakAksesUbah } = useAkses()
+
   const [menu, setMenu] = useState<string>('Kontak')
 
   return (
@@ -16,7 +19,7 @@ export default function Kontak() {
 
       <div className="scrollbar flex h-full flex-1 overflow-y-auto px-48 pb-0">
         {menu === `Kontak` ? (
-          <KontakDetail />
+          <KontakDetail isUbah={isHakAksesUbah} />
         ) : menu === 'Pesan Masuk' ? (
           <PesanMasukTable />
         ) : (
