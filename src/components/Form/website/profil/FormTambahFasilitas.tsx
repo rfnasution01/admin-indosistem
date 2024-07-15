@@ -23,6 +23,9 @@ export default function FormTambahFasilitas({
   setIsSubmit,
   isSubmit,
   isShow,
+  isEdit,
+  isUbah,
+  isTambah,
 }: {
   form: UseFormReturn
   isLoading: boolean
@@ -33,6 +36,9 @@ export default function FormTambahFasilitas({
   isShow: boolean
   isSubmit: boolean
   urls: string
+  isUbah: boolean
+  isTambah: boolean
+  isEdit?: boolean
 }) {
   // --- Upload File ---
   const [
@@ -48,6 +54,20 @@ export default function FormTambahFasilitas({
   const handleUploadFoto = async (file: File) => {
     const formatData = new FormData()
     formatData.append('berkas', file)
+
+    if ((isEdit && !isUbah) || (!isEdit && !isTambah)) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
 
     try {
       const res = await uploadFileMutation(formatData)
@@ -102,6 +122,11 @@ export default function FormTambahFasilitas({
     }
   }, [isErrorFile, errorFile])
 
+  const disableEdit = !(isEdit && isUbah)
+  const disableTambah = !(!isEdit && isTambah)
+
+  const disabled = isEdit ? disableEdit : disableTambah
+
   return (
     <div>
       <Form {...form}>
@@ -117,7 +142,7 @@ export default function FormTambahFasilitas({
               placeholder="Masukkan nama fasilitas"
               className="w-1/2 hover:cursor-not-allowed phones:w-full "
               type="text"
-              isDisabled={isLoading}
+              isDisabled={isLoading || disabled}
             />
             <div className="w-1/2 phones:hidden" />
           </div>
@@ -140,7 +165,7 @@ export default function FormTambahFasilitas({
               placeholder="Masukkan alamat fasilitas"
               className="w-1/2 hover:cursor-not-allowed phones:w-full "
               type="text"
-              isDisabled={isLoading}
+              isDisabled={isLoading || disabled}
             />
             <FormLabelInput
               name={`telepon`}
@@ -150,7 +175,7 @@ export default function FormTambahFasilitas({
               className="w-1/2 hover:cursor-not-allowed phones:w-full "
               type="text"
               isNumber
-              isDisabled={isLoading}
+              isDisabled={isLoading || disabled}
             />
           </div>
 
@@ -165,7 +190,7 @@ export default function FormTambahFasilitas({
                   form={form}
                   className="w-1/2 hover:cursor-not-allowed phones:w-full "
                   type="time"
-                  isDisabled={isLoading}
+                  isDisabled={isLoading || disabled}
                 />
                 <FormLabelInput
                   name={`jam_selesai`}
@@ -173,7 +198,7 @@ export default function FormTambahFasilitas({
                   className="w-1/2 hover:cursor-not-allowed phones:w-full "
                   type="time"
                   isNumber
-                  isDisabled={isLoading}
+                  isDisabled={isLoading || disabled}
                 />
               </div>
             </div>
@@ -189,11 +214,13 @@ export default function FormTambahFasilitas({
             loadingFile={loadingFile}
             name="photo"
             handleUploadFoto={handleUploadFoto}
+            isDisabled={disabled}
           />
 
           <div className="flex justify-end">
             <button
               type="submit"
+              disabled={isLoading || disabled}
               onClick={async () => {
                 const isValid = await form.trigger()
 
@@ -201,7 +228,7 @@ export default function FormTambahFasilitas({
                   setIsShow(true)
                 }
               }}
-              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white"
+              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white disabled:cursor-not-allowed"
             >
               <p>Simpan</p>
               {isLoading ? (

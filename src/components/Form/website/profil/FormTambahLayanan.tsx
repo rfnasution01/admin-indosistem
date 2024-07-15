@@ -173,7 +173,7 @@ export default function FormTambahLayanan({
             loadingFile={loadingFile}
             name="icon"
             handleUploadFoto={handleUploadFoto}
-            isDisabled={!isTambah}
+            isDisabled={disabled}
           />
 
           <div className="flex justify-end">

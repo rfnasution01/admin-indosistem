@@ -185,7 +185,7 @@ export default function FormTambahProgram({
             loadingFile={loadingFile}
             name="photo"
             handleUploadFoto={handleUploadFoto}
-            isDisabled={!isTambah}
+            isDisabled={disabled}
           />
 
           <div className="flex justify-end">

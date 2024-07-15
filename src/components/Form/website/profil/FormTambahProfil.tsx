@@ -64,6 +64,7 @@ export default function FormTambahProfil({
   const handleUploadFoto = async (file: File) => {
     const formatData = new FormData()
     formatData.append('berkas', file)
+
     if ((isEdit && !isUbah) || (!isEdit && !isTambah)) {
       toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
         position: 'bottom-right',
@@ -237,7 +238,7 @@ export default function FormTambahProfil({
             loadingFile={loadingFile}
             name="berkas"
             handleUploadFoto={handleUploadFoto}
-            isDisabled={!isUbah}
+            isDisabled={disabled}
           />
 
           <div className="flex justify-end">

@@ -21,6 +21,8 @@ type Props<T> = {
   isShowDelete: boolean
   isLoadingDelete: boolean
   editID?: string
+  isUbah?: boolean
+  isHapus?: boolean
 }
 
 export function MenubarAction<T extends Fasilitas>({
@@ -30,6 +32,8 @@ export function MenubarAction<T extends Fasilitas>({
   isLoadingDelete,
   isShowDelete,
   editID,
+  isHapus,
+  isUbah,
 }: Props<T>) {
   const { thirdPathname } = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -97,28 +101,32 @@ export function MenubarAction<T extends Fasilitas>({
                   <p>Edit</p>
                 </Link>
               ) : (
-                <Link
-                  to={'edit'}
-                  onClick={() => {
-                    localStorage.setItem('editID', data?.id)
-                    localStorage.setItem('editData', JSON.stringify(data))
-                  }}
-                  className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 hover:border-warna-dark hover:bg-warna-dark hover:bg-opacity-10"
-                >
-                  <FontAwesomeIcon icon={faPencil} />
-                  <p>Edit</p>
-                </Link>
+                isUbah && (
+                  <Link
+                    to={'edit'}
+                    onClick={() => {
+                      localStorage.setItem('editID', data?.id)
+                      localStorage.setItem('editData', JSON.stringify(data))
+                    }}
+                    className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 hover:border-warna-dark hover:bg-warna-dark hover:bg-opacity-10"
+                  >
+                    <FontAwesomeIcon icon={faPencil} />
+                    <p>Edit</p>
+                  </Link>
+                )
               )}
-              <button
-                className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 text-warna-red hover:border-warna-red hover:bg-warna-red hover:bg-opacity-10"
-                type="button"
-                onClick={() => {
-                  setIsShowDelete(true)
-                }}
-              >
-                <FontAwesomeIcon icon={faTrash} />
-                <p>Hapus</p>
-              </button>
+              {isHapus && (
+                <button
+                  className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 text-warna-red hover:border-warna-red hover:bg-warna-red hover:bg-opacity-10"
+                  type="button"
+                  onClick={() => {
+                    setIsShowDelete(true)
+                  }}
+                >
+                  <FontAwesomeIcon icon={faTrash} />
+                  <p>Hapus</p>
+                </button>
+              )}
               <ValidasiDelete
                 isOpen={isShowDelete}
                 setIsOpen={setIsShowDelete}

@@ -11,9 +11,11 @@ import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
 import { useCreateFasilitasMutation } from '@/store/slices/website/profilAPI/fasilitasAPI'
 import { FasilitasSekolahSchema } from '@/schemas/website/fasilitasSekolahSchema'
 import FormTambahFasilitas from '@/components/Form/website/profil/FormTambahFasilitas'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function TambahFasilitasSekolah() {
   const navigate = useNavigate()
+  const { isHakAksesTambah, isHakAksesUbah } = useAkses()
 
   const { lastPathname, thirdPathname } = usePathname()
 
@@ -55,6 +57,23 @@ export default function TambahFasilitasSekolah() {
           : '-',
       alamat: values?.alamat ?? '',
       telepon: values?.telepon ?? '',
+    }
+
+    if ((isEdit && !isHakAksesUbah) || (!isEdit && !isHakAksesTambah)) {
+      toast.error(
+        `Maaf, anda tidak memiliki akses untuk ${isEdit ? 'mengubah' : 'menambah'} data`,
+        {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        },
+      )
     }
 
     if (isSubmit && isShow) {
@@ -149,6 +168,9 @@ export default function TambahFasilitasSekolah() {
           setIsSubmit={setIsSubmit}
           isShow={isShow}
           isSubmit={isSubmit}
+          isEdit={isEdit}
+          isTambah={isHakAksesTambah}
+          isUbah={isHakAksesUbah}
         />
       </div>
       <ToastContainer />
