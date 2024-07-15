@@ -23,6 +23,7 @@ export function FormChat({
   handleUploadFoto,
   handleSubmitChat,
   closeButton,
+  isUbah,
 }: {
   data: KontakMasukDetail
   form: UseFormReturn
@@ -33,6 +34,7 @@ export function FormChat({
   handleUploadFoto: (file: File) => Promise<void>
   handleSubmitChat: () => Promise<void>
   closeButton: ReactNode
+  isUbah: boolean
 }) {
   useEffect(() => {
     if (dir && dir.length > 0) {
@@ -58,6 +60,7 @@ export function FormChat({
               <FormField
                 name="berkas"
                 control={form.control}
+                disabled={!isUbah}
                 render={({ field }) => (
                   <FormItem className="flex flex-col space-y-2">
                     <FormControl>
@@ -68,7 +71,7 @@ export function FormChat({
                           id="berkas"
                           type="file"
                           value={''}
-                          disabled={isLoadingUpload || loadingFile}
+                          disabled={isLoadingUpload || loadingFile || !isUbah}
                           placeholder="Lampiran"
                           onChange={(e) => {
                             if (e.target.files[0].size > 5 * 1000000) {
@@ -121,12 +124,14 @@ export function FormChat({
                 placeholder="Ketikka pesan anda"
                 type="text"
                 className="w-full"
+                isDisabled={!isUbah}
               />
             </div>
             <div className="flex items-center gap-24">
               <button
+                disabled={!isUbah}
                 type="submit"
-                className="rounded-2xl bg-[#1B2F69] px-32 py-16 text-white hover:bg-opacity-80 phones:w-full"
+                className="rounded-2xl bg-[#1B2F69] px-32 py-16 text-white hover:bg-opacity-80 disabled:cursor-not-allowed phones:w-full"
               >
                 Kirim
               </button>

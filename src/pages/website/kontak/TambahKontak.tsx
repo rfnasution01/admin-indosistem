@@ -16,9 +16,11 @@ import {
 import FormTambahKontak from '@/components/Form/website/kontak/FormTambahKontak'
 import { GetKontakType } from '@/types/website/profil/kontakType'
 import Cookies from 'js-cookie'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function TambahKontak() {
   const navigate = useNavigate()
+  const { isHakAksesUbah } = useAkses()
 
   const { lastPathname, secondPathname } = usePathname()
 
@@ -109,6 +111,20 @@ export default function TambahKontak() {
       email: values?.email,
       latitude: values?.latitude,
       longitude: values?.longitude,
+    }
+
+    if (!isHakAksesUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
     }
 
     if (isSubmit && isShow) {
@@ -216,6 +232,7 @@ export default function TambahKontak() {
           setIsSubmit={setIsSubmit}
           isShow={isShow}
           isSubmit={isSubmit}
+          isUbah={isHakAksesUbah}
         />
       </div>
       <ToastContainer />

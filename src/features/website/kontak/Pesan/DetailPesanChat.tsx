@@ -26,6 +26,7 @@ export function DetailPesanChat({
   isLoadingClose,
   isShow,
   setIsShow,
+  isUbah,
 }: {
   chat: ChatType[]
   tiket: KontakMasukDetail
@@ -43,6 +44,7 @@ export function DetailPesanChat({
   isLoadingClose: boolean
   isShow: boolean
   setIsShow: Dispatch<SetStateAction<boolean>>
+  isUbah: boolean
 }) {
   return (
     <div className="scrollbar h-full w-2/3 overflow-y-auto py-32 pl-32 phones:h-auto phones:w-full phones:overflow-visible">
@@ -119,6 +121,7 @@ export function DetailPesanChat({
             loadingFile={loadingFile}
             handleSubmitChat={handleSubmitChat}
             isLoadingUpload={isLoadingChat}
+            isUbah={isUbah}
             closeButton={
               <FormClose
                 handleSubmitClose={handleSubmitClose}
@@ -127,6 +130,7 @@ export function DetailPesanChat({
                 data={tiket}
                 setIsShow={setIsShow}
                 isShow={isShow}
+                isUbah={isUbah}
               />
             }
           />

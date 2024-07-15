@@ -11,6 +11,7 @@ export function FormClose({
   handleSubmitClose,
   isShow,
   setIsShow,
+  isUbah,
 }: {
   data: KontakMasukDetail
   form: UseFormReturn
@@ -18,6 +19,7 @@ export function FormClose({
   handleSubmitClose: () => Promise<void>
   isShow: boolean
   setIsShow: Dispatch<SetStateAction<boolean>>
+  isUbah: boolean
 }) {
   return (
     <>
@@ -25,8 +27,8 @@ export function FormClose({
         <button
           type="button"
           onClick={() => setIsShow(true)}
-          disabled={loadingClose || data?.status === 2}
-          className={`${data?.status === 2 ? 'cursor-not-allowed bg-opacity-50' : 'hover:bg-opacity-80'} text-nowrap rounded-2xl bg-rose-800 px-32 py-16 text-white  phones:w-full`}
+          disabled={loadingClose || data?.status === 2 || !isUbah}
+          className={`${data?.status === 2 ? 'cursor-not-allowed bg-opacity-50' : 'hover:bg-opacity-80'} text-nowrap rounded-2xl bg-rose-800 px-32 py-16 text-white disabled:cursor-not-allowed  phones:w-full`}
         >
           Tutup Tiket
         </button>

@@ -18,9 +18,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { ChatSchema, CloseSchema } from '@/schemas/website/pesanSchema'
 import { useCreateFileMutation } from '@/store/slices/referensiAPI'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function DetailKotakMasuk() {
   const navigate = useNavigate()
+  const { isHakAksesUbah } = useAkses()
 
   const editId = localStorage.getItem('editID')
 
@@ -99,6 +101,20 @@ export default function DetailKotakMasuk() {
     const formatData = new FormData()
     formatData.append('berkas', file)
 
+    if (!isHakAksesUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       const res = await uploadFileMutation(formatData)
       setDir([...dir, res?.data?.url])
@@ -160,6 +176,21 @@ export default function DetailKotakMasuk() {
       isi: values?.isi,
       lampiran: urls,
     }
+
+    if (!isHakAksesUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await createChat({ body: body })
     } catch (error) {
@@ -220,6 +251,21 @@ export default function DetailKotakMasuk() {
     const body = {
       id: editId ?? '',
     }
+
+    if (!isHakAksesUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await createClose({ body: body })
     } catch (error) {
@@ -287,6 +333,7 @@ export default function DetailKotakMasuk() {
             tiket={detail}
             isShow={isShow}
             setIsShow={setIsShow}
+            isUbah={isHakAksesUbah}
           />
         </div>
       )}

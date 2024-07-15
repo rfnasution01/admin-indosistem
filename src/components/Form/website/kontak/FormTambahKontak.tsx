@@ -15,6 +15,7 @@ export default function FormTambahKontak({
   setIsSubmit,
   isSubmit,
   isShow,
+  isUbah,
 }: {
   form: UseFormReturn
   isLoading: boolean
@@ -23,9 +24,8 @@ export default function FormTambahKontak({
   setIsShow: Dispatch<SetStateAction<boolean>>
   isShow: boolean
   isSubmit: boolean
+  isUbah: boolean
 }) {
-  console.log(form.watch())
-
   return (
     <div className="w-full">
       <Form {...form}>
@@ -45,7 +45,7 @@ export default function FormTambahKontak({
                 placeholder="Masukkan alamat"
                 className="w-1/2 hover:cursor-not-allowed phones:w-full "
                 type="text"
-                isDisabled={isLoading}
+                isDisabled={isLoading || !isUbah}
               />
 
               <FormLabelInput
@@ -55,7 +55,7 @@ export default function FormTambahKontak({
                 placeholder="Masukkan kota"
                 className="w-1/2 hover:cursor-not-allowed phones:w-full "
                 type="text"
-                isDisabled={isLoading}
+                isDisabled={isLoading || !isUbah}
               />
             </div>
             <div className="flex gap-64 phones:flex-col phones:gap-32">
@@ -66,7 +66,7 @@ export default function FormTambahKontak({
                 placeholder="Masukkan latitude"
                 className="w-1/2 hover:cursor-not-allowed phones:w-full "
                 type="text"
-                isDisabled={isLoading}
+                isDisabled={isLoading || !isUbah}
               />
 
               <FormLabelInput
@@ -76,7 +76,7 @@ export default function FormTambahKontak({
                 placeholder="Masukkan longitude"
                 className="w-1/2 hover:cursor-not-allowed phones:w-full "
                 type="text"
-                isDisabled={isLoading}
+                isDisabled={isLoading || !isUbah}
               />
             </div>
           </div>
@@ -93,7 +93,7 @@ export default function FormTambahKontak({
                 placeholder="Masukkan whatsapp"
                 className="w-1/2 hover:cursor-not-allowed phones:w-full "
                 type="text"
-                isDisabled={isLoading}
+                isDisabled={isLoading || !isUbah}
               />
 
               <FormLabelInput
@@ -103,7 +103,7 @@ export default function FormTambahKontak({
                 placeholder="Masukkan facebook"
                 className="w-1/2 hover:cursor-not-allowed phones:w-full "
                 type="text"
-                isDisabled={isLoading}
+                isDisabled={isLoading || !isUbah}
               />
             </div>
             <div className="flex gap-64 phones:flex-col phones:gap-32">
@@ -114,7 +114,7 @@ export default function FormTambahKontak({
                 placeholder="Masukkan twitter"
                 className="w-1/2 hover:cursor-not-allowed phones:w-full "
                 type="text"
-                isDisabled={isLoading}
+                isDisabled={isLoading || !isUbah}
               />
 
               <FormLabelInput
@@ -124,7 +124,7 @@ export default function FormTambahKontak({
                 placeholder="Masukkan instagram"
                 className="w-1/2 hover:cursor-not-allowed phones:w-full "
                 type="text"
-                isDisabled={isLoading}
+                isDisabled={isLoading || !isUbah}
               />
             </div>
             <div className="flex gap-64 phones:flex-col phones:gap-32">
@@ -135,7 +135,7 @@ export default function FormTambahKontak({
                 placeholder="Masukkan youtube"
                 className="w-1/2 hover:cursor-not-allowed phones:w-full "
                 type="text"
-                isDisabled={isLoading}
+                isDisabled={isLoading || !isUbah}
               />
 
               <FormLabelInput
@@ -145,7 +145,7 @@ export default function FormTambahKontak({
                 placeholder="Masukkan telegram"
                 className="w-1/2 hover:cursor-not-allowed phones:w-full "
                 type="text"
-                isDisabled={isLoading}
+                isDisabled={isLoading || !isUbah}
               />
             </div>
             <div className="flex gap-64 phones:flex-col phones:gap-32">
@@ -156,7 +156,7 @@ export default function FormTambahKontak({
                 placeholder="Masukkan tiktok"
                 className="w-1/2 hover:cursor-not-allowed phones:w-full "
                 type="text"
-                isDisabled={isLoading}
+                isDisabled={isLoading || !isUbah}
               />
 
               <div className="w-1/2 phones:hidden" />
@@ -175,7 +175,7 @@ export default function FormTambahKontak({
                 placeholder="Masukkan telepon"
                 className="w-1/2 hover:cursor-not-allowed phones:w-full "
                 type="text"
-                isDisabled={isLoading}
+                isDisabled={isLoading || !isUbah}
                 isNumber
               />
 
@@ -186,7 +186,7 @@ export default function FormTambahKontak({
                 placeholder="Masukkan email"
                 className="w-1/2 hover:cursor-not-allowed phones:w-full "
                 type="email"
-                isDisabled={isLoading}
+                isDisabled={isLoading || !isUbah}
               />
             </div>
             <div className="flex gap-64 phones:flex-col phones:gap-32">
@@ -200,7 +200,7 @@ export default function FormTambahKontak({
                     form={form}
                     className="w-1/2 hover:cursor-not-allowed phones:w-full "
                     type="time"
-                    isDisabled={isLoading}
+                    isDisabled={isLoading || !isUbah}
                   />
                   <p>s/d</p>
 
@@ -210,7 +210,7 @@ export default function FormTambahKontak({
                     className="w-1/2 hover:cursor-not-allowed phones:w-full "
                     type="time"
                     isNumber
-                    isDisabled={isLoading}
+                    isDisabled={isLoading || !isUbah}
                   />
                 </div>
               </div>
@@ -225,7 +225,7 @@ export default function FormTambahKontak({
                     form={form}
                     className="w-1/2 hover:cursor-not-allowed phones:w-full "
                     type="time"
-                    isDisabled={isLoading}
+                    isDisabled={isLoading || !isUbah}
                   />
                   <p>s/d</p>
                   <FormLabelInput
@@ -234,7 +234,7 @@ export default function FormTambahKontak({
                     className="w-1/2 hover:cursor-not-allowed phones:w-full "
                     type="time"
                     isNumber
-                    isDisabled={isLoading}
+                    isDisabled={isLoading || !isUbah}
                   />
                 </div>
               </div>
@@ -244,6 +244,7 @@ export default function FormTambahKontak({
           <div className="flex justify-end">
             <button
               type="submit"
+              disabled={isLoading || !isUbah}
               onClick={async () => {
                 const isValid = await form.trigger()
 
@@ -251,7 +252,7 @@ export default function FormTambahKontak({
                   setIsShow(true)
                 }
               }}
-              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white"
+              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white disabled:cursor-not-allowed"
             >
               <p>Simpan</p>
               {isLoading ? (
