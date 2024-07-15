@@ -18,9 +18,13 @@ import {
   VisiMisiMain,
   VisiMisiTab,
 } from '@/features/website/profil/visiMisiSekolah'
+import { GetMenuWebsiteType } from '@/types/website/menuType'
+import { useGetMenuWebsiteQuery } from '@/store/slices/website/menuAPI'
+import { getPaths, usePathname } from '@/hooks/usePathname'
 
 export default function VisiMisi() {
   const navigate = useNavigate()
+  const { pathname } = usePathname()
 
   const [menu, setMenu] = useState<string>('Preview')
   const [urls, setUrls] = useState<string>()
@@ -31,6 +35,20 @@ export default function VisiMisi() {
     resolver: zodResolver(TentangSekolahSchema),
     defaultValues: {},
   })
+
+  const [menuUtama, setMenuUtama] = useState<GetMenuWebsiteType[]>([])
+  const { data } = useGetMenuWebsiteQuery()
+
+  useEffect(() => {
+    if (data) {
+      setMenuUtama(data?.data)
+    }
+  }, [data])
+
+  const path = getPaths(pathname.slice(1, pathname?.length))
+
+  const hakAkses = menuUtama?.find((item) => item?.link === path)
+  const isHakAksesUbah = hakAkses?.ubah === '1'
 
   // --- Data VisiMisi ---
   const [dataVisiMisi, setDataVisiMisi] = useState<ProfilSekolahType[]>()
@@ -111,6 +129,20 @@ export default function VisiMisi() {
       list: values?.list ?? [],
     }
 
+    if (!isHakAksesUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     if (isSubmit && isShow) {
       try {
         await createTambahProfil({ body: body })
@@ -181,7 +213,11 @@ export default function VisiMisi() {
           </div>
           <div className="scrollbar flex h-full flex-1 overflow-y-auto px-48 pb-48">
             {menu === 'Preview' ? (
-              <VisiMisiMain data={dataVisiMisi} setMenu={setMenu} />
+              <VisiMisiMain
+                data={dataVisiMisi}
+                setMenu={setMenu}
+                isUbah={isHakAksesUbah}
+              />
             ) : menu === 'Visi' || menu === 'Misi' ? (
               <div className="scrollbar flex flex-1 flex-col gap-32 overflow-y-auto ">
                 <p className="font-roboto text-[2.4rem] text-warna-dark">
@@ -199,6 +235,8 @@ export default function VisiMisi() {
                   isSubmit={isSubmit}
                   isEdit
                   menu={menu}
+                  isTambah={false}
+                  isUbah={isHakAksesUbah}
                 />
               </div>
             ) : (

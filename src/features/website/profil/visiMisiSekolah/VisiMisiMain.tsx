@@ -6,9 +6,11 @@ import { PreviewProfil } from '../tentangSekolah'
 export function VisiMisiMain({
   data,
   setMenu,
+  isUbah,
 }: {
   data: ProfilSekolahType[]
   setMenu: Dispatch<SetStateAction<string>>
+  isUbah?: boolean
 }) {
   return (
     <div className="flex w-full flex-col gap-32 text-[2rem]">
@@ -19,7 +21,11 @@ export function VisiMisiMain({
             key={idx}
             className="flex w-full flex-col gap-32 rounded-2x bg-warna-pale-blue p-32 text-warna-dark phones:bg-transparent phones:p-0"
           >
-            <PreviewHeader setMenu={setMenu} jenis={item?.jenis} />
+            <PreviewHeader
+              setMenu={setMenu}
+              jenis={item?.jenis}
+              isUbah={isUbah}
+            />
             <PreviewProfil
               keterangan={item?.keterangan}
               list={item?.list}
