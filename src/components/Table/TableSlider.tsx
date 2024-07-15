@@ -47,6 +47,8 @@ type Props<T extends Slider, P> = {
   isShowStatus?: boolean
   isLoadingStatus?: boolean
   isDetail?: boolean
+  isUbah: boolean
+  isHapus: boolean
 }
 
 export function TableSlider<T extends Slider, P>({
@@ -72,6 +74,8 @@ export function TableSlider<T extends Slider, P>({
   setIsShowStatus,
   isLoadingStatus,
   isShowStatus,
+  isHapus,
+  isUbah,
 }: Props<T, P>) {
   const [rowIsOpen, setRowIsOpen] = useState<number | null>(null)
   const [id, setId] = useState<number>()
@@ -174,6 +178,7 @@ export function TableSlider<T extends Slider, P>({
                             data={row}
                             setId={setId}
                             index={rowIndex}
+                            isUbah={isUbah}
                           />
                         </td>
                       )}
@@ -185,6 +190,8 @@ export function TableSlider<T extends Slider, P>({
                             isLoadingDelete={isLoadingDelete}
                             isShowDelete={isShowDelete}
                             setIsShowDelete={setIsShowDelete}
+                            isHapus={isHapus}
+                            isUbah={isUbah}
                           />
                         </td>
                       )}

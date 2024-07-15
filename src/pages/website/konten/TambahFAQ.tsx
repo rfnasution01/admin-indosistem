@@ -11,9 +11,11 @@ import 'react-toastify/dist/ReactToastify.css'
 import FormTambahFAQ from '@/components/Form/website/konten/FormTambahFAQ'
 import { useCreateFAQMutation } from '@/store/slices/website/kontenAPI/faqAPI'
 import { TambahFAQSchema } from '@/schemas/website/faqSchema'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function UpdateFAQKonten() {
   const navigate = useNavigate()
+  const { isHakAksesUbah, isHakAksesTambah } = useAkses()
 
   const { lastPathname, secondPathname } = usePathname()
 
@@ -49,6 +51,23 @@ export default function UpdateFAQKonten() {
       jawaban: values?.jawaban ?? '',
       urutan: '1',
       id_kategori: values?.id_kategori ?? '',
+    }
+
+    if ((isEdit && !isHakAksesUbah) || (!isEdit && !isHakAksesTambah)) {
+      toast.error(
+        `Maaf, anda tidak memiliki akses untuk ${isEdit ? 'mengubah' : 'menambah'} data`,
+        {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        },
+      )
     }
 
     if (isSubmit && isShow) {
@@ -131,6 +150,9 @@ export default function UpdateFAQKonten() {
           setIsSubmit={setIsSubmit}
           isShow={isShow}
           isSubmit={isSubmit}
+          isEdit={isEdit}
+          isTambah={isHakAksesTambah}
+          isUbah={isHakAksesUbah}
         />
       </div>
       <ToastContainer />

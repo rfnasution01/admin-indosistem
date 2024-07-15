@@ -26,10 +26,12 @@ import {
   useDeleteDownloadMutation,
   useGetDownloadQuery,
 } from '@/store/slices/website/kontenAPI/downloadAPI'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function Download() {
   const navigate = useNavigate()
   const { thirdPathname } = usePathname()
+  const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } = useAkses()
 
   const [search, setSearch] = useState<string>('')
   const [pageNumber, setPageNumber] = useState<number>(1)
@@ -101,6 +103,20 @@ export default function Download() {
   ] = useDeleteDownloadMutation()
 
   const handleSubmitDelete = async (id: string) => {
+    if (!isHakAksesHapus) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk menghapus data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await deleteDownload({ id: id })
     } catch (error) {
@@ -159,6 +175,21 @@ export default function Download() {
       id: id,
       aktif: status === 0 ? 1 : 0,
     }
+
+    if (!isHakAksesUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await statusDownload({ body: body })
     } catch (error) {
@@ -231,15 +262,17 @@ export default function Download() {
               </form>
             </Form>
           </div>
-          <Link
-            to="tambah"
-            className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
-          >
-            <FontAwesomeIcon icon={faPlus} />
-            <p className="phones:hidden">
-              Tambah {convertSlugToText(thirdPathname)} Baru
-            </p>
-          </Link>
+          {isHakAksesTambah && (
+            <Link
+              to="tambah"
+              className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
+            >
+              <FontAwesomeIcon icon={faPlus} />
+              <p className="phones:hidden">
+                Tambah {convertSlugToText(thirdPathname)} Baru
+              </p>
+            </Link>
+          )}
         </div>
         {loadingDownload ? (
           <Loading />
@@ -261,6 +294,8 @@ export default function Download() {
               isLoadingStatus={isLoadingStatusDownload}
               setIsShowStatus={setIsShowStatus}
               isShowStatus={isShowStatus}
+              isHapus={isHakAksesHapus}
+              isUbah={isHakAksesUbah}
               isDetail
             />
             <div className="flex justify-end">

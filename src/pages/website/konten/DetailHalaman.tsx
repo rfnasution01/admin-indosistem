@@ -11,10 +11,12 @@ import 'react-toastify/dist/ReactToastify.css'
 import DefaultImg from '@/assets/images/default.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function DetailHalaman() {
   const navigate = useNavigate()
   const { secondPathname } = usePathname()
+  const { isHakAksesUbah } = useAkses()
 
   const id = localStorage.getItem('editID') ?? null
 
@@ -95,20 +97,22 @@ export default function DetailHalaman() {
                 {dataDetailHalaman?.judul && (
                   <p className="font-roboto">{dataDetailHalaman?.judul}</p>
                 )}
-                <Link
-                  to={`/website/${secondPathname}/halaman/edit`}
-                  onClick={() => {
-                    localStorage.setItem('editID', dataDetailHalaman?.id)
-                    localStorage.setItem(
-                      'editData',
-                      JSON.stringify(dataDetailHalaman),
-                    )
-                  }}
-                  className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-12 text-[1.8rem] text-white hover:bg-opacity-80"
-                >
-                  <FontAwesomeIcon icon={faPencil} />
-                  <p>Perbaharui Data</p>
-                </Link>
+                {isHakAksesUbah && (
+                  <Link
+                    to={`/website/${secondPathname}/halaman/edit`}
+                    onClick={() => {
+                      localStorage.setItem('editID', dataDetailHalaman?.id)
+                      localStorage.setItem(
+                        'editData',
+                        JSON.stringify(dataDetailHalaman),
+                      )
+                    }}
+                    className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-12 text-[1.8rem] text-white hover:bg-opacity-80"
+                  >
+                    <FontAwesomeIcon icon={faPencil} />
+                    <p>Perbaharui Data</p>
+                  </Link>
+                )}
               </div>
               <div className="flex flex-wrap items-center  gap-24">
                 {dataDetailHalaman?.jenis && (

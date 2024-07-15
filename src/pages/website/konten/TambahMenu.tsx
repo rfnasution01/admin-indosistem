@@ -11,11 +11,12 @@ import 'react-toastify/dist/ReactToastify.css'
 import { TambahMenuSchema } from '@/schemas/website/menuSchema'
 import { useCreateMenuKontenMutation } from '@/store/slices/website/menuKontenAPI'
 import FormTambahMenu from '@/components/Form/website/konten/FormTambahMenu'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function UpdateMenuKonten() {
   const navigate = useNavigate()
-
   const { lastPathname, secondPathname } = usePathname()
+  const { isHakAksesTambah, isHakAksesUbah } = useAkses()
 
   const isEdit = lastPathname === 'edit'
   const idEdit = localStorage.getItem('editID') ?? null
@@ -56,6 +57,23 @@ export default function UpdateMenuKonten() {
       url_gambar: urls ?? '',
       id_parent: values?.id_parent ?? '',
       urutan: values?.urutan ?? '1',
+    }
+
+    if ((isEdit && !isHakAksesUbah) || (!isEdit && !isHakAksesTambah)) {
+      toast.error(
+        `Maaf, anda tidak memiliki akses untuk ${isEdit ? 'mengubah' : 'menambah'} data`,
+        {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        },
+      )
     }
 
     if (isSubmit && isShow) {
@@ -150,6 +168,9 @@ export default function UpdateMenuKonten() {
           isSubmit={isSubmit}
           urls={urls}
           setUrls={setUrls}
+          isEdit={isEdit}
+          isTambah={isHakAksesTambah}
+          isUbah={isHakAksesUbah}
         />
       </div>
       <ToastContainer />

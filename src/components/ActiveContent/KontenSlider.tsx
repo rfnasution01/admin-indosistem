@@ -8,6 +8,7 @@ type Props<T> = {
   setIsShow: Dispatch<SetStateAction<boolean>>
   setId: Dispatch<SetStateAction<number>>
   index: number
+  isUbah: boolean
 }
 
 export function ActiveContentSlider<T extends Slider>({
@@ -15,19 +16,22 @@ export function ActiveContentSlider<T extends Slider>({
   setIsShow,
   setId,
   index,
+  isUbah,
 }: Props<T>) {
   return (
-    <div
+    <button
+      disabled={!isUbah}
       onClick={() => {
         setId(index)
         setIsShow(true)
       }}
+      className="disabled:cursor-not-allowed"
     >
       {Number(data?.aktif) === 1 ? (
         <FontAwesomeIcon icon={faSquareCheck} size="lg" color="green" />
       ) : (
         <FontAwesomeIcon icon={faSquareXmark} size="lg" color="red" />
       )}
-    </div>
+    </button>
   )
 }

@@ -8,9 +8,11 @@ import { Link } from 'react-router-dom'
 export function MenubarDropDownMenu({
   posisi,
   id_parent,
+  isTambah,
 }: {
   posisi: string
   id_parent: string
+  isTambah: boolean
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -33,11 +35,12 @@ export function MenubarDropDownMenu({
     <Menubar className="px-4">
       <MenubarMenu>
         <MenubarTrigger
-          className="w-full transition-all duration-300 hover:cursor-pointer hover:opacity-90 disabled:cursor-not-allowed"
+          className="w-full transition-all duration-300 hover:cursor-pointer hover:opacity-90 disabled:cursor-not-allowed disabled:cursor-not-allowed"
           variant="nothing"
           layout="icon"
           size="fit"
           onClick={handleMenuClick}
+          disabled={!isTambah}
         >
           {loading ? (
             <span className="animate-spin duration-300">

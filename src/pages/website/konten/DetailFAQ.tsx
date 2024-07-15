@@ -10,10 +10,12 @@ import { useGetDetailFAQQuery } from '@/store/slices/website/kontenAPI/faqAPI'
 import { usePathname } from '@/hooks/usePathname'
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function DetailFAQ() {
   const navigate = useNavigate()
   const { secondPathname } = usePathname()
+  const { isHakAksesUbah } = useAkses()
 
   const id = localStorage.getItem('editID') ?? null
 
@@ -83,20 +85,22 @@ export default function DetailFAQ() {
                   {dataDetailFAQ?.kategori}
                 </p>
               )}
-              <Link
-                to={`/website/${secondPathname}/faq/edit`}
-                onClick={() => {
-                  localStorage.setItem('editID', dataDetailFAQ?.id)
-                  localStorage.setItem(
-                    'editData',
-                    JSON.stringify(dataDetailFAQ),
-                  )
-                }}
-                className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-12 text-[1.8rem] text-white hover:bg-opacity-80"
-              >
-                <FontAwesomeIcon icon={faPencil} />
-                <p>Perbaharui Data</p>
-              </Link>
+              {isHakAksesUbah && (
+                <Link
+                  to={`/website/${secondPathname}/faq/edit`}
+                  onClick={() => {
+                    localStorage.setItem('editID', dataDetailFAQ?.id)
+                    localStorage.setItem(
+                      'editData',
+                      JSON.stringify(dataDetailFAQ),
+                    )
+                  }}
+                  className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-12 text-[1.8rem] text-white hover:bg-opacity-80"
+                >
+                  <FontAwesomeIcon icon={faPencil} />
+                  <p>Perbaharui Data</p>
+                </Link>
+              )}
             </div>
             <div className="flex flex-1 flex-col gap-12">
               {dataDetailFAQ?.pertanyaan && (

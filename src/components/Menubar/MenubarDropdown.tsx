@@ -5,7 +5,13 @@ import { faCaretDown, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useGetJenisMenuQuery } from '@/store/slices/referensiAPI'
 import { useNavigate } from 'react-router-dom'
 
-export function MenubarDropDown({ posisi }: { posisi: string }) {
+export function MenubarDropDown({
+  posisi,
+  isTambah,
+}: {
+  posisi: string
+  isTambah: boolean
+}) {
   const navigate = useNavigate()
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -29,11 +35,12 @@ export function MenubarDropDown({ posisi }: { posisi: string }) {
     <Menubar className="px-4">
       <MenubarMenu>
         <MenubarTrigger
-          className="w-full rounded-2xl bg-warna-dark px-24 py-12 text-center text-white transition-all duration-300 hover:cursor-pointer hover:opacity-90 disabled:cursor-not-allowed"
+          className="w-full rounded-2xl bg-warna-dark px-24 py-12 text-center text-white transition-all duration-300 hover:cursor-pointer hover:opacity-90 disabled:cursor-not-allowed disabled:cursor-not-allowed"
           variant="nothing"
           layout="icon"
           size="fit"
           onClick={handleMenuClick}
+          disabled={!isTambah}
         >
           <div className="flex items-center gap-12">
             <p>Tambah Menu</p>

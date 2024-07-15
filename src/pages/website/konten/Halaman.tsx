@@ -28,10 +28,12 @@ import * as zod from 'zod'
 import { useForm } from 'react-hook-form'
 import { KategoriSchema } from '@/schemas/website/kategoriSchema'
 import { Form } from '@/components/Form'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function Halaman() {
   const navigate = useNavigate()
   const { thirdPathname } = usePathname()
+  const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } = useAkses()
 
   const [search, setSearch] = useState<string>('')
   const [pageNumber, setPageNumber] = useState<number>(1)
@@ -103,6 +105,20 @@ export default function Halaman() {
   ] = useDeleteHalamanMutation()
 
   const handleSubmitDelete = async (id: string) => {
+    if (!isHakAksesHapus) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk menghapus data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await deleteHalaman({ id: id })
     } catch (error) {
@@ -161,6 +177,21 @@ export default function Halaman() {
       id: id,
       aktif: status === 0 ? 1 : 0,
     }
+
+    if (!isHakAksesUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await statusHalaman({ body: body })
     } catch (error) {
@@ -232,15 +263,17 @@ export default function Halaman() {
               </form>
             </Form>
           </div>
-          <Link
-            to="tambah"
-            className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
-          >
-            <FontAwesomeIcon icon={faPlus} />
-            <p className="phones:hidden">
-              Tambah {convertSlugToText(thirdPathname)} Baru
-            </p>
-          </Link>
+          {isHakAksesTambah && (
+            <Link
+              to="tambah"
+              className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
+            >
+              <FontAwesomeIcon icon={faPlus} />
+              <p className="phones:hidden">
+                Tambah {convertSlugToText(thirdPathname)} Baru
+              </p>
+            </Link>
+          )}
         </div>
         {loadingHalaman ? (
           <Loading />
@@ -263,6 +296,8 @@ export default function Halaman() {
               setIsShowStatus={setIsShowStatus}
               isShowStatus={isShowStatus}
               isDetail
+              isHapus={isHakAksesHapus}
+              isUbah={isHakAksesUbah}
             />
             <div className="flex justify-end">
               <div className="flex items-center gap-32">

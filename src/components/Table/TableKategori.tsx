@@ -46,8 +46,8 @@ type Props<T extends Kategori, P> = {
   setIsShowPublish?: Dispatch<SetStateAction<boolean>>
   isShowPublish?: boolean
   isLoadingPublish?: boolean
-  isUbah?: boolean
-  isHapus?: boolean
+  isUbah: boolean
+  isHapus: boolean
 }
 
 export function TableKategori<T extends Kategori, P>({
@@ -176,6 +176,7 @@ export function TableKategori<T extends Kategori, P>({
                             data={row}
                             setId={setId}
                             index={rowIndex}
+                            isUbah={isUbah}
                           />
                         </td>
                       )}

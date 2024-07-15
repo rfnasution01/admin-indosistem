@@ -20,10 +20,12 @@ import { Pagination } from '@/components/Pagination'
 import { TableSlider } from '@/components/Table/TableSlider'
 import { columnsListDataSlider } from '@/dummy/table'
 import { Loading } from '@/components/Loading'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function Slider() {
   const navigate = useNavigate()
   const { thirdPathname } = usePathname()
+  const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } = useAkses()
 
   const [search, setSearch] = useState<string>('')
   const [pageNumber, setPageNumber] = useState<number>(1)
@@ -93,6 +95,20 @@ export default function Slider() {
   ] = useDeleteSliderMutation()
 
   const handleSubmitDelete = async (id: string) => {
+    if (!isHakAksesHapus) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk menghapus data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await deleteSlider({ id: id })
     } catch (error) {
@@ -151,6 +167,21 @@ export default function Slider() {
       id: id,
       aktif: status === 0 ? 1 : 0,
     }
+
+    if (!isHakAksesUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await statusSlider({ body: body })
     } catch (error) {
@@ -205,15 +236,17 @@ export default function Slider() {
               search={search}
             />
           </div>
-          <Link
-            to="tambah"
-            className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
-          >
-            <FontAwesomeIcon icon={faPlus} />
-            <p className="phones:hidden">
-              Tambah {convertSlugToText(thirdPathname)} Baru
-            </p>
-          </Link>
+          {isHakAksesTambah && (
+            <Link
+              to="tambah"
+              className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
+            >
+              <FontAwesomeIcon icon={faPlus} />
+              <p className="phones:hidden">
+                Tambah {convertSlugToText(thirdPathname)} Baru
+              </p>
+            </Link>
+          )}
         </div>
         {loadingSlider ? (
           <Loading />
@@ -237,6 +270,8 @@ export default function Slider() {
               isLoadingStatus={isLoadingStatusSlider}
               setIsShowStatus={setIsShowStatus}
               isShowStatus={isShowStatus}
+              isHapus={isHakAksesHapus}
+              isUbah={isHakAksesUbah}
             />
             <div className="flex justify-end">
               <div className="flex items-center gap-32">

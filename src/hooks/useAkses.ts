@@ -16,11 +16,15 @@ export function useAkses() {
   }, [data])
 
   const path =
-    secondPathname === 'profil'
+    secondPathname === 'profil' ||
+    secondPathname === 'konten' ||
+    secondPathname === 'setting'
       ? `${secondPathname}/${thirdPathname}`
       : `${secondPathname}`
 
-  const hakAkses = menuUtama?.find((item) => convertToSlug(item?.link) === path)
+  const hakAkses = menuUtama?.find(
+    (item) => convertToSlug(item?.link) === convertToSlug(path),
+  )
   const isHakAksesHapus = hakAkses?.hapus === '1'
   const isHakAksesUbah = hakAkses?.ubah === '1'
   const isHakAksesTambah = hakAkses?.ubah === '1'

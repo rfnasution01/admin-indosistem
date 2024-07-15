@@ -16,6 +16,9 @@ export default function FormTambahFAQ({
   setIsSubmit,
   isSubmit,
   isShow,
+  isTambah,
+  isUbah,
+  isEdit,
 }: {
   form: UseFormReturn
   isLoading: boolean
@@ -24,7 +27,15 @@ export default function FormTambahFAQ({
   setIsShow: Dispatch<SetStateAction<boolean>>
   isShow: boolean
   isSubmit: boolean
+  isEdit?: boolean
+  isUbah: boolean
+  isTambah: boolean
 }) {
+  const disableEdit = !(isEdit && isUbah)
+  const disableTambah = !(!isEdit && isTambah)
+
+  const disabled = isEdit ? disableEdit : disableTambah
+
   return (
     <div>
       <Form {...form}>
@@ -38,7 +49,7 @@ export default function FormTambahFAQ({
               headerLabel="Kategori"
               placeholder="Pilih Jenis Kategori"
               useFormReturn={form}
-              isDisabled={isLoading}
+              isDisabled={isLoading || disabled}
               className="w-1/2"
               jenis="faq"
             />
@@ -53,7 +64,7 @@ export default function FormTambahFAQ({
               placeholder="Masukkan pertanyaan"
               className="w-full hover:cursor-not-allowed phones:w-full "
               type="text"
-              isDisabled={isLoading}
+              isDisabled={isLoading || disabled}
             />
           </div>
 
@@ -70,6 +81,7 @@ export default function FormTambahFAQ({
           <div className="flex justify-end">
             <button
               type="submit"
+              disabled={isLoading || disabled}
               onClick={async () => {
                 const isValid = await form.trigger()
 
@@ -77,7 +89,7 @@ export default function FormTambahFAQ({
                   setIsShow(true)
                 }
               }}
-              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white"
+              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white disabled:cursor-not-allowed"
             >
               <p>Simpan</p>
               {isLoading ? (

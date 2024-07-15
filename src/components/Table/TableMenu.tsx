@@ -55,6 +55,9 @@ type Props<T extends Menu, P> = {
   isDetail?: boolean
   posisi?: string
   isAccordion?: boolean
+  isHapus: boolean
+  isTambah: boolean
+  isUbah: boolean
 }
 
 export function TableMenu<T extends Menu, P>({
@@ -80,6 +83,9 @@ export function TableMenu<T extends Menu, P>({
   isShowStatus,
   posisi,
   isAccordion,
+  isHapus,
+  isTambah,
+  isUbah,
 }: Props<T, P>) {
   const [rowIsOpen, setRowIsOpen] = useState<number | null>(null)
   const [expandedRowIndex, setExpandedRowIndex] = useState<number | null>(null)
@@ -201,6 +207,7 @@ export function TableMenu<T extends Menu, P>({
                             data={row}
                             setId={setId}
                             index={rowIndex}
+                            isUbah={isUbah}
                           />
                         </td>
                       )}
@@ -213,6 +220,9 @@ export function TableMenu<T extends Menu, P>({
                             isShowDelete={isShowDelete}
                             setIsShowDelete={setIsShowDelete}
                             posisi={posisi}
+                            isHapus={isHapus}
+                            isTambah={isTambah}
+                            isUbah={isUbah}
                           />
                         </td>
                       )}
@@ -355,6 +365,7 @@ export function TableMenu<T extends Menu, P>({
                                 data={item}
                                 setId={setId}
                                 index={idx}
+                                isUbah={isUbah}
                               />
                             </td>
                             <td className="px-24 py-12 align-top leading-medium">
@@ -365,6 +376,9 @@ export function TableMenu<T extends Menu, P>({
                                 isShowDelete={isShowDelete}
                                 setIsShowDelete={setIsShowDelete}
                                 posisi={posisi}
+                                isHapus={isHapus}
+                                isTambah={isTambah}
+                                isUbah={isUbah}
                               />
                             </td>
                             <td className="px-24 py-12 align-top leading-medium">
@@ -479,6 +493,7 @@ export function TableMenu<T extends Menu, P>({
                                       data={list}
                                       setId={setId}
                                       index={index}
+                                      isUbah={isUbah}
                                     />
                                   </td>
                                   <td className="px-24 py-12 align-top leading-medium">
@@ -489,6 +504,9 @@ export function TableMenu<T extends Menu, P>({
                                       isShowDelete={isShowDelete}
                                       setIsShowDelete={setIsShowDelete}
                                       posisi={posisi}
+                                      isHapus={isHapus}
+                                      isTambah={isTambah}
+                                      isUbah={isUbah}
                                     />
                                   </td>
                                   <td className="px-24 py-12 align-top leading-medium">

@@ -22,6 +22,9 @@ type Props<T> = {
   isLoadingDelete: boolean
   editID?: string
   posisi?: string
+  isUbah: boolean
+  isTambah: boolean
+  isHapus: boolean
 }
 
 export function MenubarActionMenu<T extends Menu>({
@@ -32,6 +35,9 @@ export function MenubarActionMenu<T extends Menu>({
   isShowDelete,
   editID,
   posisi,
+  isUbah,
+  isTambah,
+  isHapus,
 }: Props<T>) {
   const { thirdPathname } = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -73,7 +79,11 @@ export function MenubarActionMenu<T extends Menu>({
                   </Link>
                 )}
               {thirdPathname === 'menu' && (
-                <MenubarDropDownMenu posisi={posisi} id_parent={data?.id} />
+                <MenubarDropDownMenu
+                  posisi={posisi}
+                  id_parent={data?.id}
+                  isTambah={isTambah}
+                />
               )}
               {thirdPathname === 'detail' ? (
                 <Link
@@ -89,34 +99,38 @@ export function MenubarActionMenu<T extends Menu>({
                   <p>Edit</p>
                 </Link>
               ) : (
-                <Link
-                  to={'edit'}
-                  onClick={() => {
-                    localStorage.setItem('editID', data?.id)
-                    localStorage.setItem('editData', JSON.stringify(data))
-                    const menu = {
-                      posisi: posisi,
-                      jenis_menu: data?.jenis_menu,
-                      id_parent: data?.id_parent,
-                    }
-                    localStorage.setItem('parentData', JSON.stringify(menu))
-                  }}
-                  className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 hover:border-warna-dark hover:bg-warna-dark hover:bg-opacity-10"
-                >
-                  <FontAwesomeIcon icon={faPencil} />
-                  <p>Edit</p>
-                </Link>
+                isUbah && (
+                  <Link
+                    to={'edit'}
+                    onClick={() => {
+                      localStorage.setItem('editID', data?.id)
+                      localStorage.setItem('editData', JSON.stringify(data))
+                      const menu = {
+                        posisi: posisi,
+                        jenis_menu: data?.jenis_menu,
+                        id_parent: data?.id_parent,
+                      }
+                      localStorage.setItem('parentData', JSON.stringify(menu))
+                    }}
+                    className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 hover:border-warna-dark hover:bg-warna-dark hover:bg-opacity-10"
+                  >
+                    <FontAwesomeIcon icon={faPencil} />
+                    <p>Edit</p>
+                  </Link>
+                )
               )}
-              <button
-                className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 text-warna-red hover:border-warna-red hover:bg-warna-red hover:bg-opacity-10"
-                type="button"
-                onClick={() => {
-                  setIsShowDelete(true)
-                }}
-              >
-                <FontAwesomeIcon icon={faTrash} />
-                <p>Hapus</p>
-              </button>
+              {isHapus && (
+                <button
+                  className="flex items-center gap-12 border-l-4 border-transparent px-16 py-12 text-warna-red hover:border-warna-red hover:bg-warna-red hover:bg-opacity-10"
+                  type="button"
+                  onClick={() => {
+                    setIsShowDelete(true)
+                  }}
+                >
+                  <FontAwesomeIcon icon={faTrash} />
+                  <p>Hapus</p>
+                </button>
+              )}
               <ValidasiDelete
                 isOpen={isShowDelete}
                 setIsOpen={setIsShowDelete}

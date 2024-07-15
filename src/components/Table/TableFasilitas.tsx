@@ -34,8 +34,8 @@ type Props<T extends Fasilitas, P> = {
   setIsShow: Dispatch<SetStateAction<boolean>>
   isShow: boolean
   isLoadingDelete: boolean
-  isUbah?: boolean
-  isHapus?: boolean
+  isUbah: boolean
+  isHapus: boolean
 }
 
 export function TableFasilitas<T extends Fasilitas, P>({

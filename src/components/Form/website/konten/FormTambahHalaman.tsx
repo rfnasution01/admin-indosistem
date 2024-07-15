@@ -24,6 +24,9 @@ export default function FormTambahHalaman({
   setIsSubmit,
   isSubmit,
   isShow,
+  isTambah,
+  isUbah,
+  isEdit,
 }: {
   form: UseFormReturn
   isLoading: boolean
@@ -34,6 +37,9 @@ export default function FormTambahHalaman({
   isShow: boolean
   isSubmit: boolean
   urls: string
+  isEdit?: boolean
+  isUbah: boolean
+  isTambah: boolean
 }) {
   // --- Upload File ---
   const [
@@ -49,6 +55,20 @@ export default function FormTambahHalaman({
   const handleUploadFoto = async (file: File) => {
     const formatData = new FormData()
     formatData.append('berkas', file)
+
+    if ((isEdit && !isUbah) || (!isEdit && !isTambah)) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data ini`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
 
     try {
       const res = await uploadFileMutation(formatData)
@@ -103,6 +123,11 @@ export default function FormTambahHalaman({
     }
   }, [isErrorFile, errorFile])
 
+  const disableEdit = !(isEdit && isUbah)
+  const disableTambah = !(!isEdit && isTambah)
+
+  const disabled = isEdit ? disableEdit : disableTambah
+
   return (
     <div>
       <Form {...form}>
@@ -118,7 +143,7 @@ export default function FormTambahHalaman({
               placeholder="Masukkan judul"
               className="w-1/2 hover:cursor-not-allowed phones:w-full "
               type="text"
-              isDisabled={isLoading}
+              isDisabled={isLoading || disabled}
             />
             <div className="w-1/2 phones:hidden" />
           </div>
@@ -129,7 +154,7 @@ export default function FormTambahHalaman({
               headerLabel="Jenis Halaman"
               placeholder="Pilih Jenis Halaman"
               useFormReturn={form}
-              isDisabled={isLoading}
+              isDisabled={isLoading || disabled}
               className="w-1/2"
             />
             <div className="w-1/2 phones:hidden" />
@@ -153,11 +178,13 @@ export default function FormTambahHalaman({
             loadingFile={loadingFile}
             name="photo"
             handleUploadFoto={handleUploadFoto}
+            isDisabled={disabled}
           />
 
           <div className="flex justify-end">
             <button
               type="submit"
+              disabled={isLoading || disabled}
               onClick={async () => {
                 const isValid = await form.trigger()
 
@@ -165,7 +192,7 @@ export default function FormTambahHalaman({
                   setIsShow(true)
                 }
               }}
-              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white"
+              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white disabled:cursor-not-allowed"
             >
               <p>Simpan</p>
               {isLoading ? (

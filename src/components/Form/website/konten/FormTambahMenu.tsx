@@ -24,6 +24,9 @@ export default function FormTambahMenu({
   setIsSubmit,
   isSubmit,
   isShow,
+  isTambah,
+  isUbah,
+  isEdit,
 }: {
   form: UseFormReturn
   isLoading: boolean
@@ -34,6 +37,9 @@ export default function FormTambahMenu({
   isShow: boolean
   isSubmit: boolean
   urls: string
+  isEdit?: boolean
+  isUbah: boolean
+  isTambah: boolean
 }) {
   // --- Upload File ---
   const [
@@ -49,6 +55,20 @@ export default function FormTambahMenu({
   const handleUploadFoto = async (file: File) => {
     const formatData = new FormData()
     formatData.append('berkas', file)
+
+    if ((isEdit && !isUbah) || (!isEdit && !isTambah)) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data ini`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
 
     try {
       const res = await uploadFileMutation(formatData)
@@ -105,6 +125,11 @@ export default function FormTambahMenu({
 
   const jenisMenu = form.watch('jenis_menu')
 
+  const disableEdit = !(isEdit && isUbah)
+  const disableTambah = !(!isEdit && isTambah)
+
+  const disabled = isEdit ? disableEdit : disableTambah
+
   return (
     <div>
       <Form {...form}>
@@ -141,7 +166,7 @@ export default function FormTambahMenu({
               placeholder="Masukkan nama menu"
               className="w-1/2 hover:cursor-not-allowed phones:w-full "
               type="text"
-              isDisabled={isLoading}
+              isDisabled={isLoading || disabled}
             />
             <FormLabelInput
               name={`urutan`}
@@ -151,7 +176,7 @@ export default function FormTambahMenu({
               className="w-1/2 hover:cursor-not-allowed phones:w-full "
               type="text"
               isNumber
-              isDisabled={isLoading}
+              isDisabled={isLoading || disabled}
             />
           </div>
 
@@ -161,7 +186,7 @@ export default function FormTambahMenu({
               headerLabel="Kategori Menu"
               placeholder="Pilih Kategori"
               useFormReturn={form}
-              isDisabled={isLoading}
+              isDisabled={isLoading || disabled}
               jenis={jenisMenu}
             />
           )}
@@ -171,7 +196,7 @@ export default function FormTambahMenu({
               name={`deskripsi_singkat`}
               useFormReturn={form}
               placeholder="Masukkan Deskripsi"
-              isDisabled={isLoading}
+              isDisabled={isLoading || disabled}
               headerLabel="Deskripsi Singkat"
             />
           </div>
@@ -184,11 +209,13 @@ export default function FormTambahMenu({
             loadingFile={loadingFile}
             name="url_gambar"
             handleUploadFoto={handleUploadFoto}
+            isDisabled={disabled}
           />
 
           <div className="flex justify-end">
             <button
               type="submit"
+              disabled={isLoading || disabled}
               onClick={async () => {
                 const isValid = await form.trigger()
 
@@ -196,7 +223,7 @@ export default function FormTambahMenu({
                   setIsShow(true)
                 }
               }}
-              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white"
+              className="flex items-center justify-center gap-12 rounded-2xl bg-warna-primary px-32 py-12 text-white disabled:cursor-not-allowed"
             >
               <p>Simpan</p>
               {isLoading ? (

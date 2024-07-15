@@ -11,9 +11,11 @@ import 'react-toastify/dist/ReactToastify.css'
 import { TambahDownloadSchema } from '@/schemas/website/DownloadSchema'
 import FormTambahDownload from '@/components/Form/website/konten/FormTambahDownload'
 import { useCreateDownloadMutation } from '@/store/slices/website/kontenAPI/downloadAPI'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function UpdateDownloadKonten() {
   const navigate = useNavigate()
+  const { isHakAksesUbah, isHakAksesTambah } = useAkses()
 
   const { lastPathname, secondPathname } = usePathname()
 
@@ -50,6 +52,23 @@ export default function UpdateDownloadKonten() {
       jenis_file: values?.jenis_file ?? '',
       url_file: values?.jenis_file === 'Link' ? values?.url_file : urls,
       id_kategori: values?.id_kategori ?? '',
+    }
+
+    if ((isEdit && !isHakAksesUbah) || (!isEdit && !isHakAksesTambah)) {
+      toast.error(
+        `Maaf, anda tidak memiliki akses untuk ${isEdit ? 'mengubah' : 'menambah'} data`,
+        {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        },
+      )
     }
 
     if (isSubmit && isShow) {
@@ -137,6 +156,9 @@ export default function UpdateDownloadKonten() {
           isSubmit={isSubmit}
           urls={urls}
           setUrls={setUrls}
+          isEdit={isEdit}
+          isTambah={isHakAksesTambah}
+          isUbah={isHakAksesUbah}
         />
       </div>
       <ToastContainer />

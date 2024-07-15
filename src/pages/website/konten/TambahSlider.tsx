@@ -11,9 +11,11 @@ import 'react-toastify/dist/ReactToastify.css'
 import { TambahSliderSchema } from '@/schemas/website/sliderSchema'
 import { useCreateSliderMutation } from '@/store/slices/website/kontenAPI/sliderAPI'
 import FormTambahSlider from '@/components/Form/website/konten/FormTambahSlider'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function UpdateSliderKonten() {
   const navigate = useNavigate()
+  const { isHakAksesUbah, isHakAksesTambah } = useAkses()
 
   const { lastPathname, secondPathname } = usePathname()
 
@@ -51,6 +53,23 @@ export default function UpdateSliderKonten() {
       url: values?.url ?? '',
       aktif: Number(values?.aktif) ?? 0,
       urutan: 1,
+    }
+
+    if ((isEdit && !isHakAksesUbah) || (!isEdit && !isHakAksesTambah)) {
+      toast.error(
+        `Maaf, anda tidak memiliki akses untuk ${isEdit ? 'mengubah' : 'menambah'} data`,
+        {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        },
+      )
     }
 
     if (isSubmit && isShow) {
@@ -135,6 +154,9 @@ export default function UpdateSliderKonten() {
           isSubmit={isSubmit}
           urls={urls}
           setUrls={setUrls}
+          isEdit={isEdit}
+          isTambah={isHakAksesTambah}
+          isUbah={isHakAksesUbah}
         />
       </div>
       <ToastContainer />

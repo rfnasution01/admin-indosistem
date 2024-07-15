@@ -8,6 +8,7 @@ type Props<T> = {
   setIsShow: Dispatch<SetStateAction<boolean>>
   setId: Dispatch<SetStateAction<number>>
   index: number
+  isUbah: boolean
 }
 
 export function ActiveContent<T extends Kategori>({
@@ -15,9 +16,11 @@ export function ActiveContent<T extends Kategori>({
   setIsShow,
   setId,
   index,
+  isUbah,
 }: Props<T>) {
   return (
-    <div
+    <button
+      disabled={!isUbah}
       onClick={() => {
         setId(index)
         setIsShow(true)
@@ -28,6 +31,6 @@ export function ActiveContent<T extends Kategori>({
       ) : (
         <FontAwesomeIcon icon={faSquareXmark} size="lg" color="red" />
       )}
-    </div>
+    </button>
   )
 }

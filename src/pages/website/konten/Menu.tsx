@@ -17,9 +17,11 @@ import { usePathname } from '@/hooks/usePathname'
 import { columnsListDataMenu } from '@/dummy/table'
 import { TableMenu } from '@/components/Table/TableMenu'
 import { useGetPosisiMenuQuery } from '@/store/slices/referensiAPI'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function Menu() {
   const { thirdPathname } = usePathname()
+  const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } = useAkses()
 
   const [isShowStatus, setIsShowStatus] = useState<boolean>(false)
   const [isShowDelete, setIsShowDelete] = useState<boolean>(false)
@@ -78,6 +80,20 @@ export default function Menu() {
   ] = useDeleteMenuKontenMutation()
 
   const handleSubmitDelete = async (id: string) => {
+    if (!isHakAksesHapus) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk menghapus data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await deleteMenu({ id: id })
     } catch (error) {
@@ -136,6 +152,21 @@ export default function Menu() {
       id: id,
       aktif: status === 0 ? 1 : 0,
     }
+
+    if (!isHakAksesUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengubah data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await statusMenu({ body: body })
     } catch (error) {
@@ -201,7 +232,9 @@ export default function Menu() {
               />
             </form>
           </Form>
-          {posisi && <MenubarDropDown posisi={posisi} />}
+          {posisi && isHakAksesTambah && (
+            <MenubarDropDown posisi={posisi} isTambah={isHakAksesTambah} />
+          )}
         </div>
       )}
       <TableMenu
@@ -220,6 +253,9 @@ export default function Menu() {
         setIsShowStatus={setIsShowStatus}
         isShowStatus={isShowStatus}
         posisi={posisi}
+        isHapus={isHakAksesHapus}
+        isTambah={isHakAksesTambah}
+        isUbah={isHakAksesUbah}
         isNumber
         isDetail
         isMenu

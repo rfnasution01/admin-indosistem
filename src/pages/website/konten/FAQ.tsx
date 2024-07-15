@@ -26,10 +26,12 @@ import {
 } from '@/store/slices/website/kontenAPI/faqAPI'
 import { SelectListDownload } from '@/components/Select/website/SelectListDownload'
 import { columnsListDataFAQ } from '@/dummy/table'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function Faq() {
   const navigate = useNavigate()
   const { thirdPathname } = usePathname()
+  const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } = useAkses()
 
   const [search, setSearch] = useState<string>('')
   const [pageNumber, setPageNumber] = useState<number>(1)
@@ -101,6 +103,20 @@ export default function Faq() {
   ] = useDeleteFAQMutation()
 
   const handleSubmitDelete = async (id: string) => {
+    if (!isHakAksesHapus) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk menghapus data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await deleteFAQ({ id: id })
     } catch (error) {
@@ -159,6 +175,21 @@ export default function Faq() {
       id: id,
       aktif: status === 0 ? 1 : 0,
     }
+
+    if (!isHakAksesUbah) {
+      toast.error(`Maaf, anda tidak memiliki akses untuk mengupdate data`, {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        transition: Bounce,
+      })
+    }
+
     try {
       await statusFAQ({ body: body })
     } catch (error) {
@@ -231,15 +262,17 @@ export default function Faq() {
               </form>
             </Form>
           </div>
-          <Link
-            to="tambah"
-            className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
-          >
-            <FontAwesomeIcon icon={faPlus} />
-            <p className="phones:hidden">
-              Tambah {convertSlugToText(thirdPathname)} Baru
-            </p>
-          </Link>
+          {isHakAksesTambah && (
+            <Link
+              to="tambah"
+              className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-16 text-white hover:bg-opacity-80"
+            >
+              <FontAwesomeIcon icon={faPlus} />
+              <p className="phones:hidden">
+                Tambah {convertSlugToText(thirdPathname)} Baru
+              </p>
+            </Link>
+          )}
         </div>
         {loadingFAQ ? (
           <Loading />
@@ -262,6 +295,8 @@ export default function Faq() {
               setIsShowStatus={setIsShowStatus}
               isShowStatus={isShowStatus}
               isDetail
+              isHapus={isHakAksesHapus}
+              isUbah={isHakAksesUbah}
             />
             <div className="flex justify-end">
               <div className="flex items-center gap-32">

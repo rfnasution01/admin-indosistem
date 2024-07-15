@@ -11,10 +11,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLink, faPencil } from '@fortawesome/free-solid-svg-icons'
 import { DownloadType } from '@/types/website/konten/downloadType'
 import { useGetDetailDownloadQuery } from '@/store/slices/website/kontenAPI/downloadAPI'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function DetailDownload() {
   const navigate = useNavigate()
   const { secondPathname } = usePathname()
+  const { isHakAksesUbah } = useAkses()
 
   const id = localStorage.getItem('editID') ?? null
 
@@ -81,20 +83,22 @@ export default function DetailDownload() {
           <div className="scrollbar flex h-full flex-col gap-48 overflow-y-auto phones:flex-col phones:items-start phones:gap-32">
             {dataDetailDownload?.jenis_file === 'Link' && (
               <div className="flex justify-end">
-                <Link
-                  to={`/website/${secondPathname}/download/edit`}
-                  onClick={() => {
-                    localStorage.setItem('editID', dataDetailDownload?.id)
-                    localStorage.setItem(
-                      'editData',
-                      JSON.stringify(dataDetailDownload),
-                    )
-                  }}
-                  className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-12 text-[1.8rem] text-white hover:bg-opacity-80"
-                >
-                  <FontAwesomeIcon icon={faPencil} />
-                  <p>Perbaharui Data</p>
-                </Link>
+                {isHakAksesUbah && (
+                  <Link
+                    to={`/website/${secondPathname}/download/edit`}
+                    onClick={() => {
+                      localStorage.setItem('editID', dataDetailDownload?.id)
+                      localStorage.setItem(
+                        'editData',
+                        JSON.stringify(dataDetailDownload),
+                      )
+                    }}
+                    className="flex items-center gap-12 rounded-2xl bg-warna-primary px-24 py-12 text-[1.8rem] text-white hover:bg-opacity-80"
+                  >
+                    <FontAwesomeIcon icon={faPencil} />
+                    <p>Perbaharui Data</p>
+                  </Link>
+                )}
               </div>
             )}
             {dataDetailDownload?.jenis_file === 'Upload' && (

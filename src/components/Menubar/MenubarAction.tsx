@@ -21,8 +21,8 @@ type Props<T> = {
   isShowDelete: boolean
   isLoadingDelete: boolean
   editID?: string
-  isUbah?: boolean
-  isHapus?: boolean
+  isUbah: boolean
+  isHapus: boolean
 }
 
 export function MenubarAction<T extends Fasilitas>({

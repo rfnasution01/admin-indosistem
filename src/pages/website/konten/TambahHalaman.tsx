@@ -11,9 +11,11 @@ import 'react-toastify/dist/ReactToastify.css'
 import { TambahHalamanSchema } from '@/schemas/website/halamanSchema'
 import { useCreateHalamanMutation } from '@/store/slices/website/kontenAPI/halamanAPI'
 import FormTambahHalaman from '@/components/Form/website/konten/FormTambahHalaman'
+import { useAkses } from '@/hooks/useAkses'
 
 export default function UpdateHalamanKonten() {
   const navigate = useNavigate()
+  const { isHakAksesUbah, isHakAksesTambah } = useAkses()
 
   const { lastPathname, secondPathname } = usePathname()
 
@@ -50,6 +52,23 @@ export default function UpdateHalamanKonten() {
       url_gambar: urls ?? '',
       isi: values?.isi ?? '',
       id_jenis: values?.id_jenis ?? '',
+    }
+
+    if ((isEdit && !isHakAksesUbah) || (!isEdit && !isHakAksesTambah)) {
+      toast.error(
+        `Maaf, anda tidak memiliki akses untuk ${isEdit ? 'mengubah' : 'menambah'} data`,
+        {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        },
+      )
     }
 
     if (isSubmit && isShow) {
@@ -134,6 +153,9 @@ export default function UpdateHalamanKonten() {
           isSubmit={isSubmit}
           urls={urls}
           setUrls={setUrls}
+          isEdit={isEdit}
+          isTambah={isHakAksesTambah}
+          isUbah={isHakAksesUbah}
         />
       </div>
       <ToastContainer />
