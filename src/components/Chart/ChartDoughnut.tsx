@@ -4,7 +4,13 @@ import { KategoriType } from '@/types/website/kategoriType'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
-export function ChartDoughnut({ jsonData }: { jsonData: KategoriType[] }) {
+export function ChartDoughnut({
+  jsonData,
+  className,
+}: {
+  jsonData: KategoriType[]
+  className?: string
+}) {
   const data = {
     labels: jsonData?.map((item) => item.nama), // Ambil nama_kategori sebagai label
     datasets: [
@@ -33,7 +39,9 @@ export function ChartDoughnut({ jsonData }: { jsonData: KategoriType[] }) {
   }
 
   return (
-    <div className="flex w-[20%] phones:w-full phones:justify-center">
+    <div
+      className={`flex ${className ?? 'w-[20%]'} phones:w-full phones:justify-center`}
+    >
       <Doughnut
         data={data}
         options={{ plugins: { legend: { display: false } } }}

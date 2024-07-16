@@ -2,6 +2,7 @@ import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
   ComingSoonPage,
   CommonLayout,
+  DashboardPage,
   DetailDownloadPage,
   DetailFAQPage,
   DetailGaleriPage,
@@ -76,7 +77,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: '',
-            element: <ComingSoonPage />,
+            element: <DashboardPage />,
           },
           ...categories.flatMap((category) => [
             {

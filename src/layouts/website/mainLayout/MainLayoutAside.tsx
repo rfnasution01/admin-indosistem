@@ -178,7 +178,7 @@ export function WebsiteMainHeader({
             </span>
           </div>
           <Link to="/" className="px-32">
-            <p className="rounded-2xl bg-warna-grey px-24 py-16 text-center uppercase text-white hover:bg-warna-dark">
+            <p className="rounded-2xl bg-warna-grey px-24 py-16 text-center text-[2rem] uppercase text-white hover:bg-warna-dark">
               Kembali ke menu utama
             </p>
           </Link>

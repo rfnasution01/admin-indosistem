@@ -24,6 +24,8 @@ export const ManajemenUserMainLayout = loadable(
 // ------------------
 export const ComingSoonPage = loadable(() => import('@/pages/comingSoon'))
 // --- Website ---
+export const DashboardPage = loadable(() => import('@/pages/website/dashboard'))
+
 export const TentangSekolahPage = loadable(
   () => import('@/pages/website/profil/TentangSekolah'),
 )
