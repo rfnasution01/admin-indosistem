@@ -1,18 +1,25 @@
 import Helmet from 'react-helmet'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import clsx from 'clsx'
-import { GetUserIdentitasType } from '@/types/user/identitasType'
-import { useGetUserIdentitasQuery } from '@/store/slices/user/identitasType'
-import { UserMainHeader } from './MainLayoutAside'
+import { SimpegMainHeader } from './MainLayoutAside'
+import { useGetSimpegIdentitasQuery } from '@/store/slices/simpeg/identitasType'
+import { GetIdentitasWebsiteType } from '@/types/website/menuType'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft, faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import Time from '@/components/Time'
+import dayjs from 'dayjs'
+import 'dayjs/locale/id'
 
-export default function UserMainLayout() {
+export default function SimpegMainLayout() {
+  const navigate = useNavigate()
+
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  const [identitas, setIdentitas] = useState<GetUserIdentitasType>()
-  const { data } = useGetUserIdentitasQuery()
+  const [identitas, setIdentitas] = useState<GetIdentitasWebsiteType>()
+  const { data } = useGetSimpegIdentitasQuery()
 
   useEffect(() => {
     if (data?.data) {
@@ -21,18 +28,44 @@ export default function UserMainLayout() {
   }, [data])
 
   return (
-    <div className="flex h-screen w-full bg-warna-pale-blue text-[2rem] phones:flex-col phones:text-[2.4rem]">
+    <div className="bg-background-secondary flex h-screen w-full text-[2rem] phones:flex-col phones:text-[2.4rem]">
       {/* --- Aside --- */}
-      <UserMainHeader isOpen={isOpen} setIsOpen={setIsOpen} />
+      <SimpegMainHeader isOpen={isOpen} setIsOpen={setIsOpen} />
       <div
         className={clsx(
-          'scrollbar flex h-full flex-1 flex-col overflow-y-auto p-32',
+          'scrollbar flex h-full flex-1 flex-col overflow-y-auto',
           {
             'phones:hidden': isOpen,
           },
         )}
       >
-        <Outlet />
+        <div className="flex h-auto items-center justify-between gap-32 bg-white px-64 py-32 phones:hidden phones:p-32">
+          <span
+            onClick={() => {
+              navigate(-1)
+            }}
+            className="hover:cursor-pointer"
+          >
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </span>
+          <div className="flex flex-col items-center justify-center gap-4">
+            <p>{dayjs().locale('id').format('dddd, DD MMMM YYYY')}</p>
+            <Time />
+          </div>
+          <div className="flex items-center gap-12">
+            <img
+              src={identitas?.gambar}
+              alt={identitas?.nama_aplikasi}
+              loading="lazy"
+              className="w-[5rem]"
+            />
+            <p>{identitas?.nama_aplikasi}</p>
+            <FontAwesomeIcon icon={faChevronDown} />
+          </div>
+        </div>
+        <div className="scrollbar flex h-full w-full flex-1 overflow-y-auto">
+          <Outlet />
+        </div>
       </div>
       <Helmet>
         <meta charSet="utf-8" />

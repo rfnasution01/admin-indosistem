@@ -29,6 +29,7 @@ import {
   PolicyPage,
   ProfilWebsiteLayout,
   ProgramLayananPage,
+  SimpegMainLayout,
   SliderPage,
   TambahDownloadPage,
   TambahFAQPage,
@@ -401,6 +402,16 @@ export const router = createBrowserRouter([
       {
         path: 'user',
         element: <ManajemenUserMainLayout />,
+        children: [
+          {
+            path: '',
+            element: <ComingSoonPage />,
+          },
+        ],
+      },
+      {
+        path: 'simpeg',
+        element: <SimpegMainLayout />,
         children: [
           {
             path: '',

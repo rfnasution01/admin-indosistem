@@ -19,6 +19,9 @@ export const ManajemenUserMainLayout = loadable(
   () => import('@/layouts/manajemenUser'),
 )
 
+// --- Simpeg ---
+export const SimpegMainLayout = loadable(() => import('@/layouts/simpeg'))
+
 // ------------------
 // ----- Pages -----
 // ------------------

@@ -4,7 +4,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 export default function ComingSoon() {
   return (
-    <div className="flex h-screen items-center justify-center bg-gradient-to-tr from-sky-900 to-blue-900 text-white">
+    <div className="flex h-screen w-full items-center justify-center bg-gradient-to-tr from-sky-900 to-blue-900 text-white">
       <div className="flex w-[40%] flex-col items-center justify-center gap-64 rounded-3x bg-blue-100 bg-opacity-20 p-64 text-white shadow-md phones:h-full phones:w-full phones:bg-opacity-0 phones:p-32 phones:text-center">
         <p className="font-serif text-[30rem]">404</p>
         <p
