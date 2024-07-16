@@ -51,7 +51,7 @@ export function PreviewIdentitas({
       <img
         src={photo_pimpinan ?? DefaultImg}
         alt={nama_pimpinan}
-        className="h-auto w-[50rem] rounded-2xl filter"
+        className="w-1/3 rounded-2xl filter phones:w-full"
         loading="lazy"
       />
       <div className="flex flex-1 flex-col gap-16">

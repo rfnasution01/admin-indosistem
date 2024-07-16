@@ -19,7 +19,7 @@ export function PreviewProgram({
       <img
         src={photo !== '' && photo ? photo : DefaultImg}
         alt={judul}
-        className="h-[30rem] w-[50rem] rounded-2xl filter"
+        className="w-1/4 rounded-2xl filter phones:w-full"
         loading="lazy"
       />
       <div className="flex flex-1 flex-col gap-16">

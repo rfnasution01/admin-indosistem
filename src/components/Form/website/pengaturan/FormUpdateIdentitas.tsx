@@ -172,28 +172,41 @@ export default function FormUpddateIdentitas({
             isDisabled={!isUbah}
           />
 
-          <FormLabelFileLogo
-            urls={logo}
-            setUrls={setLogo}
-            form={form}
-            isLoading={isLoading}
-            loadingFile={loadingFile}
-            name="logo"
-            handleUploadFoto={handleUploadFoto}
-            isLogo
-            isDisabled={!isUbah}
-          />
+          <div className="flex flex-col gap-12">
+            <FormLabelFileLogo
+              urls={logo}
+              setUrls={setLogo}
+              form={form}
+              isLoading={isLoading}
+              loadingFile={loadingFile}
+              name="logo"
+              handleUploadFoto={handleUploadFoto}
+              isLogo
+              isDisabled={!isUbah}
+            />
 
-          <FormLabelFileLogo
-            urls={favicon}
-            setUrls={setFavicon}
-            form={form}
-            isLoading={isLoading}
-            loadingFile={loadingFile}
-            name="favicon"
-            handleUploadFoto={handleUploadFoto}
-          />
+            <p className="text-warna-dark">
+              Disarankan menunggah gambar dengan aspek rasio{' '}
+              <span className="text-warna-red">Square 1:1</span>
+            </p>
+          </div>
 
+          <div className="flex flex-col gap-12">
+            <FormLabelFileLogo
+              urls={favicon}
+              setUrls={setFavicon}
+              form={form}
+              isLoading={isLoading}
+              loadingFile={loadingFile}
+              name="favicon"
+              handleUploadFoto={handleUploadFoto}
+            />
+
+            <p className="text-warna-dark">
+              Disarankan menunggah gambar dengan aspek rasio{' '}
+              <span className="text-warna-red">Square 1:1</span>
+            </p>
+          </div>
           <div className="flex justify-end">
             <button
               type="submit"

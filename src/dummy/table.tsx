@@ -26,7 +26,7 @@ export const columnsListDataGuru: Column<GetGuruStaffType>[] = [
             src={rowData?.gambar ?? DefaultImg}
             alt={rowData?.nama}
             loading="lazy"
-            className="w-[7rem] phones:hidden"
+            className="w-[7rem] rounded-xl phones:hidden"
           />
           <div className="flex flex-col gap-8">
             {rowData?.nama && <p className="font-roboto">{rowData?.nama}</p>}
@@ -129,7 +129,7 @@ export const columnsListDataTestimoni: Column<GetTestimoniType>[] = [
             }
             alt={rowData?.nama}
             loading="lazy"
-            className="h-[20rem] w-[20rem] rounded-2xl object-cover phones:hidden"
+            className="w-[20rem] rounded-2xl object-cover phones:hidden"
           />
           <div className="flex flex-col gap-12">
             {rowData?.nama && <p className="font-roboto">{rowData?.nama}</p>}
@@ -295,7 +295,7 @@ export const columnsListDataSlider: Column<SliderType>[] = [
   },
   {
     header: 'Gambar',
-    key: 'tanggal',
+    key: 'gambar',
     width: '!min-w-[12rem]',
     renderCell: (rowData) => {
       return (
@@ -306,7 +306,7 @@ export const columnsListDataSlider: Column<SliderType>[] = [
               : rowData?.gambar
           }
           alt={rowData?.judul}
-          className="h-[10rem] w-[20rem] rounded-2xl object-cover filter"
+          className="w-[20rem] rounded-2xl object-cover filter"
           loading="lazy"
         />
       )
@@ -423,7 +423,7 @@ export const columnsListDataDownload: Column<DownloadType>[] = [
                   : rowData?.url_file
               }
               alt={rowData?.judul}
-              className="h-[10rem] w-[20rem] rounded-2xl object-cover filter"
+              className="w-[20rem] rounded-2xl object-cover filter"
               loading="lazy"
             />
           )}
@@ -469,7 +469,7 @@ export const columnsListDataMenu: Column<GetMenuType>[] = [
                   : rowData?.url_gambar
               }
               alt={rowData?.nama_menu}
-              className="h-[10rem] w-[20rem] rounded-2xl object-cover filter phones:h-[6rem]"
+              className="w-[20rem] rounded-2xl object-cover filter phones:h-[6rem]"
               loading="lazy"
             />
           )}

@@ -116,7 +116,7 @@ export function KategoriPublish({
                       ? item?.gambar?.[0]?.keterangan
                       : item?.judul
                   }
-                  className="h-[20rem] w-1/4 rounded-2xl filter phones:w-full"
+                  className="w-1/4 rounded-2xl filter phones:w-full"
                   loading="lazy"
                 />
                 <div className="flex w-3/4 flex-col gap-12 phones:w-full">

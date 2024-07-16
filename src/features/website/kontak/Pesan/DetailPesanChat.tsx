@@ -84,7 +84,7 @@ export function DetailPesanChat({
                             <img
                               src={list?.dokumen}
                               alt="Dokumen"
-                              className="h-[8rem] w-full rounded-2xl object-cover filter"
+                              className="w-full rounded-2xl object-cover filter"
                               loading="lazy"
                             />
                           </Link>

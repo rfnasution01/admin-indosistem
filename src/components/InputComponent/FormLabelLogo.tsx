@@ -111,7 +111,7 @@ export function FormLabelFileLogo({
                         <img
                           src={urls}
                           alt="Gambar"
-                          className="h-[20rem] w-full rounded-2xl object-cover filter"
+                          className="w-full rounded-2xl object-cover filter"
                           loading="lazy"
                         />
                         <button

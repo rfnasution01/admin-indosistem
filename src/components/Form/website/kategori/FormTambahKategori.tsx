@@ -303,7 +303,7 @@ export default function FormTambahKategori({
                               : form.watch(`gambar.${index}.url_gambar`)
                           }
                           alt={`Gambar ${index + 1}`}
-                          className="h-[20rem] w-full rounded-2xl object-cover"
+                          className="w-full rounded-2xl object-cover"
                           loading="lazy"
                         />
                       </div>
@@ -408,6 +408,7 @@ export default function FormTambahKategori({
                         </FormItem>
                       )}
                     />
+
                     {secondPathname !== 'galeri' && (
                       <FormLabelInput
                         name={`gambar.${index}.keterangan`}

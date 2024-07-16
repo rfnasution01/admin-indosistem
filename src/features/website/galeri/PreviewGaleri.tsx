@@ -15,7 +15,7 @@ export function PreviewGaleri({
         <img
           src={cover === '' || !cover ? DefaultImg : cover}
           alt="Cover"
-          className="h-[50rem] w-full object-cover"
+          className="w-full object-cover"
           loading="lazy"
         />
       }
@@ -23,21 +23,23 @@ export function PreviewGaleri({
         {judul && <p className="font-roboto text-[3.2rem]">Galeri {judul}</p>}
       </div>
       {gambar?.length > 0 && (
-        <div className="flex flex-wrap items-center justify-center gap-32">
+        <div className="grid w-full grid-cols-6 gap-32">
           {gambar &&
             gambar?.map((item, idx) => (
-              <div className="flex flex-col gap-12" key={idx}>
-                <img
-                  src={
-                    item?.url_gambar !== '' && item?.url_gambar
-                      ? item?.url_gambar
-                      : DefaultImg
-                  }
-                  alt={item?.keterangan}
-                  className="h-[30rem] w-[50rem] rounded-2xl filter"
-                  loading="lazy"
-                />
-                <p>{item?.keterangan}</p>
+              <div className="col-span-1 phones:col-span-3" key={idx}>
+                <div className="flex flex-col gap-12">
+                  <img
+                    src={
+                      item?.url_gambar !== '' && item?.url_gambar
+                        ? item?.url_gambar
+                        : DefaultImg
+                    }
+                    alt={item?.keterangan}
+                    className="w-full rounded-2xl filter phones:w-full"
+                    loading="lazy"
+                  />
+                  <p>{item?.keterangan}</p>
+                </div>
               </div>
             ))}
         </div>

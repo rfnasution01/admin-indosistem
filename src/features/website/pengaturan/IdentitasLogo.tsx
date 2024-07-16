@@ -14,7 +14,7 @@ export function IdentitasLogo({
         <img
           src={logo === '' || !logo ? DefaultImg : logo}
           alt="Logo"
-          className="h-[50rem] w-full rounded-2xl"
+          className="w-full rounded-2xl"
           loading="lazy"
         />
       </div>
@@ -23,7 +23,7 @@ export function IdentitasLogo({
         <img
           src={favicon === '' || !favicon ? DefaultImg : favicon}
           alt="Favicon"
-          className="h-[50rem] w-full rounded-2xl"
+          className="w-full rounded-2xl"
           loading="lazy"
         />
       </div>

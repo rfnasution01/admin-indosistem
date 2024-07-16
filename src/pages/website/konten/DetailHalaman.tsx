@@ -88,7 +88,7 @@ export default function DetailHalaman() {
                   : DefaultImg
               }
               alt={dataDetailHalaman?.judul}
-              className="h-[50rem] rounded-2xl object-cover filter phones:h-[20rem] phones:w-full"
+              className="w-full rounded-2xl object-cover filter phones:h-[20rem] phones:w-full"
               loading="lazy"
             />
 

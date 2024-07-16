@@ -19,7 +19,7 @@ export function PreviewProfil({
       <img
         src={gambar_url !== '' && gambar_url ? gambar_url : DefaultImg}
         alt={jenis}
-        className="w-1/4 rounded-2xl filter"
+        className="w-1/4 rounded-2xl filter phones:w-full"
         loading="lazy"
       />
       <div className="flex flex-1 flex-col gap-16">

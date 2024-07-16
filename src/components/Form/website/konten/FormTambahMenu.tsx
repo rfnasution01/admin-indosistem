@@ -211,6 +211,22 @@ export default function FormTambahMenu({
             handleUploadFoto={handleUploadFoto}
             isDisabled={disabled}
           />
+          <div className="flex flex-col gap-12">
+            <FormLabelFile
+              urls={urls}
+              setUrls={setUrls}
+              form={form}
+              isLoading={isLoading}
+              loadingFile={loadingFile}
+              name="photo"
+              handleUploadFoto={handleUploadFoto}
+              isDisabled={disabled}
+            />
+            <p className="text-warna-dark">
+              Disarankan menunggah gambar dengan aspek rasio{' '}
+              <span className="text-warna-red">Landscape 4:3</span>
+            </p>
+          </div>
 
           <div className="flex justify-end">
             <button

@@ -29,7 +29,7 @@ export function PreviewIdentitas({
           <p className="font-roboto text-warna-dark">Logo</p>
           <img
             src={logo === '' || !logo ? DefaultImg : logo}
-            className="h-[50rem] w-full filter phones:h-[35rem]"
+            className="w-full filter phones:h-[35rem]"
             loading="lazy"
             alt={nama_website}
           />
@@ -38,7 +38,7 @@ export function PreviewIdentitas({
           <p className="font-roboto text-warna-dark">Favicon</p>
           <img
             src={favicon === '' || !favicon ? DefaultImg : favicon}
-            className="h-[50rem] w-full filter phones:h-[35rem]"
+            className="w-full filter phones:h-[35rem]"
             loading="lazy"
             alt={nama_website}
           />

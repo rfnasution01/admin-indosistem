@@ -16,7 +16,7 @@ export function PreviewHalaman({
       <img
         src={gambar !== '' && gambar ? gambar : DefaultImg}
         alt={judul}
-        className="h-[30rem] rounded-2xl filter phones:h-[20rem] phones:w-full"
+        className="w-1/4 rounded-2xl filter phones:h-[20rem] phones:w-full"
         loading="lazy"
       />
 

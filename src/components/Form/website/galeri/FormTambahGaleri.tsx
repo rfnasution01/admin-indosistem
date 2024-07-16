@@ -327,6 +327,7 @@ export default function FormTambahGaleri({
                         </FormItem>
                       )}
                     />
+
                     {secondPathname !== 'galeri' && (
                       <FormLabelInput
                         name={`gambar.${index}.keterangan`}

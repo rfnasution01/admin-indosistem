@@ -153,16 +153,22 @@ export default function FormEditGambar({
             </div>
           )}
 
-          <FormLabelFile
-            urls={urls}
-            setUrls={setUrls}
-            form={form}
-            isLoading={isLoading}
-            loadingFile={loadingFile}
-            name="url_gambar"
-            handleUploadFoto={handleUploadFoto}
-            isDisabled={!isUbah}
-          />
+          <div className="flex flex-col gap-12">
+            <FormLabelFile
+              urls={urls}
+              setUrls={setUrls}
+              form={form}
+              isLoading={isLoading}
+              loadingFile={loadingFile}
+              name="url_gambar"
+              handleUploadFoto={handleUploadFoto}
+              isDisabled={!isUbah}
+            />
+            <p className="text-warna-dark">
+              Disarankan menunggah gambar dengan aspek rasio{' '}
+              <span className="text-warna-red">Wide 16:9</span>
+            </p>
+          </div>
 
           <div className="flex justify-end">
             <button

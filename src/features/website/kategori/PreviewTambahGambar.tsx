@@ -20,7 +20,7 @@ export function PreviewTambahGambar({
                         : DefaultImg
                     }
                     alt={item?.keterangan}
-                    className="h-[15rem] w-full rounded-2xl filter"
+                    className="w-full rounded-2xl filter"
                     loading="lazy"
                   />
                   {item?.keterangan && (

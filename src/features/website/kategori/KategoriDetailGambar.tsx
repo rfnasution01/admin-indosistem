@@ -55,7 +55,7 @@ export function KategoriDetailGambar({
                       : item?.gambar
                   }
                   alt={item?.keterangan}
-                  className="h-[15rem] w-full rounded-2xl object-cover filter"
+                  className="w-full rounded-2xl object-cover filter"
                   loading="lazy"
                 />
                 <div className="absolute left-0 top-0 h-full w-full transform bg-black bg-opacity-0">

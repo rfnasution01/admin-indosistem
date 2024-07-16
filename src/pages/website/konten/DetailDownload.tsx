@@ -110,7 +110,7 @@ export default function DetailDownload() {
                     : DefaultImg
                 }
                 alt={dataDetailDownload?.judul}
-                className="h-[30rem] rounded-2xl filter phones:h-[20rem] phones:w-full"
+                className="w-full rounded-2xl filter phones:h-[20rem] phones:w-full"
                 loading="lazy"
               />
             )}

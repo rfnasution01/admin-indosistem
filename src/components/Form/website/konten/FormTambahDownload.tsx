@@ -192,16 +192,22 @@ export default function FormTambahDownload({
               )}
             </div>
           ) : (
-            <FormLabelFile
-              urls={urls}
-              setUrls={setUrls}
-              form={form}
-              isLoading={isLoading}
-              loadingFile={loadingFile}
-              name="url_file"
-              handleUploadFoto={handleUploadFoto}
-              isDisabled={disabled}
-            />
+            <div className="flex flex-col gap-12">
+              <FormLabelFile
+                urls={urls}
+                setUrls={setUrls}
+                form={form}
+                isLoading={isLoading}
+                loadingFile={loadingFile}
+                name="url_file"
+                handleUploadFoto={handleUploadFoto}
+                isDisabled={disabled}
+              />
+              <p className="text-warna-dark">
+                Disarankan menunggah gambar dengan aspek rasio{' '}
+                <span className="text-warna-red">Square 1:1</span>
+              </p>
+            </div>
           )}
 
           <div className="flex justify-end">

@@ -84,7 +84,7 @@ export default function PengaturanIdentitas() {
           </Link>
         )}
       </div>
-      <div className="scrollbar flex h-full gap-32 overflow-y-auto phones:flex-col phones:gap-48">
+      <div className="scrollbar flex h-full w-full gap-32 overflow-y-auto phones:flex-col phones:gap-48">
         {loadingIdentitas ? (
           <Loading />
         ) : (

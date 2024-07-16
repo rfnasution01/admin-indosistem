@@ -63,7 +63,7 @@ export function DetailPesanInfo({ detail }: { detail: KontakMasukDetail }) {
                     <img
                       src={item?.dokumen}
                       alt="Lampiran"
-                      className="h-[12rem] w-full rounded-2xl object-cover filter"
+                      className="w-full rounded-2xl object-cover filter"
                       loading="lazy"
                     />
                   </Link>
