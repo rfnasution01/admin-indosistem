@@ -13,7 +13,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faSave, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { ValidasiKonfirmasi } from '@/components/Dialog/ValidasiKonfirmasi'
-import { PreviewProgram } from '@/features/website/profil/programLayanan/PreviewProgram'
+import { PreviewProgram } from '@/features/website/profil/program/PreviewProgram'
 
 export default function FormTambahProgram({
   form,

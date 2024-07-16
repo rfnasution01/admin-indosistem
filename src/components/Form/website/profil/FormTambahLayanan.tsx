@@ -11,7 +11,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faSave, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { ValidasiKonfirmasi } from '@/components/Dialog/ValidasiKonfirmasi'
-import { PreviewLayanan } from '@/features/website/profil/programLayanan/PreviewLayanan'
+import { PreviewLayanan } from '@/features/website/profil/program/PreviewLayanan'
 
 export default function FormTambahLayanan({
   form,
