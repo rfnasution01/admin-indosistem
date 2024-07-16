@@ -2,17 +2,17 @@ import Helmet from 'react-helmet'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import { Outlet } from 'react-router-dom'
-import { WebsiteMainHeader } from './MainLayoutAside'
 import { useEffect, useState } from 'react'
 import clsx from 'clsx'
-import { GetIdentitasWebsiteType } from '@/types/website/menuType'
-import { useGetWebsiteIdentitasQuery } from '@/store/slices/website/menuAPI'
+import { GetUserIdentitasType } from '@/types/user/identitasType'
+import { useGetUserIdentitasQuery } from '@/store/slices/user/identitasType'
+import { UserMainHeader } from './MainLayoutAside'
 
 export default function WebsiteMainLayout() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  const [identitas, setIdentitas] = useState<GetIdentitasWebsiteType>()
-  const { data } = useGetWebsiteIdentitasQuery()
+  const [identitas, setIdentitas] = useState<GetUserIdentitasType>()
+  const { data } = useGetUserIdentitasQuery()
 
   useEffect(() => {
     if (data?.data) {
@@ -23,7 +23,7 @@ export default function WebsiteMainLayout() {
   return (
     <div className="flex h-screen w-full bg-warna-pale-blue text-[2rem] phones:flex-col phones:text-[2.4rem]">
       {/* --- Aside --- */}
-      <WebsiteMainHeader isOpen={isOpen} setIsOpen={setIsOpen} />
+      <UserMainHeader isOpen={isOpen} setIsOpen={setIsOpen} />
       <div
         className={clsx(
           'scrollbar flex h-full flex-1 flex-col overflow-y-auto p-32',

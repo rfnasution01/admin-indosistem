@@ -23,6 +23,7 @@ import {
   KontakPage,
   LoginLayout,
   MainLayout,
+  ManajemenUserMainLayout,
   MenuPage,
   PolicyPage,
   ProfilWebsiteLayout,
@@ -393,6 +394,16 @@ export const router = createBrowserRouter([
                 ],
               },
             ],
+          },
+        ],
+      },
+      {
+        path: 'user',
+        element: <ManajemenUserMainLayout />,
+        children: [
+          {
+            path: '',
+            element: <ComingSoonPage />,
           },
         ],
       },

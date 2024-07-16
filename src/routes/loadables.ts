@@ -14,6 +14,11 @@ export const ProfilWebsiteLayout = loadable(
   () => import('@/layouts/website/ProfilLayout'),
 )
 
+// --- Manajemen User ---
+export const ManajemenUserMainLayout = loadable(
+  () => import('@/layouts/manajemenUser'),
+)
+
 // ------------------
 // ----- Pages -----
 // ------------------
