@@ -3,6 +3,7 @@ import {
   ComingSoonPage,
   CommonLayout,
   DashboardPage,
+  DashboardSimpegPage,
   DetailDownloadPage,
   DetailFAQPage,
   DetailGaleriPage,
@@ -415,7 +416,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: '',
-            element: <ComingSoonPage />,
+            element: <DashboardSimpegPage />,
           },
         ],
       },

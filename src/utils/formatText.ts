@@ -74,3 +74,13 @@ export function getInitials(name) {
     ?.toUpperCase()
   return initials
 }
+
+export function convertToSnakeCase(text) {
+  // Convert the text to lowercase
+  const lowerCaseText = text?.toLowerCase()
+
+  // Replace spaces with underscores
+  const snakeCaseText = lowerCaseText?.replace(/ /g, '_')
+
+  return snakeCaseText
+}

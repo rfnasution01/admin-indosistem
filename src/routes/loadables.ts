@@ -26,6 +26,12 @@ export const SimpegMainLayout = loadable(() => import('@/layouts/simpeg'))
 // ----- Pages -----
 // ------------------
 export const ComingSoonPage = loadable(() => import('@/pages/comingSoon'))
+
+// --- Simpeg ---
+export const DashboardSimpegPage = loadable(
+  () => import('@/pages/simpeg/dashboard'),
+)
+
 // --- Website ---
 export const DashboardPage = loadable(() => import('@/pages/website/dashboard'))
 

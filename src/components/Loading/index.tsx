@@ -6,7 +6,7 @@ export const Loading = ({
   color = '#400053',
 }: LoadingProps) => {
   return (
-    <div className="flex h-full items-center justify-center">
+    <div className="flex h-full w-full items-center justify-center">
       <ReactLoading width={width} height={height} color={color} type="spin" />
     </div>
   )
