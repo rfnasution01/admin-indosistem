@@ -11,8 +11,8 @@ import { useNavigate } from 'react-router-dom'
 import { Bounce, toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Cookies from 'js-cookie'
-import { ProgramCard } from '@/features/website/profil/programLayanan/ProgramCard'
-import { LayananCard } from '@/features/website/profil/programLayanan/LayananCard'
+import { ProgramCard } from '@/features/website/profil/programLayanan/ProgramCard.tsx'
+import { LayananCard } from '@/features/website/profil/programLayanan/LayananCard.tsx'
 
 export default function ProgramLayanan() {
   const navigate = useNavigate()
