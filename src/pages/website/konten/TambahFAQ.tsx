@@ -10,8 +10,8 @@ import { convertSlugToText } from '@/utils/formatText'
 import 'react-toastify/dist/ReactToastify.css'
 import FormTambahFAQ from '@/components/Form/website/konten/FormTambahFAQ'
 import { useCreateFAQMutation } from '@/store/slices/website/kontenAPI/faqAPI'
-import { TambahFAQSchema } from '@/schemas/website/faqSchema'
 import { useAkses } from '@/hooks/useAkses'
+import { TambahFAQSchema } from '@/schemas/website/faqKontenSchema'
 
 export default function UpdateFAQKonten() {
   const navigate = useNavigate()

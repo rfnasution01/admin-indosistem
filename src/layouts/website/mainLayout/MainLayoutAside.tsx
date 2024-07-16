@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/Skeleton'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Bounce, toast } from 'react-toastify'
 import Cookies from 'js-cookie'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -177,6 +177,12 @@ export function WebsiteMainHeader({
               )}
             </span>
           </div>
+          <Link to="/" className="px-32">
+            <p className="rounded-2xl bg-warna-grey px-24 py-16 text-center uppercase text-white hover:bg-warna-dark">
+              Kembali ke menu utama
+            </p>
+          </Link>
+
           {/* --- Navigasi --- */}
           <div
             className={clsx(
