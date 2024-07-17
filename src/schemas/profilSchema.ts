@@ -1,6 +1,6 @@
 import zod from 'zod'
 
-export const ProfilSchema = zod.object({
+export const UpdateProfilSchema = zod.object({
   email: zod.string({
     required_error: 'Email harus di isi',
     invalid_type_error: 'Format email tidak valid',

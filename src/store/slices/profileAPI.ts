@@ -25,6 +25,7 @@ export const ProfilEndpoints = api.injectEndpoints({
         body: foto,
         formData: true,
       }),
+      invalidatesTags: ['profile'],
     }),
   }),
 })
