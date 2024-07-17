@@ -66,12 +66,12 @@ export default function Profil() {
                 <LabelList label="No. Hp" value={profil?.hp} />
               </div>
               <div className="flex gap-32 py-12">
-                <Link
-                  to="/"
-                  className="rounded-2xl bg-warna-red px-24 py-12 text-white hover:bg-opacity-80"
+                <div
+                  onClick={() => navigate(-1)}
+                  className="rounded-2xl bg-warna-red px-24 py-12 text-white hover:cursor-pointer hover:bg-opacity-80"
                 >
                   Kembali
-                </Link>
+                </div>
                 <Link
                   to="edit"
                   className="bg-primary-200 rounded-2xl px-24 py-12 text-white hover:bg-opacity-80"

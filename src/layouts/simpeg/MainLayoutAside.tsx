@@ -4,12 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Bounce, toast } from 'react-toastify'
 import Cookies from 'js-cookie'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import {
-  faAlignJustify,
-  faChevronDown,
-  faClose,
-  fas,
-} from '@fortawesome/free-solid-svg-icons'
+import { faAlignJustify, faClose, fas } from '@fortawesome/free-solid-svg-icons'
 import { usePathname } from '@/hooks/usePathname'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
@@ -23,6 +18,7 @@ import {
 } from '@/store/slices/simpeg/identitasType'
 import { LinkParent } from './LinkParent'
 import { LinkChild } from './LinkChild'
+import { MenubarProfil } from '@/components/Menubar/MenubarProfile'
 
 library.add(fas)
 
@@ -174,15 +170,7 @@ export function SimpegMainHeader({
             {/* --- Mobile --- */}
             <div className="hidden phones:block">
               <div className="flex items-center gap-32 px-32">
-                <div className="flex items-center gap-12">
-                  <img
-                    src={identitasWebsite?.gambar}
-                    alt={identitasWebsite?.nama_aplikasi}
-                    loading="lazy"
-                    className="w-[5rem]"
-                  />
-                  <FontAwesomeIcon icon={faChevronDown} />
-                </div>
+                <MenubarProfil />
                 <span
                   onClick={() => setIsOpen(!isOpen)}
                   className="text-[3.2rem] text-white"

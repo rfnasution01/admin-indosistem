@@ -8,10 +8,11 @@ import { SimpegMainHeader } from './MainLayoutAside'
 import { useGetSimpegIdentitasQuery } from '@/store/slices/simpeg/identitasType'
 import { GetIdentitasWebsiteType } from '@/types/website/menuType'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft, faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import Time from '@/components/Time'
 import dayjs from 'dayjs'
 import 'dayjs/locale/id'
+import { MenubarProfil } from '@/components/Menubar/MenubarProfile'
 
 export default function SimpegMainLayout() {
   const navigate = useNavigate()
@@ -28,7 +29,7 @@ export default function SimpegMainLayout() {
   }, [data])
 
   return (
-    <div className="bg-background-secondary flex h-screen w-full text-[2rem] phones:flex-col phones:text-[2.4rem]">
+    <div className="flex h-screen w-full bg-background-secondary text-[2rem] phones:flex-col phones:text-[2.4rem]">
       {/* --- Aside --- */}
       <SimpegMainHeader isOpen={isOpen} setIsOpen={setIsOpen} />
       <div
@@ -52,16 +53,7 @@ export default function SimpegMainLayout() {
             <p>{dayjs().locale('id').format('dddd, DD MMMM YYYY')}</p>
             <Time />
           </div>
-          <div className="flex items-center gap-12">
-            <img
-              src={identitas?.gambar}
-              alt={identitas?.nama_aplikasi}
-              loading="lazy"
-              className="w-[5rem]"
-            />
-            <p>{identitas?.nama_aplikasi}</p>
-            <FontAwesomeIcon icon={faChevronDown} />
-          </div>
+          <MenubarProfil />
         </div>
         <div className="scrollbar flex h-full w-full flex-1 overflow-y-auto">
           <Outlet />

@@ -8,9 +8,11 @@ import { Loading } from '@/components/Loading'
 import { DashboardChart, MappingMenu } from '@/features/simpeg/dashbhoard'
 import { GetDashboardSimpeg } from '@/types/referensiType'
 import { useGetSimpegDashboardQuery } from '@/store/slices/referensiAPI'
+import { useProfil } from '@/hooks/useProfil'
 
 export default function DashboardSimpeg() {
   const navigate = useNavigate()
+  const { profil } = useProfil()
 
   const [dashboardMenu, setDashboardMenu] = useState<GetDashboardSimpeg[]>([])
   const { data: dataDashboardMenu } = useGetSimpegDashboardQuery()
@@ -83,7 +85,7 @@ export default function DashboardSimpeg() {
         <div className="flex w-full flex-col gap-32 rounded-3x bg-white p-32">
           <p className="text-[3.2rem]">
             Selamat datang,{' '}
-            <span className="font-bold text-primary-100">Zhong Xina</span>
+            <span className="font-bold text-primary-100">{profil?.nama}</span>
           </p>
 
           <div className="flex flex-col gap-8">

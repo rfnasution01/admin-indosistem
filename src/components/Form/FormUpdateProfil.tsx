@@ -165,7 +165,7 @@ export default function FormUpdateProfil({
               </button>
             </div>
           </div>
-          <div className="flex w-1/2 items-center gap-32 phones:w-full">
+          <div className="flex w-1/2 items-center gap-32 phones:w-full phones:flex-col">
             <img
               src={urls ?? DefaultImg}
               alt="profile"
