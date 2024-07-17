@@ -5,6 +5,6 @@ export type GetDashboardType = {
 }
 
 export type GetChartType = {
-  label: string
-  jumlah: string
+  nama: string
+  jlh: string
 }
