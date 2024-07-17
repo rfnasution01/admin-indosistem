@@ -45,7 +45,7 @@ export function MenubarProfil() {
           </div>
         </MenubarTrigger>
         {isMenuOpen && (
-          <MenubarContent className="absolute -right-[20rem] top-[1rem] w-[32rem] bg-white p-32 text-[2rem] text-warna-dark shadow-lg transition-all duration-300 phones:-right-[8rem]">
+          <MenubarContent className="absolute left-0 top-[1rem] w-[32rem] bg-white p-32 text-[2rem] text-warna-dark shadow-lg transition-all duration-300 phones:-left-[23rem]">
             <div className="flex flex-col gap-32">
               <div className="flex flex-col gap-32">
                 {menu?.map((item, idx) => (
