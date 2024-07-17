@@ -2,6 +2,7 @@ import { createBrowserRouter, redirect } from 'react-router-dom'
 import {
   ComingSoonPage,
   CommonLayout,
+  DaftarPegawaidSimpegPage,
   DashboardPage,
   DashboardSimpegPage,
   DetailDownloadPage,
@@ -417,6 +418,20 @@ export const router = createBrowserRouter([
           {
             path: '',
             element: <DashboardSimpegPage />,
+          },
+          {
+            path: 'master',
+            element: <CommonLayout />,
+            children: [
+              {
+                path: '',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'pegawai',
+                element: <DaftarPegawaidSimpegPage />,
+              },
+            ],
           },
         ],
       },

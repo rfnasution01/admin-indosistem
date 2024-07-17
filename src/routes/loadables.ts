@@ -32,6 +32,10 @@ export const DashboardSimpegPage = loadable(
   () => import('@/pages/simpeg/dashboard'),
 )
 
+export const DaftarPegawaidSimpegPage = loadable(
+  () => import('@/pages/simpeg/pegawai/DaftarPegawai'),
+)
+
 // --- Website ---
 export const DashboardPage = loadable(() => import('@/pages/website/dashboard'))
 

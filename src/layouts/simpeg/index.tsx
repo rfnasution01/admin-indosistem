@@ -39,7 +39,7 @@ export default function SimpegMainLayout() {
           },
         )}
       >
-        <div className="flex h-auto items-center justify-between gap-32 bg-white px-64 py-32 phones:hidden phones:p-32">
+        <div className="flex h-auto items-center justify-between gap-32 bg-white px-64 py-12 phones:hidden phones:p-32">
           <span
             onClick={() => {
               navigate(-1)
