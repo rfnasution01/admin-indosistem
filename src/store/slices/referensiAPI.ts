@@ -1,4 +1,8 @@
-import { GetAkreditasiType, ReferensiType } from '@/types/referensiType'
+import {
+  GetAkreditasiType,
+  GetDashboardSimpeg,
+  ReferensiType,
+} from '@/types/referensiType'
 import { Res, api } from '../api'
 import { ParamsType } from '@/types/website/menuType'
 
@@ -89,6 +93,12 @@ export const ReferensiEndpoints = api.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getSimpegDashboard: builder.query<Res<GetDashboardSimpeg[]>, void>({
+      query: () => ({
+        url: `referensi/simpeg_dashboard`,
+        method: 'GET',
+      }),
+    }),
     getListKonten: builder.query<Res<ReferensiType[]>, ParamsType>({
       query: ({ jenis }) => ({
         url: `${jenis}`,
@@ -123,4 +133,5 @@ export const {
   useGetJenisMenuQuery,
   useGetRouteMenuQuery,
   useGetListKontenQuery,
+  useGetSimpegDashboardQuery,
 } = ReferensiEndpoints

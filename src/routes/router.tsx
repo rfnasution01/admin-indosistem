@@ -29,6 +29,8 @@ import {
   ManajemenUserMainLayout,
   MenuPage,
   PolicyPage,
+  ProfilePage,
+  ProfilMainLayout,
   ProfilWebsiteLayout,
   ProgramLayananPage,
   SimpegMainLayout,
@@ -41,6 +43,7 @@ import {
   TambahHalamanPage,
   TambahKontakPage,
   TambahMenuPage,
+  TambahProfilePage,
   TambahProfilPage,
   TambahProgramLayananPage,
   TambahSliderPage,
@@ -73,6 +76,20 @@ export const router = createBrowserRouter([
       {
         path: '',
         element: <MainLayout />,
+      },
+      {
+        path: 'profil',
+        element: <ProfilMainLayout />,
+        children: [
+          {
+            path: '',
+            element: <ProfilePage />,
+          },
+          {
+            path: 'edit',
+            element: <TambahProfilePage />,
+          },
+        ],
       },
       {
         path: 'website',

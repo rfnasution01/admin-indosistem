@@ -1,5 +1,5 @@
 import { IconLogout, IconUser } from '@/assets/icons'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 
 export function MainHeaderButtonGroup() {
@@ -7,13 +7,13 @@ export function MainHeaderButtonGroup() {
 
   return (
     <div className="flex flex-col gap-12 phones:w-full phones:flex-row">
-      <button
-        type="button"
+      <Link
+        to="profil"
         className="flex items-center gap-12 rounded-2xl bg-white px-24 py-16 font-semibold text-warna-primary hover:bg-opacity-80 phones:w-full"
       >
         <IconUser />
         Halaman Profil
-      </button>
+      </Link>
       <button
         type="button"
         onClick={() => {

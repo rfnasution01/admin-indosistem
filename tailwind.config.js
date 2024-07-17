@@ -113,6 +113,7 @@ export default {
           active: '#3085C3',
           inactive: '#B0C4DE',
           100: '#00529C',
+          200: '#004C6D',
         },
         secondary: {
           DEFAULT: '#e74c3c',

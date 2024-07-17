@@ -8,3 +8,8 @@ export type ReferensiType = {
   id?: string
   nama?: string
 }
+
+export type GetDashboardSimpeg = {
+  id: string
+  nama: string
+}

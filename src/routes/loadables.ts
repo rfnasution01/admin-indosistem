@@ -22,10 +22,20 @@ export const ManajemenUserMainLayout = loadable(
 // --- Simpeg ---
 export const SimpegMainLayout = loadable(() => import('@/layouts/simpeg'))
 
+// --- Profil ---
+export const ProfilMainLayout = loadable(() => import('@/layouts/profilLayout'))
+
 // ------------------
 // ----- Pages -----
 // ------------------
+
 export const ComingSoonPage = loadable(() => import('@/pages/comingSoon'))
+
+// --- Profil ---
+export const ProfilePage = loadable(() => import('@/pages/profile/Profil'))
+export const TambahProfilePage = loadable(
+  () => import('@/pages/profile/TambahProfil'),
+)
 
 // --- Simpeg ---
 export const DashboardSimpegPage = loadable(

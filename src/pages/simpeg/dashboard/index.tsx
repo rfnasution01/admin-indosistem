@@ -2,16 +2,31 @@ import { GetDashboardType } from '@/types/simpeg/dashboardType'
 import { useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
 import { useGetSimpegDashboradQuery } from '@/store/slices/simpeg/dashboardType'
-import { convertToSnakeCase } from '@/utils/formatText'
 import { Bounce, toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { Loading } from '@/components/Loading'
 import { DashboardChart, MappingMenu } from '@/features/simpeg/dashbhoard'
+import { GetDashboardSimpeg } from '@/types/referensiType'
+import { useGetSimpegDashboardQuery } from '@/store/slices/referensiAPI'
 
 export default function DashboardSimpeg() {
   const navigate = useNavigate()
 
-  const [menu, setMenu] = useState<string>('Kategori Kepegawaian')
+  const [dashboardMenu, setDashboardMenu] = useState<GetDashboardSimpeg[]>([])
+  const { data: dataDashboardMenu } = useGetSimpegDashboardQuery()
+
+  useEffect(() => {
+    if (dataDashboardMenu?.data) {
+      setDashboardMenu(dataDashboardMenu.data)
+    }
+  }, [dataDashboardMenu])
+
+  const initialMenu = dashboardMenu?.[0]?.nama ?? 'Kategori Kepegawaian'
+  const initialId = dashboardMenu?.[0]?.id ?? ''
+
+  const [menu, setMenu] = useState<string>(initialMenu)
+  const [id, setId] = useState<string>(initialId)
+
   const [dashboard, setDashboard] = useState<GetDashboardType>()
 
   const {
@@ -20,9 +35,12 @@ export default function DashboardSimpeg() {
     isLoading: isLoadingDashboard,
     isError: isErrorDashboard,
     error: errorDashboard,
-  } = useGetSimpegDashboradQuery({
-    jenis: convertToSnakeCase(menu),
-  })
+  } = useGetSimpegDashboradQuery(
+    {
+      jenis: id,
+    },
+    { skip: !dashboardMenu.length && !id },
+  )
 
   const loadingDashboard = isLoadingDashboard || isFetchingDashboard
 
@@ -30,7 +48,7 @@ export default function DashboardSimpeg() {
     if (dataDashboard?.data) {
       setDashboard(dataDashboard?.data)
     }
-  }, [dataDashboard?.data, menu])
+  }, [dataDashboard?.data, menu, id, dashboardMenu])
 
   useEffect(() => {
     if (isErrorDashboard) {
@@ -82,7 +100,12 @@ export default function DashboardSimpeg() {
             </p>
           </div>
           <div className="scrollbar flex h-full flex-1 gap-32 overflow-y-auto phones:flex-col">
-            <MappingMenu menu={menu} setMenu={setMenu} />
+            <MappingMenu
+              menu={menu}
+              setMenu={setMenu}
+              dashboardMenu={dashboardMenu}
+              setId={setId}
+            />
             <DashboardChart menu={menu} item={dashboard?.chart} />
           </div>
         </div>
