@@ -8,14 +8,17 @@ import { SimpegMainHeader } from './MainLayoutAside'
 import { useGetSimpegIdentitasQuery } from '@/store/slices/simpeg/identitasType'
 import { GetIdentitasWebsiteType } from '@/types/website/menuType'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faDoorClosed } from '@fortawesome/free-solid-svg-icons'
 import Time from '@/components/Time'
 import dayjs from 'dayjs'
 import 'dayjs/locale/id'
 import { MenubarProfil } from '@/components/Menubar/MenubarProfile'
+import { useLogout } from '@/hooks/useLogout'
+import { ValidasiLogout } from '@/components/Dialog/ValidasiLogout'
 
 export default function SimpegMainLayout() {
   const navigate = useNavigate()
+  const { isShowLogout, setIsShowLogout, handleLogout } = useLogout()
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
@@ -53,7 +56,7 @@ export default function SimpegMainLayout() {
             <p>{dayjs().locale('id').format('dddd, DD MMMM YYYY')}</p>
             <Time />
           </div>
-          <MenubarProfil />
+          <MenubarProfil setIsShowLogout={setIsShowLogout} />
         </div>
         <div className="scrollbar flex h-full w-full flex-1 overflow-y-auto">
           <Outlet />
@@ -88,6 +91,19 @@ export default function SimpegMainLayout() {
         `}
         </script>
       </Helmet>
+      <ValidasiLogout
+        isOpen={isShowLogout}
+        setIsOpen={setIsShowLogout}
+        child={
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-12 rounded-2xl bg-warna-red px-24 py-12 text-white"
+          >
+            <FontAwesomeIcon icon={faDoorClosed} />
+            <p>Logout</p>
+          </button>
+        }
+      />
       <ToastContainer />
     </div>
   )

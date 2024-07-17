@@ -8,10 +8,14 @@ import {
   faUser,
 } from '@fortawesome/free-solid-svg-icons'
 import { useProfil } from '@/hooks/useProfil'
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Dispatch, SetStateAction, useState } from 'react'
 
-export function MenubarProfil() {
+export function MenubarProfil({
+  setIsShowLogout,
+}: {
+  setIsShowLogout: Dispatch<SetStateAction<boolean>>
+}) {
   const navigate = useNavigate()
   const { profil } = useProfil()
 
@@ -75,7 +79,12 @@ export function MenubarProfil() {
                 ))}
               </div>
               <hr className="border border-primary-100" />
-              <div className="flex items-center gap-12 hover:cursor-pointer hover:text-primary-100">
+              <div
+                onClick={() => {
+                  setIsShowLogout(true)
+                }}
+                className="flex items-center gap-12 hover:cursor-pointer hover:text-primary-100"
+              >
                 <FontAwesomeIcon icon={faDoorClosed} />
                 <p>Logout</p>
               </div>

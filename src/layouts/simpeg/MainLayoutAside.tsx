@@ -4,7 +4,12 @@ import { useNavigate } from 'react-router-dom'
 import { Bounce, toast } from 'react-toastify'
 import Cookies from 'js-cookie'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faAlignJustify, faClose, fas } from '@fortawesome/free-solid-svg-icons'
+import {
+  faAlignJustify,
+  faClose,
+  faDoorClosed,
+  fas,
+} from '@fortawesome/free-solid-svg-icons'
 import { usePathname } from '@/hooks/usePathname'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
@@ -19,6 +24,8 @@ import {
 import { LinkParent } from './LinkParent'
 import { LinkChild } from './LinkChild'
 import { MenubarProfil } from '@/components/Menubar/MenubarProfile'
+import { useLogout } from '@/hooks/useLogout'
+import { ValidasiLogout } from '@/components/Dialog/ValidasiLogout'
 
 library.add(fas)
 
@@ -31,6 +38,7 @@ export function SimpegMainHeader({
 }) {
   const navigate = useNavigate()
   const { secondPathname, thirdPathname } = usePathname()
+  const { isShowLogout, setIsShowLogout, handleLogout } = useLogout()
 
   const [isShow, setIsShow] = useState<boolean>(false)
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
@@ -136,6 +144,8 @@ export function SimpegMainHeader({
     return false
   }
 
+  console.log({ isShowLogout })
+
   return (
     <div
       className={clsx(
@@ -170,7 +180,7 @@ export function SimpegMainHeader({
             {/* --- Mobile --- */}
             <div className="hidden phones:block">
               <div className="flex items-center gap-32 px-32">
-                <MenubarProfil />
+                <MenubarProfil setIsShowLogout={setIsShowLogout} />
                 <span
                   onClick={() => setIsOpen(!isOpen)}
                   className="text-[3.2rem] text-white"
@@ -216,6 +226,19 @@ export function SimpegMainHeader({
           </div>
         </>
       )}
+      <ValidasiLogout
+        isOpen={isShowLogout}
+        setIsOpen={setIsShowLogout}
+        child={
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-12 rounded-2xl bg-warna-red px-24 py-12 text-white"
+          >
+            <FontAwesomeIcon icon={faDoorClosed} />
+            <p>Logout</p>
+          </button>
+        }
+      />
     </div>
   )
 }
