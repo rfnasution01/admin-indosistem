@@ -2,7 +2,13 @@ import { UseFormReturn } from 'react-hook-form'
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
-import { faEye, faEyeSlash, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import {
+  faEye,
+  faEyeSlash,
+  faKey,
+  faSpinner,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons'
 import { LoginParamsType } from '@/types/loginType'
 import { Form } from '..'
 import { FormLabelInput } from '@/components/InputComponent'
@@ -38,6 +44,7 @@ export function FormLogin({
             className="text-sim-dark"
             type="text"
             isDisabled={isLoading}
+            prefix={<FontAwesomeIcon icon={faUser} />}
           />
 
           <FormLabelInput
@@ -60,6 +67,7 @@ export function FormLogin({
                 )}
               </span>
             }
+            prefix={<FontAwesomeIcon icon={faKey} />}
             type={isShow ? 'text' : 'password'}
           />
 

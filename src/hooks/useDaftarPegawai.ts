@@ -234,6 +234,7 @@ export function useDaftarPegawai() {
         theme: 'light',
         transition: Bounce,
       })
+      formReset.reset()
       setIsShowReset(false)
     }
   }, [isSuccessResetPasswordDaftarPegawai])

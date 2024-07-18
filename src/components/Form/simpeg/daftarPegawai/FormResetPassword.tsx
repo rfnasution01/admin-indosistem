@@ -6,8 +6,11 @@ import {
   faArrowLeft,
   faEye,
   faEyeSlash,
+  faHome,
+  faKey,
   faSave,
   faSpinner,
+  faUser,
 } from '@fortawesome/free-solid-svg-icons'
 import { Form } from '../..'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
@@ -49,6 +52,7 @@ export function FormResetPassword({
             placeholder="Masukkan nip"
             className="w-full hover:cursor-not-allowed phones:w-full "
             type="text"
+            prefix={<FontAwesomeIcon icon={faHome} />}
             isDisabled
           />
           <FormLabelInput
@@ -59,6 +63,7 @@ export function FormResetPassword({
             className="w-full hover:cursor-not-allowed phones:w-full "
             type="text"
             isDisabled
+            prefix={<FontAwesomeIcon icon={faUser} />}
           />
           <FormLabelInput
             name="password"
@@ -67,6 +72,7 @@ export function FormResetPassword({
             placeholder="Masukkan password"
             className="text-sim-dark"
             isDisabled={isLoading}
+            prefix={<FontAwesomeIcon icon={faKey} />}
             suffix={
               <span
                 onClick={() => {
