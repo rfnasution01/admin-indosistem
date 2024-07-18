@@ -83,13 +83,13 @@ export default function DashboardSimpeg() {
         <Loading />
       ) : (
         <div className="flex w-full flex-col gap-32 rounded-3x bg-white p-32">
-          <p className="text-[3.2rem]">
+          <p className="text-[3.2rem]" style={{ lineHeight: '130%' }}>
             Selamat datang,{' '}
             <span className="font-bold text-primary-100">{profil?.nama}</span>
           </p>
 
           <div className="flex flex-col gap-8">
-            <p className="text-[2.4rem]">
+            <p className="text-[2.4rem]" style={{ lineHeight: '130%' }}>
               Satuan Kerja:{' '}
               <span className="font-roboto text-primary-100">
                 {dashboard?.nama_organisasi}

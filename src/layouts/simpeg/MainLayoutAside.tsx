@@ -13,19 +13,14 @@ import {
 import { usePathname } from '@/hooks/usePathname'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
-import {
-  GetIdentitasWebsiteType,
-  GetMenuWebsiteType,
-} from '@/types/website/menuType'
-import {
-  useGetSimpegIdentitasQuery,
-  useGetSimpegMenuQuery,
-} from '@/store/slices/simpeg/identitasType'
+import { GetIdentitasWebsiteType } from '@/types/website/menuType'
+import { useGetSimpegIdentitasQuery } from '@/store/slices/simpeg/identitasType'
 import { LinkParent } from './LinkParent'
 import { LinkChild } from './LinkChild'
 import { MenubarProfil } from '@/components/Menubar/MenubarProfile'
 import { useLogout } from '@/hooks/useLogout'
 import { ValidasiLogout } from '@/components/Dialog/ValidasiLogout'
+import { useAksesSimpeg } from '@/hooks/useAksesSimpeg'
 
 library.add(fas)
 
@@ -39,6 +34,7 @@ export function SimpegMainHeader({
   const navigate = useNavigate()
   const { secondPathname, thirdPathname } = usePathname()
   const { isShowLogout, setIsShowLogout, handleLogout } = useLogout()
+  const { loadingMenuWebsite, menuWebsite } = useAksesSimpeg()
 
   const [isShow, setIsShow] = useState<boolean>(false)
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
@@ -89,50 +85,6 @@ export function SimpegMainHeader({
     }
   }, [isErrorIdentitasWebsite, errorIdentitasWebsite])
 
-  // --- Menu Identitas ---
-  const [menuWebsite, setMenuWebsite] = useState<GetMenuWebsiteType[]>([])
-
-  const {
-    data: dataMenuWebsite,
-    isFetching: isFetchingMenuWebsite,
-    isLoading: isLoadingMenuWebsite,
-  } = useGetSimpegMenuQuery()
-
-  const loadingMenuWebsite = isFetchingMenuWebsite || isLoadingMenuWebsite
-
-  useEffect(() => {
-    if (dataMenuWebsite?.data) {
-      // Sorting the data
-      const sortedData = [...dataMenuWebsite.data].sort((a, b) => {
-        return parseInt(a.urutan) - parseInt(b.urutan)
-      })
-
-      // Creating a copy of the data to ensure it's extensible
-      const menuMap = new Map<string, GetMenuWebsiteType>()
-
-      sortedData.forEach((item) => {
-        // Create a new object for each item to ensure it's extensible
-        const newItem = { ...item, children: [] }
-        menuMap.set(newItem.id, newItem)
-      })
-
-      const finalMenu: GetMenuWebsiteType[] = []
-
-      menuMap.forEach((item) => {
-        if (item.id_parent === '0') {
-          finalMenu.push(item)
-        } else {
-          const parent = menuMap.get(item.id_parent)
-          if (parent) {
-            parent.children?.push(item)
-          }
-        }
-      })
-
-      setMenuWebsite(finalMenu)
-    }
-  }, [dataMenuWebsite])
-
   const isActivePage = (item: string) => {
     if (
       (item.toLowerCase() === 'dashboard' && secondPathname === undefined) ||
@@ -143,8 +95,6 @@ export function SimpegMainHeader({
     }
     return false
   }
-
-  console.log({ isShowLogout })
 
   return (
     <div

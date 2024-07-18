@@ -55,6 +55,7 @@ export const api = createApi({
     'website-pengaturan-identitas',
     'website-pengaturan-policy',
     'profile',
+    'simpeg-daftar-pegawai',
   ],
   // * it's okay to disable eslint here, because the warning is unnecessary. Each endpoint will be injected from an api slice.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

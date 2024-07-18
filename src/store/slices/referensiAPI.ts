@@ -105,6 +105,18 @@ export const ReferensiEndpoints = api.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getJenisKepegawaian: builder.query<Res<string[]>, void>({
+      query: () => ({
+        url: `referensi/jenis_kepegawaian`,
+        method: 'GET',
+      }),
+    }),
+    getStatusKepegawaian: builder.query<Res<string[]>, void>({
+      query: () => ({
+        url: `referensi/status_pegawai`,
+        method: 'GET',
+      }),
+    }),
     createFile: builder.mutation<{ url: string }, FormData>({
       query: (foto) => ({
         url: 'admin/upload',
@@ -120,6 +132,8 @@ export const {
   useGetAkreditasiQuery,
   useGetJenisProfilQuery,
   useGetPenyelenggaraQuery,
+  useGetJenisKepegawaianQuery,
+  useGetStatusKepegawaianQuery,
   useCreateFileMutation,
   useGetAgendaQuery,
   useGetBeritaQuery,
