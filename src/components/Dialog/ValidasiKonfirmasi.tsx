@@ -10,11 +10,13 @@ export function ValidasiKonfirmasi({
   setIsOpen,
   children,
   childrenButton,
+  isAuto,
 }: {
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
   children: ReactNode
   childrenButton: ReactNode
+  isAuto?: boolean
 }) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -22,8 +24,8 @@ export function ValidasiKonfirmasi({
         className="text-dark scrollbar flex flex-col overflow-y-auto bg-white text-black"
         position="middle"
         style={{
-          width: '80%',
-          maxHeight: '80%',
+          width: isAuto ? 'auto' : '80%',
+          maxHeight: isAuto ? 'auto' : '80%',
         }}
       >
         <div className="flex flex-col gap-16 p-32">

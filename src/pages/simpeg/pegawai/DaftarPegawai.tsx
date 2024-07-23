@@ -4,6 +4,7 @@ import { Searching } from '@/components/Searching'
 import { FormListDataPerPage } from '@/components/Select/website'
 import { TableDaftarPegawai } from '@/components/Table/TableDaftarPegawai'
 import { columnsListDaftarPegawai } from '@/dummy/tableSimpeg'
+import { ManajemenData } from '@/features/simpeg/dashbhoard/daftarPegawai/ManajemenData'
 import { useDaftarPegawai } from '@/hooks/useDaftarPegawai'
 import { useEffect } from 'react'
 import { ToastContainer } from 'react-toastify'
@@ -56,16 +57,18 @@ export default function DaftarPegawai() {
     }
   }, [tahun, bulan, setStatusPegawai])
 
+  const manajemenData = ['Cetak', 'Import Data Excel', 'Tambah Data']
+
   return (
     <div className="scrollbar flex h-full w-full overflow-y-auto px-64 py-32 phones:p-32">
       <div className="flex w-full flex-col gap-32 rounded-3x bg-white p-32">
-        <p className="font-roboto text-[2.8rem] text-primary-100">
+        <p className="font-roboto text-[4rem] text-primary-100">
           Daftar Pegawai
         </p>
 
         {/* <ListData listData={listData} /> */}
 
-        {/* <ManajemenData manajemenData={manajemenData} /> */}
+        <ManajemenData manajemenData={manajemenData} />
 
         <div className="flex items-center justify-between gap-32">
           <MenubarDaftarPegawai
@@ -107,7 +110,6 @@ export default function DaftarPegawai() {
           id={id}
         />
 
-        <p>{isUbah}s</p>
         <div className="flex justify-end">
           <div className="flex items-center gap-32">
             <FormListDataPerPage setDataPerPage={setPageSize} />

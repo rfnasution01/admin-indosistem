@@ -109,6 +109,12 @@ export default {
           dark: '#1F475C',
           grey: '#7D95A1',
         },
+        success: {
+          DEFAULT: '#4CAF50',
+        },
+        danger: {
+          DEFAULT: '#FF3535',
+        },
         primary: {
           active: '#3085C3',
           inactive: '#B0C4DE',

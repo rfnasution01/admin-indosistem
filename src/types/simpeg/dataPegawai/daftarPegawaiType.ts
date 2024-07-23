@@ -31,3 +31,48 @@ export type PostResetPasswordBody = {
   id_pegawai: string
   password: string
 }
+
+export type PostTambahPegawaiBody = {
+  id_pegawai?: string
+  nip: string
+  nama: string
+  jk: string
+  email: string
+  hp: string
+  npwp: string
+  id_golongan: string
+  jabatan: string
+  jenis_kepegawaian: string
+  status_pegawai: string
+  tanggal_mulai_kerja: string
+  nomor_urut: string
+  tempat_lahir: string
+  tgl_lahir: string
+  latitude: string
+  longitude: string
+  nik: string
+  status_menikah: string
+  alamat: string
+  prop: string
+  kab: string
+  kec: string
+  kel: string
+  kodepos: string
+  tinggi_badan: string
+  berat_badan: string
+  agama: string
+  rambut: string
+  bentuk_muka: string
+  warna_kulit: string
+  ciri_khas: string
+  cacat_tubuh: string
+  gol_darah: string
+  hobi: string
+  suku: string
+  asal_usul_kepegawaian: string
+  kategori_kepegawaian: string
+  id_jenisptk: string
+  nuptk: string
+  karpeg: string
+  gambar: string
+}

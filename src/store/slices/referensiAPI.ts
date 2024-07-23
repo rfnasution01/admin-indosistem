@@ -117,6 +117,55 @@ export const ReferensiEndpoints = api.injectEndpoints({
         method: 'GET',
       }),
     }),
+    getReferensiUmum: builder.query<Res<ReferensiType[]>, { jenis: string }>({
+      query: ({ jenis }) => ({
+        url: `referensi/${jenis}`,
+        method: 'GET',
+      }),
+    }),
+    getReferensiString: builder.query<Res<string[]>, { jenis: string }>({
+      query: ({ jenis }) => ({
+        url: `referensi/${jenis}`,
+        method: 'GET',
+      }),
+    }),
+    getProvinsi: builder.query<Res<ReferensiType[]>, void>({
+      query: () => ({
+        url: `referensi/propinsi`,
+        method: 'GET',
+      }),
+    }),
+    getKabupaten: builder.query<Res<ReferensiType[]>, { id_propinsi: string }>({
+      query: ({ id_propinsi }) => ({
+        url: `referensi/kabupaten`,
+        method: 'GET',
+        params: {
+          id_propinsi: id_propinsi,
+        },
+      }),
+    }),
+    getKecamatan: builder.query<Res<ReferensiType[]>, { id_kabupaten: string }>(
+      {
+        query: ({ id_kabupaten }) => ({
+          url: `referensi/kecamatan`,
+          method: 'GET',
+          params: {
+            id_kabupaten: id_kabupaten,
+          },
+        }),
+      },
+    ),
+    getKelurahan: builder.query<Res<ReferensiType[]>, { id_kecamatan: string }>(
+      {
+        query: ({ id_kecamatan }) => ({
+          url: `referensi/kelurahan`,
+          method: 'GET',
+          params: {
+            id_kecamatan: id_kecamatan,
+          },
+        }),
+      },
+    ),
     createFile: builder.mutation<{ url: string }, FormData>({
       query: (foto) => ({
         url: 'admin/upload',
@@ -148,4 +197,10 @@ export const {
   useGetRouteMenuQuery,
   useGetListKontenQuery,
   useGetSimpegDashboardQuery,
+  useGetReferensiUmumQuery,
+  useGetReferensiStringQuery,
+  useGetKabupatenQuery,
+  useGetKecamatanQuery,
+  useGetKelurahanQuery,
+  useGetProvinsiQuery,
 } = ReferensiEndpoints

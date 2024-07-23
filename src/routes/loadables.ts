@@ -46,6 +46,10 @@ export const DaftarPegawaidSimpegPage = loadable(
   () => import('@/pages/simpeg/pegawai/DaftarPegawai'),
 )
 
+export const UpdateDaftarPegawaidSimpegPage = loadable(
+  () => import('@/pages/simpeg/pegawai/UpdatePegawai'),
+)
+
 // --- Website ---
 export const DashboardPage = loadable(() => import('@/pages/website/dashboard'))
 

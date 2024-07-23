@@ -1,1 +1,5 @@
 export * from './FormResetPassword'
+export * from './FormIdentitasPersonal'
+export * from './FormIdentitasPekerjaan'
+export * from './FormAlamat'
+export * from './FormFisik'

@@ -50,6 +50,7 @@ import {
   TambahTestimoniPage,
   TentangSekolahPage,
   TestimoniPage,
+  UpdateDaftarPegawaidSimpegPage,
   UpdateIdentitasPage,
   UpdatePolicyPage,
   VisiMisiPage,
@@ -446,7 +447,17 @@ export const router = createBrowserRouter([
               },
               {
                 path: 'pegawai',
-                element: <DaftarPegawaidSimpegPage />,
+                element: <CommonLayout />,
+                children: [
+                  {
+                    path: '',
+                    element: <DaftarPegawaidSimpegPage />,
+                  },
+                  {
+                    path: ':aksi',
+                    element: <UpdateDaftarPegawaidSimpegPage />,
+                  },
+                ],
               },
             ],
           },

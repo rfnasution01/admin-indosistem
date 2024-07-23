@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit'
 
 import { api } from './api'
 import stateSearch from './reducer/stateSearch.ts'
+import stateMenu from './reducer/stateMenu.ts'
 
 export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
     stateSearch: stateSearch,
+    stateMenu: stateMenu,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) =>

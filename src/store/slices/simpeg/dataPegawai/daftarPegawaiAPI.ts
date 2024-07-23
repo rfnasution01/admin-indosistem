@@ -3,6 +3,7 @@ import {
   GetDaftarPegawaiParams,
   GetDaftarPegawaiType,
   PostResetPasswordBody,
+  PostTambahPegawaiBody,
 } from '@/types/simpeg/dataPegawai/daftarPegawaiType'
 
 export const SimpegDaftarPegawaiEndpoints = api.injectEndpoints({
@@ -51,6 +52,14 @@ export const SimpegDaftarPegawaiEndpoints = api.injectEndpoints({
       }),
       invalidatesTags: ['simpeg-daftar-pegawai'],
     }),
+    tambahDataPegawai: builder.mutation<void, { body: PostTambahPegawaiBody }>({
+      query: ({ body }) => ({
+        url: `admin/simpeg/pegawai/data`,
+        method: 'POST',
+        body: body,
+      }),
+      invalidatesTags: ['simpeg-daftar-pegawai'],
+    }),
   }),
 })
 
@@ -58,4 +67,5 @@ export const {
   useGetDaftarPegawaiQuery,
   useDeleteDaftarPegawaiMutation,
   useResetPasswordMutation,
+  useTambahDataPegawaiMutation,
 } = SimpegDaftarPegawaiEndpoints

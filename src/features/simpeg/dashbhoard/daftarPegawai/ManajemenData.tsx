@@ -1,5 +1,6 @@
 import { faFileExcel, faPlus, faPrint } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from 'react-router-dom'
 
 export function ManajemenData({ manajemenData }: { manajemenData: string[] }) {
   return (
@@ -9,7 +10,8 @@ export function ManajemenData({ manajemenData }: { manajemenData: string[] }) {
       </p>
       <div className="scrollbar flex w-full items-center gap-32 overflow-y-auto">
         {manajemenData?.map((item, idx) => (
-          <div
+          <Link
+            to={item === 'Tambah Data' ? 'tambah' : ''}
             className="flex items-center justify-center gap-12 text-nowrap rounded-2xl border border-primary-100 px-24 py-12 text-primary-100 hover:cursor-pointer hover:bg-primary-100 hover:text-white"
             key={idx}
           >
@@ -23,7 +25,7 @@ export function ManajemenData({ manajemenData }: { manajemenData: string[] }) {
               }
             />
             {item}
-          </div>
+          </Link>
         ))}
       </div>
     </div>

@@ -131,16 +131,16 @@ export function SimpegMainHeader({
             <div className="hidden phones:block">
               <div className="flex items-center gap-32 px-32">
                 <MenubarProfil setIsShowLogout={setIsShowLogout} />
-                <span
-                  onClick={() => setIsOpen(!isOpen)}
-                  className="text-[3.2rem] text-white"
-                >
-                  {isOpen ? (
-                    <FontAwesomeIcon icon={faClose} />
-                  ) : (
-                    <FontAwesomeIcon icon={faAlignJustify} />
-                  )}
-                </span>
+                  <span
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="text-[3.2rem] text-white"
+                  >
+                    {isOpen ? (
+                      <FontAwesomeIcon icon={faClose} />
+                    ) : (
+                      <FontAwesomeIcon icon={faAlignJustify} />
+                    )}
+                  </span>
               </div>
             </div>
           </div>
