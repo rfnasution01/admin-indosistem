@@ -9,6 +9,7 @@ import {
 } from '@/components/Select/simpeg'
 import { useCreateFileMutation } from '@/store/slices/referensiAPI'
 import { Bounce, toast } from 'react-toastify'
+import { GetDaftarPegawaDetailType } from '@/types/simpeg/dataPegawai/daftarPegawaiType'
 
 export function FormIdentitasPekerjaan({
   form,
@@ -18,6 +19,8 @@ export function FormIdentitasPekerjaan({
   setCurrentIdx,
   setMenu,
   isTambah,
+  detailPegawai,
+  isEdit,
 }: {
   form: UseFormReturn
   isLoading?: boolean
@@ -26,28 +29,55 @@ export function FormIdentitasPekerjaan({
   menuList: string[]
   setMenu: Dispatch<SetStateAction<string>>
   isTambah: boolean
+  detailPegawai: GetDaftarPegawaDetailType
+  isEdit: boolean
 }) {
   const dataParams = localStorage.getItem(menuList?.[currentIdx]) ?? ''
 
   const handleSubmit = () => {
-    const values = form.getValues()
+    if (!isEdit) {
+      const values = form.getValues()
 
-    // Fetch the existing status from localStorage or initialize an empty object
-    const storedStatus = JSON.parse(localStorage.getItem('status')) || {}
+      // Fetch the existing status from localStorage or initialize an empty object
+      const storedStatus = JSON.parse(localStorage.getItem('status')) || {}
 
-    // Set or update the isPekerjaan field to true
-    storedStatus.isPekerjaan = true
+      // Set or update the isPekerjaan field to true
+      storedStatus.isPekerjaan = true
 
-    // Store the updated status object back to localStorage
-    localStorage.setItem('status', JSON.stringify(storedStatus))
+      // Store the updated status object back to localStorage
+      localStorage.setItem('status', JSON.stringify(storedStatus))
 
-    localStorage.setItem(menuList?.[currentIdx], JSON.stringify(values))
+      localStorage.setItem(menuList?.[currentIdx], JSON.stringify(values))
+    }
     setCurrentIdx(currentIdx + 1)
     setMenu(menuList?.[currentIdx + 1])
   }
 
   useEffect(() => {
-    if (dataParams && dataParams !== '') {
+    if (isEdit && detailPegawai) {
+      const data = detailPegawai
+
+      form.setValue('nip', data?.nip)
+      form.setValue('jabatan', data?.jabatan)
+      form.setValue('asal_pegawai', data?.id_asal_pegawai)
+      form.setValue('nama_kategori_asal_pegawai', data?.asal_pegawai)
+      form.setValue('golongan', data?.id_golongan)
+      form.setValue('nama_kategori_golongan', data?.golongan)
+      form.setValue('jenis_ptk', data?.id_jenis_ptk)
+      form.setValue('nama_kategori_jenis_ptk', data?.jenis_ptk)
+      form.setValue('nuptk', data?.nuptk)
+
+      form.setValue('kategori_pegawai', data?.kategori_pegawai)
+      form.setValue('nama_kategori_kategori_pegawai', data?.id_kategori_pegawai)
+      form.setValue('jenis_pegawai', data?.jenis_kepegawaian)
+      form.setValue('status', data?.status_pegawai)
+      form.setValue('nama_kategori_jenis_pegawai', data?.jenis_kepegawaian)
+      form.setValue('nama_kategori_status', data?.status_pegawai)
+      form.setValue('no_karpeg', data?.karpeg)
+      form.setValue('tanggal_mulai', data?.tgl_mulai_kerja)
+      form.setValue('no_urut', data?.nomor_urut)
+      form.setValue('sk', data?.dok_sk)
+    } else if (dataParams && dataParams !== '') {
       const data = JSON.parse(dataParams)
 
       form.setValue('nip', data?.nip)
@@ -79,7 +109,7 @@ export function FormIdentitasPekerjaan({
       form.setValue('no_urut', data?.no_urut)
       form.setValue('sk', data?.sk)
     }
-  }, [dataParams])
+  }, [dataParams, isEdit, detailPegawai])
 
   // --- Upload File ---
   const [
@@ -352,7 +382,7 @@ export function FormIdentitasPekerjaan({
               type="submit"
               className="flex items-center justify-center gap-12 rounded-2xl bg-success px-32 py-12 text-white hover:bg-opacity-80 disabled:cursor-not-allowed"
             >
-              Selanjutnya
+              Simpan & Selanjutnya
             </button>
           </div>
         </form>

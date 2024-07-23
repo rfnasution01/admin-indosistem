@@ -9,6 +9,7 @@ import {
   SelectListKelurahan,
   SelectListProvinsi,
 } from '@/components/Select/simpeg'
+import { GetDaftarPegawaDetailType } from '@/types/simpeg/dataPegawai/daftarPegawaiType'
 
 export function FormAlamat({
   form,
@@ -18,6 +19,8 @@ export function FormAlamat({
   setCurrentIdx,
   setMenu,
   isTambah,
+  detailPegawai,
+  isEdit,
 }: {
   form: UseFormReturn
   isLoading?: boolean
@@ -26,22 +29,26 @@ export function FormAlamat({
   menuList: string[]
   setMenu: Dispatch<SetStateAction<string>>
   isTambah: boolean
+  detailPegawai: GetDaftarPegawaDetailType
+  isEdit: boolean
 }) {
   const dataParams = localStorage.getItem(menuList?.[currentIdx]) ?? ''
 
   const handleSubmit = () => {
-    const values = form.getValues()
+    if (!isEdit) {
+      const values = form.getValues()
 
-    // Fetch the existing status from localStorage or initialize an empty object
-    const storedStatus = JSON.parse(localStorage.getItem('status')) || {}
+      // Fetch the existing status from localStorage or initialize an empty object
+      const storedStatus = JSON.parse(localStorage.getItem('status')) || {}
 
-    // Set or update the isAlamat field to true
-    storedStatus.isAlamat = true
+      // Set or update the isAlamat field to true
+      storedStatus.isAlamat = true
 
-    // Store the updated status object back to localStorage
-    localStorage.setItem('status', JSON.stringify(storedStatus))
+      // Store the updated status object back to localStorage
+      localStorage.setItem('status', JSON.stringify(storedStatus))
 
-    localStorage.setItem(menuList?.[currentIdx], JSON.stringify(values))
+      localStorage.setItem(menuList?.[currentIdx], JSON.stringify(values))
+    }
     setCurrentIdx(currentIdx + 1)
     setMenu(menuList?.[currentIdx + 1])
   }
@@ -54,7 +61,22 @@ export function FormAlamat({
   const disabled = isLoading || !isTambah
 
   useEffect(() => {
-    if (dataParams && dataParams !== '') {
+    if (isEdit && detailPegawai) {
+      const data = detailPegawai
+
+      form.setValue('alamat_lengkap', data?.alamat)
+      form.setValue('provinsi', data?.id_propinsi)
+      form.setValue('nama_provinsi', data?.propinsi)
+      form.setValue('kabupaten', data?.id_kabupaten)
+      form.setValue('nama_kabupaten', data?.kabupaten)
+      form.setValue('kecamatan', data?.id_kecamatan)
+      form.setValue('nama_kecamatan', data?.kecamatan)
+      form.setValue('kelurahan', data?.id_kel)
+      form.setValue('nama_kelurahan', data?.kel)
+      form.setValue('kodepos', data?.kodepos)
+      form.setValue('longitude', data?.longitude)
+      form.setValue('latitude', data?.latitude)
+    } else if (dataParams && dataParams !== '') {
       const data = JSON.parse(dataParams)
 
       form.setValue('alamat_lengkap', data?.alamat_lengkap)
@@ -70,7 +92,7 @@ export function FormAlamat({
       form.setValue('longitude', data?.longitude)
       form.setValue('latitude', data?.latitude)
     }
-  }, [dataParams])
+  }, [dataParams, isEdit, detailPegawai])
 
   return (
     <div className="scrollbar flex h-full w-full flex-col gap-32 overflow-y-auto">
@@ -193,7 +215,7 @@ export function FormAlamat({
               type="submit"
               className="flex items-center justify-center gap-12 rounded-2xl bg-success px-32 py-12 text-white hover:bg-opacity-80 disabled:cursor-not-allowed"
             >
-              Selanjutnya
+              Simpan & Selanjutnya
             </button>
           </div>
         </form>

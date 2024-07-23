@@ -4,6 +4,7 @@ import { FormLabelInput } from '@/components/InputComponent'
 import { Form } from '../..'
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import { SelectListKontenReferensiUmum } from '@/components/Select/simpeg'
+import { GetDaftarPegawaDetailType } from '@/types/simpeg/dataPegawai/daftarPegawaiType'
 
 export function FormFisik({
   form,
@@ -13,6 +14,8 @@ export function FormFisik({
   setCurrentIdx,
   setMenu,
   isTambah,
+  detailPegawai,
+  isEdit,
 }: {
   form: UseFormReturn
   isLoading?: boolean
@@ -21,28 +24,52 @@ export function FormFisik({
   menuList: string[]
   setMenu: Dispatch<SetStateAction<string>>
   isTambah: boolean
+  detailPegawai: GetDaftarPegawaDetailType
+  isEdit: boolean
 }) {
   const dataParams = localStorage.getItem(menuList?.[currentIdx]) ?? ''
 
   const handleSubmit = () => {
-    const values = form.getValues()
+    if (!isEdit) {
+      const values = form.getValues()
 
-    // Fetch the existing status from localStorage or initialize an empty object
-    const storedStatus = JSON.parse(localStorage.getItem('status')) || {}
+      // Fetch the existing status from localStorage or initialize an empty object
+      const storedStatus = JSON.parse(localStorage.getItem('status')) || {}
 
-    // Set or update the isFisik field to true
-    storedStatus.isKarakter = true
+      // Set or update the isFisik field to true
+      storedStatus.isKarakter = true
 
-    // Store the updated status object back to localStorage
-    localStorage.setItem('status', JSON.stringify(storedStatus))
+      // Store the updated status object back to localStorage
+      localStorage.setItem('status', JSON.stringify(storedStatus))
 
-    localStorage.setItem(menuList?.[currentIdx], JSON.stringify(values))
+      localStorage.setItem(menuList?.[currentIdx], JSON.stringify(values))
+    }
     setCurrentIdx(currentIdx + 1)
     setMenu(menuList?.[currentIdx + 1])
   }
 
   useEffect(() => {
-    if (dataParams && dataParams !== '') {
+    if (isEdit && detailPegawai) {
+      const data = detailPegawai
+
+      form.setValue('tinggi', data?.tinggi_badan)
+      form.setValue('berat', data?.berat_badan)
+      form.setValue('agama', data?.id_agama)
+      form.setValue('suku', data?.id_suku)
+      form.setValue('rambut', data?.id_rambut)
+      form.setValue('bentuk', data?.id_bentuk_muka)
+      form.setValue('warna', data?.id_warna_kulit)
+      form.setValue('darah', data?.id_goldarah)
+      form.setValue('ciri', data?.ciri_khas)
+      form.setValue('cacat', data?.cacat_tubuh)
+      form.setValue('hobi', data?.hobi)
+      form.setValue('nama_kategori_agama', data?.agama)
+      form.setValue('nama_kategori_suku', data?.suku)
+      form.setValue('nama_kategori_rambut', data?.rambut)
+      form.setValue('nama_kategori_bentuk', data?.bentuk_muka)
+      form.setValue('nama_kategori_warna', data?.warna_kulit)
+      form.setValue('nama_kategori_darah', data?.goldarah)
+    } else if (dataParams && dataParams !== '') {
       const data = JSON.parse(dataParams)
 
       form.setValue('tinggi', data?.tinggi)
@@ -62,9 +89,9 @@ export function FormFisik({
       form.setValue('nama_kategori_rambut', data?.nama_kategori_rambut)
       form.setValue('nama_kategori_bentuk', data?.nama_kategori_bentuk)
       form.setValue('nama_kategori_warna', data?.nama_kategori_warna)
-      form.setValue('nama_kategori_ darah', data?.nama_kategori_darah)
+      form.setValue('nama_kategori_darah', data?.nama_kategori_darah)
     }
-  }, [dataParams])
+  }, [dataParams, isEdit, detailPegawai])
 
   const disabled = isLoading || !isTambah
 
@@ -220,7 +247,7 @@ export function FormFisik({
               type="submit"
               className="flex items-center justify-center gap-12 rounded-2xl bg-success px-32 py-12 text-white hover:bg-opacity-80 disabled:cursor-not-allowed"
             >
-              Selanjutnya
+              Simpan & Selanjutnya
             </button>
           </div>
         </form>

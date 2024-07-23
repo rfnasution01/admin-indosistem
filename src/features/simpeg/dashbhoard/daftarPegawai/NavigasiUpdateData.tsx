@@ -6,6 +6,7 @@ export function NavigasiUpdateData({
   menuList,
   menu,
   setCurrentIdx,
+  isEdit,
 }: {
   currentIdx: number
   setMenu: Dispatch<SetStateAction<string>>
@@ -27,30 +28,34 @@ export function NavigasiUpdateData({
       {menuList?.map((item, idx) => {
         let isDisabled = true
 
-        if (!status || status === '') {
-          if (idx === 0) {
-            isDisabled = false
-          }
+        if (isEdit) {
+          isDisabled = false
         } else {
-          const dataStatus = JSON.parse(status)
-          const isPersonal = dataStatus?.isPersonal
-          const isPekerjaan = dataStatus?.isPekerjaan
-          const isAlamat = dataStatus?.isAlamat
-          const isKarakter = dataStatus?.isKarakter
+          if (!status || status === '') {
+            if (idx === 0) {
+              isDisabled = false
+            }
+          } else {
+            const dataStatus = JSON.parse(status)
+            const isPersonal = dataStatus?.isPersonal
+            const isPekerjaan = dataStatus?.isPekerjaan
+            const isAlamat = dataStatus?.isAlamat
+            const isKarakter = dataStatus?.isKarakter
 
-          if (isKarakter) {
-            isDisabled = false
-          } else if (isAlamat) {
-            if (idx <= 3) {
+            if (isKarakter) {
               isDisabled = false
-            }
-          } else if (isPekerjaan) {
-            if (idx <= 2) {
-              isDisabled = false
-            }
-          } else if (isPersonal) {
-            if (idx <= 1) {
-              isDisabled = false
+            } else if (isAlamat) {
+              if (idx <= 3) {
+                isDisabled = false
+              }
+            } else if (isPekerjaan) {
+              if (idx <= 2) {
+                isDisabled = false
+              }
+            } else if (isPersonal) {
+              if (idx <= 1) {
+                isDisabled = false
+              }
             }
           }
         }
@@ -60,7 +65,7 @@ export function NavigasiUpdateData({
             key={idx}
             onClick={() => handleMenuClick(idx)}
             className={clsx(
-              'rounded-2xl border p-16 hover:cursor-pointer disabled:cursor-not-allowed',
+              'text-nowrap rounded-2xl border p-16 hover:cursor-pointer disabled:cursor-not-allowed',
               {
                 'border-primary-100 text-primary-100': menu === item,
                 'border-success text-success': menu !== item && !isDisabled,

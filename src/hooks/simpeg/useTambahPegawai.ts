@@ -1,4 +1,7 @@
-import { useTambahDataPegawaiMutation } from '@/store/slices/simpeg/dataPegawai/daftarPegawaiAPI'
+import {
+  useGetDaftarPegawaiDetailQuery,
+  useTambahDataPegawaiMutation,
+} from '@/store/slices/simpeg/dataPegawai/daftarPegawaiAPI'
 import { useEffect, useState } from 'react'
 import { Bounce, toast } from 'react-toastify'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,10 +16,16 @@ import {
 } from '@/schemas/simpeg/daftarPegawaiSchema'
 import { useNavigate } from 'react-router-dom'
 import { useAksesSimpeg } from '../useAksesSimpeg'
+import { GetDaftarPegawaDetailType } from '@/types/simpeg/dataPegawai/daftarPegawaiType'
+import { usePathname } from '../usePathname'
 
 export function useTambahPegawai() {
   const navigate = useNavigate()
   const { isHakAksesTambah } = useAksesSimpeg()
+  const { lastPathname } = usePathname()
+
+  const editID = localStorage.getItem('editID') ?? ''
+  const isEdit = lastPathname === 'edit'
 
   const [isShowTambah, setIsShowTambah] = useState(false)
 
@@ -49,6 +58,31 @@ export function useTambahPegawai() {
     defaultValues: {},
   })
 
+  //   --- Detail ---
+  const [detailPegawai, setDetailPegawai] =
+    useState<GetDaftarPegawaDetailType>()
+
+  const {
+    data: dataDetailPegawai,
+    isFetching: isFetchingDetailPegawai,
+    isLoading: isLoadingDetailPegawai,
+  } = useGetDaftarPegawaiDetailQuery(
+    {
+      id_pegawai: editID,
+    },
+    { skip: !editID || editID === '' },
+  )
+
+  const loadingDetailPegawai = isLoadingDetailPegawai || isFetchingDetailPegawai
+
+  useEffect(() => {
+    if (dataDetailPegawai?.data) {
+      const item = dataDetailPegawai?.data
+
+      setDetailPegawai(item)
+    }
+  }, [dataDetailPegawai?.data, editID])
+
   // --- Tambah Pegawai ---
   const dataPersonalParams = localStorage.getItem('Identitas Personal') ?? ''
   const dataPekerjaanParams = localStorage.getItem('Identitas Pekerjaan') ?? ''
@@ -80,7 +114,61 @@ export function useTambahPegawai() {
       })
     }
 
-    if (
+    if (isEdit) {
+      const values = formTambahPegawai.getValues()
+
+      const bodyEdit = {
+        id_pegawai: isEdit ? editID : '',
+        nip: values?.nip ?? '',
+        nama: values?.nama ?? '',
+        jk: values?.jk ?? '',
+        email: values?.email ?? '',
+        hp: values?.hp ?? '',
+        npwp: values?.npwp ?? '',
+        id_golongan: values?.golongan ?? '',
+        jabatan: values?.jabatan ?? '',
+        jenis_kepegawaian: values?.jenis_pegawai ?? '',
+        status_pegawai: values?.status ?? '',
+        tanggal_mulai_kerja: values?.tanggal_mulai ?? '',
+        nomor_urut: values?.no_urut ?? '',
+        tempat_lahir: values?.tempatLahir ?? '',
+        tgl_lahir: values?.tanggalLahir ?? '',
+        latitude: values?.latitude ?? '',
+        longitude: values?.longitude ?? '',
+        nik: values?.nik ?? '',
+        status_menikah: values?.pernikahan ?? '',
+        alamat: values?.alamat_lengkap ?? '',
+        prop: values?.provinsi ?? '',
+        kab: values?.kabupaten ?? '',
+        kec: values?.kecamatan ?? '',
+        kel: values?.kelurahan ?? '',
+        kodepos: values?.kodepos ?? '',
+        tinggi_badan: values?.tinggi ?? '',
+        berat_badan: values?.berat ?? '',
+        agama: values?.agama ?? '',
+        rambut: values?.rambut ?? '',
+        bentuk_muka: values?.bentuk ?? '',
+        warna_kulit: values?.warna ?? '',
+        ciri_khas: values?.ciri ?? '',
+        cacat_tubuh: values?.cacat ?? '',
+        gol_darah: values?.darah ?? '',
+        hobi: values?.hobi ?? '',
+        suku: values?.suku ?? '',
+        asal_usul_kepegawaian: values?.asal_pegawai ?? '',
+        kategori_kepegawaian: values?.kategori_pegawai ?? '',
+        id_jenisptk: values?.jenis_pegawai ?? '',
+        nuptk: values?.nuptk ?? '',
+        karpeg: values?.no_karpeg ?? '',
+        gambar: values?.photo ?? '',
+        dokumen: values?.sk ?? '',
+      }
+
+      try {
+        await tambahPegawai({ body: bodyEdit })
+      } catch (error) {
+        console.error(error)
+      }
+    } else if (
       dataKarakterParams &&
       dataKarakterParams !== '' &&
       dataAlamatParams &&
@@ -95,8 +183,8 @@ export function useTambahPegawai() {
       const dataAlamat = JSON.parse(dataAlamatParams)
       const dataKarakter = JSON.parse(dataKarakterParams)
 
-      const body = {
-        id_pegawai: '',
+      const bodyTambah = {
+        id_pegawai: isEdit ? editID : '',
         nip: dataPekerjaan?.nip ?? '',
         nama: dataPersonal?.nama ?? '',
         jk: dataPersonal?.jk ?? '',
@@ -142,7 +230,7 @@ export function useTambahPegawai() {
       }
 
       try {
-        await tambahPegawai({ body: body })
+        await tambahPegawai({ body: bodyTambah })
       } catch (error) {
         console.error(error)
       }
@@ -151,7 +239,7 @@ export function useTambahPegawai() {
 
   useEffect(() => {
     if (isSuccesstambahPegawai) {
-      toast.success(`Tambah pegawai berhasil`, {
+      toast.success(`${isEdit ? 'Edit' : 'Tambah'} pegawai berhasil`, {
         position: 'bottom-right',
         autoClose: 3000,
         hideProgressBar: false,
@@ -211,5 +299,7 @@ export function useTambahPegawai() {
     formIdentitasPekerjaan,
     formIdentitasPersonal,
     formTambahPegawai,
+    detailPegawai,
+    loadingDetailPegawai,
   }
 }

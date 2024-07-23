@@ -1,6 +1,7 @@
 import { ValidasiKonfirmasi } from '@/components/Dialog/ValidasiKonfirmasi'
 import { Form } from '@/components/Form'
 import { LabelData } from '@/components/LabelComponent/LabelData'
+import { GetDaftarPegawaDetailType } from '@/types/simpeg/dataPegawai/daftarPegawaiType'
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Dispatch, SetStateAction } from 'react'
@@ -14,6 +15,8 @@ export function PreviewDataPegawai({
   setCurrentIdx,
   setMenu,
   menuList,
+  detailPegawai,
+  isEdit,
 }: {
   handleSubmitTambahPegawai: () => Promise<void>
   isShowTambah: boolean
@@ -22,16 +25,18 @@ export function PreviewDataPegawai({
   setCurrentIdx: Dispatch<SetStateAction<number>>
   form: UseFormReturn
   menuList: string[]
+  detailPegawai: GetDaftarPegawaDetailType
+  isEdit: boolean
 }) {
   const dataPersonalParams = localStorage.getItem('Identitas Personal') ?? ''
   const dataPekerjaanParams = localStorage.getItem('Identitas Pekerjaan') ?? ''
   const dataAlamatParams = localStorage.getItem('Alamat Tempat Tinggal') ?? ''
   const dataKarakterParams = localStorage.getItem('Karakter Fisik') ?? ''
 
-  const dataPersonal = JSON.parse(dataPersonalParams)
-  const dataPekerjaan = JSON.parse(dataPekerjaanParams)
-  const dataAlamat = JSON.parse(dataAlamatParams)
-  const dataKarakter = JSON.parse(dataKarakterParams)
+  const dataPersonal = dataPersonalParams && JSON.parse(dataPersonalParams)
+  const dataPekerjaan = dataPekerjaanParams && JSON.parse(dataPekerjaanParams)
+  const dataAlamat = dataAlamatParams && JSON.parse(dataAlamatParams)
+  const dataKarakter = dataKarakterParams && JSON.parse(dataKarakterParams)
 
   const handleClick = (idx: number) => {
     setCurrentIdx(idx)
@@ -57,22 +62,83 @@ export function PreviewDataPegawai({
           </div>
         </div>
         <div className="flex w-1/2 flex-col gap-16 phones:w-full">
-          <LabelData label="NIK" value={dataPersonal?.nik} />
+          <LabelData
+            label="NIK"
+            value={
+              !isEdit
+                ? dataPersonal?.nik
+                : form.watch('nik') || detailPegawai?.nik
+            }
+          />
           <LabelData
             label="Nama Lengkap dan Gelat"
-            value={dataPersonal?.nama}
+            value={
+              !isEdit
+                ? dataPersonal?.nama
+                : form.watch('nama') || detailPegawai?.nama
+            }
           />
-          <LabelData label="Jenis Kelamin" value={dataPersonal?.jk} />
-          <LabelData label="Tempat Lahir" value={dataPersonal?.tempatLahir} />
-          <LabelData label="Tanggal lahir" value={dataPersonal?.tanggalLahir} />
-          <LabelData label="Email" value={dataPersonal?.email} />
-          <LabelData label="No. Hp" value={dataPersonal?.hp} />
-          <LabelData label="NPWP" value={dataPersonal?.npwp} />
+          <LabelData
+            label="Jenis Kelamin"
+            value={
+              !isEdit ? dataPersonal?.jk : form.watch('jk') || detailPegawai?.jk
+            }
+          />
+          <LabelData
+            label="Tempat Lahir"
+            value={
+              !isEdit
+                ? dataPersonal?.tempatLahir
+                : form.watch('tempatLahir') || detailPegawai?.tempat_lahir
+            }
+          />
+          <LabelData
+            label="Tanggal lahir"
+            value={
+              !isEdit
+                ? dataPersonal?.tanggalLahir
+                : form.watch('tanggalLahir') || detailPegawai?.tgl_lahir
+            }
+          />
+          <LabelData
+            label="Email"
+            value={
+              !isEdit
+                ? dataPersonal?.email
+                : form.watch('email') || detailPegawai?.email
+            }
+          />
+          <LabelData
+            label="No. Hp"
+            value={
+              !isEdit ? dataPersonal?.hp : form.watch('hp') || detailPegawai?.hp
+            }
+          />
+          <LabelData
+            label="NPWP"
+            value={
+              !isEdit
+                ? dataPersonal?.npwp
+                : form.watch('npwp') || detailPegawai?.npwp
+            }
+          />
           <LabelData
             label="Status Pernikahan"
-            value={dataPersonal?.nama_kategori_pernikahan}
+            value={
+              !isEdit
+                ? dataPersonal?.nama_kategori_pernikahan
+                : form.watch('nama_kategori_pernikahan') ||
+                  detailPegawai?.status_menikah
+            }
           />
-          <LabelData label="Foto" value={dataPersonal?.photo} />
+          <LabelData
+            label="Foto"
+            value={
+              !isEdit
+                ? dataPersonal?.photo
+                : form.watch('photo') || detailPegawai?.photo
+            }
+          />
         </div>
       </div>
       {/* --- Identitas Pekerjaan --- */}
@@ -94,40 +160,107 @@ export function PreviewDataPegawai({
         <div className="flex w-1/2 flex-col gap-16 phones:w-full">
           <LabelData
             label="Asal Usul Kepegawaian"
-            value={dataPekerjaan?.nama_kategori_asal_pegawai}
+            value={
+              !isEdit
+                ? dataPekerjaan?.nama_kategori_asal_pegawai
+                : form.watch('nama_kategori_asal_pegawai') ||
+                  detailPegawai?.asal_pegawai
+            }
           />
-          <LabelData label="NIP" value={dataPekerjaan?.nip} />
+          <LabelData
+            label="NIP"
+            value={
+              !isEdit
+                ? dataPekerjaan?.nip
+                : form.watch('nip') || detailPegawai?.nip
+            }
+          />
           <LabelData
             label="Pangkat / Golongan"
-            value={dataPekerjaan?.nama_kategori_golongan}
+            value={
+              !isEdit
+                ? dataPekerjaan?.nama_kategori_golongan
+                : form.watch('nama_kategori_golongan') ||
+                  detailPegawai?.golongan
+            }
           />
-          {dataPekerjaan?.nama_kategori_jenis_ptk && (
-            <LabelData
-              label="Jenis PTK"
-              value={dataPekerjaan?.nama_kategori_jenis_ptk}
-            />
-          )}
 
-          {dataPekerjaan?.nama_kategori_nuptk && (
-            <LabelData
-              label="NUPTK"
-              value={dataPekerjaan?.nama_kategori_nuptk}
-            />
-          )}
+          <LabelData
+            label="Jenis PTK"
+            value={
+              !isEdit
+                ? dataPekerjaan?.nama_kategori_jenis_ptk
+                : form.watch('nama_kategori_jenis_ptk') ||
+                  detailPegawai?.jenis_ptk
+            }
+          />
 
-          <LabelData label="Jabatan" value={dataPekerjaan?.jabatan} />
+          <LabelData
+            label="NUPTK"
+            value={
+              !isEdit
+                ? dataPekerjaan?.nama_kategori_nuptk
+                : form.watch('nama_kategori_nuptk') || detailPegawai?.nuptk
+            }
+          />
+
+          <LabelData
+            label="Jabatan"
+            value={
+              !isEdit
+                ? dataPekerjaan?.jabatan
+                : form.watch('jabatan') || detailPegawai?.jabatan
+            }
+          />
           <LabelData
             label="Kategori Kepegawaian"
-            value={dataPekerjaan?.nama_kategori_kategori_pegawai}
+            value={
+              !isEdit
+                ? dataPekerjaan?.nama_kategori_kategori_pegawai
+                : form.watch('nama_kategori_kategori_pegawai') ||
+                  detailPegawai?.kategori_pegawai
+            }
           />
-          <LabelData label="No. Karpeg" value={dataPekerjaan?.no_karpeg} />
-          <LabelData label="Status Aktif" value={dataPekerjaan?.status} />
+          <LabelData
+            label="No. Karpeg"
+            value={
+              !isEdit
+                ? dataPekerjaan?.no_karpeg
+                : form.watch('no_karpeg') || detailPegawai?.karpeg
+            }
+          />
+          <LabelData
+            label="Status Aktif"
+            value={
+              !isEdit
+                ? dataPekerjaan?.status
+                : form.watch('status') || detailPegawai?.status_pegawai
+            }
+          />
           <LabelData
             label="Tanggal Mulai Kerja"
-            value={dataPekerjaan?.tanggal_mulai}
+            value={
+              !isEdit
+                ? dataPekerjaan?.tanggal_mulai
+                : form.watch('tanggal_mulai') || detailPegawai?.tgl_mulai_kerja
+            }
           />
-          <LabelData label="Nomor Urut" value={dataPekerjaan?.no_urut} />
-          <LabelData label="Dokumen SK" value={dataPekerjaan?.sk} />
+          <LabelData
+            label="Nomor Urut"
+            value={
+              !isEdit
+                ? dataPekerjaan?.no_urut
+                : form.watch('no_urut') || detailPegawai?.nomor_urut
+            }
+          />
+          <LabelData
+            label="Dokumen SK"
+            value={
+              !isEdit
+                ? dataPekerjaan?.sk
+                : form.watch('sk') || detailPegawai?.dok_sk
+            }
+          />
         </div>
       </div>
       {/* --- Alamat --- */}
@@ -149,16 +282,69 @@ export function PreviewDataPegawai({
         <div className="flex w-1/2 flex-col gap-16 phones:w-full">
           <LabelData
             label="Alamat Lengkap"
-            value={dataAlamat?.alamat_lengkap}
+            value={
+              !isEdit
+                ? dataAlamat?.alamat_lengkap
+                : form.watch('alamat_lengkap') || detailPegawai?.alamat
+            }
           />
-          <LabelData label="Provinsi" value={dataAlamat?.nama_provinsi} />
-          <LabelData label="Kabupaten" value={dataAlamat?.nama_kabupaten} />
-          <LabelData label="Kecamatan" value={dataAlamat?.nama_kecamatan} />
-          <LabelData label="Kelurahan" value={dataAlamat?.nama_kelurahan} />
-          <LabelData label="Kode Pos" value={dataAlamat?.kodepos} />
+          <LabelData
+            label="Provinsi"
+            value={
+              !isEdit
+                ? dataAlamat?.nama_provinsi
+                : form.watch('nama_provinsi') || detailPegawai?.propinsi
+            }
+          />
+          <LabelData
+            label="Kabupaten"
+            value={
+              !isEdit
+                ? dataAlamat?.nama_kabupaten
+                : form.watch('nama_kabupaten') || detailPegawai?.kabupaten
+            }
+          />
+          <LabelData
+            label="Kecamatan"
+            value={
+              !isEdit
+                ? dataAlamat?.nama_kecamatan
+                : form.watch('nama_kecamatan') || detailPegawai?.kecamatan
+            }
+          />
+          <LabelData
+            label="Kelurahan"
+            value={
+              !isEdit
+                ? dataAlamat?.nama_kelurahan
+                : form.watch('nama_kelurahan') || detailPegawai?.kel
+            }
+          />
+          <LabelData
+            label="Kode Pos"
+            value={
+              !isEdit
+                ? dataAlamat?.kodepos
+                : form.watch('kodepos') || detailPegawai?.kodepos
+            }
+          />
           <p className="font-roboto">Lokasi Rumah</p>
-          <LabelData label="Longitude" value={dataAlamat?.longitude} />
-          <LabelData label="Latitude" value={dataAlamat?.latitude} />
+          <LabelData
+            label="Longitude"
+            value={
+              !isEdit
+                ? dataAlamat?.longitude
+                : form.watch('longitude') || detailPegawai?.longitude
+            }
+          />
+          <LabelData
+            label="Latitude"
+            value={
+              !isEdit
+                ? dataAlamat?.latitude
+                : form.watch('latitude') || detailPegawai?.latitude
+            }
+          />
         </div>
       </div>
       {/* --- Karakter Fisik --- */}
@@ -178,29 +364,96 @@ export function PreviewDataPegawai({
           </div>
         </div>
         <div className="flex w-1/2 flex-col gap-16 phones:w-full">
-          <LabelData label="Tinggi Badan (cm)" value={dataKarakter?.tinggi} />
-          <LabelData label="Berat Badan (cm)" value={dataKarakter?.berat} />
-          <LabelData label="Agama" value={dataKarakter?.nama_kategori_agama} />
-          <LabelData label="Suku" value={dataKarakter?.nama_kategori_suku} />
+          <LabelData
+            label="Tinggi Badan (cm)"
+            value={
+              !isEdit
+                ? dataKarakter?.tinggi
+                : form.watch('tinggi') || detailPegawai?.tinggi_badan
+            }
+          />
+          <LabelData
+            label="Berat Badan (cm)"
+            value={
+              !isEdit
+                ? dataKarakter?.berat
+                : form.watch('berat') || detailPegawai?.berat_badan
+            }
+          />
+          <LabelData
+            label="Agama"
+            value={
+              !isEdit
+                ? dataKarakter?.nama_kategori_agama
+                : form.watch('nama_kategori_agama') || detailPegawai?.agama
+            }
+          />
+          <LabelData
+            label="Suku"
+            value={
+              !isEdit
+                ? dataKarakter?.nama_kategori_suku
+                : form.watch('nama_kategori_suku') || detailPegawai?.suku
+            }
+          />
           <LabelData
             label="Rambut"
-            value={dataKarakter?.nama_kategori_rambut}
+            value={
+              !isEdit
+                ? dataKarakter?.nama_kategori_rambut
+                : form.watch('nama_kategori_rambut') || detailPegawai?.rambut
+            }
           />
           <LabelData
             label="Bentuk Muka"
-            value={dataKarakter?.nama_kategori_bentuk}
+            value={
+              !isEdit
+                ? dataKarakter?.nama_kategori_bentuk
+                : form.watch('nama_kategori_bentuk') ||
+                  detailPegawai?.bentuk_muka
+            }
           />
           <LabelData
             label="Warna Kulit"
-            value={dataKarakter?.nama_kategori_warna}
+            value={
+              !isEdit
+                ? dataKarakter?.nama_kategori_warna
+                : form.watch('nama_kategori_warna') ||
+                  detailPegawai?.warna_kulit
+            }
           />
-          <LabelData label="Ciri Khas" value={dataKarakter?.ciri} />
-          <LabelData label="Cacat tubuh" value={dataKarakter?.cacat} />
+          <LabelData
+            label="Ciri Khas"
+            value={
+              !isEdit
+                ? dataKarakter?.ciri
+                : form.watch('ciri') || detailPegawai?.ciri_khas
+            }
+          />
+          <LabelData
+            label="Cacat tubuh"
+            value={
+              !isEdit
+                ? dataKarakter?.cacat
+                : form.watch('cacat') || detailPegawai?.cacat_tubuh
+            }
+          />
           <LabelData
             label="Golongan Darah"
-            value={dataKarakter?.nama_kategori_darah}
+            value={
+              !isEdit
+                ? dataKarakter?.nama_kategori_darah
+                : form.watch('nama_kategori_darah') || detailPegawai?.goldarah
+            }
           />
-          <LabelData label="Hobi" value={dataKarakter?.hobi} />
+          <LabelData
+            label="Hobi"
+            value={
+              !isEdit
+                ? dataKarakter?.hobi
+                : form.watch('hobi') || detailPegawai?.hobi
+            }
+          />
         </div>
       </div>
       <div className="flex justify-end">

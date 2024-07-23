@@ -16,6 +16,7 @@ import { useAksesSimpeg } from '@/hooks/useAksesSimpeg'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useTambahPegawai } from '@/hooks/simpeg'
+import { Loading } from '@/components/Loading'
 
 export default function UpdateDataPegawai() {
   const { isHakAksesTambah } = useAksesSimpeg()
@@ -29,6 +30,8 @@ export default function UpdateDataPegawai() {
     isShowTambah,
     setIsShowTambah,
     formTambahPegawai,
+    detailPegawai,
+    loadingDetailPegawai,
   } = useTambahPegawai()
   const { lastPathname } = usePathname()
   const isEdit = lastPathname === 'edit'
@@ -64,58 +67,74 @@ export default function UpdateDataPegawai() {
           />
         </div>
 
-        {menu === 'Identitas Personal' ? (
-          <FormIdentitasPersonal
-            setCurrentIdx={setCurrentIdx}
-            currentIdx={currentIdx}
-            form={formIdentitasPersonal}
-            menuList={menuList}
-            setMenu={setMenu}
-            isTambah={isHakAksesTambah}
-            isLoading={isLoadingTambahPegawai}
-          />
-        ) : menu === 'Identitas Pekerjaan' ? (
-          <FormIdentitasPekerjaan
-            setCurrentIdx={setCurrentIdx}
-            currentIdx={currentIdx}
-            form={formIdentitasPekerjaan}
-            menuList={menuList}
-            setMenu={setMenu}
-            isTambah={isHakAksesTambah}
-            isLoading={isLoadingTambahPegawai}
-          />
-        ) : menu === 'Alamat Tempat Tinggal' ? (
-          <FormAlamat
-            setCurrentIdx={setCurrentIdx}
-            currentIdx={currentIdx}
-            form={formAlamat}
-            menuList={menuList}
-            setMenu={setMenu}
-            isTambah={isHakAksesTambah}
-            isLoading={isLoadingTambahPegawai}
-          />
-        ) : menu === 'Karakter Fisik' ? (
-          <FormFisik
-            setCurrentIdx={setCurrentIdx}
-            currentIdx={currentIdx}
-            form={formFisik}
-            menuList={menuList}
-            setMenu={setMenu}
-            isTambah={isHakAksesTambah}
-            isLoading={isLoadingTambahPegawai}
-          />
-        ) : menu === 'Preview' ? (
-          <PreviewDataPegawai
-            handleSubmitTambahPegawai={handleSubmitTambahPegawai}
-            isShowTambah={isShowTambah}
-            setIsShowTambah={setIsShowTambah}
-            form={formTambahPegawai}
-            setCurrentIdx={setCurrentIdx}
-            setMenu={setMenu}
-            menuList={menuList}
-          />
+        {isEdit && loadingDetailPegawai ? (
+          <Loading />
         ) : (
-          <ComingSoonPage />
+          <>
+            {menu === 'Identitas Personal' ? (
+              <FormIdentitasPersonal
+                setCurrentIdx={setCurrentIdx}
+                currentIdx={currentIdx}
+                form={isEdit ? formTambahPegawai : formIdentitasPersonal}
+                menuList={menuList}
+                setMenu={setMenu}
+                isTambah={isHakAksesTambah}
+                isLoading={isLoadingTambahPegawai}
+                isEdit={isEdit}
+                detailPegawai={detailPegawai}
+              />
+            ) : menu === 'Identitas Pekerjaan' ? (
+              <FormIdentitasPekerjaan
+                setCurrentIdx={setCurrentIdx}
+                currentIdx={currentIdx}
+                form={isEdit ? formTambahPegawai : formIdentitasPekerjaan}
+                menuList={menuList}
+                setMenu={setMenu}
+                isTambah={isHakAksesTambah}
+                isLoading={isLoadingTambahPegawai}
+                isEdit={isEdit}
+                detailPegawai={detailPegawai}
+              />
+            ) : menu === 'Alamat Tempat Tinggal' ? (
+              <FormAlamat
+                setCurrentIdx={setCurrentIdx}
+                currentIdx={currentIdx}
+                form={isEdit ? formTambahPegawai : formAlamat}
+                menuList={menuList}
+                setMenu={setMenu}
+                isTambah={isHakAksesTambah}
+                isLoading={isLoadingTambahPegawai}
+                isEdit={isEdit}
+                detailPegawai={detailPegawai}
+              />
+            ) : menu === 'Karakter Fisik' ? (
+              <FormFisik
+                setCurrentIdx={setCurrentIdx}
+                currentIdx={currentIdx}
+                form={isEdit ? formTambahPegawai : formFisik}
+                menuList={menuList}
+                setMenu={setMenu}
+                isTambah={isHakAksesTambah}
+                isLoading={isLoadingTambahPegawai}
+                isEdit={isEdit}
+                detailPegawai={detailPegawai}
+              />
+            ) : menu === 'Preview' ? (
+              <PreviewDataPegawai
+                handleSubmitTambahPegawai={handleSubmitTambahPegawai}
+                isShowTambah={isShowTambah}
+                setIsShowTambah={setIsShowTambah}
+                form={formTambahPegawai}
+                setCurrentIdx={setCurrentIdx}
+                setMenu={setMenu}
+                menuList={menuList}
+                detailPegawai={detailPegawai}
+                isEdit={isEdit}
+              />
+            ) : (
+              <ComingSoonPage />
+            )}
+          </>
         )}
       </div>
       <ToastContainer />

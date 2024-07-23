@@ -10,6 +10,7 @@ import { Dispatch, SetStateAction, useEffect } from 'react'
 import { SelectListKontenReferensiUmum } from '@/components/Select/simpeg'
 import { useCreateFileMutation } from '@/store/slices/referensiAPI'
 import { Bounce, toast } from 'react-toastify'
+import { GetDaftarPegawaDetailType } from '@/types/simpeg/dataPegawai/daftarPegawaiType'
 
 export function FormIdentitasPersonal({
   form,
@@ -19,6 +20,8 @@ export function FormIdentitasPersonal({
   setCurrentIdx,
   setMenu,
   isTambah,
+  detailPegawai,
+  isEdit,
 }: {
   form: UseFormReturn
   isLoading?: boolean
@@ -27,11 +30,27 @@ export function FormIdentitasPersonal({
   menuList: string[]
   setMenu: Dispatch<SetStateAction<string>>
   isTambah: boolean
+  detailPegawai: GetDaftarPegawaDetailType
+  isEdit: boolean
 }) {
   const dataParams = localStorage.getItem(menuList?.[currentIdx]) ?? ''
 
   useEffect(() => {
-    if (dataParams && dataParams !== '') {
+    if (isEdit && detailPegawai) {
+      const data = detailPegawai
+
+      form.setValue('nik', data?.nik)
+      form.setValue('nama', data?.nama)
+      form.setValue('tempatLahir', data?.tempat_lahir)
+      form.setValue('tanggalLahir', data?.tgl_lahir)
+      form.setValue('email', data?.email)
+      form.setValue('hp', data?.hp)
+      form.setValue('npwp', data?.npwp)
+      form.setValue('jk', data?.jk)
+      form.setValue('pernikahan', data?.id_status_menikah)
+      form.setValue('photo', data?.photo)
+      form.setValue('nama_kategori_pernikahan', data?.id_status_menikah)
+    } else if (dataParams && dataParams !== '') {
       const data = JSON.parse(dataParams)
 
       form.setValue('nik', data?.nik)
@@ -46,21 +65,23 @@ export function FormIdentitasPersonal({
       form.setValue('photo', data?.photo)
       form.setValue('nama_kategori_pernikahan', data?.nama_kategori_pernikahan)
     }
-  }, [dataParams])
+  }, [dataParams, isEdit, detailPegawai])
 
   const handleSubmit = () => {
-    const values = form.getValues()
+    if (!isEdit) {
+      const values = form.getValues()
 
-    // Fetch the existing status from localStorage or initialize an empty object
-    const storedStatus = JSON.parse(localStorage.getItem('status')) || {}
+      // Fetch the existing status from localStorage or initialize an empty object
+      const storedStatus = JSON.parse(localStorage.getItem('status')) || {}
 
-    // Set or update the isPersonal field to true
-    storedStatus.isPersonal = true
+      // Set or update the isPersonal field to true
+      storedStatus.isPersonal = true
 
-    // Store the updated status object back to localStorage
-    localStorage.setItem('status', JSON.stringify(storedStatus))
+      // Store the updated status object back to localStorage
+      localStorage.setItem('status', JSON.stringify(storedStatus))
 
-    localStorage.setItem(menuList?.[currentIdx], JSON.stringify(values))
+      localStorage.setItem(menuList?.[currentIdx], JSON.stringify(values))
+    }
     setCurrentIdx(currentIdx + 1)
     setMenu(menuList?.[currentIdx + 1])
   }
@@ -271,7 +292,7 @@ export function FormIdentitasPersonal({
               type="submit"
               className="flex items-center justify-center gap-12 rounded-2xl bg-success px-32 py-12 text-white hover:bg-opacity-80 disabled:cursor-not-allowed"
             >
-              Selanjutnya
+              Simpan & Selanjutnya
             </button>
           </div>
         </form>

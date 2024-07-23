@@ -1,5 +1,6 @@
 import { api, Res } from '@/store/api'
 import {
+  GetDaftarPegawaDetailType,
   GetDaftarPegawaiParams,
   GetDaftarPegawaiType,
   PostResetPasswordBody,
@@ -60,6 +61,19 @@ export const SimpegDaftarPegawaiEndpoints = api.injectEndpoints({
       }),
       invalidatesTags: ['simpeg-daftar-pegawai'],
     }),
+    getDaftarPegawaiDetail: builder.query<
+      Res<GetDaftarPegawaDetailType>,
+      { id_pegawai: string }
+    >({
+      query: ({ id_pegawai }) => ({
+        url: `admin/simpeg/pegawai/detail`,
+        method: 'GET',
+        params: {
+          id_pegawai: id_pegawai,
+        },
+      }),
+      providesTags: ['simpeg-daftar-pegawai'],
+    }),
   }),
 })
 
@@ -68,4 +82,5 @@ export const {
   useDeleteDaftarPegawaiMutation,
   useResetPasswordMutation,
   useTambahDataPegawaiMutation,
+  useGetDaftarPegawaiDetailQuery,
 } = SimpegDaftarPegawaiEndpoints
