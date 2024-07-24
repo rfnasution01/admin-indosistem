@@ -21,6 +21,9 @@ export const ManajemenUserMainLayout = loadable(
 
 // --- Simpeg ---
 export const SimpegMainLayout = loadable(() => import('@/layouts/simpeg'))
+export const SimpegDetailPegawaiLayout = loadable(
+  () => import('@/layouts/simpeg/detailPegawai'),
+)
 
 // --- Profil ---
 export const ProfilMainLayout = loadable(() => import('@/layouts/profilLayout'))
@@ -40,6 +43,10 @@ export const TambahProfilePage = loadable(
 // --- Simpeg ---
 export const DashboardSimpegPage = loadable(
   () => import('@/pages/simpeg/dashboard'),
+)
+
+export const SimpegDetailPegawaiPage = loadable(
+  () => import('@/pages/simpeg/pegawai/DetailPegawai'),
 )
 
 export const DaftarPegawaidSimpegPage = loadable(

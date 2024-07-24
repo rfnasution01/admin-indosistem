@@ -1,4 +1,4 @@
-export * from './useTambahPegawai'
+export * from './useSimpegTambahPegawai'
 export * from './useSimpegProfil'
 export * from './useAksesSimpeg'
-export * from './useDaftarPegawai'
+export * from './useSimpegDaftarPegawai'

@@ -14,9 +14,12 @@ import { MenubarProfil } from '@/components/Menubar/MenubarProfile'
 import { useLogout } from '@/hooks/useLogout'
 import { ValidasiLogout } from '@/components/Dialog/ValidasiLogout'
 import { useSimpegIdentitas } from '@/hooks/simpeg'
+import { usePathname } from '@/hooks/usePathname'
 
 export default function SimpegMainLayout() {
   const navigate = useNavigate()
+  const { splittedPath, firstPathname, secondPathname, thirdPathname } =
+    usePathname()
   const { isShowLogout, setIsShowLogout, handleLogout } = useLogout()
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -38,7 +41,11 @@ export default function SimpegMainLayout() {
         <div className="flex h-auto items-center justify-between gap-32 bg-white px-64 py-12 phones:hidden phones:p-32">
           <span
             onClick={() => {
-              navigate(-1)
+              if (splittedPath?.length > 4) {
+                navigate(`/${firstPathname}/${secondPathname}/${thirdPathname}`)
+              } else {
+                navigate(-1)
+              }
             }}
             className="hover:cursor-pointer"
           >

@@ -14,7 +14,7 @@ import { convertSlugToText } from '@/utils/formatText'
 import { useState } from 'react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { useAksesSimpeg, useTambahPegawai } from '@/hooks/simpeg'
+import { useAksesSimpeg, useSimpegTambahPegawai } from '@/hooks/simpeg'
 import { Loading } from '@/components/Loading'
 
 export default function UpdateDataPegawai() {
@@ -31,7 +31,7 @@ export default function UpdateDataPegawai() {
     formTambahPegawai,
     detailPegawai,
     loadingDetailPegawai,
-  } = useTambahPegawai()
+  } = useSimpegTambahPegawai()
   const { lastPathname } = usePathname()
   const isEdit = lastPathname === 'edit'
 

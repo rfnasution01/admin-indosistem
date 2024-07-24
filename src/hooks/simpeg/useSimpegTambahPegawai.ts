@@ -19,7 +19,7 @@ import { useAksesSimpeg } from './useAksesSimpeg'
 import { GetDaftarPegawaDetailType } from '@/types/simpeg/dataPegawai/daftarPegawaiType'
 import { usePathname } from '../usePathname'
 
-export function useTambahPegawai() {
+export function useSimpegTambahPegawai() {
   const navigate = useNavigate()
   const { isHakAksesTambah } = useAksesSimpeg()
   const { lastPathname } = usePathname()

@@ -108,6 +108,7 @@ export default {
           red: '#E00000',
           dark: '#1F475C',
           grey: '#7D95A1',
+          white: '#fafafa',
         },
         success: {
           DEFAULT: '#4CAF50',
@@ -120,10 +121,14 @@ export default {
           inactive: '#B0C4DE',
           100: '#00529C',
           200: '#004C6D',
+          300: '#BFECFF',
         },
         secondary: {
           DEFAULT: '#e74c3c',
           shade: { 100: '#6b7280' },
+        },
+        warning: {
+          DEFAULT: '#FFB42C',
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',

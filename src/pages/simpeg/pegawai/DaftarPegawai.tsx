@@ -5,7 +5,7 @@ import { FormListDataPerPage } from '@/components/Select/website'
 import { TableDaftarPegawai } from '@/components/Table/TableDaftarPegawai'
 import { columnsListDaftarPegawai } from '@/dummy/tableSimpeg'
 import { ManajemenData } from '@/features/simpeg/dashbhoard/daftarPegawai/ManajemenData'
-import { useDaftarPegawai } from '@/hooks/simpeg'
+import { useSimpegDaftarPegawai } from '@/hooks/simpeg'
 import { useEffect } from 'react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -43,7 +43,7 @@ export default function DaftarPegawai() {
     isLoadingResetPasswordDaftarPegawai,
     setId,
     id,
-  } = useDaftarPegawai()
+  } = useSimpegDaftarPegawai()
 
   useEffect(() => {
     if (tahun) {

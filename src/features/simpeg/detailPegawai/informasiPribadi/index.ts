@@ -1,0 +1,6 @@
+export * from './AlamatLengkap'
+export * from './IdentitasPersonal'
+export * from './KarakteristikFisik'
+export * from './StatusKepegawaian'
+export * from './HistoryPerubahanStatus'
+export * from './ProyeksiPensiun'

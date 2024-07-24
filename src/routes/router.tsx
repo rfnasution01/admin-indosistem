@@ -33,6 +33,8 @@ import {
   ProfilMainLayout,
   ProfilWebsiteLayout,
   ProgramLayananPage,
+  SimpegDetailPegawaiLayout,
+  SimpegDetailPegawaiPage,
   SimpegMainLayout,
   SliderPage,
   TambahDownloadPage,
@@ -456,6 +458,20 @@ export const router = createBrowserRouter([
                   {
                     path: ':aksi',
                     element: <UpdateDaftarPegawaidSimpegPage />,
+                  },
+                  {
+                    path: 'detail',
+                    element: <SimpegDetailPegawaiLayout />,
+                    children: [
+                      {
+                        path: '',
+                        element: <SimpegDetailPegawaiPage />,
+                      },
+                      {
+                        path: ':nama',
+                        element: <SimpegDetailPegawaiPage />,
+                      },
+                    ],
                   },
                 ],
               },

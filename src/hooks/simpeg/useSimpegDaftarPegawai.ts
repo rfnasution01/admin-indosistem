@@ -15,7 +15,7 @@ import { FilterSchema, ResetSchema } from '@/schemas/simpeg/filterSchema'
 import { Bounce, toast } from 'react-toastify'
 import { useAksesSimpeg } from './useAksesSimpeg'
 
-export function useDaftarPegawai() {
+export function useSimpegDaftarPegawai() {
   const navigate = useNavigate()
 
   const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } = useAksesSimpeg()
