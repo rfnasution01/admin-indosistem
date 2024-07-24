@@ -2,11 +2,9 @@ import Helmet from 'react-helmet'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import { Outlet, useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import clsx from 'clsx'
 import { SimpegMainHeader } from './MainLayoutAside'
-import { useGetSimpegIdentitasQuery } from '@/store/slices/simpeg/identitasType'
-import { GetIdentitasWebsiteType } from '@/types/website/menuType'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faDoorClosed } from '@fortawesome/free-solid-svg-icons'
 import Time from '@/components/Time'
@@ -15,6 +13,7 @@ import 'dayjs/locale/id'
 import { MenubarProfil } from '@/components/Menubar/MenubarProfile'
 import { useLogout } from '@/hooks/useLogout'
 import { ValidasiLogout } from '@/components/Dialog/ValidasiLogout'
+import { useSimpegIdentitas } from '@/hooks/simpeg'
 
 export default function SimpegMainLayout() {
   const navigate = useNavigate()
@@ -22,14 +21,7 @@ export default function SimpegMainLayout() {
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  const [identitas, setIdentitas] = useState<GetIdentitasWebsiteType>()
-  const { data } = useGetSimpegIdentitasQuery()
-
-  useEffect(() => {
-    if (data?.data) {
-      setIdentitas(data?.data)
-    }
-  }, [data])
+  const { simpegIdentitas } = useSimpegIdentitas()
 
   return (
     <div className="flex h-screen w-full bg-background-secondary text-[2rem] phones:flex-col phones:text-[2.4rem]">
@@ -64,21 +56,21 @@ export default function SimpegMainLayout() {
       </div>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{identitas?.nama_aplikasi}</title>
+        <title>{simpegIdentitas?.nama_aplikasi}</title>
         <link rel="canonical" href="https://demolaman1.avnet.id/" />
-        <meta name="description" content={identitas?.deskripsi} />
+        <meta name="description" content={simpegIdentitas?.deskripsi} />
         <meta name="keywords" content="keyword1, keyword2, keyword3" />
-        <meta property="og:title" content={identitas?.nama_aplikasi} />
-        <meta property="og:description" content={identitas?.deskripsi} />
+        <meta property="og:title" content={simpegIdentitas?.nama_aplikasi} />
+        <meta property="og:description" content={simpegIdentitas?.deskripsi} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://demolaman1.avnet.id/" />
-        <meta property="og:image" content={identitas?.logo} />
-        <meta name="twitter:card" content={identitas?.nama_aplikasi} />
-        <meta name="twitter:title" content={identitas?.nama_aplikasi} />
-        <meta name="twitter:description" content={identitas?.deskripsi} />
-        <meta name="twitter:image" content={identitas?.logo} />
+        <meta property="og:image" content={simpegIdentitas?.logo} />
+        <meta name="twitter:card" content={simpegIdentitas?.nama_aplikasi} />
+        <meta name="twitter:title" content={simpegIdentitas?.nama_aplikasi} />
+        <meta name="twitter:description" content={simpegIdentitas?.deskripsi} />
+        <meta name="twitter:image" content={simpegIdentitas?.logo} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href={identitas?.favicon} type="image/x-icon" />
+        <link rel="icon" href={simpegIdentitas?.favicon} type="image/x-icon" />
         <script type="application/ld+json">
           {`
           {

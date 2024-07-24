@@ -1,8 +1,5 @@
 import { Skeleton } from '@/components/Skeleton'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Bounce, toast } from 'react-toastify'
-import Cookies from 'js-cookie'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faAlignJustify,
@@ -13,14 +10,13 @@ import {
 import { usePathname } from '@/hooks/usePathname'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
-import { GetIdentitasWebsiteType } from '@/types/website/menuType'
-import { useGetSimpegIdentitasQuery } from '@/store/slices/simpeg/identitasType'
 import { LinkParent } from './LinkParent'
 import { LinkChild } from './LinkChild'
 import { MenubarProfil } from '@/components/Menubar/MenubarProfile'
 import { useLogout } from '@/hooks/useLogout'
 import { ValidasiLogout } from '@/components/Dialog/ValidasiLogout'
 import { useAksesSimpeg } from '@/hooks/useAksesSimpeg'
+import { useSimpegIdentitas } from '@/hooks/simpeg'
 
 library.add(fas)
 
@@ -31,59 +27,13 @@ export function SimpegMainHeader({
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
 }) {
-  const navigate = useNavigate()
   const { secondPathname, thirdPathname } = usePathname()
   const { isShowLogout, setIsShowLogout, handleLogout } = useLogout()
   const { loadingMenuWebsite, menuWebsite } = useAksesSimpeg()
+  const { simpegIdentitas, loadingIdentitasWebsite } = useSimpegIdentitas()
 
   const [isShow, setIsShow] = useState<boolean>(false)
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
-
-  // --- Identitas Website ---
-  const [identitasWebsite, setIdentitasWebsite] =
-    useState<GetIdentitasWebsiteType>()
-
-  const {
-    data: dataIdentitasWebsite,
-    isFetching: isFetchingIdentitasWebsite,
-    isLoading: isLoadingIdentitasWebsite,
-    isError: isErrorIdentitasWebsite,
-    error: errorIdentitasWebsite,
-  } = useGetSimpegIdentitasQuery()
-
-  const loadingIdentitasWebsite =
-    isFetchingIdentitasWebsite || isLoadingIdentitasWebsite
-
-  useEffect(() => {
-    if (dataIdentitasWebsite?.data) {
-      setIdentitasWebsite(dataIdentitasWebsite?.data)
-    }
-  }, [dataIdentitasWebsite])
-
-  useEffect(() => {
-    if (isErrorIdentitasWebsite) {
-      const errorMsg = errorIdentitasWebsite as { data?: { message?: string } }
-
-      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
-        position: 'bottom-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
-
-      if (errorMsg?.data?.message?.includes('Token')) {
-        setTimeout(() => {
-          Cookies.remove('token')
-          navigate(`/`)
-        }, 3000)
-      }
-    }
-  }, [isErrorIdentitasWebsite, errorIdentitasWebsite])
 
   const isActivePage = (item: string) => {
     if (
@@ -115,14 +65,14 @@ export function SimpegMainHeader({
             <div className="flex items-center justify-center gap-12 px-32 font-bold">
               <div className="flex w-2/3 items-center gap-24 phones:w-full">
                 <img
-                  src={identitasWebsite?.gambar}
-                  alt={identitasWebsite?.nama_aplikasi}
+                  src={simpegIdentitas?.gambar}
+                  alt={simpegIdentitas?.nama_aplikasi}
                   className="h-[6rem] w-[6rem]"
                   loading="lazy"
                 />
                 <div className="flex flex-col text-[2.2rem] tracking-1.25">
                   <p style={{ lineHeight: '130%' }}>
-                    {identitasWebsite?.nama_aplikasi}
+                    {simpegIdentitas?.nama_aplikasi}
                   </p>
                 </div>
               </div>
@@ -131,16 +81,16 @@ export function SimpegMainHeader({
             <div className="hidden phones:block">
               <div className="flex items-center gap-32 px-32">
                 <MenubarProfil setIsShowLogout={setIsShowLogout} />
-                  <span
-                    onClick={() => setIsOpen(!isOpen)}
-                    className="text-[3.2rem] text-white"
-                  >
-                    {isOpen ? (
-                      <FontAwesomeIcon icon={faClose} />
-                    ) : (
-                      <FontAwesomeIcon icon={faAlignJustify} />
-                    )}
-                  </span>
+                <span
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="text-[3.2rem] text-white"
+                >
+                  {isOpen ? (
+                    <FontAwesomeIcon icon={faClose} />
+                  ) : (
+                    <FontAwesomeIcon icon={faAlignJustify} />
+                  )}
+                </span>
               </div>
             </div>
           </div>
