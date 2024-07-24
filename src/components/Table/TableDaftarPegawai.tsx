@@ -88,19 +88,19 @@ export function TableDaftarPegawai<T extends DaftarPegawai, P>({
         <Loading width="6.4rem" height="6.4rem" />
       ) : (
         <div
-          className={`scrollbar flex flex-col overflow-auto ${maxHeight}`}
+          className={`scrollbar flex h-full flex-col overflow-auto ${maxHeight}`}
           style={{ scrollbarGutter: 'stable', borderRadius: '3rem' }}
         >
           {/* ----- No Data/Fallback UI ----- */}
           {!data || data.length === 0 ? (
             <p className="text-[2rem] text-typography-disabled">No data.</p>
           ) : (
-            <table className="flex-1 border-collapse text-[2rem]">
-              <thead className="relative z-10 align-top leading-medium text-warna-primary">
+            <table className="scrollbar h-full flex-1 border-collapse overflow-y-auto text-[2rem]">
+              <thead className="relative z-10 align-top leading-medium text-white">
                 <tr className="border-b-[1.6rem] border-transparent">
                   {/* --- NO --- */}
                   {isNumber && pageSize && currentPage && (
-                    <th className="text-sim-primary sticky top-0 border-b-2 bg-warna-pale-blue px-24 py-24 text-left uppercase">
+                    <th className="text-sim-primary sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left uppercase">
                       #
                     </th>
                   )}
@@ -110,7 +110,7 @@ export function TableDaftarPegawai<T extends DaftarPegawai, P>({
                     .filter((column) => !column.header.includes('Aksi'))
                     .map((column, colIndex) => (
                       <th
-                        className={`text-sim-primary sticky top-0 text-nowrap border-b-2 bg-warna-pale-blue px-24 py-24 text-left uppercase ${column.width}`}
+                        className={`text-sim-primary sticky top-0 text-nowrap border-b-2 bg-primary-100 px-24 py-24 text-left uppercase ${column.width}`}
                         key={column.key || colIndex.toString()}
                       >
                         {column.header}
@@ -119,7 +119,7 @@ export function TableDaftarPegawai<T extends DaftarPegawai, P>({
 
                   {/* --- DaftarPegawai --- */}
                   {isDaftarPegawai && (
-                    <th className="text-sim-primary sticky top-0 border-b-2 bg-warna-pale-blue px-24 py-24 text-left uppercase"></th>
+                    <th className="text-sim-primary sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left uppercase"></th>
                   )}
                   {/* ----- Detail Header ----- */}
                   {collapseComponent && (

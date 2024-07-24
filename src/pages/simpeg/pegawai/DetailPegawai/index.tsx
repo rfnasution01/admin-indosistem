@@ -1,6 +1,10 @@
 import { usePathname } from '@/hooks/usePathname'
 import { ComingSoonPage } from '@/routes/loadables'
-import { DetailBiodataPegawai, StatusKepegawaian } from './informasiPribadi'
+import {
+  DetailBiodataPegawai,
+  DetailKeluargaPegawai,
+  StatusKepegawaian,
+} from './informasiPribadi'
 
 export default function DetailPegawai() {
   const { lastPathname } = usePathname()
@@ -13,6 +17,8 @@ export default function DetailPegawai() {
         return <DetailBiodataPegawai />
       case 'status-kepegawaian':
         return <StatusKepegawaian />
+      case 'data-keluarga':
+        return <DetailKeluargaPegawai />
       default:
         return <ComingSoonPage />
     }

@@ -77,7 +77,7 @@ export function FormLabelFile({
                   className="flex flex-col gap-12 font-roboto"
                   htmlFor="berkas"
                 >
-                  {label ?? 'Berkas'}
+                  <p className="text-primary-100">{label ?? 'Berkas'}</p>
                   <div className="flex">
                     <div
                       className={clsx(
@@ -122,7 +122,7 @@ export function FormLabelFile({
                             e.stopPropagation()
                             setUrls(null)
                           }}
-                          className="absolute right-8 top-8 rounded-lg bg-danger-700 p-4 text-white hover:cursor-pointer hover:bg-danger disabled:cursor-not-allowed"
+                          className="bg-danger-700 absolute right-8 top-8 rounded-lg p-4 text-white hover:cursor-pointer hover:bg-danger disabled:cursor-not-allowed"
                         >
                           <FontAwesomeIcon icon={faTrash} />
                         </button>

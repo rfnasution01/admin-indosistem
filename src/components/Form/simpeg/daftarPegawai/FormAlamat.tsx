@@ -215,7 +215,7 @@ export function FormAlamat({
               type="submit"
               className="flex items-center justify-center gap-12 rounded-2xl bg-success px-32 py-12 text-white hover:bg-opacity-80 disabled:cursor-not-allowed"
             >
-              Simpan & Selanjutnya
+              Simpan & Lanjutkan
             </button>
           </div>
         </form>

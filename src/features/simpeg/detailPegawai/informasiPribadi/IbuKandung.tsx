@@ -1,14 +1,10 @@
-import { GetDaftarPegawaDetailType } from '@/types/simpeg/dataPegawai/daftarPegawaiType'
+import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
 import { Fragment } from 'react'
+import { Link } from 'react-router-dom'
 
-export function HistoryPerubahanStatus({
-  detailPegawai,
-}: {
-  detailPegawai: GetDaftarPegawaDetailType
-}) {
-  console.log({ detailPegawai })
-
+export function IbuKandung() {
   return (
     <div className="scrollbar flex flex-col gap-16 overflow-y-auto rounded-3xl border">
       <table className="scrollbar flex-1 border-collapse overflow-y-auto text-[2rem]">
@@ -18,16 +14,19 @@ export function HistoryPerubahanStatus({
               #
             </th>
             <th className="text-sim-primary sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle">
-              Jenis Kepegawaian
+              Nama
             </th>
             <th className="text-sim-primary sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle">
-              Status
+              Umur
             </th>
             <th className="text-sim-primary text-cent sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle">
-              Tanggal Perubahan
+              Hubungan Keluarga
             </th>
             <th className="text-sim-primary sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle">
-              Instansi
+              Keterangan
+            </th>
+            <th className="text-sim-primary sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle">
+              Aksi
             </th>
           </tr>
         </thead>
@@ -41,30 +40,40 @@ export function HistoryPerubahanStatus({
               <td className="border px-24 py-12 align-middle leading-medium">
                 1
               </td>
-              <td className="px-24 py-12 align-middle leading-medium">PNS</td>
-              <td className="px-24 py-12 align-middle leading-medium">Aktif</td>
               <td className="px-24 py-12 align-middle leading-medium">
-                11/01/2003
+                Mardinah
               </td>
               <td className="px-24 py-12 align-middle leading-medium">
-                BADAN PERENCANAAN PEMBANGUNAN DAN PENELITIAN PENGEMBANGAN DAERAH
-              </td>
-            </tr>
-            <tr
-              className={clsx(
-                'border-b-[1.6rem] border-transparent text-warna-dark transition-all ease-in odd:bg-surface-disabled hover:cursor-pointer hover:bg-warna-pale-grey',
-              )}
-            >
-              <td className="border px-24 py-12 align-middle leading-medium">
-                2
-              </td>
-              <td className="px-24 py-12 align-middle leading-medium">PNS</td>
-              <td className="px-24 py-12 align-middle leading-medium">Aktif</td>
-              <td className="px-24 py-12 align-middle leading-medium">
-                11/01/2003
+                70 Tahun
               </td>
               <td className="px-24 py-12 align-middle leading-medium">
-                BADAN PERENCANAAN PEMBANGUNAN DAN PENELITIAN PENGEMBANGAN DAERAH
+                Ibu Kandung
+              </td>
+              <td className="px-24 py-12 align-middle leading-medium">Hidup</td>
+
+              <td className="px-24 py-12 align-middle leading-medium">
+                <div className="flex items-center gap-12">
+                  <Link
+                    to={''}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                    }}
+                    className="rounded-2xl bg-warning p-8 text-white hover:bg-opacity-80"
+                  >
+                    <FontAwesomeIcon icon={faPencil} />
+                  </Link>
+                  <Link
+                    to={''}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                    }}
+                    className="rounded-2xl bg-danger p-8 text-white hover:bg-opacity-80"
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </Link>
+                </div>
               </td>
             </tr>
           </Fragment>
