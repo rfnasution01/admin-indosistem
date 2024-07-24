@@ -115,7 +115,7 @@ export function useTambahPegawai() {
     }
 
     if (isEdit) {
-      const values = formTambahPegawai.getValues()
+      const values = formTambahPegawai?.watch()
 
       const bodyEdit = {
         id_pegawai: isEdit ? editID : '',
@@ -127,8 +127,8 @@ export function useTambahPegawai() {
         npwp: values?.npwp ?? '',
         id_golongan: values?.golongan ?? '',
         jabatan: values?.jabatan ?? '',
-        jenis_kepegawaian: values?.jenis_pegawai ?? '',
-        status_pegawai: values?.status ?? '',
+        jenis_kepegawaian: values?.jenis_pegawai,
+        status_pegawai: values?.status,
         tanggal_mulai_kerja: values?.tanggal_mulai ?? '',
         nomor_urut: values?.no_urut ?? '',
         tempat_lahir: values?.tempatLahir ?? '',
