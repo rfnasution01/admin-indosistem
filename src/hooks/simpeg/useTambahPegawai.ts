@@ -15,7 +15,7 @@ import {
   TambahPegawaiSchema,
 } from '@/schemas/simpeg/daftarPegawaiSchema'
 import { useNavigate } from 'react-router-dom'
-import { useAksesSimpeg } from '../useAksesSimpeg'
+import { useAksesSimpeg } from './useAksesSimpeg'
 import { GetDaftarPegawaDetailType } from '@/types/simpeg/dataPegawai/daftarPegawaiType'
 import { usePathname } from '../usePathname'
 

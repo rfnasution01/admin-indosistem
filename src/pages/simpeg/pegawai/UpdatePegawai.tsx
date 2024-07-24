@@ -12,10 +12,9 @@ import { usePathname } from '@/hooks/usePathname'
 import { ComingSoonPage } from '@/routes/loadables'
 import { convertSlugToText } from '@/utils/formatText'
 import { useState } from 'react'
-import { useAksesSimpeg } from '@/hooks/useAksesSimpeg'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { useTambahPegawai } from '@/hooks/simpeg'
+import { useAksesSimpeg, useTambahPegawai } from '@/hooks/simpeg'
 import { Loading } from '@/components/Loading'
 
 export default function UpdateDataPegawai() {

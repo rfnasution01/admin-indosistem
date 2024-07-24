@@ -15,8 +15,7 @@ import { LinkChild } from './LinkChild'
 import { MenubarProfil } from '@/components/Menubar/MenubarProfile'
 import { useLogout } from '@/hooks/useLogout'
 import { ValidasiLogout } from '@/components/Dialog/ValidasiLogout'
-import { useAksesSimpeg } from '@/hooks/useAksesSimpeg'
-import { useSimpegIdentitas } from '@/hooks/simpeg'
+import { useAksesSimpeg, useSimpegIdentitas } from '@/hooks/simpeg'
 
 library.add(fas)
 

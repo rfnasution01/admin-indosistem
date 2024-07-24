@@ -1,6 +1,6 @@
 import { GetMenuWebsiteType } from '@/types/website/menuType'
 import { useEffect, useState } from 'react'
-import { usePathname } from './usePathname'
+import { usePathname } from '../usePathname'
 import { convertToSlug } from '@/utils/formatText'
 import { useGetSimpegMenuQuery } from '@/store/slices/simpeg/identitasType'
 
