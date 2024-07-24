@@ -25,7 +25,7 @@ export function DialogUpdate({
         position="middle"
         style={{
           width: isAuto ? 'auto' : '30%',
-          maxHeight: isAuto ? 'auto' : '80%',
+          maxHeight: isAuto ? 'auto' : '90%',
         }}
       >
         <div className="flex flex-col gap-16 p-32">

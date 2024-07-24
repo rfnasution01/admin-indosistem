@@ -6,6 +6,12 @@ import {
   DetailNomorRekening,
   DetailStatusKepegawaian,
 } from './informasiPribadi'
+import {
+  DetailRiwayatJabatan,
+  DetailRiwayatJabatanFungsional,
+  DetailRiwayatKepangkatan,
+  DetailRiwayatKepangkatanCPNS,
+} from './riwayatKarir'
 
 export default function DetailPegawai() {
   const { lastPathname } = usePathname()
@@ -22,6 +28,14 @@ export default function DetailPegawai() {
         return <DetailKeluargaPegawai />
       case 'rekening-bank':
         return <DetailNomorRekening />
+      case 'riwayat-jabatan':
+        return <DetailRiwayatJabatan />
+      case 'riwayat-jabatan-fungsional':
+        return <DetailRiwayatJabatanFungsional />
+      case 'riwayat-kepangkatan':
+        return <DetailRiwayatKepangkatan />
+      case 'data-pengangkatan':
+        return <DetailRiwayatKepangkatanCPNS />
       default:
         return <ComingSoonPage />
     }
