@@ -4,31 +4,38 @@ import clsx from 'clsx'
 import { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
-export function SuamiIstri() {
+export function RiwayatKeahlian() {
   return (
     <div className="scrollbar flex flex-col gap-16 overflow-y-auto rounded-3xl border">
       <table className="scrollbar flex-1 border-collapse overflow-y-auto text-[2rem]">
         <thead className="relative z-10 align-top leading-medium text-white">
           <tr className="border-b-[1.6rem] border-transparent">
-            <th className="text-sim-primary sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle ">
+            <th className="text-sim-primary sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle">
               #
             </th>
-            <th className="text-sim-primary sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle ">
-              Nama
+            <th className="text-sim-primary sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle">
+              Jenis Keahlian
             </th>
-            <th className="text-sim-primary text-cent sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle ">
-              Tempat / Tanggal Lahir
+            <th className="text-sim-primary sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle">
+              Nama Keahlian
             </th>
-            <th className="text-sim-primary sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle ">
-              Tanggal Nikah
+            <th className="text-sim-primary text-cent sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle">
+              Tahun
             </th>
-            <th className="text-sim-primary sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle ">
-              Pekerjaan
+            <th className="text-sim-primary text-cent sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle">
+              Instansi Pembuat
             </th>
-            <th className="text-sim-primary sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle ">
-              Lampiran Buku Nikah
+            <th className="text-sim-primary sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle">
+              Nomor SK
             </th>
-            <th className="text-sim-primary sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle ">
+            <th className="text-sim-primary sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle">
+              Keterangan
+            </th>
+
+            <th className="text-sim-primary sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle">
+              Dokumen
+            </th>
+            <th className="text-sim-primary sticky top-0 border-b-2 bg-primary-100 px-24 py-24 text-left align-middle">
               Aksi
             </th>
           </tr>
@@ -41,14 +48,25 @@ export function SuamiIstri() {
               )}
             >
               <td className="px-24 py-12 align-middle leading-medium">1</td>
-              <td className="px-24 py-12 align-middle leading-medium">Siti</td>
               <td className="px-24 py-12 align-middle leading-medium">
-                Medan, 12/03/1982
+                Staf pada SETWILDASU
               </td>
               <td className="px-24 py-12 align-middle leading-medium">
-                12/01/2001
+                11/01/2001
               </td>
-              <td className="px-24 py-12 align-middle leading-medium">Guru</td>
+              <td className="px-24 py-12 align-middle leading-medium">
+                Pengatur Muda / IIa
+              </td>
+              <td className="px-24 py-12 align-middle leading-medium">
+                Gubernur
+              </td>
+              <td className="px-24 py-12 align-middle leading-medium">
+                821.12/1088.D/89
+              </td>
+
+              <td className="px-24 py-12 align-middle leading-medium">
+                Sekretariat Wilayah Daerah Sumatera Utara
+              </td>
               <td className="px-24 py-12 align-middle leading-medium">
                 <Link
                   to={''}
@@ -58,6 +76,7 @@ export function SuamiIstri() {
                   Buka
                 </Link>
               </td>
+
               <td className="px-24 py-12 align-middle leading-medium">
                 <div className="flex items-center gap-12">
                   <Link

@@ -12,6 +12,12 @@ import {
   DetailRiwayatKepangkatan,
   DetailRiwayatKepangkatanCPNS,
 } from './riwayatKarir'
+import {
+  DetailKeahlian,
+  DetailPelatihan,
+  DetailPendidikan,
+  DetailSertifikasi,
+} from './riwayatPendidikan'
 
 export default function DetailPegawai() {
   const { lastPathname } = usePathname()
@@ -36,6 +42,14 @@ export default function DetailPegawai() {
         return <DetailRiwayatKepangkatan />
       case 'data-pengangkatan':
         return <DetailRiwayatKepangkatanCPNS />
+      case 'riwayat-pendidikan':
+        return <DetailPendidikan />
+      case 'data-pelatihan':
+        return <DetailPelatihan />
+      case 'data-sertifikasi':
+        return <DetailSertifikasi />
+      case 'data-keahlian':
+        return <DetailKeahlian />
       default:
         return <ComingSoonPage />
     }

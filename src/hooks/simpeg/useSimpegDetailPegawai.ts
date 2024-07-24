@@ -13,6 +13,12 @@ import {
   SimpegTambahRiwayatJabatanSchema,
   SimpegTambahRiwayatKepangkatanCPNSSchema,
 } from '@/schemas/simpeg/riwayatKarirSchema'
+import {
+  SimpegTambahRiwayatKeahlianSchema,
+  SimpegTambahRiwayatPelatihanSchema,
+  SimpegTambahRiwayatPendidikanSchema,
+  SimpegTambahRiwayatSertifikasiSchema,
+} from '@/schemas/simpeg/riwayatPendidikanSchema'
 
 export function useSimpegDetailPegawai() {
   const formTambahIstri = useForm<zod.infer<typeof SimpegTambahIstriSchema>>({
@@ -71,6 +77,34 @@ export function useSimpegDetailPegawai() {
     defaultValues: {},
   })
 
+  const formTambahRiwayatPendidikan = useForm<
+    zod.infer<typeof SimpegTambahRiwayatPendidikanSchema>
+  >({
+    resolver: zodResolver(SimpegTambahRiwayatPendidikanSchema),
+    defaultValues: {},
+  })
+
+  const formTambahRiwayatPelatihan = useForm<
+    zod.infer<typeof SimpegTambahRiwayatPelatihanSchema>
+  >({
+    resolver: zodResolver(SimpegTambahRiwayatPelatihanSchema),
+    defaultValues: {},
+  })
+
+  const formTambahRiwayatSertifikasi = useForm<
+    zod.infer<typeof SimpegTambahRiwayatSertifikasiSchema>
+  >({
+    resolver: zodResolver(SimpegTambahRiwayatSertifikasiSchema),
+    defaultValues: {},
+  })
+
+  const formTambahRiwayatKeahlian = useForm<
+    zod.infer<typeof SimpegTambahRiwayatKeahlianSchema>
+  >({
+    resolver: zodResolver(SimpegTambahRiwayatKeahlianSchema),
+    defaultValues: {},
+  })
+
   return {
     formTambahIstri,
     formTambahAnak,
@@ -81,5 +115,9 @@ export function useSimpegDetailPegawai() {
     formTambahRiwayatJabatanFungsional,
     formTambahRiwayatKepangkatan,
     formTambahRiwayatKepangkatanCPNS,
+    formTambahRiwayatPendidikan,
+    formTambahRiwayatPelatihan,
+    formTambahRiwayatSertifikasi,
+    formTambahRiwayatKeahlian,
   }
 }

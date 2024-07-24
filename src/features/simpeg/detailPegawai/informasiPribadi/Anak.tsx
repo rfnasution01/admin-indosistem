@@ -40,9 +40,7 @@ export function Anak() {
                 'border-b-[1.6rem] border-transparent text-warna-dark transition-all ease-in odd:bg-surface-disabled hover:cursor-pointer hover:bg-warna-pale-grey',
               )}
             >
-              <td className="border px-24 py-12 align-middle leading-medium">
-                1
-              </td>
+              <td className="px-24 py-12 align-middle leading-medium">1</td>
               <td className="px-24 py-12 align-middle leading-medium">Siti</td>
               <td className="px-24 py-12 align-middle leading-medium">
                 Medan, 12/03/1982

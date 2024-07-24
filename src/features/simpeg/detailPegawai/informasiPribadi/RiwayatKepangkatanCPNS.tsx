@@ -49,9 +49,7 @@ export function RiwayatKepangkatanCPNS() {
                 'border-b-[1.6rem] border-transparent text-warna-dark transition-all ease-in odd:bg-surface-disabled hover:cursor-pointer hover:bg-warna-pale-grey',
               )}
             >
-              <td className="border px-24 py-12 align-middle leading-medium">
-                1
-              </td>
+              <td className="px-24 py-12 align-middle leading-medium">1</td>
               <td className="px-24 py-12 align-middle leading-medium">
                 Staf pada SETWILDASU
               </td>
