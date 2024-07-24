@@ -3,7 +3,8 @@ import { ComingSoonPage } from '@/routes/loadables'
 import {
   DetailBiodataPegawai,
   DetailKeluargaPegawai,
-  StatusKepegawaian,
+  DetailNomorRekening,
+  DetailStatusKepegawaian,
 } from './informasiPribadi'
 
 export default function DetailPegawai() {
@@ -16,9 +17,11 @@ export default function DetailPegawai() {
       case 'biodata':
         return <DetailBiodataPegawai />
       case 'status-kepegawaian':
-        return <StatusKepegawaian />
+        return <DetailStatusKepegawaian />
       case 'data-keluarga':
         return <DetailKeluargaPegawai />
+      case 'rekening-bank':
+        return <DetailNomorRekening />
       default:
         return <ComingSoonPage />
     }

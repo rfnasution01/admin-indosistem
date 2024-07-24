@@ -8,7 +8,7 @@ import { useSimpegTambahPegawai } from '@/hooks/simpeg'
 import { ComingSoonPage } from '@/routes/loadables'
 import { useState } from 'react'
 
-export function StatusKepegawaian() {
+export function DetailStatusKepegawaian() {
   const { detailPegawai } = useSimpegTambahPegawai()
 
   const listMenu = [

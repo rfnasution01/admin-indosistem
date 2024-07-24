@@ -5,6 +5,7 @@ import {
   SimpegTambahAnakSchema,
   SimpegTambahIstriSchema,
   SimpegTambahOrangTuaSchema,
+  SimpegTambahRekeningBankSchema,
   SimpegTambahSaudaraSchema,
 } from '@/schemas/simpeg/informasiPribadiSchema'
 
@@ -30,10 +31,18 @@ export function useSimpegDetailPegawai() {
     defaultValues: {},
   })
 
+  const formTambahRekening = useForm<
+    zod.infer<typeof SimpegTambahRekeningBankSchema>
+  >({
+    resolver: zodResolver(SimpegTambahRekeningBankSchema),
+    defaultValues: {},
+  })
+
   return {
     formTambahIstri,
     formTambahAnak,
     formTambahOrangtua,
     formTambahSaudara,
+    formTambahRekening,
   }
 }

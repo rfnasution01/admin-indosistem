@@ -171,7 +171,7 @@ export function FormIstri({
           form={form}
           isLoading={disabled}
           loadingFile={loadingFile}
-          name="url_gambar"
+          name="lampiran"
           handleUploadFoto={handleUploadFoto}
           isDisabled={!isTambah}
           label="Lampiran Buku Nikah"

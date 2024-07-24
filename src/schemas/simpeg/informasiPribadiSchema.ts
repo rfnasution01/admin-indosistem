@@ -31,3 +31,9 @@ export const SimpegTambahSaudaraSchema = zod.object({
   pekerjaan: zod.string().optional().nullable().nullish(),
   keterangan: zod.string().optional().nullable().nullish(),
 })
+
+export const SimpegTambahRekeningBankSchema = zod.object({
+  nama_bank: zod.string().optional().nullable().nullish(),
+  nomor_rekening: zod.string().optional().nullable().nullish(),
+  lampiran: zod.string().optional().nullable().nullish(),
+})

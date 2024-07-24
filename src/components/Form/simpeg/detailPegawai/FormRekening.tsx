@@ -6,7 +6,7 @@ import { Dispatch, SetStateAction, useEffect } from 'react'
 import { useCreateFileMutation } from '@/store/slices/referensiAPI'
 import { Bounce, toast } from 'react-toastify'
 
-export function FormAnak({
+export function FormRekening({
   form,
   isLoading,
   isTambah,
@@ -115,40 +115,20 @@ export function FormAnak({
         onSubmit={form.handleSubmit(handleSubmit)}
       >
         <FormLabelInput
-          name={`nama`}
+          name={`nama_bank`}
           form={form}
-          label="Nama"
-          placeholder="Nama"
+          label="Nama Bank"
+          placeholder="Nama Bank"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
           isRow
         />
         <FormLabelInput
-          name={`tempat_lahir`}
+          name={`nomor_rekening`}
           form={form}
-          label="Tempat Lahir"
-          placeholder="Tempat Lahir"
-          className="w-full hover:cursor-not-allowed phones:w-full "
-          type="text"
-          isDisabled={disabled}
-          isRow
-        />
-        <FormLabelInput
-          name={`tanggal_lahir`}
-          form={form}
-          label="Tanggal Lahir"
-          placeholder="Tanggal Lahir"
-          className="w-full hover:cursor-not-allowed phones:w-full "
-          type="date"
-          isDisabled={disabled}
-          isRow
-        />
-        <FormLabelInput
-          name={`pekerjaan`}
-          form={form}
-          label="Pekerjaan"
-          placeholder="Pekerjaan"
+          label="Nomor Rekening"
+          placeholder="Nomor Rekening"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
@@ -164,7 +144,7 @@ export function FormAnak({
           name="lampiran"
           handleUploadFoto={handleUploadFoto}
           isDisabled={!isTambah}
-          label="Lampiran Akta Lahir"
+          label="Lampiran Buku Rekening"
         />
 
         <div className="flex items-center justify-center gap-32">
