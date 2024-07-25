@@ -24,6 +24,12 @@ import {
   SimpegTambahRiwayatPenyesuaianIjazahSchema,
   SimpegTambahRiwayatPMKSchema,
 } from '@/schemas/simpeg/gajiSchema'
+import {
+  SimpegTambahDokumenSchema,
+  SimpegTambahHukumanDisiplinSchema,
+  SimpegTambahTandajasaSchema,
+  SimpegTambahVaksinasiSchema,
+} from '@/schemas/simpeg/dokumenSchema'
 
 export function useSimpegDetailPegawai() {
   const formTambahIstri = useForm<zod.infer<typeof SimpegTambahIstriSchema>>({
@@ -131,6 +137,34 @@ export function useSimpegDetailPegawai() {
     defaultValues: {},
   })
 
+  const formTambahDokumen = useForm<
+    zod.infer<typeof SimpegTambahDokumenSchema>
+  >({
+    resolver: zodResolver(SimpegTambahDokumenSchema),
+    defaultValues: {},
+  })
+
+  const formTambahRiwayatHukumanDisiplin = useForm<
+    zod.infer<typeof SimpegTambahHukumanDisiplinSchema>
+  >({
+    resolver: zodResolver(SimpegTambahHukumanDisiplinSchema),
+    defaultValues: {},
+  })
+
+  const formTambahRiwayatTandaJasa = useForm<
+    zod.infer<typeof SimpegTambahTandajasaSchema>
+  >({
+    resolver: zodResolver(SimpegTambahTandajasaSchema),
+    defaultValues: {},
+  })
+
+  const formTambahRiwayatVaksin = useForm<
+    zod.infer<typeof SimpegTambahVaksinasiSchema>
+  >({
+    resolver: zodResolver(SimpegTambahVaksinasiSchema),
+    defaultValues: {},
+  })
+
   return {
     formTambahIstri,
     formTambahAnak,
@@ -148,5 +182,9 @@ export function useSimpegDetailPegawai() {
     formTambahRiwayatGaji,
     formTambahRiwayatPMK,
     formTambahRiwayatPenyesuaianIjazah,
+    formTambahDokumen,
+    formTambahRiwayatHukumanDisiplin,
+    formTambahRiwayatTandaJasa,
+    formTambahRiwayatVaksin,
   }
 }

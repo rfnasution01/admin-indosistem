@@ -24,6 +24,12 @@ import {
   DetailRiwayatPenyesuaianIjazah,
   DetailRiwayatPMK,
 } from './riwayatGaji'
+import {
+  DetailKelengkapanDokumen,
+  DetailRiwayatHukumanDisiplin,
+  DetailRiwayatTandaJasa,
+  DetailRiwayatVaksinasi,
+} from './administrasi'
 
 export default function DetailPegawai() {
   const { lastPathname } = usePathname()
@@ -64,6 +70,14 @@ export default function DetailPegawai() {
         return <DetailRiwayatPMK />
       case 'riwayat-penyesuaian-ijazah':
         return <DetailRiwayatPenyesuaianIjazah />
+      case 'kelengkapan-dokumen':
+        return <DetailKelengkapanDokumen />
+      case 'riwayat-hukuman-disiplin':
+        return <DetailRiwayatHukumanDisiplin />
+      case 'tanda-jasa':
+        return <DetailRiwayatTandaJasa />
+      case 'vaksinasi':
+        return <DetailRiwayatVaksinasi />
       default:
         return <ComingSoonPage />
     }
