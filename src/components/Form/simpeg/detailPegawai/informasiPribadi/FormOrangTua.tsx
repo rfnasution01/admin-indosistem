@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { UseFormReturn } from 'react-hook-form'
 import { FormLabelInput } from '@/components/InputComponent'
-import { Form } from '../..'
+import { Form } from '../../..'
 import { Dispatch, SetStateAction } from 'react'
 
-export function FormSaudara({
+export function FormOrangTua({
   form,
   isLoading,
   isTambah,
@@ -41,37 +41,26 @@ export function FormSaudara({
           isRow
         />
         <FormLabelInput
-          name={`jk`}
-          form={form}
-          label="Jenis Kelamin"
-          placeholder="Jenis Kelamin"
-          className="w-full hover:cursor-not-allowed phones:w-full "
-          type="text"
-          isDisabled={disabled}
-          isRow
-        />
-        <FormLabelInput
           name={`umur`}
           form={form}
           label="Umur"
           placeholder="Umur"
           className="w-full hover:cursor-not-allowed phones:w-full "
-          type="date"
+          type="text"
           isDisabled={disabled}
           isNumber
           isRow
         />
         <FormLabelInput
-          name={`pekerjaan`}
+          name={`hubungan_keluarga`}
           form={form}
-          label="Pekerjaan"
-          placeholder="Pekerjaan"
+          label="Hubungan Keluarga"
+          placeholder="Hubungan Keluarga"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
           isRow
         />
-
         <FormLabelInput
           name={`keterangan`}
           form={form}

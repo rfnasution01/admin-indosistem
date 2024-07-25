@@ -1,0 +1,5 @@
+export * from './FormAnak'
+export * from './FormIstri'
+export * from './FormOrangTua'
+export * from './FormRekening'
+export * from './FormSaudara'

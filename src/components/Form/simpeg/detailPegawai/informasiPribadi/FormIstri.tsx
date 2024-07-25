@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { UseFormReturn } from 'react-hook-form'
 import { FormLabelFile, FormLabelInput } from '@/components/InputComponent'
-import { Form } from '../..'
+import { Form } from '../../..'
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import { useCreateFileMutation } from '@/store/slices/referensiAPI'
 import { Bounce, toast } from 'react-toastify'
 
-export function FormRiwayatJabatanFungsional({
+export function FormIstri({
   form,
   isLoading,
   isTambah,
@@ -115,74 +115,52 @@ export function FormRiwayatJabatanFungsional({
         onSubmit={form.handleSubmit(handleSubmit)}
       >
         <FormLabelInput
-          name={`jabatan`}
+          name={`nama`}
           form={form}
-          label="Jabatan"
-          placeholder="Jabatan"
+          label="Nama"
+          placeholder="Nama"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
           isRow
         />
         <FormLabelInput
-          name={`nama_instansi`}
+          name={`tempat_lahir`}
           form={form}
-          label="Nama Instansi"
-          placeholder="Nama Instansi"
+          label="Tempat Lahir"
+          placeholder="Tempat Lahir"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
           isRow
         />
         <FormLabelInput
-          name={`alamat_instansi`}
+          name={`tanggal_lahir`}
           form={form}
-          label="Alamat Instansi"
-          placeholder="Alamat Instansi"
-          className="w-full hover:cursor-not-allowed phones:w-full "
-          type="text"
-          isDisabled={disabled}
-          isNumber
-          isRow
-        />
-        <FormLabelInput
-          name={`tmt_jabatan`}
-          form={form}
-          label="TMT Jabatan"
-          placeholder="TMT Jabatan"
+          label="Tanggal Lahir"
+          placeholder="Tanggal Lahir"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="date"
           isDisabled={disabled}
           isRow
         />
-
         <FormLabelInput
-          name={`pejabat_pengesahan`}
+          name={`tanggal_nikah`}
           form={form}
-          label="Pejabat Pengesahan"
-          placeholder="Pejabat Pengesahan"
-          className="w-full hover:cursor-not-allowed phones:w-full "
-          type="text"
-          isDisabled={disabled}
-          isRow
-        />
-        <FormLabelInput
-          name={`nomor_sk`}
-          form={form}
-          label="Nomor SK"
-          placeholder="Nomor SK"
-          className="w-full hover:cursor-not-allowed phones:w-full "
-          type="text"
-          isDisabled={disabled}
-          isRow
-        />
-        <FormLabelInput
-          name={`tanggal_sk`}
-          form={form}
-          label="Tanggal SK"
-          placeholder="Tanggal SK"
+          label="Tanggal Nikah"
+          placeholder="Tanggal Nikah"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="date"
+          isDisabled={disabled}
+          isRow
+        />
+        <FormLabelInput
+          name={`pekerjaan`}
+          form={form}
+          label="Pekerjaan"
+          placeholder="Pekerjaan"
+          className="w-full hover:cursor-not-allowed phones:w-full "
+          type="text"
           isDisabled={disabled}
           isRow
         />
@@ -196,7 +174,7 @@ export function FormRiwayatJabatanFungsional({
           name="lampiran"
           handleUploadFoto={handleUploadFoto}
           isDisabled={!isTambah}
-          label="Lampiran SK"
+          label="Lampiran Buku Nikah"
         />
 
         <div className="flex items-center justify-center gap-32">

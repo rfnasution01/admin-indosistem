@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { UseFormReturn } from 'react-hook-form'
 import { FormLabelFile, FormLabelInput } from '@/components/InputComponent'
-import { Form } from '../..'
+import { Form } from '../../..'
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import { useCreateFileMutation } from '@/store/slices/referensiAPI'
 import { Bounce, toast } from 'react-toastify'
 
-export function FormGaji({
+export function FormRiwayatJabatan({
   form,
   isLoading,
   isTambah,
@@ -115,17 +115,70 @@ export function FormGaji({
         onSubmit={form.handleSubmit(handleSubmit)}
       >
         <FormLabelInput
-          name={`tmt_kenaikan`}
+          name={`jabatan`}
           form={form}
-          label="TMT Kenaikan"
-          placeholder="TMT Kenaikan"
+          label="Jabatan"
+          placeholder="Jabatan"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
           isRow
         />
         <FormLabelInput
-          name={`no_sk`}
+          name={`nama_instansi`}
+          form={form}
+          label="Nama Instansi"
+          placeholder="Nama Instansi"
+          className="w-full hover:cursor-not-allowed phones:w-full "
+          type="text"
+          isDisabled={disabled}
+          isRow
+        />
+        <FormLabelInput
+          name={`alamat_instansi`}
+          form={form}
+          label="Alamat Instansi"
+          placeholder="Alamat Instansi"
+          className="w-full hover:cursor-not-allowed phones:w-full "
+          type="text"
+          isDisabled={disabled}
+          isNumber
+          isRow
+        />
+        <FormLabelInput
+          name={`tmt_jabatan`}
+          form={form}
+          label="TMT Jabatan"
+          placeholder="TMT Jabatan"
+          className="w-full hover:cursor-not-allowed phones:w-full "
+          type="date"
+          isDisabled={disabled}
+          isRow
+        />
+
+        <FormLabelInput
+          name={`pangkat`}
+          form={form}
+          label="Pangkat / Golongan"
+          placeholder="Pangkat / Golongan"
+          className="w-full hover:cursor-not-allowed phones:w-full "
+          type="text"
+          isDisabled={disabled}
+          isRow
+        />
+
+        <FormLabelInput
+          name={`pejabat_pengesahan`}
+          form={form}
+          label="Pejabat Pengesahan"
+          placeholder="Pejabat Pengesahan"
+          className="w-full hover:cursor-not-allowed phones:w-full "
+          type="text"
+          isDisabled={disabled}
+          isRow
+        />
+        <FormLabelInput
+          name={`nomor_sk`}
           form={form}
           label="Nomor SK"
           placeholder="Nomor SK"
@@ -144,27 +197,6 @@ export function FormGaji({
           isDisabled={disabled}
           isRow
         />
-        <FormLabelInput
-          name={`pejabat_pengesahan`}
-          form={form}
-          label="Pejabat Pengesahan"
-          placeholder="Pejabat Pengesahan"
-          className="w-full hover:cursor-not-allowed phones:w-full "
-          type="text"
-          isDisabled={disabled}
-          isRow
-        />
-
-        <FormLabelInput
-          name={`masa_kerja`}
-          form={form}
-          label="Masa Kerja"
-          placeholder="Masa Kerja"
-          className="w-full hover:cursor-not-allowed phones:w-full "
-          type="text"
-          isDisabled={disabled}
-          isRow
-        />
 
         <FormLabelFile
           urls={form.watch('lampiran')}
@@ -175,7 +207,7 @@ export function FormGaji({
           name="lampiran"
           handleUploadFoto={handleUploadFoto}
           isDisabled={!isTambah}
-          label="Lampiran"
+          label="Lampiran SK"
         />
 
         <div className="flex items-center justify-center gap-32">

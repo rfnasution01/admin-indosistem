@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { UseFormReturn } from 'react-hook-form'
 import { FormLabelFile, FormLabelInput } from '@/components/InputComponent'
-import { Form } from '../..'
+import { Form } from '../../..'
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import { useCreateFileMutation } from '@/store/slices/referensiAPI'
 import { Bounce, toast } from 'react-toastify'
 
-export function FormPendidikan({
+export function FormPMK({
   form,
   isLoading,
   isTambah,
@@ -115,40 +115,62 @@ export function FormPendidikan({
         onSubmit={form.handleSubmit(handleSubmit)}
       >
         <FormLabelInput
-          name={`tingkat`}
+          name={`no_sk`}
           form={form}
-          label="Tingkat"
-          placeholder="Tingkat"
+          label="No. SK"
+          placeholder="No. SK"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
           isRow
         />
         <FormLabelInput
-          name={`nama_sekolah`}
+          name={`tanggal_sk`}
           form={form}
-          label="Nama Sekolah / Perguruan Tinggi"
-          placeholder="Nama Sekolah / Perguruan Tinggi"
+          label="Tanggal SK"
+          placeholder="Tanggal SK"
+          className="w-full hover:cursor-not-allowed phones:w-full "
+          type="date"
+          isDisabled={disabled}
+          isRow
+        />
+        <FormLabelInput
+          name={`pejabat_pengesahan`}
+          form={form}
+          label="Pejabat Pengesahan"
+          placeholder="Pejabat Pengesahan"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
           isRow
         />
         <FormLabelInput
-          name={`jurusan`}
+          name={`masa_kerja`}
           form={form}
-          label="Jurusan"
-          placeholder="Jurusan"
+          label="Masa Kerja"
+          placeholder="Masa Kerja"
+          className="w-full hover:cursor-not-allowed phones:w-full "
+          type="date"
+          isDisabled={disabled}
+          isRow
+        />
+
+        <FormLabelInput
+          name={`judul_sertifikas`}
+          form={form}
+          label="Judul Sertifikasi"
+          placeholder="Judul Sertifikasi"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
           isRow
         />
+
         <FormLabelInput
-          name={`ijazah`}
+          name={`no_persetujuan`}
           form={form}
-          label="No. STTB / Tanda Lulus / Ijazah"
-          placeholder="No. STTB / Tanda Lulus / Ijazah"
+          label="Nomor Persetujuan"
+          placeholder="Nomor Persetujuan"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
@@ -164,7 +186,7 @@ export function FormPendidikan({
           name="lampiran"
           handleUploadFoto={handleUploadFoto}
           isDisabled={!isTambah}
-          label="Lampiran Ijazah"
+          label="Lampiran"
         />
 
         <div className="flex items-center justify-center gap-32">

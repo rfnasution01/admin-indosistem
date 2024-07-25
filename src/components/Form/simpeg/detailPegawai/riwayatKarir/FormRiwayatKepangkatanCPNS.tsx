@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { UseFormReturn } from 'react-hook-form'
 import { FormLabelFile, FormLabelInput } from '@/components/InputComponent'
-import { Form } from '../..'
+import { Form } from '../../..'
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import { useCreateFileMutation } from '@/store/slices/referensiAPI'
 import { Bounce, toast } from 'react-toastify'
 
-export function FormKeahlian({
+export function FormRiwayatKepangkatanCPNS({
   form,
   isLoading,
   isTambah,
@@ -115,48 +115,36 @@ export function FormKeahlian({
         onSubmit={form.handleSubmit(handleSubmit)}
       >
         <FormLabelInput
-          name={`jenis_keahlian`}
+          name={`no_nota`}
           form={form}
-          label="Jenis Keahlian"
-          placeholder="Jenis Keahlian"
+          label="No. Nota"
+          placeholder="No. Nota"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
           isRow
         />
         <FormLabelInput
-          name={`nama_keahlian`}
+          name={`tanggal_nota`}
           form={form}
-          label="Nama Keahlian"
-          placeholder="Nama Keahlian"
+          label="Tanggal Nota"
+          placeholder="Tanggal Nota"
           className="w-full hover:cursor-not-allowed phones:w-full "
-          type="text"
+          type="date"
           isDisabled={disabled}
           isRow
         />
 
         <FormLabelInput
-          name={`tahun`}
+          name={`pejabat_pengesahan`}
           form={form}
-          label="Tahun"
-          placeholder="Tahun"
+          label="Pejabat Pengesahan"
+          placeholder="Pejabat Pengesahan"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
           isRow
         />
-
-        <FormLabelInput
-          name={`instansi_pembuat`}
-          form={form}
-          label="Instansi Pembuat"
-          placeholder="Instansi Pembuat"
-          className="w-full hover:cursor-not-allowed phones:w-full "
-          type="text"
-          isDisabled={disabled}
-          isRow
-        />
-
         <FormLabelInput
           name={`nomor_sk`}
           form={form}
@@ -167,12 +155,33 @@ export function FormKeahlian({
           isDisabled={disabled}
           isRow
         />
+        <FormLabelInput
+          name={`tanggal_sk`}
+          form={form}
+          label="Tanggal SK"
+          placeholder="Tanggal SK"
+          className="w-full hover:cursor-not-allowed phones:w-full "
+          type="date"
+          isDisabled={disabled}
+          isRow
+        />
 
         <FormLabelInput
-          name={`keterangan`}
+          name={`pangkat`}
           form={form}
-          label="Keterangan"
-          placeholder="Keterangan"
+          label="Pangkat Gol. Ruang"
+          placeholder="Pangkat Gol. Ruang"
+          className="w-full hover:cursor-not-allowed phones:w-full "
+          type="text"
+          isDisabled={disabled}
+          isRow
+        />
+
+        <FormLabelInput
+          name={`tmt_cpns`}
+          form={form}
+          label="TMT CPNS"
+          placeholder="TMT CPNS"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
@@ -188,7 +197,18 @@ export function FormKeahlian({
           name="lampiran"
           handleUploadFoto={handleUploadFoto}
           isDisabled={!isTambah}
-          label="Dokumen Keahlian"
+          label="Lampiran SK"
+        />
+
+        <FormLabelInput
+          name={`keterangan`}
+          form={form}
+          label="Keterangan"
+          placeholder="Keterangan"
+          className="w-full hover:cursor-not-allowed phones:w-full "
+          type="text"
+          isDisabled={disabled}
+          isRow
         />
 
         <div className="flex items-center justify-center gap-32">

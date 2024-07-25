@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { UseFormReturn } from 'react-hook-form'
 import { FormLabelFile, FormLabelInput } from '@/components/InputComponent'
-import { Form } from '../..'
+import { Form } from '../../..'
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import { useCreateFileMutation } from '@/store/slices/referensiAPI'
 import { Bounce, toast } from 'react-toastify'
 
-export function FormIstri({
+export function FormAnak({
   form,
   isLoading,
   isTambah,
@@ -145,16 +145,6 @@ export function FormIstri({
           isRow
         />
         <FormLabelInput
-          name={`tanggal_nikah`}
-          form={form}
-          label="Tanggal Nikah"
-          placeholder="Tanggal Nikah"
-          className="w-full hover:cursor-not-allowed phones:w-full "
-          type="date"
-          isDisabled={disabled}
-          isRow
-        />
-        <FormLabelInput
           name={`pekerjaan`}
           form={form}
           label="Pekerjaan"
@@ -174,7 +164,7 @@ export function FormIstri({
           name="lampiran"
           handleUploadFoto={handleUploadFoto}
           isDisabled={!isTambah}
-          label="Lampiran Buku Nikah"
+          label="Lampiran Akta Lahir"
         />
 
         <div className="flex items-center justify-center gap-32">

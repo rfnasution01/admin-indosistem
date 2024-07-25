@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { UseFormReturn } from 'react-hook-form'
 import { FormLabelFile, FormLabelInput } from '@/components/InputComponent'
-import { Form } from '../..'
+import { Form } from '../../..'
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import { useCreateFileMutation } from '@/store/slices/referensiAPI'
 import { Bounce, toast } from 'react-toastify'
 
-export function FormSertifikasi({
+export function FormKeahlian({
   form,
   isLoading,
   isTambah,
@@ -115,15 +115,26 @@ export function FormSertifikasi({
         onSubmit={form.handleSubmit(handleSubmit)}
       >
         <FormLabelInput
-          name={`jenis_sertifikasi`}
+          name={`jenis_keahlian`}
           form={form}
-          label="Jenis Sertifikasi"
-          placeholder="Jenis Sertifikasi"
+          label="Jenis Keahlian"
+          placeholder="Jenis Keahlian"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
           isRow
         />
+        <FormLabelInput
+          name={`nama_keahlian`}
+          form={form}
+          label="Nama Keahlian"
+          placeholder="Nama Keahlian"
+          className="w-full hover:cursor-not-allowed phones:w-full "
+          type="text"
+          isDisabled={disabled}
+          isRow
+        />
+
         <FormLabelInput
           name={`tahun`}
           form={form}
@@ -134,32 +145,34 @@ export function FormSertifikasi({
           isDisabled={disabled}
           isRow
         />
+
         <FormLabelInput
-          name={`no_sertifikasi`}
+          name={`instansi_pembuat`}
           form={form}
-          label="Nomor Sertifikasi"
-          placeholder="Nomor Sertifikasi"
+          label="Instansi Pembuat"
+          placeholder="Instansi Pembuat"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
           isRow
         />
+
         <FormLabelInput
-          name={`tanggal_sertifikasi`}
+          name={`nomor_sk`}
           form={form}
-          label="Tanggal Sertifikasi"
-          placeholder="Tanggal Sertifikasi"
+          label="Nomor SK"
+          placeholder="Nomor SK"
           className="w-full hover:cursor-not-allowed phones:w-full "
-          type="date"
+          type="text"
           isDisabled={disabled}
           isRow
         />
 
         <FormLabelInput
-          name={`judul_sertifikasi`}
+          name={`keterangan`}
           form={form}
-          label="Judul Sertifikasi"
-          placeholder="Judul Sertifikasi"
+          label="Keterangan"
+          placeholder="Keterangan"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
@@ -175,7 +188,7 @@ export function FormSertifikasi({
           name="lampiran"
           handleUploadFoto={handleUploadFoto}
           isDisabled={!isTambah}
-          label="Lampiran Sertifikat"
+          label="Dokumen Keahlian"
         />
 
         <div className="flex items-center justify-center gap-32">

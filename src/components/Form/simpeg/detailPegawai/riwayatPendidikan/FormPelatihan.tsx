@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { UseFormReturn } from 'react-hook-form'
 import { FormLabelFile, FormLabelInput } from '@/components/InputComponent'
-import { Form } from '../..'
+import { Form } from '../../..'
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import { useCreateFileMutation } from '@/store/slices/referensiAPI'
 import { Bounce, toast } from 'react-toastify'
 
-export function FormRiwayatKepangkatan({
+export function FormPelatihan({
   form,
   isLoading,
   isTambah,
@@ -115,63 +115,32 @@ export function FormRiwayatKepangkatan({
         onSubmit={form.handleSubmit(handleSubmit)}
       >
         <FormLabelInput
-          name={`pangkat`}
+          name={`nama`}
           form={form}
-          label="Pangkat / Golongan"
-          placeholder="Pangkat / Golongan"
+          label="Nama Pelatihan"
+          placeholder="Nama Pelatihan"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
           isRow
         />
         <FormLabelInput
-          name={`tmt_pengangkatan`}
+          name={`nama_sekolah`}
           form={form}
-          label="TMT Pengangkatan"
-          placeholder="TMT Pengangkatan"
+          label="Nama Sekolah / Perguruan Tinggi"
+          placeholder="Nama Sekolah / Perguruan Tinggi"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
           isRow
         />
         <FormLabelInput
-          name={`no_bkn`}
+          name={`tahun`}
           form={form}
-          label="No. Persetujuan BKN"
-          placeholder="No. Persetujuan BKN"
+          label="Tahun"
+          placeholder="Tahun"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
-          isDisabled={disabled}
-          isNumber
-          isRow
-        />
-        <FormLabelInput
-          name={`pejabat_pengesahan`}
-          form={form}
-          label="Pejabat Pengesahan"
-          placeholder="Pejabat Pengesahan"
-          className="w-full hover:cursor-not-allowed phones:w-full "
-          type="text"
-          isDisabled={disabled}
-          isRow
-        />
-        <FormLabelInput
-          name={`nomor_sk`}
-          form={form}
-          label="Nomor SK"
-          placeholder="Nomor SK"
-          className="w-full hover:cursor-not-allowed phones:w-full "
-          type="text"
-          isDisabled={disabled}
-          isRow
-        />
-        <FormLabelInput
-          name={`tanggal_sk`}
-          form={form}
-          label="Tanggal SK"
-          placeholder="Tanggal SK"
-          className="w-full hover:cursor-not-allowed phones:w-full "
-          type="date"
           isDisabled={disabled}
           isRow
         />
@@ -185,18 +154,7 @@ export function FormRiwayatKepangkatan({
           name="lampiran"
           handleUploadFoto={handleUploadFoto}
           isDisabled={!isTambah}
-          label="Lampiran SK"
-        />
-
-        <FormLabelInput
-          name={`keterangan`}
-          form={form}
-          label="Keterangan"
-          placeholder="Keterangan"
-          className="w-full hover:cursor-not-allowed phones:w-full "
-          type="text"
-          isDisabled={disabled}
-          isRow
+          label="Lampiran Pelatihan"
         />
 
         <div className="flex items-center justify-center gap-32">

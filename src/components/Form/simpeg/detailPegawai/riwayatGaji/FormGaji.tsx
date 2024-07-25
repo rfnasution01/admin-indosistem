@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { UseFormReturn } from 'react-hook-form'
 import { FormLabelFile, FormLabelInput } from '@/components/InputComponent'
-import { Form } from '../..'
+import { Form } from '../../..'
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import { useCreateFileMutation } from '@/store/slices/referensiAPI'
 import { Bounce, toast } from 'react-toastify'
 
-export function FormRekening({
+export function FormGaji({
   form,
   isLoading,
   isTambah,
@@ -115,20 +115,51 @@ export function FormRekening({
         onSubmit={form.handleSubmit(handleSubmit)}
       >
         <FormLabelInput
-          name={`nama_bank`}
+          name={`tmt_kenaikan`}
           form={form}
-          label="Nama Bank"
-          placeholder="Nama Bank"
+          label="TMT Kenaikan"
+          placeholder="TMT Kenaikan"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
           isRow
         />
         <FormLabelInput
-          name={`nomor_rekening`}
+          name={`no_sk`}
           form={form}
-          label="Nomor Rekening"
-          placeholder="Nomor Rekening"
+          label="Nomor SK"
+          placeholder="Nomor SK"
+          className="w-full hover:cursor-not-allowed phones:w-full "
+          type="text"
+          isDisabled={disabled}
+          isRow
+        />
+        <FormLabelInput
+          name={`tanggal_sk`}
+          form={form}
+          label="Tanggal SK"
+          placeholder="Tanggal SK"
+          className="w-full hover:cursor-not-allowed phones:w-full "
+          type="date"
+          isDisabled={disabled}
+          isRow
+        />
+        <FormLabelInput
+          name={`pejabat_pengesahan`}
+          form={form}
+          label="Pejabat Pengesahan"
+          placeholder="Pejabat Pengesahan"
+          className="w-full hover:cursor-not-allowed phones:w-full "
+          type="text"
+          isDisabled={disabled}
+          isRow
+        />
+
+        <FormLabelInput
+          name={`masa_kerja`}
+          form={form}
+          label="Masa Kerja"
+          placeholder="Masa Kerja"
           className="w-full hover:cursor-not-allowed phones:w-full "
           type="text"
           isDisabled={disabled}
@@ -144,7 +175,7 @@ export function FormRekening({
           name="lampiran"
           handleUploadFoto={handleUploadFoto}
           isDisabled={!isTambah}
-          label="Lampiran Buku Rekening"
+          label="Lampiran"
         />
 
         <div className="flex items-center justify-center gap-32">
