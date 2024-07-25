@@ -37,7 +37,7 @@ export function KategoriTab({
           onClick={() => {
             setSearch('')
             setPageNumber(1)
-            setPageSize(5)
+            setPageSize(10)
             setMenu(item)
           }}
           className={clsx(

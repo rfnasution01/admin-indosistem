@@ -10,7 +10,6 @@ import { Searching } from '@/components/Searching'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { convertSlugToText } from '@/utils/formatText'
-import { FormListDataPerPage } from '@/components/Select/website'
 import { Pagination } from '@/components/Pagination'
 import { Loading } from '@/components/Loading'
 import { TableSlider } from '@/components/Table/TableSlider'
@@ -27,6 +26,7 @@ import {
   useGetDownloadQuery,
 } from '@/store/slices/website/kontenAPI/downloadAPI'
 import { useAkses } from '@/hooks/useAkses'
+import { MenubarPerPage } from '@/components/Menubar/MenubarPerPage'
 
 export default function Download() {
   const navigate = useNavigate()
@@ -35,7 +35,7 @@ export default function Download() {
 
   const [search, setSearch] = useState<string>('')
   const [pageNumber, setPageNumber] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<number>(12)
+  const [pageSize, setPageSize] = useState<number>(10)
   const [isShowDelete, setIsShowDelete] = useState<boolean>(false)
   const [isShowStatus, setIsShowStatus] = useState<boolean>(false)
   const [idKategori, setIdKategori] = useState<string>()
@@ -300,7 +300,7 @@ export default function Download() {
             />
             <div className="flex justify-end">
               <div className="flex items-center gap-32">
-                <FormListDataPerPage setDataPerPage={setPageSize} />
+                <MenubarPerPage pageSize={pageSize} setPageSize={setPageSize} />
                 {Download?.length > 0 && (
                   <Pagination
                     pageNow={pageNumber ?? 0}

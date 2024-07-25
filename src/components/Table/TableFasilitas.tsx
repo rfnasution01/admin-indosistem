@@ -65,13 +65,15 @@ export function TableFasilitas<T extends Fasilitas, P>({
     typeof columns === 'function' ? columns(columnProps as P) : columns
 
   return (
-    <div className={`h-full rounded-2xl ${containerClasses}`}>
+    <div
+      className={`scrollbar h-full overflow-y-auto rounded-2xl ${containerClasses}`}
+    >
       {/* ----- Loading UI ----- */}
       {loading ? (
         <Loading width="6.4rem" height="6.4rem" />
       ) : (
         <div
-          className={`scrollbar flex flex-col overflow-auto ${maxHeight}`}
+          className={`scrollbar flex h-full flex-col overflow-auto ${maxHeight}`}
           style={{ scrollbarGutter: 'stable', borderRadius: '3rem' }}
         >
           {/* ----- No Data/Fallback UI ----- */}

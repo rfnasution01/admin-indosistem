@@ -175,6 +175,7 @@ export default function Galeri() {
             isHapus={isHakAksesHapus}
             isTambah={isHakAksesTambah}
             isUbah={isHakAksesUbah}
+            pageSize={pageSize}
           />
         ) : (
           <ComingSoonPage />

@@ -1,6 +1,6 @@
+import { MenubarPerPage } from '@/components/Menubar/MenubarPerPage'
 import { Pagination } from '@/components/Pagination'
 import { Searching } from '@/components/Searching'
-import { FormListDataPerPage } from '@/components/Select/website'
 import { Table } from '@/components/Table'
 import { columnsListDataGuru } from '@/dummy/table'
 import { Meta } from '@/store/api'
@@ -38,7 +38,11 @@ export function GuruStaffTable({
           search={search}
         />
         <div className="flex items-center gap-32">
-          <FormListDataPerPage setDataPerPage={setPageSize} />
+          <MenubarPerPage
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            position="bottom"
+          />
           {data?.length > 0 && (
             <Pagination
               pageNow={pageNumber ?? 0}

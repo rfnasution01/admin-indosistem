@@ -1,7 +1,6 @@
 import { Pagination } from '@/components/Pagination'
 import { Searching } from '@/components/Searching'
 import {
-  FormListDataPerPage,
   SelectListAgenda,
   SelectListBerita,
   SelectListMading,
@@ -20,6 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { convertSlugToText } from '@/utils/formatText'
 import { usePathname } from '@/hooks/usePathname'
+import { MenubarPerPage } from '@/components/Menubar/MenubarPerPage'
 
 export function KategoriTable({
   data,
@@ -162,7 +162,7 @@ export function KategoriTable({
       />
       <div className="flex justify-end">
         <div className="flex items-center gap-32">
-          <FormListDataPerPage setDataPerPage={setPageSize} />
+          <MenubarPerPage setPageSize={setPageSize} pageSize={pageSize} />
           {data?.length > 0 && (
             <Pagination
               pageNow={pageNumber ?? 0}

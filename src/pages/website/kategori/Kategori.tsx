@@ -49,7 +49,7 @@ export default function Kategori() {
   const [search, setSearch] = useState<string>('')
   const [id_kategori, setIdKategori] = useState<string>('')
   const [pageNumber, setPageNumber] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<number>(12)
+  const [pageSize, setPageSize] = useState<number>(10)
   const [isShowDelete, setIsShowDelete] = useState<boolean>(false)
   const [isShowPublish, setIsShowPublish] = useState<boolean>(false)
 
@@ -320,6 +320,7 @@ export default function Kategori() {
             isHapus={isHakAksesHapus}
             isTambah={isHakAksesTambah}
             isUbah={isHakAksesUbah}
+            pageSize={pageSize}
           />
         ) : menu === 'Draft' ? (
           <KategoriPublish
@@ -342,6 +343,7 @@ export default function Kategori() {
             isHapus={isHakAksesHapus}
             isTambah={isHakAksesTambah}
             isUbah={isHakAksesUbah}
+            pageSize={pageSize}
           />
         ) : menu === 'Dashboard' ? (
           <BeritaDashboard />

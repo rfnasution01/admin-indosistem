@@ -8,8 +8,8 @@ import { Dispatch, SetStateAction } from 'react'
 import { Link } from 'react-router-dom'
 import DefaultImg from '@/assets/images/default.jpg'
 import { MenubarAction } from '@/components/Menubar/MenubarAction'
-import { FormListDataPerPage } from '@/components/Select/website'
 import { Pagination } from '@/components/Pagination'
+import { MenubarPerPage } from '@/components/Menubar/MenubarPerPage'
 
 export function GaleriAlbum({
   data,
@@ -27,6 +27,7 @@ export function GaleriAlbum({
   isHapus,
   isTambah,
   isUbah,
+  pageSize,
 }: {
   data: GetAlbumType[]
   isLoadingGaleri: boolean
@@ -43,6 +44,7 @@ export function GaleriAlbum({
   isHapus: boolean
   isTambah: boolean
   isUbah: boolean
+  pageSize: number
 }) {
   return (
     <div className="flex w-full flex-col gap-32">
@@ -66,7 +68,7 @@ export function GaleriAlbum({
       {isLoadingGaleri ? (
         <Loading />
       ) : (
-        <div className="scrollbar h-full w-full overflow-y-auto">
+        <div className="scrollbar flex h-full w-full flex-col gap-32 overflow-y-auto">
           <div className="grid grid-cols-4 gap-32">
             {data?.map((item, idx) => (
               <div key={idx} className="col-span-1 phones:col-span-4">
@@ -112,7 +114,11 @@ export function GaleriAlbum({
           </div>
           <div className="flex justify-end">
             <div className="flex items-center gap-32">
-              <FormListDataPerPage setDataPerPage={setPageSize} />
+              <MenubarPerPage
+                pageSize={pageSize}
+                setPageSize={setPageSize}
+                isCard
+              />
               {data?.length > 0 && (
                 <Pagination
                   pageNow={pageNumber ?? 0}

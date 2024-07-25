@@ -21,9 +21,9 @@ import { GetKategoriType } from '@/types/website/kategoriType'
 import { ValidasiDelete } from '@/components/Dialog/ValidasiDelete'
 import clsx from 'clsx'
 import { ValidasiIsCheck } from '@/components/Dialog/ValidasiIsCheck'
-import { FormListDataPerPage } from '@/components/Select/website'
 import { Pagination } from '@/components/Pagination'
 import { Meta } from '@/store/api'
+import { MenubarPerPage } from '@/components/Menubar/MenubarPerPage'
 
 export function KategoriPublish({
   isPublish,
@@ -46,6 +46,7 @@ export function KategoriPublish({
   isHapus,
   isTambah,
   isUbah,
+  pageSize,
 }: {
   isPublish?: boolean
   loadingKategori: boolean
@@ -67,6 +68,7 @@ export function KategoriPublish({
   isTambah: boolean
   isUbah: boolean
   isHapus: boolean
+  pageSize: number
 }) {
   const { secondPathname } = usePathname()
   const [ID, setID] = useState<string>()
@@ -218,7 +220,7 @@ export function KategoriPublish({
 
           <div className="flex justify-end">
             <div className="flex items-center gap-32">
-              <FormListDataPerPage setDataPerPage={setPageSize} />
+              <MenubarPerPage pageSize={pageSize} setPageSize={setPageSize} />
               {kategori?.length > 0 && (
                 <Pagination
                   pageNow={pageNumber ?? 0}

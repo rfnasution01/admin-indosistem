@@ -171,6 +171,7 @@ export default function DetailGaleri() {
             isHapus={isHakAksesHapus}
             isUbah={isHakAksesUbah}
             isTambah={isHakAksesTambah}
+            pageSize={pageSize}
           />
         )}
       </div>

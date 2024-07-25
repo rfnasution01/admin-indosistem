@@ -15,12 +15,12 @@ import { Searching } from '@/components/Searching'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { convertSlugToText } from '@/utils/formatText'
-import { FormListDataPerPage } from '@/components/Select/website'
 import { Pagination } from '@/components/Pagination'
 import { TableSlider } from '@/components/Table/TableSlider'
 import { columnsListDataSlider } from '@/dummy/table'
 import { Loading } from '@/components/Loading'
 import { useAkses } from '@/hooks/useAkses'
+import { MenubarPerPage } from '@/components/Menubar/MenubarPerPage'
 
 export default function Slider() {
   const navigate = useNavigate()
@@ -29,7 +29,7 @@ export default function Slider() {
 
   const [search, setSearch] = useState<string>('')
   const [pageNumber, setPageNumber] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<number>(12)
+  const [pageSize, setPageSize] = useState<number>(10)
   const [isShowDelete, setIsShowDelete] = useState<boolean>(false)
   const [isShowStatus, setIsShowStatus] = useState<boolean>(false)
 
@@ -226,7 +226,7 @@ export default function Slider() {
 
   return (
     <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto rounded-3x bg-white p-48">
-      <div className="flex w-full flex-col gap-32">
+      <div className="scrollbar flex h-full w-full flex-col gap-32 overflow-y-auto">
         <div className="flex items-center justify-between gap-32 phones:items-start">
           <div className="flex w-2/3 items-center gap-32 phones:w-full phones:flex-col phones:items-start">
             <Searching
@@ -275,7 +275,7 @@ export default function Slider() {
             />
             <div className="flex justify-end">
               <div className="flex items-center gap-32">
-                <FormListDataPerPage setDataPerPage={setPageSize} />
+                <MenubarPerPage pageSize={pageSize} setPageSize={setPageSize} />
                 {slider?.length > 0 && (
                   <Pagination
                     pageNow={pageNumber ?? 0}

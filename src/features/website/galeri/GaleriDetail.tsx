@@ -16,8 +16,8 @@ import DefaultImg from '@/assets/images/default.jpg'
 import { convertSlugToText } from '@/utils/formatText'
 import { Dispatch, SetStateAction } from 'react'
 import { MenubarAction } from '@/components/Menubar/MenubarAction'
-import { FormListDataPerPage } from '@/components/Select/website'
 import { Pagination } from '@/components/Pagination'
+import { MenubarPerPage } from '@/components/Menubar/MenubarPerPage'
 
 export function GaleriDetail({
   detail,
@@ -34,6 +34,7 @@ export function GaleriDetail({
   isHapus,
   isTambah,
   isUbah,
+  pageSize,
 }: {
   detail: GetAlbumType
   photo: GetAlbumType[]
@@ -49,6 +50,7 @@ export function GaleriDetail({
   isTambah: boolean
   isHapus: boolean
   isUbah: boolean
+  pageSize: number
 }) {
   const { secondPathname } = usePathname()
 
@@ -151,7 +153,11 @@ export function GaleriDetail({
       {photo?.length > 0 && (
         <div className="flex justify-end">
           <div className="flex items-center gap-32">
-            <FormListDataPerPage setDataPerPage={setPageSize} />
+            <MenubarPerPage
+              pageSize={pageSize}
+              setPageSize={setPageSize}
+              isCard
+            />
             {photo?.length > 0 && (
               <Pagination
                 pageNow={pageNumber ?? 0}

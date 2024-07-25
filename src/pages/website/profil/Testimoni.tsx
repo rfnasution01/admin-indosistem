@@ -1,5 +1,4 @@
 import { Searching } from '@/components/Searching'
-import { FormListDataPerPage } from '@/components/Select/website'
 import { Meta } from '@/store/api'
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -17,6 +16,7 @@ import {
 import { TableFasilitas } from '@/components/Table/TableFasilitas'
 import { columnsListDataTestimoni } from '@/dummy/table'
 import { useAkses } from '@/hooks/useAkses'
+import { MenubarPerPage } from '@/components/Menubar/MenubarPerPage'
 
 export default function TestimoniSekolah() {
   const navigate = useNavigate()
@@ -24,7 +24,7 @@ export default function TestimoniSekolah() {
 
   const [search, setSearch] = useState<string>('')
   const [pageNumber, setPageNumber] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<number>(12)
+  const [pageSize, setPageSize] = useState<number>(10)
   const [isShow, setIsShow] = useState<boolean>(false)
 
   const [Testimoni, setTestimoni] = useState<GetTestimoniType[]>([])
@@ -154,16 +154,6 @@ export default function TestimoniSekolah() {
           search={search}
         />
         <div className="flex items-center gap-32 phones:w-full">
-          <div className="flex items-center gap-32 phones:w-2/3">
-            <FormListDataPerPage setDataPerPage={setPageSize} />
-            {Testimoni?.length > 0 && (
-              <Pagination
-                pageNow={pageNumber ?? 0}
-                lastPage={meta?.last_page ?? 0}
-                setPageNumber={setPageNumber}
-              />
-            )}
-          </div>
           {isHakAksesTambah && (
             <Link
               to="tambah"
@@ -191,6 +181,16 @@ export default function TestimoniSekolah() {
         isHapus={isHakAksesHapus}
         isUbah={isHakAksesUbah}
       />
+      <div className="flex items-center justify-end gap-32 phones:w-2/3">
+        <MenubarPerPage pageSize={pageSize} setPageSize={setPageSize} />
+        {Testimoni?.length > 0 && (
+          <Pagination
+            pageNow={pageNumber ?? 0}
+            lastPage={meta?.last_page ?? 0}
+            setPageNumber={setPageNumber}
+          />
+        )}
+      </div>
       <ToastContainer />
     </div>
   )

@@ -1,7 +1,7 @@
 import { MenubarDaftarPegawai } from '@/components/Menubar/MenubarDaftarPegawai'
+import { MenubarPerPage } from '@/components/Menubar/MenubarPerPage'
 import { Pagination } from '@/components/Pagination'
 import { Searching } from '@/components/Searching'
-import { FormListDataPerPage } from '@/components/Select/website'
 import { TableDaftarPegawai } from '@/components/Table/TableDaftarPegawai'
 import { columnsListDaftarPegawai } from '@/dummy/tableSimpeg'
 import { ManajemenData } from '@/features/simpeg/dashbhoard/daftarPegawai/ManajemenData'
@@ -112,7 +112,7 @@ export default function DaftarPegawai() {
 
         <div className="flex justify-end">
           <div className="flex items-center gap-32">
-            <FormListDataPerPage setDataPerPage={setPageSize} />
+            <MenubarPerPage pageSize={pageSize} setPageSize={setPageSize} />
             {data?.length > 0 && (
               <Pagination
                 pageNow={pageNumber ?? 0}

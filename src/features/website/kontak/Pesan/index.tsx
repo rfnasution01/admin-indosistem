@@ -1,6 +1,5 @@
 import { Pagination } from '@/components/Pagination'
 import { Searching } from '@/components/Searching'
-import { FormListDataPerPage } from '@/components/Select/website'
 import { TablePesan } from '@/components/Table/TablePesan'
 import { Meta } from '@/store/api'
 import { useGetKontakMasukQuery } from '@/store/slices/website/kontakAPI'
@@ -11,12 +10,13 @@ import 'react-toastify/dist/ReactToastify.css'
 import Cookies from 'js-cookie'
 import { useNavigate } from 'react-router-dom'
 import { columnsListDataPesan } from '@/dummy/table'
+import { MenubarPerPage } from '@/components/Menubar/MenubarPerPage'
 
 export function PesanMasukTable() {
   const navigate = useNavigate()
 
   const [pageNumber, setPageNumber] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<number>(12)
+  const [pageSize, setPageSize] = useState<number>(10)
   const [search, setSearch] = useState<string>('')
 
   const [pesan, setPesan] = useState<KontakMasuk[]>()
@@ -80,7 +80,11 @@ export function PesanMasukTable() {
           />
         </div>
         <div className="flex items-center gap-32">
-          <FormListDataPerPage setDataPerPage={setPageSize} />
+          <MenubarPerPage
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            position="bottom"
+          />
           {pesan?.length > 0 && (
             <Pagination
               pageNow={pageNumber ?? 0}
