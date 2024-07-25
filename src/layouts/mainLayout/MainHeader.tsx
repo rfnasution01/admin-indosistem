@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Bounce, toast } from 'react-toastify'
 import Cookies from 'js-cookie'
-import Helmet from 'react-helmet'
 import { GetLoginType } from '@/types/loginType'
 import { useGetLoginQuery } from '@/store/slices/loginAPI'
 import { GetIdentiasAdminType } from '@/types/portalAdminType'
@@ -11,6 +10,7 @@ import { useGetAdminIdentitasQuery } from '@/store/slices/portalAdminAPI'
 import { MainHeaderTitle } from './MainHeaderTitle'
 import { MainHeaderLogo } from './MainHeaderLogo'
 import { MainHeaderButtonGroup } from './MainHeaderButtonGroup'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 
 export function MainHeader() {
   const navigate = useNavigate()
@@ -78,39 +78,41 @@ export function MainHeader() {
   }, [isErrorIdentitasAdmin, errorIdentitasAdmin])
 
   return (
-    <div className="flex items-center gap-32 phones:flex-col">
-      {loadingIdentitasAdmin || loadingIdentitas ? (
-        <div className="flex gap-32">
-          <Skeleton height="h-[10rem]" width="w-[10rem]" />
-          <div className="flex flex-col gap-8">
-            <Skeleton height="h-[2.4rem]" width="w-[30rem]" />
-            <Skeleton height="h-[3.2rem]" width="w-[50rem]" />
-            <Skeleton height="h-[3.2rem]" width="w-[50rem]" />
+    <HelmetProvider>
+      <div className="flex items-center gap-32 phones:flex-col">
+        {loadingIdentitasAdmin || loadingIdentitas ? (
+          <div className="flex gap-32">
+            <Skeleton height="h-[10rem]" width="w-[10rem]" />
+            <div className="flex flex-col gap-8">
+              <Skeleton height="h-[2.4rem]" width="w-[30rem]" />
+              <Skeleton height="h-[3.2rem]" width="w-[50rem]" />
+              <Skeleton height="h-[3.2rem]" width="w-[50rem]" />
+            </div>
           </div>
-        </div>
-      ) : (
-        <>
-          <div className="flex flex-1 items-center gap-32">
-            {/* --- Logo --- */}
-            <MainHeaderLogo
-              identitas={identitas}
-              identitasAdmin={identitasAdmin}
-            />
-            {/* --- Title --- */}
-            <MainHeaderTitle
-              identitas={identitas}
-              identitasAdmin={identitasAdmin}
-            />
-          </div>
-          {/* --- Logout --- */}
-          <MainHeaderButtonGroup />
-        </>
-      )}
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>{identitasAdmin?.nama}</title>
-        <link rel="canonical" href="https://demolaman1.avnet.id/" />
-      </Helmet>
-    </div>
+        ) : (
+          <>
+            <div className="flex flex-1 items-center gap-32">
+              {/* --- Logo --- */}
+              <MainHeaderLogo
+                identitas={identitas}
+                identitasAdmin={identitasAdmin}
+              />
+              {/* --- Title --- */}
+              <MainHeaderTitle
+                identitas={identitas}
+                identitasAdmin={identitasAdmin}
+              />
+            </div>
+            {/* --- Logout --- */}
+            <MainHeaderButtonGroup />
+          </>
+        )}
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>{identitasAdmin?.nama}</title>
+          <link rel="canonical" href="https://demolaman1.avnet.id/" />
+        </Helmet>
+      </div>
+    </HelmetProvider>
   )
 }
