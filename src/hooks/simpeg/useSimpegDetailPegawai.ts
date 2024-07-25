@@ -30,6 +30,10 @@ import {
   SimpegTambahTandajasaSchema,
   SimpegTambahVaksinasiSchema,
 } from '@/schemas/simpeg/dokumenSchema'
+import {
+  SimpegTambahRiwayatOrganisasiSchema,
+  SimpegTambahRiwayatPenelitianSchema,
+} from '@/schemas/simpeg/riwayatOrganisasiSchema'
 
 export function useSimpegDetailPegawai() {
   const formTambahIstri = useForm<zod.infer<typeof SimpegTambahIstriSchema>>({
@@ -165,6 +169,20 @@ export function useSimpegDetailPegawai() {
     defaultValues: {},
   })
 
+  const formTambahRiwayatOrganisasi = useForm<
+    zod.infer<typeof SimpegTambahRiwayatOrganisasiSchema>
+  >({
+    resolver: zodResolver(SimpegTambahRiwayatOrganisasiSchema),
+    defaultValues: {},
+  })
+
+  const formTambahRiwayatPenelitian = useForm<
+    zod.infer<typeof SimpegTambahRiwayatPenelitianSchema>
+  >({
+    resolver: zodResolver(SimpegTambahRiwayatPenelitianSchema),
+    defaultValues: {},
+  })
+
   return {
     formTambahIstri,
     formTambahAnak,
@@ -186,5 +204,7 @@ export function useSimpegDetailPegawai() {
     formTambahRiwayatHukumanDisiplin,
     formTambahRiwayatTandaJasa,
     formTambahRiwayatVaksin,
+    formTambahRiwayatOrganisasi,
+    formTambahRiwayatPenelitian,
   }
 }

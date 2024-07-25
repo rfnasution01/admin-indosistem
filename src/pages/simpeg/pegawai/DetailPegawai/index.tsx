@@ -30,6 +30,11 @@ import {
   DetailRiwayatTandaJasa,
   DetailRiwayatVaksinasi,
 } from './administrasi'
+import {
+  DetailRiwayatOrganisasi,
+  DetailRiwayatPenelitian,
+  DetailRiwayatTugasLuar,
+} from './riwayatOrganisasi'
 
 export default function DetailPegawai() {
   const { lastPathname } = usePathname()
@@ -78,6 +83,12 @@ export default function DetailPegawai() {
         return <DetailRiwayatTandaJasa />
       case 'vaksinasi':
         return <DetailRiwayatVaksinasi />
+      case 'riwayat-organisasi':
+        return <DetailRiwayatOrganisasi />
+      case 'data-penelitian':
+        return <DetailRiwayatPenelitian />
+      case 'riwayat-tugas-luar':
+        return <DetailRiwayatTugasLuar />
       default:
         return <ComingSoonPage />
     }
