@@ -60,7 +60,7 @@ export function LinkParent({
         <p>{item?.nama_menu}</p>
         {item?.children?.length > 0 && (
           <span>
-            {isShow && idx === activeIndex ? (
+            {idx === activeIndex ? (
               <FontAwesomeIcon icon={faCaretUp} />
             ) : (
               <FontAwesomeIcon icon={faCaretDown} />
