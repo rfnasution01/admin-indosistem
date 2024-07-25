@@ -19,6 +19,11 @@ import {
   SimpegTambahRiwayatPendidikanSchema,
   SimpegTambahRiwayatSertifikasiSchema,
 } from '@/schemas/simpeg/riwayatPendidikanSchema'
+import {
+  SimpegTambahGajiSchema,
+  SimpegTambahRiwayatPenyesuaianIjazahSchema,
+  SimpegTambahRiwayatPMKSchema,
+} from '@/schemas/simpeg/gajiSchema'
 
 export function useSimpegDetailPegawai() {
   const formTambahIstri = useForm<zod.infer<typeof SimpegTambahIstriSchema>>({
@@ -105,6 +110,27 @@ export function useSimpegDetailPegawai() {
     defaultValues: {},
   })
 
+  const formTambahRiwayatGaji = useForm<
+    zod.infer<typeof SimpegTambahGajiSchema>
+  >({
+    resolver: zodResolver(SimpegTambahGajiSchema),
+    defaultValues: {},
+  })
+
+  const formTambahRiwayatPMK = useForm<
+    zod.infer<typeof SimpegTambahRiwayatPMKSchema>
+  >({
+    resolver: zodResolver(SimpegTambahRiwayatPMKSchema),
+    defaultValues: {},
+  })
+
+  const formTambahRiwayatPenyesuaianIjazah = useForm<
+    zod.infer<typeof SimpegTambahRiwayatPenyesuaianIjazahSchema>
+  >({
+    resolver: zodResolver(SimpegTambahRiwayatPenyesuaianIjazahSchema),
+    defaultValues: {},
+  })
+
   return {
     formTambahIstri,
     formTambahAnak,
@@ -119,5 +145,8 @@ export function useSimpegDetailPegawai() {
     formTambahRiwayatPelatihan,
     formTambahRiwayatSertifikasi,
     formTambahRiwayatKeahlian,
+    formTambahRiwayatGaji,
+    formTambahRiwayatPMK,
+    formTambahRiwayatPenyesuaianIjazah,
   }
 }

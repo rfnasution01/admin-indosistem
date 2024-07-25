@@ -18,6 +18,12 @@ import {
   DetailPendidikan,
   DetailSertifikasi,
 } from './riwayatPendidikan'
+import {
+  DetailAbsensiHarian,
+  DetailRiwayatGajiBerkala,
+  DetailRiwayatPenyesuaianIjazah,
+  DetailRiwayatPMK,
+} from './riwayatGaji'
 
 export default function DetailPegawai() {
   const { lastPathname } = usePathname()
@@ -50,6 +56,14 @@ export default function DetailPegawai() {
         return <DetailSertifikasi />
       case 'data-keahlian':
         return <DetailKeahlian />
+      case 'rekap-absensi-bulanan':
+        return <DetailAbsensiHarian />
+      case 'riwayat-gaji-berkala':
+        return <DetailRiwayatGajiBerkala />
+      case 'riwayat-pmk':
+        return <DetailRiwayatPMK />
+      case 'riwayat-penyesuaian-ijazah':
+        return <DetailRiwayatPenyesuaianIjazah />
       default:
         return <ComingSoonPage />
     }
