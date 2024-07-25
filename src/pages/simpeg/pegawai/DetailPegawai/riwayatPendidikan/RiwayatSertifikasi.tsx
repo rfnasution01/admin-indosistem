@@ -1,6 +1,6 @@
 import { DialogUpdate } from '@/components/Dialog/DialogUpdate'
 import { FormSertifikasi } from '@/components/Form/simpeg/detailPegawai'
-import { RiwayatSertifikasi } from '@/features/simpeg/detailPegawai/informasiPribadi'
+import { RiwayatSertifikasi } from '@/features/simpeg/detailPegawai/riwayatPendidikan'
 import { useSimpegDetailPegawai } from '@/hooks/simpeg'
 import { useState } from 'react'
 

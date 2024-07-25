@@ -1,6 +1,6 @@
 import { DialogUpdate } from '@/components/Dialog/DialogUpdate'
 import { FormPelatihan } from '@/components/Form/simpeg/detailPegawai'
-import { RiwayatPelatihan } from '@/features/simpeg/detailPegawai/informasiPribadi'
+import { RiwayatPelatihan } from '@/features/simpeg/detailPegawai/riwayatPendidikan'
 import { useSimpegDetailPegawai } from '@/hooks/simpeg'
 import { useState } from 'react'
 

@@ -1,4 +1,4 @@
-import { AbsensiBulanan } from '@/features/simpeg/detailPegawai/informasiPribadi'
+import { AbsensiBulanan } from '@/features/simpeg/detailPegawai/riwayatGaji'
 
 export function DetailAbsensiHarian() {
   return (
