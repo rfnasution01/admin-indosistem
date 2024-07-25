@@ -37,20 +37,6 @@ export function GuruStaffTable({
           className="w-1/2 phones:w-full"
           search={search}
         />
-        <div className="flex items-center gap-32">
-          <MenubarPerPage
-            pageSize={pageSize}
-            setPageSize={setPageSize}
-            position="bottom"
-          />
-          {data?.length > 0 && (
-            <Pagination
-              pageNow={pageNumber ?? 0}
-              lastPage={meta?.last_page ?? 0}
-              setPageNumber={setPageNumber}
-            />
-          )}
-        </div>
       </div>
       <Table
         data={data}
@@ -61,6 +47,20 @@ export function GuruStaffTable({
         currentPage={pageNumber}
         isNumber
       />
+      {data?.length > 0 && (
+        <div className="flex items-center justify-end gap-32">
+          <MenubarPerPage
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            position="bottom"
+          />
+          <Pagination
+            pageNow={pageNumber ?? 0}
+            lastPage={meta?.last_page ?? 0}
+            setPageNumber={setPageNumber}
+          />
+        </div>
+      )}
     </div>
   )
 }

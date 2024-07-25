@@ -112,22 +112,23 @@ export function GaleriAlbum({
               </div>
             ))}
           </div>
-          <div className="flex justify-end">
-            <div className="flex items-center gap-32">
-              <MenubarPerPage
-                pageSize={pageSize}
-                setPageSize={setPageSize}
-                isCard
-              />
-              {data?.length > 0 && (
+          {data?.length > 0 && (
+            <div className="flex justify-end">
+              <div className="flex items-center gap-32">
+                <MenubarPerPage
+                  pageSize={pageSize}
+                  setPageSize={setPageSize}
+                  isCard
+                />
+
                 <Pagination
                   pageNow={pageNumber ?? 0}
                   lastPage={meta?.last_page ?? 0}
                   setPageNumber={setPageNumber}
                 />
-              )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
     </div>

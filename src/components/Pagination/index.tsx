@@ -1,12 +1,13 @@
 import {
+  faAnglesLeft,
+  faAnglesRight,
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import clsx from 'clsx'
 import { Dispatch, SetStateAction } from 'react'
 
-export const Pagination = ({
+export function Pagination({
   pageNow,
   lastPage,
   setPageNumber,
@@ -14,38 +15,97 @@ export const Pagination = ({
   pageNow: number
   lastPage: number
   setPageNumber: Dispatch<SetStateAction<number>>
-}) => {
+}) {
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= lastPage) {
+      setPageNumber(page)
+    }
+  }
+
+  // Calculate the range of pages to display
+  const getPageNumbers = () => {
+    const pages = []
+    const maxPageButtons = 5
+    const halfRange = Math.floor(maxPageButtons / 2)
+
+    // Calculate the start and end page numbers
+    let startPage = Math.max(1, pageNow - halfRange)
+    let endPage = Math.min(lastPage, pageNow + halfRange)
+
+    // Adjust the start and end pages if they don't fit the total number of pages
+    if (endPage - startPage + 1 < maxPageButtons) {
+      if (startPage === 1) {
+        endPage = Math.min(lastPage, startPage + maxPageButtons - 1)
+      } else if (endPage === lastPage) {
+        startPage = Math.max(1, endPage - maxPageButtons + 1)
+      }
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i)
+    }
+
+    return pages
+  }
+
+  const pageNumbers = getPageNumbers()
+
   return (
-    <div className="flex items-center gap-24">
-      <span
-        className={clsx('border p-4', {
-          'hover:cursor-pointer': pageNow > 1,
-          'opacity-20 hover:cursor-not-allowed': !(pageNow > 1),
-        })}
-        onClick={() => {
-          if (pageNow > 1) {
-            setPageNumber(pageNow - 1)
-          }
-        }}
-      >
-        <FontAwesomeIcon icon={faChevronLeft} />
-      </span>
-      <p>
-        <span className="text-rose-950">{pageNow}</span> / {lastPage}
-      </p>
-      <span
-        className={clsx('border p-4', {
-          'hover:cursor-pointer': pageNow < lastPage,
-          'opacity-20 hover:cursor-not-allowed': !(pageNow < lastPage),
-        })}
-        onClick={() => {
-          if (pageNow < lastPage) {
-            setPageNumber(pageNow + 1)
-          }
-        }}
-      >
-        <FontAwesomeIcon icon={faChevronRight} />
-      </span>
+    <div className="flex items-center gap-16 phones:gap-8">
+      <div className="flex items-center gap-32 phones:gap-12">
+        {/* First Button */}
+        <button
+          onClick={() => handlePageChange(1)}
+          disabled={pageNow === 1}
+          className="hover:text-primary-100 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          <FontAwesomeIcon icon={faAnglesLeft} />
+        </button>
+
+        {/* Previous Button */}
+        <button
+          onClick={() => handlePageChange(pageNow - 1)}
+          disabled={pageNow <= 1}
+          className="hover:text-primary-100 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          <FontAwesomeIcon icon={faChevronLeft} />
+        </button>
+      </div>
+
+      {/* Page Number Buttons */}
+      {pageNumbers.map((page) => (
+        <button
+          key={page}
+          onClick={() => handlePageChange(page)}
+          className={`flex h-[4rem] w-[4rem] items-center justify-center rounded-full ${
+            page === pageNow
+              ? 'bg-primary-100 text-white'
+              : 'text-primary-100 hover:bg-primary-100 hover:text-white'
+          }`}
+        >
+          {page}
+        </button>
+      ))}
+
+      <div className="flex items-center gap-32 phones:gap-12">
+        {/* Next Button */}
+        <button
+          onClick={() => handlePageChange(pageNow + 1)}
+          disabled={pageNow >= lastPage}
+          className="hover:text-primary-100 disabled:cursor-not-allowed    disabled:opacity-50"
+        >
+          <FontAwesomeIcon icon={faChevronRight} />
+        </button>
+
+        {/* Last Button */}
+        <button
+          onClick={() => handlePageChange(lastPage)}
+          disabled={pageNow === lastPage}
+          className="hover:text-primary-100 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          <FontAwesomeIcon icon={faAnglesRight} />
+        </button>
+      </div>
     </div>
   )
 }

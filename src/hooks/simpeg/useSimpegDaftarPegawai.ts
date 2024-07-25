@@ -25,7 +25,7 @@ export function useSimpegDaftarPegawai() {
 
   const [search, setSearch] = useState<string>('')
   const [pageNumber, setPageNumber] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<number>(4)
+  const [pageSize, setPageSize] = useState<number>(10)
   const [jenisKepegawaian, setJenisKepegawaian] = useState<string>('')
   const [statusPegawai, setStatusPegawai] = useState<string>('Aktif')
   const [validasi, setValidasi] = useState<string>('')

@@ -181,16 +181,17 @@ export default function FasilitasSekolah() {
         isUbah={isHakAksesUbah}
         isHapus={isHakAksesHapus}
       />
-      <div className="flex items-center justify-end gap-32 phones:w-2/3">
-        <MenubarPerPage pageSize={pageSize} setPageSize={setPageSize} />
-        {fasilitas?.length > 0 && (
+      {fasilitas?.length > 0 && (
+        <div className="flex items-center justify-end gap-32 phones:w-2/3">
+          <MenubarPerPage pageSize={pageSize} setPageSize={setPageSize} />
           <Pagination
             pageNow={pageNumber ?? 0}
             lastPage={meta?.last_page ?? 0}
             setPageNumber={setPageNumber}
           />
-        )}
-      </div>
+        </div>
+      )}
+
       <ToastContainer />
     </div>
   )

@@ -79,20 +79,6 @@ export function PesanMasukTable() {
             search={search}
           />
         </div>
-        <div className="flex items-center gap-32">
-          <MenubarPerPage
-            pageSize={pageSize}
-            setPageSize={setPageSize}
-            position="bottom"
-          />
-          {pesan?.length > 0 && (
-            <Pagination
-              pageNow={pageNumber ?? 0}
-              lastPage={meta?.last_page ?? 0}
-              setPageNumber={setPageNumber}
-            />
-          )}
-        </div>
       </div>
       <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto">
         <TablePesan
@@ -105,6 +91,20 @@ export function PesanMasukTable() {
           isNumber
         />
       </div>
+      {pesan?.length > 0 && (
+        <div className="flex items-center justify-end gap-32">
+          <MenubarPerPage
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            position="bottom"
+          />
+          <Pagination
+            pageNow={pageNumber ?? 0}
+            lastPage={meta?.last_page ?? 0}
+            setPageNumber={setPageNumber}
+          />
+        </div>
+      )}
       <ToastContainer />
     </div>
   )

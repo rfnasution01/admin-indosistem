@@ -298,18 +298,21 @@ export default function Faq() {
               isHapus={isHakAksesHapus}
               isUbah={isHakAksesUbah}
             />
-            <div className="flex justify-end">
-              <div className="flex items-center gap-32">
-                <MenubarPerPage pageSize={pageSize} setPageSize={setPageSize} />
-                {FAQ?.length > 0 && (
+            {FAQ?.length > 0 && (
+              <div className="flex justify-end">
+                <div className="flex items-center gap-32">
+                  <MenubarPerPage
+                    pageSize={pageSize}
+                    setPageSize={setPageSize}
+                  />
                   <Pagination
                     pageNow={pageNumber ?? 0}
                     lastPage={meta?.last_page ?? 0}
                     setPageNumber={setPageNumber}
                   />
-                )}
+                </div>
               </div>
-            </div>
+            )}
           </>
         )}
       </div>

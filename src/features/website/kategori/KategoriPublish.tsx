@@ -217,21 +217,22 @@ export function KategoriPublish({
               </div>
             ))
           )}
+        </div>
+      )}
+      {kategori?.length > 0 && (
+        <div className="flex justify-end">
+          <div className="flex items-center gap-32">
+            <MenubarPerPage pageSize={pageSize} setPageSize={setPageSize} />
 
-          <div className="flex justify-end">
-            <div className="flex items-center gap-32">
-              <MenubarPerPage pageSize={pageSize} setPageSize={setPageSize} />
-              {kategori?.length > 0 && (
-                <Pagination
-                  pageNow={pageNumber ?? 0}
-                  lastPage={meta?.last_page ?? 0}
-                  setPageNumber={setPageNumber}
-                />
-              )}
-            </div>
+            <Pagination
+              pageNow={pageNumber ?? 0}
+              lastPage={meta?.last_page ?? 0}
+              setPageNumber={setPageNumber}
+            />
           </div>
         </div>
       )}
+
       <ValidasiDelete
         isOpen={isShowDelete}
         setIsOpen={setIsShowDelete}

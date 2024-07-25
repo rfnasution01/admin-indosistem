@@ -158,13 +158,11 @@ export function GaleriDetail({
               setPageSize={setPageSize}
               isCard
             />
-            {photo?.length > 0 && (
-              <Pagination
-                pageNow={pageNumber ?? 0}
-                lastPage={meta?.last_page ?? 0}
-                setPageNumber={setPageNumber}
-              />
-            )}
+            <Pagination
+              pageNow={pageNumber ?? 0}
+              lastPage={meta?.last_page ?? 0}
+              setPageNumber={setPageNumber}
+            />
           </div>
         </div>
       )}
