@@ -475,6 +475,54 @@ export const router = createBrowserRouter([
                   },
                 ],
               },
+              {
+                path: 'pegawaistatus',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'pegawaidaneselon',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'kategoriasalusul',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'fungsional',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'laporanbulanan',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'ubahnama',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'nomorurut',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'pensiun',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'proyeksi',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'ulangtahun',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'perangkat',
+                element: <ComingSoonPage />,
+              },
+              {
+                path: 'pejabatsatker',
+                element: <ComingSoonPage />,
+              },
             ],
           },
         ],
