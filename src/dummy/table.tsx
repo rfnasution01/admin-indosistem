@@ -1,5 +1,4 @@
 import { Column } from '@/components/Table'
-import { GetGuruStaffType } from '@/types/website/profil/guruStaffType'
 import clsx from 'clsx'
 import DefaultImg from '@/assets/images/default.jpg'
 import { GetFasilitasType } from '@/types/website/profil/fasilitasType'
@@ -13,8 +12,9 @@ import { HalamanType } from '@/types/website/konten/halamanType'
 import { FAQType } from '@/types/website/konten/faqType'
 import { DownloadType } from '@/types/website/konten/downloadType'
 import { GetMenuType } from '@/types/website/konten/menuType'
+import { GetWebsiteGuruStaffType } from '@/types/website/profil/guruStaffType'
 
-export const columnsListDataGuru: Column<GetGuruStaffType>[] = [
+export const columnsListDataGuru: Column<GetWebsiteGuruStaffType>[] = [
   {
     header: 'Nama',
     key: 'nama',

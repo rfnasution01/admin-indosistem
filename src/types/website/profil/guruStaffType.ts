@@ -1,4 +1,4 @@
-export type GetGuruStaffType = {
+export type GetWebsiteGuruStaffType = {
   id_pegawai: string
   gambar: string
   nama: string

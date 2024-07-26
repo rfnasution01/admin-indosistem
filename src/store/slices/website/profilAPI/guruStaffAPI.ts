@@ -1,11 +1,11 @@
 import { api, Meta, Res } from '@/store/api'
 import { ParamsType } from '@/types/website/menuType'
-import { GetGuruStaffType } from '@/types/website/profil/guruStaffType'
+import { GetWebsiteGuruStaffType } from '@/types/website/profil/guruStaffType'
 
 export const WebsiteGuruStaffSekolahEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
     getGuruStaff: builder.query<
-      Res<{ data: GetGuruStaffType[]; meta: Meta }>,
+      Res<{ data: GetWebsiteGuruStaffType[]; meta: Meta }>,
       ParamsType
     >({
       query: ({ page_number, page_size, search }) => ({

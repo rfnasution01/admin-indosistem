@@ -4,7 +4,7 @@ import { Searching } from '@/components/Searching'
 import { Table } from '@/components/Table'
 import { columnsListDataGuru } from '@/dummy/table'
 import { Meta } from '@/store/api'
-import { GetGuruStaffType } from '@/types/website/profil/guruStaffType'
+import { GetWebsiteGuruStaffType } from '@/types/website/profil/guruStaffType'
 import { Dispatch, SetStateAction } from 'react'
 
 export function GuruStaffTable({
@@ -18,7 +18,7 @@ export function GuruStaffTable({
   search,
   isLoading,
 }: {
-  data: GetGuruStaffType[]
+  data: GetWebsiteGuruStaffType[]
   meta: Meta
   setSearch: Dispatch<SetStateAction<string>>
   setPageNumber: Dispatch<SetStateAction<number>>
