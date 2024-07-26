@@ -10,13 +10,13 @@ import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
 import 'dayjs/locale/id'
 import { usePathname } from '@/hooks/usePathname'
-import { GetKategoriDetailType } from '@/types/website/kategoriType'
+import { GetWebsiteKategoriDetailType } from '@/types/website/kategoriType'
 
 export function KategoriDetail({
   detail,
   isUbah,
 }: {
-  detail: GetKategoriDetailType
+  detail: GetWebsiteKategoriDetailType
   isUbah: boolean
 }) {
   const { secondPathname } = usePathname()

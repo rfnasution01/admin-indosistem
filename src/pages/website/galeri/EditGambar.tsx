@@ -139,8 +139,6 @@ export default function EditGambar() {
           setIsSubmit={setIsSubmit}
           isShow={isShow}
           isSubmit={isSubmit}
-          urls={urls}
-          setUrls={setUrls}
           isUbah={isHakAksesUbah}
         />
       </div>

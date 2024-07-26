@@ -1,13 +1,13 @@
 import { Loading } from '@/components/Loading'
 import { useGetDashboardBeritaQuery } from '@/store/slices/website/kategoriAPI'
-import { GetDashboardBerita } from '@/types/website/kategoriType'
 import { useEffect, useState } from 'react'
 import { CardBerita } from './CardBerita'
 import { KategoriChart } from './KategoriChart'
 import { KategoriStatistik } from './KategoriStatistik'
+import { GetWebsiteDashboardBerita } from '@/types/website/kategoriType'
 
 export function BeritaDashboard() {
-  const [dashboard, setDashboard] = useState<GetDashboardBerita>()
+  const [dashboard, setDashboard] = useState<GetWebsiteDashboardBerita>()
 
   const {
     data: dataDashboard,

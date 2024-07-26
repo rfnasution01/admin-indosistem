@@ -135,8 +135,8 @@ export function useWebsiteProgramSekolah() {
   ] = useCreateLayananMutation()
 
   const handleSubmit = async () => {
-    const valuesProgram = formProgram.getValues()
-    const valuesLayanan = formLayanan.getValues()
+    const valuesProgram = formProgram.watch()
+    const valuesLayanan = formLayanan.watch()
 
     const bodyProgram = {
       id: programById ? programById?.id : null,

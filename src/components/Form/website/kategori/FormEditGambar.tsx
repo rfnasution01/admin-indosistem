@@ -19,8 +19,6 @@ export default function FormEditGambar({
   setIsSubmit,
   isSubmit,
   isShow,
-  setUrls,
-  urls,
   isUbah,
 }: {
   form: UseFormReturn
@@ -30,8 +28,6 @@ export default function FormEditGambar({
   setIsShow: Dispatch<SetStateAction<boolean>>
   isShow: boolean
   isSubmit: boolean
-  setUrls: Dispatch<SetStateAction<string>>
-  urls: string
   isUbah: boolean
 }) {
   const { secondPathname } = usePathname()
@@ -67,7 +63,7 @@ export default function FormEditGambar({
 
     try {
       const res = await uploadFileMutation(formatData)
-      setUrls(res?.data?.url)
+      form.setValue('url_gambar', res?.data?.url)
     } catch (e) {
       console.error(e)
       toast.error(`Data gagal disimpan`, {
@@ -155,8 +151,8 @@ export default function FormEditGambar({
 
           <div className="flex flex-col gap-12">
             <FormLabelFile
-              urls={urls}
-              setUrls={setUrls}
+              urls={form.watch('url_gambar')}
+              setUrls={(urls) => form.setValue('url_gambar', urls)}
               form={form}
               isLoading={isLoading}
               loadingFile={loadingFile}
@@ -201,7 +197,7 @@ export default function FormEditGambar({
         children={
           <div className="flex w-full flex-col gap-32 rounded-2x bg-warna-pale-blue p-32 text-[2rem] text-warna-dark phones:text-[2.4rem]">
             <PreviewEditGambar
-              photo={urls}
+              photo={form.watch('url_gambar')}
               keterangan={
                 secondPathname === 'galeri'
                   ? form.watch('judul')

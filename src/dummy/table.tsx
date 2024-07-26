@@ -1,7 +1,6 @@
 import { Column } from '@/components/Table'
 import clsx from 'clsx'
 import DefaultImg from '@/assets/images/default.jpg'
-import { GetKategoriType } from '@/types/website/kategoriType'
 import { KontakMasuk } from '@/types/website/profil/kontakType'
 import dayjs from 'dayjs'
 import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
@@ -13,6 +12,7 @@ import { GetMenuType } from '@/types/website/konten/menuType'
 import { GetWebsiteGuruStaffType } from '@/types/website/profil/guruStaffType'
 import { GetWebsiteFasilitasType } from '@/types/website/profil/fasilitasType'
 import { GetWebsiteTestimoniType } from '@/types/website/profil/testimoniType'
+import { GetWebsiteKategoriType } from '@/types/website/kategoriType'
 
 export const columnsListDataGuru: Column<GetWebsiteGuruStaffType>[] = [
   {
@@ -160,7 +160,7 @@ export const columnsListDataTestimoni: Column<GetWebsiteTestimoniType>[] = [
   },
 ]
 
-export const columnsListDataKategori: Column<GetKategoriType>[] = [
+export const columnsListDataKategori: Column<GetWebsiteKategoriType>[] = [
   {
     header: 'Judul',
     key: 'judul',

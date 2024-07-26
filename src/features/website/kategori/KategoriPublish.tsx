@@ -17,13 +17,13 @@ import { Link } from 'react-router-dom'
 import { convertSlugToText } from '@/utils/formatText'
 import { Loading } from '@/components/Loading'
 import DefaultImg from '@/assets/images/default.jpg'
-import { GetKategoriType } from '@/types/website/kategoriType'
 import { ValidasiDelete } from '@/components/Dialog/ValidasiDelete'
 import clsx from 'clsx'
 import { ValidasiIsCheck } from '@/components/Dialog/ValidasiIsCheck'
 import { Pagination } from '@/components/Pagination'
 import { Meta } from '@/store/api'
 import { MenubarPerPage } from '@/components/Menubar/MenubarPerPage'
+import { GetWebsiteKategoriType } from '@/types/website/kategoriType'
 
 export function KategoriPublish({
   isPublish,
@@ -50,7 +50,7 @@ export function KategoriPublish({
 }: {
   isPublish?: boolean
   loadingKategori: boolean
-  kategori: GetKategoriType[]
+  kategori: GetWebsiteKategoriType[]
   setPageNumber: Dispatch<SetStateAction<number>>
   setPageSize: Dispatch<SetStateAction<number>>
   pageNumber: number

@@ -1,4 +1,4 @@
-export type GetKategoriType = {
+export type GetWebsiteKategoriType = {
   id: string
   tanggal: string
   judul: string
@@ -12,7 +12,7 @@ export type GetKategoriType = {
   isi: string
 }
 
-export type GetKategoriDetailType = {
+export type GetWebsiteKategoriDetailType = {
   id: string
   tanggal: string
   judul: string
@@ -74,7 +74,7 @@ export type PostPublishParams = {
   publish: string
 }
 
-export type GetDashboardBerita = {
+export type GetWebsiteDashboardBerita = {
   jlh_berita: number
   berita_baru: number
   berita_dibaca: string

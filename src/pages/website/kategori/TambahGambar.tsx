@@ -1,119 +1,23 @@
 import { Breadcrumb } from '@/components/Breadcrumb'
-import { usePathname } from '@/hooks/usePathname'
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Bounce, ToastContainer, toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as zod from 'zod'
-import { useForm } from 'react-hook-form'
 import { convertSlugToText } from '@/utils/formatText'
 import FormTambahGambar from '@/components/Form/website/kategori/FormTambahGambar'
-import { TambahGambarSchema } from '@/schemas/website/kategoriSchema'
-import { useCreateGambarMutation } from '@/store/slices/website/kategoriAPI'
-import { useAkses } from '@/hooks/useAkses'
+import { useWebsiteKategori } from '@/hooks/website/kategori'
 
 export default function TambahGambar() {
-  const navigate = useNavigate()
-  const { isHakAksesTambah } = useAkses()
-  const { lastPathname, secondPathname } = usePathname()
-
-  const isEdit = lastPathname === 'edit'
-  const idEdit = localStorage.getItem('editID') ?? null
-
-  const [isSubmit, setIsSubmit] = useState<boolean>(false)
-  const [isShow, setIsShow] = useState<boolean>(false)
-
-  const form = useForm<zod.infer<typeof TambahGambarSchema>>({
-    resolver: zodResolver(TambahGambarSchema),
-    defaultValues: {},
-  })
-
-  // --- Create Tambah Gambar ---
-  const [
-    createTambahGambar,
-    {
-      isError: isErrorTambahGambar,
-      error: errorTambahGambar,
-      isLoading: isLoadingTambahGambar,
-      isSuccess: isSuccessTambahGambar,
-    },
-  ] = useCreateGambarMutation()
-
-  const handleSubmit = async () => {
-    const values = form.getValues()
-
-    const body = {
-      id_pengumuman: idEdit,
-      id_berita: idEdit,
-      id_agenda: idEdit,
-      id_prestasi: idEdit,
-      id_mading: idEdit,
-      gambar: values?.gambar,
-    }
-
-    if (!isHakAksesTambah) {
-      toast.error(
-        `Maaf, anda tidak memiliki akses untuk ${isEdit ? 'mengubah' : 'menambah'} data ini`,
-        {
-          position: 'bottom-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-          transition: Bounce,
-        },
-      )
-    }
-
-    if (isSubmit && isShow) {
-      try {
-        await createTambahGambar({ body: body, jenis: secondPathname })
-      } catch (error) {
-        console.error(error)
-      }
-    }
-  }
-
-  useEffect(() => {
-    if (isSuccessTambahGambar) {
-      toast.success(`${isEdit ? 'Edit' : 'Tambah'} gambar berhasil`, {
-        position: 'bottom-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
-      setTimeout(() => {
-        navigate(-1)
-      }, 3000)
-    }
-  }, [isSuccessTambahGambar])
-
-  useEffect(() => {
-    if (isErrorTambahGambar) {
-      const errorMsg = errorTambahGambar as { data?: { message?: string } }
-
-      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
-        position: 'bottom-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
-    }
-  }, [isErrorTambahGambar, errorTambahGambar])
+  const {
+    isHakAksesTambah,
+    isSubmit,
+    setIsSubmit,
+    handleSubmitTambahGambar,
+    isLoadingTambahGambar,
+    formTambahGambar,
+    isShowTambahGambar,
+    setIsShowTambahGambar,
+    idEdit,
+    lastPathname,
+  } = useWebsiteKategori()
 
   return (
     <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto rounded-3x bg-white p-48">
@@ -123,12 +27,12 @@ export default function TambahGambar() {
           Form {convertSlugToText(lastPathname)}
         </p>
         <FormTambahGambar
-          form={form}
+          form={formTambahGambar}
           isLoading={isLoadingTambahGambar}
-          handleSubmit={handleSubmit}
-          setIsShow={setIsShow}
+          handleSubmit={handleSubmitTambahGambar}
+          setIsShow={setIsShowTambahGambar}
           setIsSubmit={setIsSubmit}
-          isShow={isShow}
+          isShow={isShowTambahGambar}
           isSubmit={isSubmit}
           isTambah={isHakAksesTambah}
         />

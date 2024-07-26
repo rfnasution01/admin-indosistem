@@ -12,7 +12,6 @@ import { UseFormReturn } from 'react-hook-form'
 import { Form } from '@/components/Form'
 import { TableKategori } from '@/components/Table/TableKategori'
 import { columnsListDataKategori } from '@/dummy/table'
-import { GetKategoriType } from '@/types/website/kategoriType'
 import { SelectListPengumuman } from '@/components/Select/website/ListPengumuman'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -20,6 +19,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { convertSlugToText } from '@/utils/formatText'
 import { usePathname } from '@/hooks/usePathname'
 import { MenubarPerPage } from '@/components/Menubar/MenubarPerPage'
+import { GetWebsiteKategoriType } from '@/types/website/kategoriType'
 
 export function KategoriTable({
   data,
@@ -45,7 +45,7 @@ export function KategoriTable({
   isHapus,
   isTambah,
 }: {
-  data: GetKategoriType[]
+  data: GetWebsiteKategoriType[]
   meta: Meta
   setSearch: Dispatch<SetStateAction<string>>
   setPageNumber: Dispatch<SetStateAction<number>>

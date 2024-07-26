@@ -22,7 +22,7 @@ import { useWebsiteVisiMisi } from './useWebsiteVisiMisi'
 
 export function useWebsiteTentangSekolah() {
   const navigate = useNavigate()
-  const { lastPathname } = usePathname()
+  const { lastPathname, secondPathname } = usePathname()
   const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } =
     useWebsiteAkses()
   const { visiSekolah, misiSekolah } = useWebsiteVisiMisi()
@@ -470,5 +470,7 @@ export function useWebsiteTentangSekolah() {
     isHakAksesHapus,
     isHakAksesTambah,
     isHakAksesUbah,
+    lastPathname,
+    secondPathname,
   }
 }

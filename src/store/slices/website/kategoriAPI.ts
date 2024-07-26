@@ -1,8 +1,8 @@
 import { api, Meta, Res } from '@/store/api'
 import {
-  GetDashboardBerita,
-  GetKategoriDetailType,
-  GetKategoriType,
+  GetWebsiteDashboardBerita,
+  GetWebsiteKategoriDetailType,
+  GetWebsiteKategoriType,
   KategoriGambarType,
   PostGambarParams,
   PostKategoriParams,
@@ -14,7 +14,7 @@ import { DeleteType, ParamsType } from '@/types/website/menuType'
 export const WebsiteKategoriEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
     getKategori: builder.query<
-      Res<{ data: GetKategoriType[]; meta: Meta }>,
+      Res<{ data: GetWebsiteKategoriType[]; meta: Meta }>,
       ParamsType
     >({
       query: ({
@@ -38,7 +38,7 @@ export const WebsiteKategoriEndpoints = api.injectEndpoints({
       providesTags: ['website-kategori'],
     }),
     getKategoriDetail: builder.query<
-      Res<{ data: GetKategoriDetailType; gambar: KategoriGambarType[] }>,
+      Res<{ data: GetWebsiteKategoriDetailType; gambar: KategoriGambarType[] }>,
       DeleteType
     >({
       query: ({ id, jenis }) => ({
@@ -121,7 +121,7 @@ export const WebsiteKategoriEndpoints = api.injectEndpoints({
       }),
       invalidatesTags: ['website-kategori', 'website-kategori-detail'],
     }),
-    getDashboardBerita: builder.query<Res<GetDashboardBerita>, void>({
+    getDashboardBerita: builder.query<Res<GetWebsiteDashboardBerita>, void>({
       query: () => ({
         url: `admin/website/berita_dashboard`,
         method: 'GET',

@@ -18,7 +18,7 @@ import { FasilitasSekolahSchema } from '@/schemas/website/fasilitasSekolahSchema
 
 export function useWebsiteFasilitas() {
   const navigate = useNavigate()
-  const { lastPathname } = usePathname()
+  const { lastPathname, thirdPathname } = usePathname()
   const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } =
     useWebsiteAkses()
 
@@ -173,7 +173,7 @@ export function useWebsiteFasilitas() {
   ] = useCreateFasilitasMutation()
 
   const handleSubmitUpdateFasilitas = async () => {
-    const values = formUpdateFasilitas.getValues()
+    const values = formUpdateFasilitas.watch()
 
     const body = {
       id: isEdit ? idEdit : null,
@@ -307,5 +307,7 @@ export function useWebsiteFasilitas() {
     isSubmit,
     setIsSubmit,
     isEdit,
+    lastPathname,
+    thirdPathname,
   }
 }

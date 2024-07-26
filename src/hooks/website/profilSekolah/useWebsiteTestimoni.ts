@@ -18,7 +18,7 @@ import { useForm } from 'react-hook-form'
 
 export function useWebsiteTestimoni() {
   const navigate = useNavigate()
-  const { lastPathname } = usePathname()
+  const { lastPathname, thirdPathname } = usePathname()
   const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } =
     useWebsiteAkses()
 
@@ -171,7 +171,7 @@ export function useWebsiteTestimoni() {
   ] = useCreateTestimoniMutation()
 
   const handleSubmitUpdateTestimoni = async () => {
-    const values = formUpdateTestimoni.getValues()
+    const values = formUpdateTestimoni.watch()
 
     const body = {
       id: isEdit ? idEdit : null,
@@ -300,5 +300,7 @@ export function useWebsiteTestimoni() {
     isSubmit,
     setIsSubmit,
     isEdit,
+    lastPathname,
+    thirdPathname,
   }
 }

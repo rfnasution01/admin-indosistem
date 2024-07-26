@@ -1,5 +1,4 @@
 import { Breadcrumb } from '@/components/Breadcrumb'
-import { usePathname } from '@/hooks/usePathname'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
@@ -7,7 +6,6 @@ import FormTambahProfil from '@/components/Form/website/profil/FormTambahProfil'
 import { useWebsiteTentangSekolah } from '@/hooks/website/profilSekolah'
 
 export default function WebsiteTambahTentangSekolah() {
-  const { lastPathname, secondPathname } = usePathname()
   const {
     formTambahProfil,
     isLoadingTambahProfil,
@@ -18,6 +16,8 @@ export default function WebsiteTambahTentangSekolah() {
     setIsSubmit,
     isHakAksesTambah,
     isHakAksesUbah,
+    lastPathname,
+    secondPathname,
   } = useWebsiteTentangSekolah()
 
   return (
