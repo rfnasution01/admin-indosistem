@@ -4,7 +4,7 @@ import {
   KategoriDetail,
   KategoriDetailGambar,
 } from '@/features/website/kategori'
-import { useWebsiteKategori } from '@/hooks/website/kategori'
+import { useWebsiteKategori } from '@/hooks/website/useWebsiteKategori'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -22,8 +22,6 @@ export default function DetailKategori() {
     id,
     dataGambarKategori,
   } = useWebsiteKategori()
-
-  console.log({ id })
 
   return (
     <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto rounded-3x bg-white p-48">

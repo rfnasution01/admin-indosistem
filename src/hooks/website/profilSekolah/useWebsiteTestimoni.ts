@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
-import { useWebsiteAkses } from '../websiteAkses'
+import { useWebsiteAkses } from '../useWebsiteAkses'
 import { useEffect, useState } from 'react'
 import { GetWebsiteTestimoniType } from '@/types/website/profil/testimoniType'
 import { Meta } from '@/store/api'

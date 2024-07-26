@@ -3,7 +3,8 @@ import { Breadcrumb } from '@/components/Breadcrumb'
 import { convertSlugToText } from '@/utils/formatText'
 import FormTambahKategori from '@/components/Form/website/kategori/FormTambahKategori'
 import 'react-toastify/dist/ReactToastify.css'
-import { useWebsiteKategori } from '@/hooks/website/kategori'
+import { useWebsiteKategori } from '@/hooks/website/useWebsiteKategori'
+
 export default function UpdateKategori() {
   const {
     isHakAksesTambah,

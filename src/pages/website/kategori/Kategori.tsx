@@ -8,7 +8,7 @@ import {
   BeritaDashboard,
 } from '@/features/website/kategori'
 import { convertSlugToText } from '@/utils/formatText'
-import { useWebsiteKategori } from '@/hooks/website/kategori'
+import { useWebsiteKategori } from '@/hooks/website/useWebsiteKategori'
 
 export default function Kategori() {
   const {

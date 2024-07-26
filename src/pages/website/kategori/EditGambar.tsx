@@ -3,7 +3,7 @@ import { convertSlugToText } from '@/utils/formatText'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import FormEditGambar from '@/components/Form/website/kategori/FormEditGambar'
-import { useWebsiteKategori } from '@/hooks/website/kategori'
+import { useWebsiteKategori } from '@/hooks/website/useWebsiteKategori'
 
 export default function EditGambar() {
   const {

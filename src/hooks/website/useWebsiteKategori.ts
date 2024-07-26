@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
-import { useWebsiteAkses } from '../websiteAkses'
+import { useWebsiteAkses } from './useWebsiteAkses'
 import { useEffect, useState } from 'react'
 import { usePathname } from '@/hooks/usePathname'
 import {
@@ -13,6 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { useForm } from 'react-hook-form'
 import {
+  GetWebsiteDashboardBerita,
   GetWebsiteKategoriDetailType,
   GetWebsiteKategoriType,
   KategoriGambarType,
@@ -23,6 +24,7 @@ import {
   useCreateKategoriMutation,
   useDeleteGambarMutation,
   useDeleteKategoriMutation,
+  useGetDashboardBeritaQuery,
   useGetKategoriDetailQuery,
   useGetKategoriQuery,
   useUpdateGambarMutation,
@@ -742,6 +744,23 @@ export function useWebsiteKategori() {
     }
   }, [data])
 
+  const [dataDashboard, setDataDashboard] =
+    useState<GetWebsiteDashboardBerita>()
+
+  const {
+    data: dataDashboardSekolah,
+    isFetching: isFetchingDashboard,
+    isLoading: isLoadingDashboard,
+  } = useGetDashboardBeritaQuery()
+
+  const isLoadingBeritaDashboard = isFetchingDashboard || isLoadingDashboard
+
+  useEffect(() => {
+    if (dataDashboardSekolah) {
+      setDataDashboard(dataDashboardSekolah?.data)
+    }
+  }, [dataDashboardSekolah?.data])
+
   return {
     isHakAksesHapus,
     isHakAksesTambah,
@@ -793,5 +812,7 @@ export function useWebsiteKategori() {
     handleSubmitEditGambar,
     isLoadingEditGambar,
     formEditGambar,
+    isLoadingBeritaDashboard,
+    dataDashboard,
   }
 }

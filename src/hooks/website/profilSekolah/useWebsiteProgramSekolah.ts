@@ -21,7 +21,7 @@ import {
   LayananSchema,
   ProgramSchema,
 } from '@/schemas/website/programLayananSchema'
-import { useWebsiteAkses } from '../websiteAkses'
+import { useWebsiteAkses } from '../useWebsiteAkses'
 
 export function useWebsiteProgramSekolah() {
   const navigate = useNavigate()

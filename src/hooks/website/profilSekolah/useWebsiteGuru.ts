@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useWebsiteAkses } from '../websiteAkses'
+import { useWebsiteAkses } from '../useWebsiteAkses'
 import Cookies from 'js-cookie'
 import { useEffect, useState } from 'react'
 import { GetWebsiteGuruStaffType } from '@/types/website/profil/guruStaffType'

@@ -16,7 +16,7 @@ import {
 import { Bounce, toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
-import { useWebsiteAkses } from '../websiteAkses'
+import { useWebsiteAkses } from '../useWebsiteAkses'
 import { usePathname } from '@/hooks/usePathname'
 import { useWebsiteVisiMisi } from './useWebsiteVisiMisi'
 
