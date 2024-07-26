@@ -18,12 +18,14 @@ import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import { useWebsiteAkses } from '../websiteAkses'
 import { usePathname } from '@/hooks/usePathname'
+import { useWebsiteVisiMisi } from './useWebsiteVisiMisi'
 
 export function useWebsiteTentangSekolah() {
   const navigate = useNavigate()
   const { lastPathname } = usePathname()
   const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } =
     useWebsiteAkses()
+  const { visiSekolah, misiSekolah } = useWebsiteVisiMisi()
 
   const isTambahProfil = lastPathname === 'tambah'
   const [menu, setMenu] = useState<string>('Preview')
@@ -103,7 +105,11 @@ export function useWebsiteTentangSekolah() {
         ? hasilSekolah
         : menu === 'Sasaran'
           ? sasaranSekolah
-          : null
+          : menu === 'Visi'
+            ? visiSekolah
+            : menu === 'Misi'
+              ? misiSekolah
+              : null
 
   // --- Delete Tentang Sekolah ---
   const [
@@ -194,7 +200,12 @@ export function useWebsiteTentangSekolah() {
 
     const body = {
       id: isTambahProfil ? null : itemNow?.id,
-      jenis: values?.jenis ?? '',
+      jenis:
+        menu === 'Visi'
+          ? 'Visi'
+          : menu === 'Misi'
+            ? 'Misi'
+            : values?.jenis ?? '',
       keterangan: values?.keterangan ?? '',
       sub_keterangan: values?.sub_keterangan ?? '',
       gambar_url: values?.gambar_url ?? '',

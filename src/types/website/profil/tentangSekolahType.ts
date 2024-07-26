@@ -1,6 +1,6 @@
 export type GetWebsiteTentangSekolahType = {
   identitas: IdentitasSekolahType
-  profil: ProfilSekolahType[]
+  profil: WebsiteProfilSekolahType[]
 }
 
 export type IdentitasSekolahType = {
@@ -27,7 +27,7 @@ export type IdentitasSekolahType = {
   photo_pimpinan: string
 }
 
-export type ProfilSekolahType = {
+export type WebsiteProfilSekolahType = {
   id: string
   jenis: string
   keterangan: string

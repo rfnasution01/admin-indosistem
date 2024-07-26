@@ -10,9 +10,9 @@ import { useEffect, useState } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import Select, { components } from 'react-select'
 import { customStyles } from '@/types/selectType'
-import { ProfilSekolahType } from '@/types/website/profil/tentangSekolahType'
 import { useGetTentangSekolahQuery } from '@/store/slices/website/profilAPI/tentangAPI'
 import { useGetJenisProfilQuery } from '@/store/slices/referensiAPI'
+import { WebsiteProfilSekolahType } from '@/types/website/profil/tentangSekolahType'
 
 type inputProps = {
   placeholder: string
@@ -34,7 +34,7 @@ export function SelectListJenisTentangSekolah({
   isEdit,
 }: inputProps) {
   const [query, setQuery] = useState<string>(null)
-  const [identitas, setIdentitas] = useState<ProfilSekolahType[]>([])
+  const [identitas, setIdentitas] = useState<WebsiteProfilSekolahType[]>([])
 
   const { data: dataIdentitas } = useGetTentangSekolahQuery()
 

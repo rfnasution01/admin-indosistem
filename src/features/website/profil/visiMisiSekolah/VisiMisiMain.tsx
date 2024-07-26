@@ -1,14 +1,14 @@
-import { ProfilSekolahType } from '@/types/website/profil/tentangSekolahType'
 import { Dispatch, SetStateAction } from 'react'
 import { PreviewHeader } from '../tentangSekolah/PreviewHeader'
 import { PreviewProfil } from '../tentangSekolah'
+import { WebsiteProfilSekolahType } from '@/types/website/profil/tentangSekolahType'
 
 export function VisiMisiMain({
   data,
   setMenu,
   isUbah,
 }: {
-  data: ProfilSekolahType[]
+  data: WebsiteProfilSekolahType[]
   setMenu: Dispatch<SetStateAction<string>>
   isUbah?: boolean
 }) {

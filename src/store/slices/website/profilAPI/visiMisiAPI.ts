@@ -1,9 +1,9 @@
 import { api, Res } from '@/store/api'
-import { ProfilSekolahType } from '@/types/website/profil/tentangSekolahType'
+import { WebsiteProfilSekolahType } from '@/types/website/profil/tentangSekolahType'
 
 export const WebsiteVisiMisiSekolahEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
-    getVisiMisi: builder.query<Res<ProfilSekolahType[]>, void>({
+    getVisiMisi: builder.query<Res<WebsiteProfilSekolahType[]>, void>({
       query: () => ({
         url: `admin/website/profil/visimisi`,
         method: 'GET',
