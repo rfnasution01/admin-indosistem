@@ -17,12 +17,15 @@ import { Bounce, toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import { useWebsiteAkses } from '../websiteAkses'
+import { usePathname } from '@/hooks/usePathname'
 
 export function useWebsiteTentangSekolah() {
   const navigate = useNavigate()
+  const { lastPathname } = usePathname()
   const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } =
     useWebsiteAkses()
 
+  const isTambahProfil = lastPathname === 'tambah'
   const [menu, setMenu] = useState<string>('Preview')
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
   const [isShowUpdate, setIsShowUpdate] = useState<boolean>(false)
@@ -100,7 +103,7 @@ export function useWebsiteTentangSekolah() {
         ? hasilSekolah
         : menu === 'Sasaran'
           ? sasaranSekolah
-          : tujuanSekolah
+          : null
 
   // --- Delete Tentang Sekolah ---
   const [
@@ -190,7 +193,7 @@ export function useWebsiteTentangSekolah() {
     const values = formTambahProfil.watch()
 
     const body = {
-      id: itemNow?.id,
+      id: isTambahProfil ? null : itemNow?.id,
       jenis: values?.jenis ?? '',
       keterangan: values?.keterangan ?? '',
       sub_keterangan: values?.sub_keterangan ?? '',
@@ -223,21 +226,27 @@ export function useWebsiteTentangSekolah() {
 
   useEffect(() => {
     if (isSuccessTambahProfil) {
-      toast.success(`Update profil berhasil`, {
-        position: 'bottom-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
+      toast.success(
+        `${isTambahProfil ? 'Tambah profil' : 'Update profil'} berhasil`,
+        {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          transition: Bounce,
+        },
+      )
       setIsSubmit(false)
       setIsShowUpdate(false)
       setTimeout(() => {
         setMenu('Preview')
+        if (isTambahProfil) {
+          navigate(-1)
+        }
       }, 3000)
     }
   }, [isSuccessTambahProfil])
