@@ -1,8 +1,6 @@
 import { Column } from '@/components/Table'
 import clsx from 'clsx'
 import DefaultImg from '@/assets/images/default.jpg'
-import { GetFasilitasType } from '@/types/website/profil/fasilitasType'
-import { GetTestimoniType } from '@/types/website/profil/testimoniType'
 import { GetKategoriType } from '@/types/website/kategoriType'
 import { KontakMasuk } from '@/types/website/profil/kontakType'
 import dayjs from 'dayjs'
@@ -13,6 +11,8 @@ import { FAQType } from '@/types/website/konten/faqType'
 import { DownloadType } from '@/types/website/konten/downloadType'
 import { GetMenuType } from '@/types/website/konten/menuType'
 import { GetWebsiteGuruStaffType } from '@/types/website/profil/guruStaffType'
+import { GetWebsiteFasilitasType } from '@/types/website/profil/fasilitasType'
+import { GetWebsiteTestimoniType } from '@/types/website/profil/testimoniType'
 
 export const columnsListDataGuru: Column<GetWebsiteGuruStaffType>[] = [
   {
@@ -69,7 +69,7 @@ export const columnsListDataGuru: Column<GetWebsiteGuruStaffType>[] = [
   },
 ]
 
-export const columnsListDataFasilitas: Column<GetFasilitasType>[] = [
+export const columnsListDataFasilitas: Column<GetWebsiteFasilitasType>[] = [
   {
     header: 'Nama Fasilitas',
     key: 'nama',
@@ -113,7 +113,7 @@ export const columnsListDataFasilitas: Column<GetFasilitasType>[] = [
   { header: 'Kontak Person', key: 'telepon', width: '!min-w-[12rem]' },
 ]
 
-export const columnsListDataTestimoni: Column<GetTestimoniType>[] = [
+export const columnsListDataTestimoni: Column<GetWebsiteTestimoniType>[] = [
   {
     header: 'Nama',
     key: 'nama',

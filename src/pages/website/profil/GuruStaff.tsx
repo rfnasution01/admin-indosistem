@@ -6,7 +6,8 @@ import {
   GuruStaffTable,
 } from '@/features/website/profil/guruStaff'
 import { useWebsiteGuru } from '@/hooks/website/profilSekolah'
-export default function VisiMisi() {
+
+export default function WebsiteGuruStaff() {
   const {
     loadingGuruSekolah,
     dataGuru,

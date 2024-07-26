@@ -1,11 +1,11 @@
 import { api, Meta, Res } from '@/store/api'
 import { DeleteType, ParamsType } from '@/types/website/menuType'
-import { GetTestimoniType } from '@/types/website/profil/testimoniType'
+import { GetWebsiteTestimoniType } from '@/types/website/profil/testimoniType'
 
 export const WebsiteTestimoniSekolahEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
     getTestimoni: builder.query<
-      Res<{ data: GetTestimoniType[]; meta: Meta }>,
+      Res<{ data: GetWebsiteTestimoniType[]; meta: Meta }>,
       ParamsType
     >({
       query: ({ page_number, page_size, search }) => ({
@@ -19,7 +19,7 @@ export const WebsiteTestimoniSekolahEndpoints = api.injectEndpoints({
       }),
       providesTags: ['website-profil-testimoni'],
     }),
-    createTestimoni: builder.mutation<void, { body: GetTestimoniType }>({
+    createTestimoni: builder.mutation<void, { body: GetWebsiteTestimoniType }>({
       query: ({ body }) => ({
         url: `admin/website/profil/testimonial`,
         method: 'POST',

@@ -4,7 +4,7 @@ import { ProgramCard } from '@/features/website/profil/program/ProgramCard'
 import { LayananCard } from '@/features/website/profil/program/LayananCard'
 import { useWebsiteProgramSekolah } from '@/hooks/website/profilSekolah'
 
-export default function ProgramLayanan() {
+export default function WebsiteProgramLayanan() {
   const { dataLayanan, dataProgram, loadingLayanan, loadingProgram } =
     useWebsiteProgramSekolah()
 

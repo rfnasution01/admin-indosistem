@@ -1,4 +1,4 @@
-export type GetFasilitasType = {
+export type GetWebsiteFasilitasType = {
   id: string
   photo: string
   nama: string

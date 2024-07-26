@@ -19,7 +19,7 @@ import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
 import { ValidasiDelete } from '@/components/Dialog/ValidasiDelete'
 import { useWebsiteProgramSekolah } from '@/hooks/website/profilSekolah'
 
-export default function TambahProgram() {
+export default function WebsiteTambahProgram() {
   const {
     loadingProgram,
     loadingLayanan,

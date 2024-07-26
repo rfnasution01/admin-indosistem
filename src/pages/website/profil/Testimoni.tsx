@@ -1,148 +1,34 @@
 import { Searching } from '@/components/Searching'
-import { Meta } from '@/store/api'
-import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { Bounce, toast, ToastContainer } from 'react-toastify'
+import { Link } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import Cookies from 'js-cookie'
 import { Pagination } from '@/components/Pagination'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
-import { GetTestimoniType } from '@/types/website/profil/testimoniType'
-import {
-  useDeleteTestimoniMutation,
-  useGetTestimoniQuery,
-} from '@/store/slices/website/profilAPI/testimoniAPI'
 import { TableFasilitas } from '@/components/Table/TableFasilitas'
 import { columnsListDataTestimoni } from '@/dummy/table'
-import { useAkses } from '@/hooks/useAkses'
 import { MenubarPerPage } from '@/components/Menubar/MenubarPerPage'
+import { useWebsiteTestimoni } from '@/hooks/website/profilSekolah'
 
-export default function TestimoniSekolah() {
-  const navigate = useNavigate()
-  const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } = useAkses()
-
-  const [search, setSearch] = useState<string>('')
-  const [pageNumber, setPageNumber] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<number>(10)
-  const [isShow, setIsShow] = useState<boolean>(false)
-
-  const [Testimoni, setTestimoni] = useState<GetTestimoniType[]>([])
-  const [meta, setMeta] = useState<Meta>()
-
+export default function WebsiteTestimoniSekolah() {
   const {
-    data: dataTestimoni,
-    isLoading: isLoadingTestimoni,
-    isFetching: isFetchingTestimoni,
-    isError: isErrorTestimoni,
-    error: errorTestimoni,
-  } = useGetTestimoniQuery({
-    search: search ?? '',
-    page_number: pageNumber,
-    page_size: pageSize,
-  })
-
-  const loadingTestimoni = isLoadingTestimoni || isFetchingTestimoni
-
-  useEffect(() => {
-    if (dataTestimoni?.data) {
-      setTestimoni(dataTestimoni?.data?.data)
-      setMeta(dataTestimoni?.data?.meta)
-    }
-  }, [dataTestimoni?.data])
-
-  useEffect(() => {
-    if (isErrorTestimoni) {
-      const errorMsg = errorTestimoni as { data?: { message?: string } }
-
-      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
-        position: 'bottom-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
-
-      if (errorMsg?.data?.message?.includes('Token')) {
-        setTimeout(() => {
-          Cookies.remove('token')
-          navigate(`/`)
-        }, 3000)
-      }
-    }
-  }, [isErrorTestimoni, errorTestimoni])
-
-  // --- Delete ---
-  const [
-    deleteTestimoni,
-    {
-      isError: isErrorDeleteTestimoni,
-      isLoading: isLoadingDeleteTestimoni,
-      isSuccess: isSuccessDeleteTestimoni,
-      error: errorDeleteTestimoni,
-    },
-  ] = useDeleteTestimoniMutation()
-
-  const handleSubmitDelete = async (id: string) => {
-    if (!isHakAksesHapus) {
-      toast.error(`Maaf, anda tidak memiliki akses untuk menghapus data`, {
-        position: 'bottom-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
-    }
-
-    try {
-      await deleteTestimoni({ id: id })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  useEffect(() => {
-    if (isSuccessDeleteTestimoni) {
-      toast.success('Delete Testimoni berhasil', {
-        position: 'bottom-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
-      setIsShow(false)
-    }
-  }, [isSuccessDeleteTestimoni])
-
-  useEffect(() => {
-    if (isErrorDeleteTestimoni) {
-      const errorMsg = errorDeleteTestimoni as { data?: { message?: string } }
-
-      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
-        position: 'bottom-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
-    }
-  }, [isErrorDeleteTestimoni, errorDeleteTestimoni])
+    isHakAksesHapus,
+    isHakAksesTambah,
+    isHakAksesUbah,
+    isShowDelete,
+    setIsShowDelete,
+    search,
+    setSearch,
+    pageNumber,
+    setPageNumber,
+    pageSize,
+    setPageSize,
+    dataTestimoni,
+    meta,
+    loadingTestimoni,
+    handleSubmitDelete,
+    isLoadingDeleteTestimoni,
+  } = useWebsiteTestimoni()
 
   return (
     <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto p-48">
@@ -166,7 +52,7 @@ export default function TestimoniSekolah() {
         </div>
       </div>
       <TableFasilitas
-        data={Testimoni}
+        data={dataTestimoni}
         columns={columnsListDataTestimoni}
         containerClasses="w-full h-full flex-1 overflow-y-auto scrollbar"
         loading={loadingTestimoni}
@@ -176,12 +62,12 @@ export default function TestimoniSekolah() {
         isFasilitas
         handleSubmitDelete={handleSubmitDelete}
         isLoadingDelete={isLoadingDeleteTestimoni}
-        setIsShow={setIsShow}
-        isShow={isShow}
+        setIsShow={setIsShowDelete}
+        isShow={isShowDelete}
         isHapus={isHakAksesHapus}
         isUbah={isHakAksesUbah}
       />
-      {Testimoni?.length > 0 && (
+      {dataTestimoni?.length > 0 && (
         <div className="flex items-center justify-end gap-32 phones:w-2/3">
           <MenubarPerPage pageSize={pageSize} setPageSize={setPageSize} />
           <Pagination

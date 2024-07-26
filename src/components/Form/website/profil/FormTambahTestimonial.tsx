@@ -18,8 +18,6 @@ export default function FormTambahTestimoni({
   form,
   isLoading,
   handleSubmit,
-  setUrls,
-  urls,
   setIsShow,
   setIsSubmit,
   isSubmit,
@@ -31,12 +29,10 @@ export default function FormTambahTestimoni({
   form: UseFormReturn
   isLoading: boolean
   handleSubmit: () => Promise<void>
-  setUrls: Dispatch<SetStateAction<string>>
   setIsSubmit: Dispatch<SetStateAction<boolean>>
   setIsShow: Dispatch<SetStateAction<boolean>>
   isShow: boolean
   isSubmit: boolean
-  urls: string
   isEdit?: boolean
   isUbah: boolean
   isTambah: boolean
@@ -72,7 +68,7 @@ export default function FormTambahTestimoni({
 
     try {
       const res = await uploadFileMutation(formatData)
-      setUrls(res?.data?.url)
+      form.setValue('url_photo', res?.data?.url)
     } catch (e) {
       console.error(e)
       toast.error(`Data gagal disimpan`, {
@@ -170,8 +166,8 @@ export default function FormTambahTestimoni({
 
           <div className="flex flex-col gap-12">
             <FormLabelFile
-              urls={urls}
-              setUrls={setUrls}
+              urls={form.watch('url_photo')}
+              setUrls={(urls) => form.watch('url_photo', urls)}
               form={form}
               isLoading={isLoading}
               loadingFile={loadingFile}
@@ -218,7 +214,7 @@ export default function FormTambahTestimoni({
             <PreviewTestimonial
               nama={form.watch('nama')}
               keterangan={form.watch('keterangan_singkat')}
-              photo={urls}
+              photo={form.watch('url_photo')}
               isi={form.watch('isi')}
             />
           </div>

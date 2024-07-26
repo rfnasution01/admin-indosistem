@@ -14,7 +14,7 @@ import {
   useWebsiteVisiMisi,
 } from '@/hooks/website/profilSekolah'
 
-export default function VisiMisi() {
+export default function WebsiteVisiMisi() {
   const {
     menu,
     setMenu,

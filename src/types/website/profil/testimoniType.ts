@@ -1,4 +1,4 @@
-export type GetTestimoniType = {
+export type GetWebsiteTestimoniType = {
   id: string
   url_photo: string
   nama: string

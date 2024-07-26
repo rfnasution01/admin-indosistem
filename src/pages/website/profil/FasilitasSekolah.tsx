@@ -1,148 +1,34 @@
 import { Searching } from '@/components/Searching'
-import { Meta } from '@/store/api'
-import {
-  useDeleteFasilitasMutation,
-  useGetFasilitasQuery,
-} from '@/store/slices/website/profilAPI/fasilitasAPI'
-import { GetFasilitasType } from '@/types/website/profil/fasilitasType'
-import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { Bounce, toast, ToastContainer } from 'react-toastify'
+import { Link } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import Cookies from 'js-cookie'
 import { Pagination } from '@/components/Pagination'
 import { columnsListDataFasilitas } from '@/dummy/table'
 import { TableFasilitas } from '@/components/Table/TableFasilitas'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
-import { useAkses } from '@/hooks/useAkses'
 import { MenubarPerPage } from '@/components/Menubar/MenubarPerPage'
+import { useWebsiteFasilitas } from '@/hooks/website/profilSekolah'
 
-export default function FasilitasSekolah() {
-  const navigate = useNavigate()
-  const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } = useAkses()
-
-  const [search, setSearch] = useState<string>('')
-  const [pageNumber, setPageNumber] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<number>(10)
-  const [isShow, setIsShow] = useState<boolean>(false)
-
-  const [fasilitas, setFasilitas] = useState<GetFasilitasType[]>([])
-  const [meta, setMeta] = useState<Meta>()
-
+export default function WebsiteFasilitasSekolah() {
   const {
-    data: dataFasilitas,
-    isLoading: isLoadingFasilitas,
-    isFetching: isFetchingFasilitas,
-    isError: isErrorFasilitas,
-    error: errorFasilitas,
-  } = useGetFasilitasQuery({
-    search: search ?? '',
-    page_number: pageNumber,
-    page_size: pageSize,
-  })
-
-  const loadingFasilitas = isLoadingFasilitas || isFetchingFasilitas
-
-  useEffect(() => {
-    if (dataFasilitas?.data) {
-      setFasilitas(dataFasilitas?.data?.data)
-      setMeta(dataFasilitas?.data?.meta)
-    }
-  }, [dataFasilitas?.data])
-
-  useEffect(() => {
-    if (isErrorFasilitas) {
-      const errorMsg = errorFasilitas as { data?: { message?: string } }
-
-      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
-        position: 'bottom-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
-
-      if (errorMsg?.data?.message?.includes('Token')) {
-        setTimeout(() => {
-          Cookies.remove('token')
-          navigate(`/`)
-        }, 3000)
-      }
-    }
-  }, [isErrorFasilitas, errorFasilitas])
-
-  // --- Delete ---
-  const [
-    deleteFasilitas,
-    {
-      isError: isErrorDeleteFasilitas,
-      isLoading: isLoadingDeleteFasilitas,
-      isSuccess: isSuccessDeleteFasilitas,
-      error: errorDeleteFasilitas,
-    },
-  ] = useDeleteFasilitasMutation()
-
-  const handleSubmitDelete = async (id: string) => {
-    if (!isHakAksesHapus) {
-      toast.error(`Maaf, anda tidak memiliki akses untuk menghapus data ini`, {
-        position: 'bottom-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
-    }
-
-    try {
-      await deleteFasilitas({ id: id })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  useEffect(() => {
-    if (isSuccessDeleteFasilitas) {
-      toast.success('Delete fasilitas berhasil', {
-        position: 'bottom-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
-      setIsShow(false)
-    }
-  }, [isSuccessDeleteFasilitas])
-
-  useEffect(() => {
-    if (isErrorDeleteFasilitas) {
-      const errorMsg = errorDeleteFasilitas as { data?: { message?: string } }
-
-      toast.error(`${errorMsg?.data?.message ?? 'Terjadi Kesalahan'}`, {
-        position: 'bottom-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      })
-    }
-  }, [isErrorDeleteFasilitas, errorDeleteFasilitas])
+    isHakAksesHapus,
+    isHakAksesTambah,
+    isHakAksesUbah,
+    search,
+    setSearch,
+    pageNumber,
+    setPageNumber,
+    pageSize,
+    setPageSize,
+    isShow,
+    setIsShow,
+    dataFasilitas,
+    meta,
+    loadingFasilitas,
+    handleSubmitDeleteFasilitas,
+    isLoadingDeleteFasilitas,
+  } = useWebsiteFasilitas()
 
   return (
     <div className="scrollbar flex h-full flex-col gap-32 overflow-y-auto p-48">
@@ -166,7 +52,7 @@ export default function FasilitasSekolah() {
         </div>
       </div>
       <TableFasilitas
-        data={fasilitas}
+        data={dataFasilitas}
         columns={columnsListDataFasilitas}
         containerClasses="w-full h-full flex-1 overflow-y-auto scrollbar"
         loading={loadingFasilitas}
@@ -174,14 +60,14 @@ export default function FasilitasSekolah() {
         currentPage={pageNumber}
         isNumber
         isFasilitas
-        handleSubmitDelete={handleSubmitDelete}
+        handleSubmitDelete={handleSubmitDeleteFasilitas}
         isLoadingDelete={isLoadingDeleteFasilitas}
         setIsShow={setIsShow}
         isShow={isShow}
         isUbah={isHakAksesUbah}
         isHapus={isHakAksesHapus}
       />
-      {fasilitas?.length > 0 && (
+      {dataFasilitas?.length > 0 && (
         <div className="flex items-center justify-end gap-32 phones:w-2/3">
           <MenubarPerPage pageSize={pageSize} setPageSize={setPageSize} />
           <Pagination

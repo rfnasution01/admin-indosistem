@@ -1,11 +1,11 @@
 import { api, Meta, Res } from '@/store/api'
 import { DeleteType, ParamsType } from '@/types/website/menuType'
-import { GetFasilitasType } from '@/types/website/profil/fasilitasType'
+import { GetWebsiteFasilitasType } from '@/types/website/profil/fasilitasType'
 
 export const WebsiteFasilitasSekolahEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
     getFasilitas: builder.query<
-      Res<{ data: GetFasilitasType[]; meta: Meta }>,
+      Res<{ data: GetWebsiteFasilitasType[]; meta: Meta }>,
       ParamsType
     >({
       query: ({ page_number, page_size, search }) => ({
@@ -19,7 +19,7 @@ export const WebsiteFasilitasSekolahEndpoints = api.injectEndpoints({
       }),
       providesTags: ['website-profil-fasilitas'],
     }),
-    createFasilitas: builder.mutation<void, { body: GetFasilitasType }>({
+    createFasilitas: builder.mutation<void, { body: GetWebsiteFasilitasType }>({
       query: ({ body }) => ({
         url: `admin/website/profil/fasilitas`,
         method: 'POST',

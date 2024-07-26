@@ -17,8 +17,6 @@ export default function FormTambahFasilitas({
   form,
   isLoading,
   handleSubmit,
-  setUrls,
-  urls,
   setIsShow,
   setIsSubmit,
   isSubmit,
@@ -30,12 +28,10 @@ export default function FormTambahFasilitas({
   form: UseFormReturn
   isLoading: boolean
   handleSubmit: () => Promise<void>
-  setUrls: Dispatch<SetStateAction<string>>
   setIsSubmit: Dispatch<SetStateAction<boolean>>
   setIsShow: Dispatch<SetStateAction<boolean>>
   isShow: boolean
   isSubmit: boolean
-  urls: string
   isUbah: boolean
   isTambah: boolean
   isEdit?: boolean
@@ -71,7 +67,7 @@ export default function FormTambahFasilitas({
 
     try {
       const res = await uploadFileMutation(formatData)
-      setUrls(res?.data?.url)
+      form.setValue('photo', res?.data?.url)
     } catch (e) {
       console.error(e)
       toast.error(`Data gagal disimpan`, {
@@ -208,8 +204,8 @@ export default function FormTambahFasilitas({
 
           <div className="flex flex-col gap-12">
             <FormLabelFile
-              urls={urls}
-              setUrls={setUrls}
+              urls={form.watch('photo')}
+              setUrls={(urls) => form.setValue('photo', urls)}
               form={form}
               isLoading={isLoading}
               loadingFile={loadingFile}
@@ -260,7 +256,7 @@ export default function FormTambahFasilitas({
               telepon={form.watch('telepon')}
               jam_mulai={form?.watch('jam_mulai')}
               jam_selesai={form?.watch('jam_selesai')}
-              photo={urls}
+              photo={form.watch('photo')}
             />
           </div>
         }
