@@ -1,4 +1,4 @@
-export type GetTentangSekolahType = {
+export type GetWebsiteTentangSekolahType = {
   identitas: IdentitasSekolahType
   profil: ProfilSekolahType[]
 }

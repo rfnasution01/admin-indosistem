@@ -25,7 +25,6 @@ export default function VisiMisi() {
   const { isHakAksesUbah } = useAkses()
 
   const [menu, setMenu] = useState<string>('Preview')
-  const [urls, setUrls] = useState<string>()
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
   const [isShow, setIsShow] = useState<boolean>(false)
 
@@ -109,7 +108,7 @@ export default function VisiMisi() {
       jenis: menu === 'Visi' ? 'Visi' : menu === 'Misi' ? 'Misi' : '',
       keterangan: values?.keterangan ?? '',
       sub_keterangan: values?.sub_keterangan ?? '',
-      gambar_url: urls ?? '',
+      gambar_url: values?.gambar_url ?? '',
       list: values?.list ?? [],
     }
 
@@ -181,7 +180,6 @@ export default function VisiMisi() {
       form.setValue('sub_keterangan', item?.sub_keterangan)
       form.setValue('jenis', item?.jenis)
       form.setValue('gambar_url', item?.gambar_url)
-      setUrls(item?.gambar_url)
       form.setValue('list', item?.list)
     }
   }, [item])
@@ -211,8 +209,6 @@ export default function VisiMisi() {
                   form={form}
                   isLoading={isLoadingTambahProfil}
                   handleSubmit={handleSubmit}
-                  setUrls={setUrls}
-                  urls={urls}
                   setIsShow={setIsShow}
                   setIsSubmit={setIsSubmit}
                   isShow={isShow}

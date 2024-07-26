@@ -1,4 +1,4 @@
-import { GetTentangSekolahType } from '@/types/website/profil/tentangSekolahType'
+import { GetWebsiteTentangSekolahType } from '@/types/website/profil/tentangSekolahType'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { PreviewHeader } from './PreviewHeader'
 import { PreviewIdentitas } from './PreviewIdentitas'
@@ -22,7 +22,7 @@ export function PreviewMain({
   isHapus,
   isTambah,
 }: {
-  data: GetTentangSekolahType
+  data: GetWebsiteTentangSekolahType
   setMenu: Dispatch<SetStateAction<string>>
   handleSubmitDelete: (id: string) => Promise<void>
   isLoadingDelete: boolean

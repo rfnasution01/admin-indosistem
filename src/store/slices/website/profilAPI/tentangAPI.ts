@@ -1,13 +1,13 @@
 import { api, Res } from '@/store/api'
 import {
-  GetTentangSekolahType,
+  GetWebsiteTentangSekolahType,
   PostIdentitasSekolahParams,
   PostTentangProfilParams,
 } from '@/types/website/profil/tentangSekolahType'
 
 export const WebsiteTentangSekolahEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
-    getTentangSekolah: builder.query<Res<GetTentangSekolahType>, void>({
+    getTentangSekolah: builder.query<Res<GetWebsiteTentangSekolahType>, void>({
       query: () => ({
         url: `admin/website/profil/tentang`,
         method: 'GET',

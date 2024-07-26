@@ -13,12 +13,11 @@ import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
 import FormTambahProfil from '@/components/Form/website/profil/FormTambahProfil'
 import { useAkses } from '@/hooks/useAkses'
 
-export default function TambahTentangSekolah() {
+export default function WebsiteTambahTentangSekolah() {
   const navigate = useNavigate()
   const { isHakAksesTambah, isHakAksesUbah } = useAkses()
   const { lastPathname, secondPathname } = usePathname()
 
-  const [urls, setUrls] = useState<string>()
   const [isSubmit, setIsSubmit] = useState<boolean>(false)
   const [isShow, setIsShow] = useState<boolean>(false)
 
@@ -51,7 +50,7 @@ export default function TambahTentangSekolah() {
       jenis: values?.jenis ?? '',
       keterangan: values?.keterangan ?? '',
       sub_keterangan: values?.sub_keterangan ?? '',
-      gambar_url: urls ?? '',
+      gambar_url: values?.gambar_url ?? '',
       list: values?.list ?? [],
     }
 
@@ -127,8 +126,6 @@ export default function TambahTentangSekolah() {
           form={form}
           isLoading={isLoadingTambahProfil}
           handleSubmit={handleSubmit}
-          setUrls={setUrls}
-          urls={urls}
           setIsShow={setIsShow}
           setIsSubmit={setIsSubmit}
           isShow={isShow}

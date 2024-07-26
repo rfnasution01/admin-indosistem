@@ -32,8 +32,6 @@ export default function FormTambahProfil({
   form,
   isLoading,
   handleSubmit,
-  setUrls,
-  urls,
   setIsShow,
   setIsSubmit,
   isSubmit,
@@ -46,12 +44,10 @@ export default function FormTambahProfil({
   form: UseFormReturn
   isLoading: boolean
   handleSubmit: () => Promise<void>
-  setUrls: Dispatch<SetStateAction<string>>
   setIsSubmit: Dispatch<SetStateAction<boolean>>
   setIsShow: Dispatch<SetStateAction<boolean>>
   isShow: boolean
   isSubmit: boolean
-  urls: string
   isEdit?: boolean
   menu?: string
   isUbah: boolean
@@ -88,7 +84,7 @@ export default function FormTambahProfil({
 
     try {
       const res = await uploadFileMutation(formatData)
-      setUrls(res?.data?.url)
+      form.setValue('gambar_url', res?.data?.url)
     } catch (e) {
       console.error(e)
       toast.error(`Data gagal disimpan`, {
@@ -270,12 +266,12 @@ export default function FormTambahProfil({
 
                 <div className="flex flex-col gap-12">
                   <FormLabelFile
-                    urls={urls}
-                    setUrls={setUrls}
+                    urls={form.watch('gambar_url')}
+                    setUrls={(urls) => form.setValue('gambar_url', urls)}
                     form={form}
                     isLoading={isLoading}
                     loadingFile={loadingFile}
-                    name="berkas"
+                    name="gambar_url"
                     handleUploadFoto={handleUploadFoto}
                     isDisabled={disabled}
                   />
@@ -317,7 +313,7 @@ export default function FormTambahProfil({
               children={
                 <div className="flex w-full flex-col gap-32 rounded-2x bg-warna-pale-blue p-32 text-[2rem] text-warna-dark phones:text-[2.4rem]">
                   <PreviewProfil
-                    gambar_url={urls}
+                    gambar_url={form.watch('gambar_url')}
                     keterangan={form.watch('keterangan')}
                     list={form.watch('list')}
                     jenis={form.watch('jenis')}

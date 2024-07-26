@@ -18,8 +18,6 @@ export default function FormUpdateIdentitas({
   form,
   isLoading,
   handleSubmit,
-  setUrls,
-  urls,
   setIsShow,
   setIsSubmit,
   isSubmit,
@@ -29,12 +27,10 @@ export default function FormUpdateIdentitas({
   form: UseFormReturn
   isLoading: boolean
   handleSubmit: () => Promise<void>
-  setUrls: Dispatch<SetStateAction<string>>
   setIsSubmit: Dispatch<SetStateAction<boolean>>
   setIsShow: Dispatch<SetStateAction<boolean>>
   isShow: boolean
   isSubmit: boolean
-  urls: string
   isUbah?: boolean
 }) {
   // --- Upload File ---
@@ -68,7 +64,7 @@ export default function FormUpdateIdentitas({
 
     try {
       const res = await uploadFileMutation(formatData)
-      setUrls(res?.data?.url)
+      form.setValue('photo_pimpinan', res?.data?.url)
     } catch (e) {
       console.error(e)
       toast.error(`Data gagal disimpan`, {
@@ -319,8 +315,8 @@ export default function FormUpdateIdentitas({
 
           <div className="flex flex-col gap-12">
             <FormLabelFile
-              urls={urls}
-              setUrls={setUrls}
+              urls={form.watch('photo_pimpinan')}
+              setUrls={(urls) => form.setValue('photo_pimpinan', urls)}
               form={form}
               isLoading={isLoading}
               loadingFile={loadingFile}
@@ -383,7 +379,7 @@ export default function FormUpdateIdentitas({
               penyelenggaraan={form.watch('penyelenggaraan')}
               penyelenggaraan_akhir={form.watch('penyelenggaraan_akhir')}
               penyelenggaraan_mulai={form.watch('penyelenggaraan_mulai')}
-              photo_pimpinan={urls}
+              photo_pimpinan={form.watch('photo_pimpinan')}
             />
           </div>
         }

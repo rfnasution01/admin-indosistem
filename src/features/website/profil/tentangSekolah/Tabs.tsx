@@ -1,4 +1,4 @@
-import { GetTentangSekolahType } from '@/types/website/profil/tentangSekolahType'
+import { GetWebsiteTentangSekolahType } from '@/types/website/profil/tentangSekolahType'
 import clsx from 'clsx'
 import { Dispatch, SetStateAction } from 'react'
 
@@ -9,7 +9,7 @@ export function TentangSekolahTab({
 }: {
   menu: string
   setMenu: Dispatch<SetStateAction<string>>
-  data: GetTentangSekolahType
+  data: GetWebsiteTentangSekolahType
 }) {
   return (
     <div className="scrollbar flex items-center gap-32 overflow-x-auto border-b border-warna-pale-grey px-48 pt-48">
