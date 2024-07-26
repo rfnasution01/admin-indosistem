@@ -1,6 +1,6 @@
 import { api, Meta, Res } from '@/store/api'
 import {
-  GetAlbumType,
+  GetAWebsitelbumType,
   PostAlbumBody,
   PostGambarType,
   UpdateGambarType,
@@ -10,7 +10,7 @@ import { DeleteType, ParamsType } from '@/types/website/menuType'
 export const WebsiteAlbumEndpoints = api.injectEndpoints({
   endpoints: (builder) => ({
     getAlbum: builder.query<
-      Res<{ data: GetAlbumType[]; meta: Meta }>,
+      Res<{ data: GetAWebsitelbumType[]; meta: Meta }>,
       ParamsType
     >({
       query: ({ page_number, page_size, search }) => ({
@@ -25,7 +25,11 @@ export const WebsiteAlbumEndpoints = api.injectEndpoints({
       providesTags: ['website-album'],
     }),
     getAlbumDetail: builder.query<
-      Res<{ data: GetAlbumType; photo: GetAlbumType[]; meta: Meta }>,
+      Res<{
+        data: GetAWebsitelbumType
+        photo: GetAWebsitelbumType[]
+        meta: Meta
+      }>,
       ParamsType
     >({
       query: ({ id, page_number, page_size, search }) => ({

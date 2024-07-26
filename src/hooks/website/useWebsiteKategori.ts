@@ -408,7 +408,7 @@ export function useWebsiteKategori() {
       id: idEdit,
       jenis: secondPathname,
     },
-    { skip: !idEdit },
+    { skip: !idEdit || idEdit === 'undefined' },
   )
 
   useEffect(() => {

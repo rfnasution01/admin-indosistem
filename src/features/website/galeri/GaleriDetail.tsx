@@ -1,5 +1,4 @@
 import 'dayjs/locale/id'
-import { GetAlbumType } from '@/types/website/galeriType'
 import { Meta } from '@/store/api'
 import { Link } from 'react-router-dom'
 import { usePathname } from '@/hooks/usePathname'
@@ -18,6 +17,7 @@ import { Dispatch, SetStateAction } from 'react'
 import { MenubarAction } from '@/components/Menubar/MenubarAction'
 import { Pagination } from '@/components/Pagination'
 import { MenubarPerPage } from '@/components/Menubar/MenubarPerPage'
+import { GetAWebsitelbumType } from '@/types/website/galeriType'
 
 export function GaleriDetail({
   detail,
@@ -36,8 +36,8 @@ export function GaleriDetail({
   isUbah,
   pageSize,
 }: {
-  detail: GetAlbumType
-  photo: GetAlbumType[]
+  detail: GetAWebsitelbumType
+  photo: GetAWebsitelbumType[]
   meta: Meta
   setPageNumber: Dispatch<SetStateAction<number>>
   setPageSize: Dispatch<SetStateAction<number>>

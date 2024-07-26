@@ -1,4 +1,4 @@
-export type GetAlbumType = {
+export type GetAWebsitelbumType = {
   id: string
   judul: string
   url_gambar: string

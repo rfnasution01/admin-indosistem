@@ -31,8 +31,6 @@ export default function FormTambahGaleri({
   setIsSubmit,
   isSubmit,
   isShow,
-  setUrls,
-  urls,
   isEdit,
   isTambah,
   isUbah,
@@ -44,8 +42,6 @@ export default function FormTambahGaleri({
   setIsShow: Dispatch<SetStateAction<boolean>>
   isShow: boolean
   isSubmit: boolean
-  setUrls: Dispatch<SetStateAction<string>>
-  urls: string
   isEdit: boolean
   isUbah: boolean
   isTambah: boolean
@@ -86,7 +82,7 @@ export default function FormTambahGaleri({
       if (index || index === 0) {
         form.setValue(`gambar.${index}.url_gambar`, res?.data?.url)
       } else {
-        setUrls(res?.data?.url)
+        form.setValue('url_gambar', res?.data?.url)
       }
     } catch (e) {
       console.error(e)
@@ -170,8 +166,8 @@ export default function FormTambahGaleri({
           </div>
 
           <FormLabelFile
-            urls={urls}
-            setUrls={setUrls}
+            urls={form.watch('url_gambar')}
+            setUrls={(urls) => form.setValue('url_gambar', urls)}
             form={form}
             isLoading={isLoading}
             loadingFile={loadingFile}
@@ -218,7 +214,7 @@ export default function FormTambahGaleri({
                                     null,
                                   )
                                 }}
-                                className="absolute right-2 top-2 rounded-lg bg-danger-700 p-4 text-white hover:cursor-pointer hover:bg-danger"
+                                className="bg-danger-700 absolute right-2 top-2 rounded-lg p-4 text-white hover:cursor-pointer hover:bg-danger"
                               >
                                 <FontAwesomeIcon icon={faTrash} />
                               </button>
@@ -395,7 +391,7 @@ export default function FormTambahGaleri({
             <PreviewGaleri
               judul={form?.watch('judul')}
               gambar={form?.watch('gambar')}
-              cover={urls}
+              cover={form.watch('url_gambar')}
             />
           </div>
         }

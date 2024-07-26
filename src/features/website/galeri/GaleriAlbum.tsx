@@ -1,7 +1,6 @@
 import { Loading } from '@/components/Loading'
 import { Searching } from '@/components/Searching'
 import { Meta } from '@/store/api'
-import { GetAlbumType } from '@/types/website/galeriType'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Dispatch, SetStateAction } from 'react'
@@ -10,6 +9,7 @@ import DefaultImg from '@/assets/images/default.jpg'
 import { MenubarAction } from '@/components/Menubar/MenubarAction'
 import { Pagination } from '@/components/Pagination'
 import { MenubarPerPage } from '@/components/Menubar/MenubarPerPage'
+import { GetAWebsitelbumType } from '@/types/website/galeriType'
 
 export function GaleriAlbum({
   data,
@@ -29,7 +29,7 @@ export function GaleriAlbum({
   isUbah,
   pageSize,
 }: {
-  data: GetAlbumType[]
+  data: GetAWebsitelbumType[]
   isLoadingGaleri: boolean
   setSearch: Dispatch<SetStateAction<string>>
   setPageNumber: Dispatch<SetStateAction<number>>
