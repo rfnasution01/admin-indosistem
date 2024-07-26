@@ -17,8 +17,6 @@ export default function FormTambahLayanan({
   form,
   isLoading,
   handleSubmit,
-  setUrls,
-  urls,
   setIsShow,
   setIsSubmit,
   isSubmit,
@@ -30,12 +28,10 @@ export default function FormTambahLayanan({
   form: UseFormReturn
   isLoading: boolean
   handleSubmit: () => Promise<void>
-  setUrls: Dispatch<SetStateAction<string>>
   setIsSubmit: Dispatch<SetStateAction<boolean>>
   setIsShow: Dispatch<SetStateAction<boolean>>
   isShow: boolean
   isSubmit: boolean
-  urls: string
   isTambah: boolean
   isUbah: boolean
   isEdit?: boolean
@@ -71,7 +67,7 @@ export default function FormTambahLayanan({
 
     try {
       const res = await uploadFileMutation(formatData)
-      setUrls(res?.data?.url)
+      form.setValue('icon', res?.data?.url)
     } catch (e) {
       console.error(e)
       toast.error(`Data gagal disimpan`, {
@@ -167,8 +163,8 @@ export default function FormTambahLayanan({
 
           <div className="flex flex-col gap-12">
             <FormLabelFile
-              urls={urls}
-              setUrls={setUrls}
+              urls={form.watch('icon')}
+              setUrls={(urls) => form.setValue('icon', urls)}
               form={form}
               isLoading={isLoading}
               loadingFile={loadingFile}
@@ -216,7 +212,7 @@ export default function FormTambahLayanan({
               nama_layanan={form.watch('nama_layanan')}
               keterangan={form.watch('keterangan')}
               url={form.watch('url')}
-              icon={urls}
+              icon={form.watch('icon')}
             />
           </div>
         }

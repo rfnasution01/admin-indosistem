@@ -4,12 +4,10 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
 import FormTambahProfil from '@/components/Form/website/profil/FormTambahProfil'
-import { useWebsiteAkses } from '@/hooks/website/websiteAkses'
 import { useWebsiteTentangSekolah } from '@/hooks/website/profilSekolah'
 
 export default function WebsiteTambahTentangSekolah() {
   const { lastPathname, secondPathname } = usePathname()
-  const { isHakAksesUbah, isHakAksesTambah } = useWebsiteAkses()
   const {
     formTambahProfil,
     isLoadingTambahProfil,
@@ -18,6 +16,8 @@ export default function WebsiteTambahTentangSekolah() {
     isShowUpdate,
     isSubmit,
     setIsSubmit,
+    isHakAksesTambah,
+    isHakAksesUbah,
   } = useWebsiteTentangSekolah()
 
   return (

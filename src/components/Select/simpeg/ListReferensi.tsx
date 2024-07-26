@@ -14,8 +14,8 @@ import { ReferensiType } from '@/types/referensiType'
 import { useGetReferensiUmumQuery } from '@/store/slices/referensiAPI'
 import { HalamanType } from '@/types/website/konten/halamanType'
 import { useGetHalamanQuery } from '@/store/slices/website/kontenAPI/halamanAPI'
-import { GetProgramType } from '@/types/website/profil/programLayananType'
 import { useGetProgramQuery } from '@/store/slices/website/profilAPI/programLayananAPI'
+import { GetWebsiteProgramType } from '@/types/website/profil/programLayananType'
 
 type inputProps = {
   placeholder: string
@@ -114,7 +114,7 @@ export function SelectListKontenReferensiUmum({
     })
   }
 
-  const [listProgram, setListProgram] = useState<GetProgramType[]>([])
+  const [listProgram, setListProgram] = useState<GetWebsiteProgramType[]>([])
   const {
     data: dataProgram,
     isSuccess: isSuccessProgram,

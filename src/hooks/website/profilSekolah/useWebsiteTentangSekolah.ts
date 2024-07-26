@@ -467,5 +467,8 @@ export function useWebsiteTentangSekolah() {
     isShowUpdate,
     isSubmit,
     setIsSubmit,
+    isHakAksesHapus,
+    isHakAksesTambah,
+    isHakAksesUbah,
   }
 }

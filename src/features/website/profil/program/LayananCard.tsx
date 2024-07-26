@@ -1,5 +1,5 @@
 import { Loading } from '@/components/Loading'
-import { GetLayananType } from '@/types/website/profil/programLayananType'
+import { GetWebsiteLayananType } from '@/types/website/profil/programLayananType'
 import { faDisplay, faSquare } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
@@ -9,7 +9,7 @@ export function LayananCard({
   layanan,
 }: {
   loadingLayanan: boolean
-  layanan: GetLayananType[]
+  layanan: GetWebsiteLayananType[]
 }) {
   return (
     <Link

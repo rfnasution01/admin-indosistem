@@ -1,5 +1,5 @@
 import { Loading } from '@/components/Loading'
-import { GetProgramType } from '@/types/website/profil/programLayananType'
+import { GetWebsiteProgramType } from '@/types/website/profil/programLayananType'
 import { faGraduationCap, faSquare } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
@@ -9,7 +9,7 @@ export function ProgramCard({
   program,
 }: {
   loadingProgram: boolean
-  program: GetProgramType[]
+  program: GetWebsiteProgramType[]
 }) {
   return (
     <Link

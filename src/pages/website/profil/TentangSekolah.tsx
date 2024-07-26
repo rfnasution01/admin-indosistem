@@ -9,13 +9,9 @@ import { capitalizeFirstLetterFromLowercase } from '@/utils/formatText'
 import { ComingSoonPage } from '@/routes/loadables'
 import FormTambahProfil from '@/components/Form/website/profil/FormTambahProfil'
 import FormUpdateIdentitas from '@/components/Form/website/profil/FormEditIdentitas'
-import { useWebsiteAkses } from '@/hooks/website/websiteAkses'
 import { useWebsiteTentangSekolah } from '@/hooks/website/profilSekolah'
 
 export default function WebsiteTentangSekolah() {
-  const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } =
-    useWebsiteAkses()
-
   const {
     menu,
     setMenu,
@@ -33,6 +29,9 @@ export default function WebsiteTentangSekolah() {
     isSubmit,
     setIsShowUpdate,
     setIsSubmit,
+    isHakAksesHapus,
+    isHakAksesTambah,
+    isHakAksesUbah,
   } = useWebsiteTentangSekolah()
 
   return (

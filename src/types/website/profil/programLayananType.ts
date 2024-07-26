@@ -1,4 +1,4 @@
-export type GetProgramType = {
+export type GetWebsiteProgramType = {
   id: string
   judul: string
   icon: string
@@ -8,7 +8,7 @@ export type GetProgramType = {
   aktif: string
 }
 
-export type GetLayananType = {
+export type GetWebsiteLayananType = {
   id: string
   nama_layanan: string
   icon: string

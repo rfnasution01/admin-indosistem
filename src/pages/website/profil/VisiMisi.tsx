@@ -9,14 +9,12 @@ import {
   VisiMisiMain,
   VisiMisiTab,
 } from '@/features/website/profil/visiMisiSekolah'
-import { useWebsiteAkses } from '@/hooks/website/websiteAkses'
 import {
   useWebsiteTentangSekolah,
   useWebsiteVisiMisi,
 } from '@/hooks/website/profilSekolah'
 
 export default function VisiMisi() {
-  const { isHakAksesUbah } = useWebsiteAkses()
   const {
     menu,
     setMenu,
@@ -27,6 +25,7 @@ export default function VisiMisi() {
     formTambahProfil,
     isLoadingTambahProfil,
     handleSubmitTambahProfil,
+    isHakAksesUbah,
   } = useWebsiteTentangSekolah()
   const { loadingVisiMisiSekolah, dataVisiMisi } = useWebsiteVisiMisi()
 
