@@ -35,7 +35,7 @@ import { convertSlugToText } from '@/utils/formatText'
 
 export function useWebsiteKategori() {
   const navigate = useNavigate()
-  const { secondPathname, lastPathname } = usePathname()
+  const { secondPathname, lastPathname, thirdPathname } = usePathname()
   const { isHakAksesHapus, isHakAksesTambah, isHakAksesUbah } =
     useWebsiteAkses()
 
@@ -408,7 +408,9 @@ export function useWebsiteKategori() {
       id: idEdit,
       jenis: secondPathname,
     },
-    { skip: !idEdit || idEdit === 'undefined' },
+    {
+      skip: !idEdit || idEdit === 'undefined' || thirdPathname === undefined,
+    },
   )
 
   useEffect(() => {
